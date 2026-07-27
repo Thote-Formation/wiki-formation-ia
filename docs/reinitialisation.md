@@ -26,22 +26,6 @@
 </div>
 
 <script>
-let supabaseClient = null;
-
-// Initialiser le client au chargement
-document.addEventListener("DOMContentLoaded", () => {
-  if (window.supabase) {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    
-    // Écouter le changement d'état d'authentification lié au lien magique
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-      if (event === 'PASSWORD_RECOVERY') {
-        console.log("Mode réinitialisation actif !");
-      }
-    });
-  }
-});
-
 async function handlePasswordUpdate(e) {
   e.preventDefault();
   const btn = document.getElementById('reset-btn');
@@ -54,12 +38,32 @@ async function handlePasswordUpdate(e) {
   errorDiv.style.display = "none";
   successDiv.style.display = "none";
 
-  if (!supabaseClient) {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // 1. Extraire les tokens depuis l'URL (#access_token=...&refresh_token=...)
+  const hash = window.location.hash.substring(1);
+  const params = new URLSearchParams(hash);
+  const accessToken = params.get('access_token');
+  const refreshToken = params.get('refresh_token');
+
+  // 2. Si un token est présent dans l'URL, forcer la création de session d'abord
+  if (accessToken && refreshToken) {
+    const { error: sessionError } = await supabase.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken
+    });
+
+    if (sessionError) {
+      errorDiv.textContent = "Le lien a expiré ou est invalide. Veuillez refaire une demande.";
+      errorDiv.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = "Mettre à jour le mot de passe";
+      return;
+    }
   }
 
-  // Effectuer la mise à jour
-  const { data, error } = await supabaseClient.auth.updateUser({
+  // 3. Effectuer la mise à jour du mot de passe
+  const { data, error } = await supabase.auth.updateUser({
     password: newPassword
   });
 
