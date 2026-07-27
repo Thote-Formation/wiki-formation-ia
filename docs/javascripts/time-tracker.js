@@ -1,40 +1,49 @@
 (function () {
   const STORAGE_KEY = 'wiki_total_time_spent';
-  const INACTIVITY_LIMIT = 3 * 60 * 1000; // 3 minutes d'inactivité max
+  const INACTIVITY_LIMIT = 3 * 60 * 1000; // 3 minutes max d'inactivité
 
   let timeSpent = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
   let lastActiveTime = Date.now();
-  let intervalId = null;
 
-  // Formater le temps en texte lisible (ex: "1 h 12 min 05 s")
+  // Formater le temps en texte court (ex: "⏱️ 1h 12m 05s" ou "⏱️ 12m 05s")
   function formatTime(seconds) {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-
     const pad = (num) => String(num).padStart(2, '0');
 
     if (hrs > 0) {
-      return `${hrs} h ${pad(mins)} min ${pad(secs)} s`;
+      return `⏱️ ${hrs}h ${pad(mins)}m ${pad(secs)}s`;
     }
-    return `${mins} min ${pad(secs)} s`;
+    return `⏱️ ${mins}m ${pad(secs)}s`;
   }
 
-  // Mettre à jour tous les éléments de la page avec l'ID ou la classe correspondante
-  function updateDisplay() {
-    const formatted = formatTime(timeSpent);
-    const elements = document.querySelectorAll('#time-spent-display, .time-spent-badge');
-    elements.forEach(el => {
-      el.textContent = formatted;
-    });
+  // Injecter le badge dans le header s'il n'existe pas encore
+  function injectHeaderBadge() {
+    let badge = document.getElementById('time-spent-display');
+    
+    if (!badge) {
+      // Trouver la zone droite du header (avant la barre de recherche et l'icône)
+      const headerRight = document.querySelector('.md-header__option') || document.querySelector('.md-search');
+      
+      if (headerRight && headerRight.parentNode) {
+        badge = document.createElement('div');
+        badge.id = 'time-spent-display';
+        badge.className = 'header-time-badge';
+        // Insérer juste avant les options à droite
+        headerRight.parentNode.insertBefore(badge, headerRight);
+      }
+    }
+
+    if (badge) {
+      badge.textContent = formatTime(timeSpent);
+    }
   }
 
-  // Réinitialiser le timer d'inactivité à chaque action utilisateur
   function resetInactivity() {
     lastActiveTime = Date.now();
   }
 
-  // Boucle de comptage exécutée toutes les secondes
   function tick() {
     const isTabVisible = document.visibilityState === 'visible';
     const isUserActive = (Date.now() - lastActiveTime) < INACTIVITY_LIMIT;
@@ -42,29 +51,25 @@
     if (isTabVisible && isUserActive) {
       timeSpent += 1;
       localStorage.setItem(STORAGE_KEY, timeSpent.toString());
-      updateDisplay();
+      injectHeaderBadge();
     }
   }
 
-  // Événements détectant la présence réelle de l'utilisateur
-  const userEvents = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'];
-  userEvents.forEach(eventType => {
-    window.addEventListener(eventType, resetInactivity, { passive: true });
+  // Événements d'activité
+  ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(e => {
+    window.addEventListener(e, resetInactivity, { passive: true });
   });
 
-  // Gestion du changement de visibilité de l'onglet
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-      resetInactivity();
-    }
+    if (document.visibilityState === 'visible') resetInactivity();
   });
 
-  // Lancement du timer global (1 tick = 1 seconde)
-  intervalId = setInterval(tick, 1000);
+  // Lancement du timer (1 sec)
+  setInterval(tick, 1000);
 
-  // Mise à jour de l'affichage au chargement de la page (compatible Instant Navigation MkDocs)
-  document.addEventListener('DOMContentLoaded', updateDisplay);
+  // Compatibilité navigation instantanée MkDocs Material
+  document.addEventListener('DOMContentLoaded', injectHeaderBadge);
   if (typeof document$ !== 'undefined') {
-    document$.subscribe(updateDisplay);
+    document$.subscribe(injectHeaderBadge);
   }
 })();
