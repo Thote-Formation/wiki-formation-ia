@@ -56,6 +56,7 @@ extra_css:
 nav:
   - Accueil: index.md
   - Connexion: connexion.md
+  - Réinitialisation: reinitialisation.md
   - Certification RS6776:
       - Présentation: certification-rs6776.md
       - Évaluation d'entrée: evaluation-entree.md
