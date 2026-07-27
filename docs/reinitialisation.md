@@ -26,32 +26,6 @@
 </div>
 
 <script>
-let supabaseClient = null;
-
-function getSupabaseInstance() {
-  if (!supabaseClient && window.supabase) {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  }
-  return supabaseClient;
-}
-
-// Initialisation dès que Supabase est disponible
-document.addEventListener("DOMContentLoaded", () => {
-  const checkSupabase = setInterval(() => {
-    if (window.supabase) {
-      clearInterval(checkSupabase);
-      const client = getSupabaseInstance();
-      
-      // Supabase capte automatiquement le jeton présent dans l'URL (#access_token=... ou ?code=...)
-      client.auth.onAuthStateChange((event, session) => {
-        if (event === 'PASSWORD_RECOVERY' || session) {
-          console.log("Session de récupération active.");
-        }
-      });
-    }
-  }, 100);
-});
-
 async function handlePasswordUpdate(e) {
   e.preventDefault();
   const btn = document.getElementById('reset-btn');
@@ -64,46 +38,10 @@ async function handlePasswordUpdate(e) {
   errorDiv.style.display = "none";
   successDiv.style.display = "none";
 
-  const client = getSupabaseInstance();
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  if (!client) {
-    errorDiv.textContent = "Erreur d'initialisation de Supabase. Veuillez recharger la page.";
-    errorDiv.style.display = "block";
-    btn.disabled = false;
-    btn.textContent = "Mettre à jour le mot de passe";
-    return;
-  }
-
-  // Vérifier si la session est présente
-  let { data: { session } } = await client.auth.getSession();
-
-  // Si la session n'est pas encore établie, tenter d'extraire les jetons depuis le hash
-  if (!session && window.location.hash) {
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    const accessToken = hashParams.get('access_token');
-    const refreshToken = hashParams.get('refresh_token');
-
-    if (accessToken && refreshToken) {
-      const { data: setSessionData, error: setSessionError } = await client.auth.setSession({
-        access_token: accessToken,
-        refresh_token: refreshToken
-      });
-      if (!setSessionError) {
-        session = setSessionData.session;
-      }
-    }
-  }
-
-  if (!session) {
-    errorDiv.textContent = "Session introuvable ou expirée. Veuillez refaire une demande de réinitialisation.";
-    errorDiv.style.display = "block";
-    btn.disabled = false;
-    btn.textContent = "Mettre à jour le mot de passe";
-    return;
-  }
-
-  // Mise à jour du mot de passe
-  const { error } = await client.auth.updateUser({
+  // Mise à jour directe : Supabase applique la modif à la session en cours
+  const { error } = await supabase.auth.updateUser({
     password: newPassword
   });
 
@@ -113,7 +51,7 @@ async function handlePasswordUpdate(e) {
     btn.disabled = false;
     btn.textContent = "Mettre à jour le mot de passe";
   } else {
-    successDiv.textContent = "Mot de passe modifié avec succès ! Redirection vers la connexion...";
+    successDiv.textContent = "Mot de passe modifié avec succès ! Redirection...";
     successDiv.style.display = "block";
     
     setTimeout(() => {
