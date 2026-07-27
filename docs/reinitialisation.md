@@ -26,6 +26,22 @@
 </div>
 
 <script>
+let supabaseClient = null;
+
+// Initialiser le client au chargement
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.supabase) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    // Écouter le changement d'état d'authentification lié au lien magique
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        console.log("Mode réinitialisation actif !");
+      }
+    });
+  }
+});
+
 async function handlePasswordUpdate(e) {
   e.preventDefault();
   const btn = document.getElementById('reset-btn');
@@ -38,11 +54,12 @@ async function handlePasswordUpdate(e) {
   errorDiv.style.display = "none";
   successDiv.style.display = "none";
 
-  // Initialisation du client Supabase
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  if (!supabaseClient) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
 
-  // Mise à jour du mot de passe pour la session active (établie via le jeton de l'URL)
-  const { data, error } = await supabase.auth.updateUser({
+  // Effectuer la mise à jour
+  const { data, error } = await supabaseClient.auth.updateUser({
     password: newPassword
   });
 
@@ -55,7 +72,6 @@ async function handlePasswordUpdate(e) {
     successDiv.textContent = "Mot de passe modifié avec succès ! Redirection vers la connexion...";
     successDiv.style.display = "block";
     
-    // Redirection vers la page de connexion après 2 secondes
     setTimeout(() => {
       const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
       window.location.href = window.location.origin + basePath + '/connexion/';
