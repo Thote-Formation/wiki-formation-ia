@@ -21,7 +21,7 @@ async function initAuthCheck() {
   
   // Détection robuste de la page de connexion
   const currentPath = window.location.pathname.toLowerCase();
-  const isLoginPage = currentPath.includes('connexion');
+const isLoginPage = currentPath.includes('connexion') || currentPath.includes('reinitialisation');
 
   // Déterminer le chemin de base dynamique (pour éviter les erreurs d'URL absolues)
   const getConnexionUrl = () => {
