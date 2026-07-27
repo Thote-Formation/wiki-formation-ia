@@ -1,7 +1,6 @@
 function initEvaluationEntree() {
   const root = document.getElementById("evaluation-entree");
-  if (!root) return;
-  if (root.dataset.evalInit === "true") return;
+  if (!root || root.dataset.evalInit === "true") return;
   root.dataset.evalInit = "true";
 
   const questions = [
@@ -367,9 +366,6 @@ function initEvaluationEntree() {
     }
   ];
 
-  let currentQuestion = 0;
-  const answers = new Array(questions.length).fill(null);
-
   const introBox = root.querySelector("#eval-intro");
   const form = root.querySelector("#eval-form");
   const quizBox = root.querySelector("#eval-quiz");
@@ -388,6 +384,9 @@ function initEvaluationEntree() {
     !submitBtn || !showAnswersBtn || !printBtn || !resetBtn || !dateInput || !nameInput
   ) return;
 
+  let currentQuestion = 0;
+  const answers = new Array(questions.length).fill(null);
+
   function getTodayIso() {
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -396,20 +395,50 @@ function initEvaluationEntree() {
     return `${yyyy}-${mm}-${dd}`;
   }
 
-  if (!dateInput.value) {
-    dateInput.value = getTodayIso();
+  function resetViewState() {
+    quizBox.style.display = "none";
+    resultBox.style.display = "none";
+    correctionBox.style.display = "none";
+    submitBtn.style.display = "none";
+    showAnswersBtn.style.display = "none";
+    printBtn.style.display = "none";
   }
 
-  quizBox.style.display = "none";
-  submitBtn.style.display = "none";
-  showAnswersBtn.style.display = "none";
-  printBtn.style.display = "none";
-
   function updateSubmitVisibility() {
-    const allAnswered = answers.every(function (answer) {
-      return answer !== null;
+    submitBtn.style.display = answers.every(answer => answer !== null) ? "inline-block" : "none";
+  }
+
+  function getLevel(score) {
+    if (score <= 10) {
+      return {
+        label: "Niveau débutant",
+        message: "Vous allez surtout consolider les bases de l’IA générative, du prompting et des bons réflexes de sécurité."
+      };
+    }
+    if (score <= 20) {
+      return {
+        label: "Niveau intermédiaire",
+        message: "Vous avez déjà des repères. La formation va vous aider à structurer vos usages et à sécuriser vos pratiques."
+      };
+    }
+    if (score <= 26) {
+      return {
+        label: "Niveau avancé",
+        message: "Vous avez de bonnes bases. L’objectif sera d’aller vers plus de méthode, de précision et de responsabilité."
+      };
+    }
+    return {
+      label: "Niveau très avancé",
+      message: "Vous maîtrisez déjà beaucoup de notions. La formation servira à renforcer vos réflexes professionnels et votre préparation à la certification."
+    };
+  }
+
+  function calculateScore() {
+    let score = 0;
+    answers.forEach((answer, index) => {
+      if (answer === questions[index].correct) score += 1;
     });
-    submitBtn.style.display = allAnswered ? "inline-block" : "none";
+    return { score, answers };
   }
 
   function renderQuestion(qIndex) {
@@ -420,7 +449,7 @@ function initEvaluationEntree() {
 
     const progress = document.createElement("div");
     progress.className = "eval-theme";
-    progress.textContent = "Question " + (qIndex + 1) + " sur " + questions.length;
+    progress.textContent = `Question ${qIndex + 1} sur ${questions.length}`;
 
     const card = document.createElement("div");
     card.className = "eval-question";
@@ -430,40 +459,36 @@ function initEvaluationEntree() {
     theme.textContent = q.theme;
 
     const title = document.createElement("h3");
-    title.textContent = "Question " + (qIndex + 1);
+    title.textContent = `Question ${qIndex + 1}`;
 
     const questionText = document.createElement("p");
-    questionText.innerHTML = "<strong>" + q.question + "</strong>";
+    questionText.innerHTML = `<strong>${q.question}</strong>`;
 
     const options = document.createElement("div");
     options.className = "eval-options";
 
-    q.options.forEach(function (option, optionIndex) {
+    q.options.forEach((option, optionIndex) => {
       const label = document.createElement("label");
       const input = document.createElement("input");
 
       input.type = "radio";
-      input.name = "question-" + qIndex;
+      input.name = `question-${qIndex}`;
       input.value = optionIndex;
+      input.checked = answers[qIndex] === optionIndex;
 
-      if (answers[qIndex] === optionIndex) {
-        input.checked = true;
-      }
-
-      input.addEventListener("change", function () {
+      input.addEventListener("change", () => {
         answers[qIndex] = optionIndex;
         updateSubmitVisibility();
 
-        setTimeout(function () {
-          if (qIndex < questions.length - 1) {
+        if (qIndex < questions.length - 1) {
+          setTimeout(() => {
             currentQuestion += 1;
             renderQuestion(currentQuestion);
-          }
-        }, 180);
+          }, 180);
+        }
       });
 
-      label.appendChild(input);
-      label.appendChild(document.createTextNode(option));
+      label.append(input, document.createTextNode(option));
       options.appendChild(label);
     });
 
@@ -476,7 +501,7 @@ function initEvaluationEntree() {
     prevBtn.style.background = "var(--md-default-bg-color, #fff)";
     prevBtn.style.color = "var(--md-primary-fg-color, #1a5fb4)";
     prevBtn.style.display = qIndex === 0 ? "none" : "inline-block";
-    prevBtn.addEventListener("click", function () {
+    prevBtn.addEventListener("click", () => {
       if (currentQuestion > 0) {
         currentQuestion -= 1;
         renderQuestion(currentQuestion);
@@ -487,116 +512,61 @@ function initEvaluationEntree() {
     nextBtn.type = "button";
     nextBtn.textContent = "Question suivante";
     nextBtn.style.display = qIndex < questions.length - 1 ? "inline-block" : "none";
-
-    if (answers[qIndex] === null) {
-      nextBtn.disabled = true;
-    }
-
-    nextBtn.addEventListener("click", function () {
+    nextBtn.disabled = answers[qIndex] === null;
+    nextBtn.addEventListener("click", () => {
       if (answers[qIndex] !== null && currentQuestion < questions.length - 1) {
         currentQuestion += 1;
         renderQuestion(currentQuestion);
       }
     });
 
-    nav.appendChild(prevBtn);
-    nav.appendChild(nextBtn);
-
-    card.appendChild(theme);
-    card.appendChild(title);
-    card.appendChild(questionText);
-    card.appendChild(options);
-    card.appendChild(nav);
-
-    container.appendChild(progress);
-    container.appendChild(card);
-  }
-
-  function getLevel(score) {
-    if (score <= 10) {
-      return {
-        label: "Niveau débutant",
-        message: "Vous allez surtout consolider les bases de l’IA générative, du prompting et des bons réflexes de sécurité."
-      };
-    }
-
-    if (score <= 20) {
-      return {
-        label: "Niveau intermédiaire",
-        message: "Vous avez déjà des repères. La formation va vous aider à structurer vos usages et à sécuriser vos pratiques."
-      };
-    }
-
-    if (score <= 26) {
-      return {
-        label: "Niveau avancé",
-        message: "Vous avez de bonnes bases. L’objectif sera d’aller vers plus de méthode, de précision et de responsabilité."
-      };
-    }
-
-    return {
-      label: "Niveau très avancé",
-      message: "Vous maîtrisez déjà beaucoup de notions. La formation servira à renforcer vos réflexes professionnels et votre préparation à la certification."
-    };
-  }
-
-  function calculateScore() {
-    let score = 0;
-
-    answers.forEach(function (answer, index) {
-      if (answer === questions[index].correct) {
-        score += 1;
-      }
-    });
-
-    return { score: score, answers: answers };
+    nav.append(prevBtn, nextBtn);
+    card.append(theme, title, questionText, options, nav);
+    container.append(progress, card);
   }
 
   function renderResult() {
-    const data = calculateScore();
-    const score = data.score;
-    const unanswered = data.answers.filter(function (answer) {
-      return answer === null;
-    }).length;
+    const { score, answers: currentAnswers } = calculateScore();
+    const unanswered = currentAnswers.filter(answer => answer === null).length;
     const level = getLevel(score);
 
     resultBox.style.display = "block";
     showAnswersBtn.style.display = "inline-block";
     printBtn.style.display = "inline-block";
 
-    resultBox.innerHTML =
-      "<h2>Résultat</h2>" +
-      "<p><strong>Participant :</strong> " + (nameInput.value || "Non renseigné") + "</p>" +
-      "<p><strong>Date :</strong> " + (dateInput.value || "Non renseignée") + "</p>" +
-      "<p><strong>Score :</strong> " + score + " / " + questions.length + "</p>" +
-      "<p><strong>Niveau estimé :</strong> " + level.label + "</p>" +
-      "<p>" + level.message + "</p>" +
-      (unanswered > 0 ? "<p><strong>Questions sans réponse :</strong> " + unanswered + "</p>" : "") +
-      "<p><em>Ce résultat sert uniquement à situer votre niveau de départ.</em></p>";
+    resultBox.innerHTML = `
+      <h2>Résultat</h2>
+      <p><strong>Participant :</strong> ${nameInput.value || "Non renseigné"}</p>
+      <p><strong>Date :</strong> ${dateInput.value || "Non renseignée"}</p>
+      <p><strong>Score :</strong> ${score} / ${questions.length}</p>
+      <p><strong>Niveau estimé :</strong> ${level.label}</p>
+      <p>${level.message}</p>
+      ${unanswered > 0 ? `<p><strong>Questions sans réponse :</strong> ${unanswered}</p>` : ""}
+      <p><em>Ce résultat sert uniquement à situer votre niveau de départ.</em></p>
+    `;
 
     resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function renderCorrection() {
-    const data = calculateScore();
+    const { answers: currentAnswers } = calculateScore();
+
     correctionBox.style.display = "block";
     correctionBox.innerHTML = "<h2>Correction détaillée</h2>";
 
-    questions.forEach(function (q, index) {
-      const userAnswer = data.answers[index];
+    questions.forEach((q, index) => {
+      const userAnswer = currentAnswers[index];
       const isCorrect = userAnswer === q.correct;
       const item = document.createElement("div");
 
       item.className = "eval-correction-item";
-
-      item.innerHTML =
-        "<h3>Question " + (index + 1) + " — " + q.theme + "</h3>" +
-        "<p><strong>" + q.question + "</strong></p>" +
-        "<p>Votre réponse : <span class='" + (isCorrect ? "eval-ok" : "eval-ko") + "'>" +
-        (userAnswer === null ? "Aucune réponse" : q.options[userAnswer]) +
-        "</span></p>" +
-        "<p>Bonne réponse : <strong>" + q.options[q.correct] + "</strong></p>" +
-        "<p><em>" + q.explain + "</em></p>";
+      item.innerHTML = `
+        <h3>Question ${index + 1} — ${q.theme}</h3>
+        <p><strong>${q.question}</strong></p>
+        <p>Votre réponse : <span class="${isCorrect ? "eval-ok" : "eval-ko"}">${userAnswer === null ? "Aucune réponse" : q.options[userAnswer]}</span></p>
+        <p>Bonne réponse : <strong>${q.options[q.correct]}</strong></p>
+        <p><em>${q.explain}</em></p>
+      `;
 
       correctionBox.appendChild(item);
     });
@@ -604,33 +574,9 @@ function initEvaluationEntree() {
     correctionBox.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function resetEvaluation() {
-    for (let i = 0; i < answers.length; i += 1) {
-      answers[i] = null;
-    }
-
-    currentQuestion = 0;
-    nameInput.value = "";
-    dateInput.value = getTodayIso();
-
-    resultBox.style.display = "none";
-    correctionBox.style.display = "none";
-    showAnswersBtn.style.display = "none";
-    printBtn.style.display = "none";
-    submitBtn.style.display = "none";
-    resultBox.innerHTML = "";
-    correctionBox.innerHTML = "";
-    container.innerHTML = "";
-
-    introBox.style.display = "block";
-    quizBox.style.display = "none";
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
   function startEvaluation() {
-    const nom = (nameInput.value || "").trim();
-    const date = (dateInput.value || "").trim();
+    const nom = nameInput.value.trim();
+    const date = dateInput.value.trim();
 
     if (!nom) {
       alert("Merci de renseigner le nom ou l’identifiant.");
@@ -651,7 +597,26 @@ function initEvaluationEntree() {
     updateSubmitVisibility();
   }
 
-  root.addEventListener("click", function (event) {
+  function resetEvaluation() {
+    answers.fill(null);
+    currentQuestion = 0;
+    nameInput.value = "";
+    dateInput.value = getTodayIso();
+    resultBox.innerHTML = "";
+    correctionBox.innerHTML = "";
+    container.innerHTML = "";
+    introBox.style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    resetViewState();
+  }
+
+  if (!dateInput.value) {
+    dateInput.value = getTodayIso();
+  }
+
+  resetViewState();
+
+  root.addEventListener("click", (event) => {
     const start = event.target.closest("#eval-start");
     const submit = event.target.closest("#eval-submit");
     const showAnswers = event.target.closest("#eval-show-answers");
@@ -678,15 +643,8 @@ function initEvaluationEntree() {
 
     if (print && root.contains(print)) {
       event.preventDefault();
-
-      if (resultBox.style.display === "none") {
-        renderResult();
-      }
-
-      if (correctionBox.style.display === "none") {
-        renderCorrection();
-      }
-
+      if (resultBox.style.display === "none") renderResult();
+      if (correctionBox.style.display === "none") renderCorrection();
       window.print();
       return;
     }
@@ -697,14 +655,14 @@ function initEvaluationEntree() {
     }
   });
 
-  form.addEventListener("submit", function (event) {
+  form.addEventListener("submit", (event) => {
     event.preventDefault();
     startEvaluation();
   });
 }
 
 if (typeof document$ !== "undefined") {
-  document$.subscribe(function () {
+  document$.subscribe(() => {
     initEvaluationEntree();
   });
 } else if (document.readyState !== "loading") {
