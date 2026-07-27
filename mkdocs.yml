@@ -31,7 +31,7 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.top
-    - navigation.instant
+    # navigation.instant retiré pour éviter de casser la logique auth.js
     - navigation.indexes
     - search.suggest
     - search.highlight
@@ -46,7 +46,6 @@ extra_javascript:
   - javascripts/prompting-avance.js
   - javascripts/contexte-memoire.js
   - javascripts/reduction-hallucinations.js
-  - javascripts/reduction-hallucinations.js
   - javascripts/quiz-final.js
   - javascripts/evaluation-entree.js
 
@@ -55,8 +54,7 @@ extra_css:
 
 nav:
   - Accueil: index.md
-  - Connexion: connexion.md
-  - Réinitialisation: reinitialisation.md
+  # Connexion et Réinitialisation retirées d'ici pour cacher les onglets !
   - Certification RS6776:
       - Présentation: certification-rs6776.md
       - Évaluation d'entrée: evaluation-entree.md
