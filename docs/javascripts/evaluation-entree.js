@@ -1,9 +1,6 @@
 function initEvaluationEntree() {
   const root = document.getElementById("evaluation-entree");
   if (!root) return;
-  if (root.dataset.initialized === "true") return;
-
-  root.dataset.initialized = "true";
 
   const questions = [
     {
@@ -375,7 +372,6 @@ function initEvaluationEntree() {
   const form = root.querySelector("#eval-form");
   const startBtn = root.querySelector("#eval-start");
   const quizBox = root.querySelector("#eval-quiz");
-
   const container = root.querySelector("#eval-questions");
   const resultBox = root.querySelector("#eval-resultat");
   const correctionBox = root.querySelector("#eval-correction");
@@ -394,8 +390,7 @@ function initEvaluationEntree() {
   ) return;
 
   if (!dateInput.value) {
-    const today = new Date().toISOString().slice(0, 10);
-    dateInput.value = today;
+    dateInput.value = new Date().toISOString().slice(0, 10);
   }
 
   quizBox.style.display = "none";
@@ -404,10 +399,7 @@ function initEvaluationEntree() {
   printBtn.style.display = "none";
 
   function updateSubmitVisibility() {
-    const allAnswered = answers.every(function (answer) {
-      return answer !== null;
-    });
-    submitBtn.style.display = allAnswered ? "inline-block" : "none";
+    submitBtn.style.display = answers.every(answer => answer !== null) ? "inline-block" : "none";
   }
 
   function renderQuestion(qIndex) {
@@ -474,7 +466,6 @@ function initEvaluationEntree() {
     prevBtn.style.background = "var(--md-default-bg-color, #fff)";
     prevBtn.style.color = "var(--md-primary-fg-color, #1a5fb4)";
     prevBtn.style.display = qIndex === 0 ? "none" : "inline-block";
-
     prevBtn.addEventListener("click", function () {
       if (currentQuestion > 0) {
         currentQuestion -= 1;
@@ -486,11 +477,7 @@ function initEvaluationEntree() {
     nextBtn.type = "button";
     nextBtn.textContent = "Question suivante";
     nextBtn.style.display = qIndex < questions.length - 1 ? "inline-block" : "none";
-
-    if (answers[qIndex] === null) {
-      nextBtn.disabled = true;
-    }
-
+    if (answers[qIndex] === null) nextBtn.disabled = true;
     nextBtn.addEventListener("click", function () {
       if (answers[qIndex] !== null && currentQuestion < questions.length - 1) {
         currentQuestion += 1;
@@ -511,10 +498,6 @@ function initEvaluationEntree() {
     container.appendChild(card);
   }
 
-  function getAnswers() {
-    return answers;
-  }
-
   function getLevel(score) {
     if (score <= 10) {
       return {
@@ -522,21 +505,18 @@ function initEvaluationEntree() {
         message: "Vous allez surtout consolider les bases de l’IA générative, du prompting et des bons réflexes de sécurité."
       };
     }
-
     if (score <= 20) {
       return {
         label: "Niveau intermédiaire",
         message: "Vous avez déjà des repères. La formation va vous aider à structurer vos usages et à sécuriser vos pratiques."
       };
     }
-
     if (score <= 26) {
       return {
         label: "Niveau avancé",
         message: "Vous avez de bonnes bases. L’objectif sera d’aller vers plus de méthode, de précision et de responsabilité."
       };
     }
-
     return {
       label: "Niveau très avancé",
       message: "Vous maîtrisez déjà beaucoup de notions. La formation servira à renforcer vos réflexes professionnels et votre préparation à la certification."
@@ -544,27 +524,18 @@ function initEvaluationEntree() {
   }
 
   function calculateScore() {
-    const values = getAnswers();
     let score = 0;
-
-    values.forEach(function (answer, index) {
-      if (answer === questions[index].correct) {
-        score += 1;
-      }
+    answers.forEach(function (answer, index) {
+      if (answer === questions[index].correct) score += 1;
     });
-
-    return { score: score, answers: values };
+    return { score: score, answers: answers };
   }
 
   function renderResult() {
     const data = calculateScore();
     const score = data.score;
-    const unanswered = data.answers.filter(function (answer) {
-      return answer === null;
-    }).length;
+    const unanswered = data.answers.filter(answer => answer === null).length;
     const level = getLevel(score);
-    const nom = nameInput.value ? nameInput.value : "Non renseigné";
-    const date = dateInput.value ? dateInput.value : "Non renseignée";
 
     resultBox.style.display = "block";
     showAnswersBtn.style.display = "inline-block";
@@ -572,8 +543,8 @@ function initEvaluationEntree() {
 
     resultBox.innerHTML =
       "<h2>Résultat</h2>" +
-      "<p><strong>Participant :</strong> " + nom + "</p>" +
-      "<p><strong>Date :</strong> " + date + "</p>" +
+      "<p><strong>Participant :</strong> " + (nameInput.value || "Non renseigné") + "</p>" +
+      "<p><strong>Date :</strong> " + (dateInput.value || "Non renseignée") + "</p>" +
       "<p><strong>Score :</strong> " + score + " / " + questions.length + "</p>" +
       "<p><strong>Niveau estimé :</strong> " + level.label + "</p>" +
       "<p>" + level.message + "</p>" +
@@ -585,26 +556,20 @@ function initEvaluationEntree() {
 
   function renderCorrection() {
     const data = calculateScore();
-    const userAnswers = data.answers;
-
     correctionBox.style.display = "block";
     correctionBox.innerHTML = "<h2>Correction détaillée</h2>";
 
     questions.forEach(function (q, index) {
-      const userAnswer = userAnswers[index];
+      const userAnswer = data.answers[index];
       const isCorrect = userAnswer === q.correct;
       const item = document.createElement("div");
-
       item.className = "eval-correction-item";
-
-      const userAnswerText = userAnswer === null ? "Aucune réponse" : q.options[userAnswer];
-      const correctAnswerText = q.options[q.correct];
 
       item.innerHTML =
         "<h3>Question " + (index + 1) + " — " + q.theme + "</h3>" +
         "<p><strong>" + q.question + "</strong></p>" +
-        "<p>Votre réponse : <span class='" + (isCorrect ? "eval-ok" : "eval-ko") + "'>" + userAnswerText + "</span></p>" +
-        "<p>Bonne réponse : <strong>" + correctAnswerText + "</strong></p>" +
+        "<p>Votre réponse : <span class='" + (isCorrect ? "eval-ok" : "eval-ko") + "'>" + (userAnswer === null ? "Aucune réponse" : q.options[userAnswer]) + "</span></p>" +
+        "<p>Bonne réponse : <strong>" + q.options[q.correct] + "</strong></p>" +
         "<p><em>" + q.explain + "</em></p>";
 
       correctionBox.appendChild(item);
@@ -614,16 +579,13 @@ function initEvaluationEntree() {
   }
 
   function startEvaluation() {
-    const nameIsValid = nameInput.checkValidity();
-    const dateIsValid = dateInput.checkValidity();
-
-    if (!nameIsValid) {
+    if (!nameInput.checkValidity()) {
       nameInput.reportValidity();
       nameInput.focus();
       return;
     }
 
-    if (!dateIsValid) {
+    if (!dateInput.checkValidity()) {
       dateInput.reportValidity();
       dateInput.focus();
       return;
@@ -636,8 +598,10 @@ function initEvaluationEntree() {
     updateSubmitVisibility();
   }
 
+  startBtn.onclick = null;
   startBtn.addEventListener("click", function (event) {
     event.preventDefault();
+    event.stopPropagation();
     startEvaluation();
   });
 
@@ -650,27 +614,17 @@ function initEvaluationEntree() {
   showAnswersBtn.addEventListener("click", renderCorrection);
 
   printBtn.addEventListener("click", function () {
-    if (resultBox.style.display === "none") {
-      renderResult();
-    }
-
-    if (correctionBox.style.display === "none") {
-      renderCorrection();
-    }
-
+    if (resultBox.style.display === "none") renderResult();
+    if (correctionBox.style.display === "none") renderCorrection();
     window.print();
   });
 
   resetBtn.addEventListener("click", function () {
-    for (let i = 0; i < answers.length; i += 1) {
-      answers[i] = null;
-    }
+    for (let i = 0; i < answers.length; i += 1) answers[i] = null;
 
     currentQuestion = 0;
     nameInput.value = "";
-
-    const today = new Date().toISOString().slice(0, 10);
-    dateInput.value = today;
+    dateInput.value = new Date().toISOString().slice(0, 10);
 
     resultBox.style.display = "none";
     correctionBox.style.display = "none";
