@@ -1,10 +1,10 @@
-# Nouveau mot de passe
+# Réinitialisation du mot de passe
 
 <div class="summary-box" style="max-width: 480px; margin: 2rem auto; padding: 2rem; border-radius: 12px; background: var(--md-card-bg-color, #ffffff); box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
 
   <h2 style="margin-top: 0; text-align: center; font-size: 1.5rem;">🔑 Nouveau mot de passe</h2>
   <p style="text-align: center; color: var(--md-default-fg-color--light); font-size: 0.9rem; margin-bottom: 1.5rem;">
-    Veuillez saisir votre nouveau mot de passe ci-dessous.
+    Veuillez saisir votre nouveau mot de passe ci-dessous pour sécuriser votre compte.
   </p>
 
   <form id="reset-form" onsubmit="handlePasswordUpdate(event)" style="display: flex; flex-direction: column; gap: 1rem;">
@@ -38,8 +38,10 @@ async function handlePasswordUpdate(e) {
   errorDiv.style.display = "none";
   successDiv.style.display = "none";
 
+  // Initialisation du client Supabase
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+  // Mise à jour du mot de passe pour la session active (établie via le jeton de l'URL)
   const { data, error } = await supabase.auth.updateUser({
     password: newPassword
   });
@@ -52,8 +54,11 @@ async function handlePasswordUpdate(e) {
   } else {
     successDiv.textContent = "Mot de passe modifié avec succès ! Redirection vers la connexion...";
     successDiv.style.display = "block";
+    
+    // Redirection vers la page de connexion après 2 secondes
     setTimeout(() => {
-      window.location.href = window.location.origin + '/wiki-formation-ia/connexion/';
+      const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
+      window.location.href = window.location.origin + basePath + '/connexion/';
     }, 2000);
   }
 }
