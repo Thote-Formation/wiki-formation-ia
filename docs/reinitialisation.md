@@ -31,7 +31,10 @@
 <script>
 // Clés d'accès Supabase (Variables explicites pour éviter tout problème de scope)
 const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
-const SUPABASE_ANON_KEY = "TA_VRAIE_CLE_ANON_ICI"; // <--- Remplace par ta vraie clé anon
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk
+
+Service role
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NTEzODMxMiwiZXhwIjoyMTAwNzE0MzEyfQ.-GooX8cqZtGgMWXEf_Il1sLSPqc70VZh64TE3VHRypc"; // <--- Remplace par ta vraie clé anon
 
 let supabaseClient = null;
 let isSessionReady = false;
