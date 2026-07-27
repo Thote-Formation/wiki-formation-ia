@@ -25,10 +25,26 @@
 
 </div>
 
-<!-- Charger le SDK Supabase manuellement sur cette page -->
+<!-- SDK Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+let supabaseClient = null;
+
+// Initialisation de Supabase et capture de la session de récupération
+document.addEventListener('DOMContentLoaded', async () => {
+  if (window.supabase) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    // Écoute l'événement de récupération de mot de passe généré par Supabase
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        console.log("Mode récupération activé avec succès.");
+      }
+    });
+  }
+});
+
 async function handlePasswordUpdate(e) {
   e.preventDefault();
   const btn = document.getElementById('reset-btn');
@@ -41,18 +57,23 @@ async function handlePasswordUpdate(e) {
   errorDiv.style.display = "none";
   successDiv.style.display = "none";
 
-  if (!window.supabase) {
-    errorDiv.textContent = "Erreur de chargement des dépendances. Veuillez rafraîchir la page.";
+  if (!supabaseClient) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+
+  // Vérifier qu'une session existe (soit via le cookie/localStorage, soit via l'URL)
+  const { data: { session } } = await supabaseClient.auth.getSession();
+
+  if (!session) {
+    errorDiv.textContent = "La session de réinitialisation a expiré ou est invalide. Veuillez refaire une demande de mot de passe.";
     errorDiv.style.display = "block";
     btn.disabled = false;
     btn.textContent = "Mettre à jour le mot de passe";
     return;
   }
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  // Mise à jour directe : Supabase applique la modif à la session en cours
-  const { error } = await supabase.auth.updateUser({
+  // Appliquer le nouveau mot de passe à l'utilisateur connecté
+  const { error } = await supabaseClient.auth.updateUser({
     password: newPassword
   });
 
@@ -62,9 +83,12 @@ async function handlePasswordUpdate(e) {
     btn.disabled = false;
     btn.textContent = "Mettre à jour le mot de passe";
   } else {
-    successDiv.textContent = "Mot de passe modifié avec succès ! Redirection...";
+    successDiv.textContent = "Mot de passe modifié avec succès ! Redirection vers la connexion...";
     successDiv.style.display = "block";
     
+    // Déconnexion propre pour forcer la re-connexion avec le nouveau mdp
+    await supabaseClient.auth.signOut();
+
     setTimeout(() => {
       const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
       window.location.href = window.location.origin + basePath + '/connexion/';
