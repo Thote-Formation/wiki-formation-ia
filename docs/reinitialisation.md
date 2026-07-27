@@ -31,29 +31,35 @@
 <script>
 let supabaseClient = null;
 
+function initSupabase() {
+  if (!supabaseClient && window.supabase) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+  return supabaseClient;
+}
+
 // Initialisation dès le chargement de la page
 window.addEventListener('DOMContentLoaded', async () => {
-  if (window.supabase) {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    
-    // Récupérer le hash (#access_token=...&refresh_token=...) dans l'URL
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    const accessToken = hashParams.get('access_token');
-    const refreshToken = hashParams.get('refresh_token');
+  const client = initSupabase();
+  if (!client) return;
 
-    // Si des jetons sont présents dans l'URL, forcer la création de la session !
-    if (accessToken && refreshToken) {
-      const { data, error } = await supabaseClient.auth.setSession({
-        access_token: accessToken,
-        refresh_token: refreshToken
-      });
+  // 1. Cas Hash Fragment (#access_token=...&refresh_token=...)
+  const hashParams = new URLSearchParams(window.location.hash.substring(1));
+  const accessToken = hashParams.get('access_token');
+  const refreshToken = hashParams.get('refresh_token');
 
-      if (error) {
-        console.error("Erreur d'établissement de la session :", error);
-      } else {
-        console.log("Session de réinitialisation activée avec succès !");
-      }
-    }
+  if (accessToken && refreshToken) {
+    await client.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken
+    });
+  }
+
+  // 2. Cas Code PKCE (?code=...)
+  const searchParams = new URLSearchParams(window.location.search);
+  const code = searchParams.get('code');
+  if (code) {
+    await client.auth.exchangeCodeForSession(code);
   }
 });
 
@@ -69,12 +75,21 @@ async function handlePasswordUpdate(e) {
   errorDiv.style.display = "none";
   successDiv.style.display = "none";
 
-  if (!supabaseClient && window.supabase) {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const client = initSupabase();
+
+  // Attendre ou vérifier la session
+  let { data: { session } } = await client.auth.getSession();
+
+  if (!session) {
+    errorDiv.textContent = "La session de réinitialisation a expiré ou est invalide. Veuillez faire une nouvelle demande.";
+    errorDiv.style.display = "block";
+    btn.disabled = false;
+    btn.textContent = "Mettre à jour le mot de passe";
+    return;
   }
 
-  // Tenter de mettre à jour le mot de passe
-  const { error } = await supabaseClient.auth.updateUser({
+  // Mise à jour du mot de passe
+  const { error } = await client.auth.updateUser({
     password: newPassword
   });
 
@@ -84,11 +99,11 @@ async function handlePasswordUpdate(e) {
     btn.disabled = false;
     btn.textContent = "Mettre à jour le mot de passe";
   } else {
-    successDiv.textContent = "Mot de passe modifié avec succès ! Redirection...";
+    successDiv.textContent = "Mot de passe modifié avec succès ! Redirection vers la connexion...";
     successDiv.style.display = "block";
     
     // Déconnexion propre
-    await supabaseClient.auth.signOut();
+    await client.auth.signOut();
 
     setTimeout(() => {
       const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
