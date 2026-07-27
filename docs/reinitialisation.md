@@ -25,41 +25,42 @@
 
 </div>
 
-<!-- SDK Supabase JS -->
+<!-- Chargement unique du SDK Supabase JS -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+// Clés d'accès Supabase (Variables explicites pour éviter tout problème de scope)
+const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
+const SUPABASE_ANON_KEY = "TA_VRAIE_CLE_ANON_ICI"; // <--- Remplace par ta vraie clé anon
+
 let supabaseClient = null;
+let isSessionReady = false;
 
-function initSupabase() {
-  if (!supabaseClient && window.supabase) {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  }
-  return supabaseClient;
-}
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!window.supabase) return;
 
-// Initialisation dès le chargement de la page
-window.addEventListener('DOMContentLoaded', async () => {
-  const client = initSupabase();
-  if (!client) return;
+  // Création unique de l'instance Supabase
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // 1. Cas Hash Fragment (#access_token=...&refresh_token=...)
+  // Écoute de l'état d'authentification fourni par Supabase
+  supabaseClient.auth.onAuthStateChange(async (event, session) => {
+    if (event === 'PASSWORD_RECOVERY' || session) {
+      isSessionReady = true;
+      console.log("Session de réinitialisation validée.");
+    }
+  });
+
+  // Vérification si un hash d'ancienne version (#access_token=...) est présent
   const hashParams = new URLSearchParams(window.location.hash.substring(1));
   const accessToken = hashParams.get('access_token');
   const refreshToken = hashParams.get('refresh_token');
 
   if (accessToken && refreshToken) {
-    await client.auth.setSession({
+    const { error } = await supabaseClient.auth.setSession({
       access_token: accessToken,
       refresh_token: refreshToken
     });
-  }
-
-  // 2. Cas Code PKCE (?code=...)
-  const searchParams = new URLSearchParams(window.location.search);
-  const code = searchParams.get('code');
-  if (code) {
-    await client.auth.exchangeCodeForSession(code);
+    if (!error) isSessionReady = true;
   }
 });
 
@@ -75,21 +76,23 @@ async function handlePasswordUpdate(e) {
   errorDiv.style.display = "none";
   successDiv.style.display = "none";
 
-  const client = initSupabase();
+  if (!supabaseClient && window.supabase) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
 
-  // Attendre ou vérifier la session
-  let { data: { session } } = await client.auth.getSession();
+  // Tenter de récupérer la session active si l'événement ne l'a pas encore fait
+  const { data: { session } } = await supabaseClient.auth.getSession();
 
-  if (!session) {
-    errorDiv.textContent = "La session de réinitialisation a expiré ou est invalide. Veuillez faire une nouvelle demande.";
+  if (!session && !isSessionReady) {
+    errorDiv.textContent = "La session a expiré ou le lien est invalide. Veuillez effectuer une nouvelle demande.";
     errorDiv.style.display = "block";
     btn.disabled = false;
     btn.textContent = "Mettre à jour le mot de passe";
     return;
   }
 
-  // Mise à jour du mot de passe
-  const { error } = await client.auth.updateUser({
+  // Application de la mise à jour du mot de passe
+  const { error } = await supabaseClient.auth.updateUser({
     password: newPassword
   });
 
@@ -101,9 +104,9 @@ async function handlePasswordUpdate(e) {
   } else {
     successDiv.textContent = "Mot de passe modifié avec succès ! Redirection vers la connexion...";
     successDiv.style.display = "block";
-    
-    // Déconnexion propre
-    await client.auth.signOut();
+
+    // Fermeture de la session temporaire
+    await supabaseClient.auth.signOut();
 
     setTimeout(() => {
       const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
