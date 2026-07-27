@@ -2,7 +2,7 @@
 // CONFIGURATION SUPABASE & GITHUB PAGES
 // ==========================================
 const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJKV1QiLCJ9..."; // <--- Ta clé anon
+const SUPABASE_ANON_KEY = "eyJhbGciOiJKV1QiLCJ9..."; // <--- Mets ta vraie clé anon ici !
 
 (function initSupabaseScript() {
   if (!window.supabase) {
@@ -24,14 +24,23 @@ async function initAuthCheck() {
   };
 
   const currentPath = window.location.pathname.toLowerCase();
+  const currentHash = window.location.hash.toLowerCase();
+  const currentSearch = window.location.search.toLowerCase();
+
   const isLoginPage = currentPath.includes('connexion');
   const isResetPage = currentPath.includes('reinitialisation');
+  const hasRecoveryToken = currentHash.includes('type=recovery') || currentSearch.includes('type=recovery') || currentHash.includes('access_token=') || currentSearch.includes('code=');
 
-  // Si on est sur la page de réinitialisation, on ne bloque PAS l'accès et on n'effectue aucune redirection
-  if (isResetPage) {
+  // 🛑 RÈGLE D'OR : Si on est sur la page de réinitialisation OU qu'un jeton est dans l'URL, ON NE REDIRIGE JAMAIS !
+  if (isResetPage || hasRecoveryToken) {
+    // Si l'URL a un jeton mais qu'on n'est pas encore sur /reinitialisation/, on l'y emmène avec ses paramètres
+    if (hasRecoveryToken && !isResetPage) {
+      window.location.href = getUrl('/reinitialisation/') + window.location.hash + window.location.search;
+    }
     return;
   }
 
+  // Obtenir la session active
   const { data: { session } } = await supabase.auth.getSession();
 
   // 1. NON CONNECTÉ
@@ -42,7 +51,7 @@ async function initAuthCheck() {
     return;
   }
 
-  // 2. CONNECTÉ : VÉRIFICATION DU PROFIL
+  // 2. CONNECTÉ : VÉRIFICATION DE LICENCE
   const { data: profile, error } = await supabase
     .from('profiles')
     .select('expires_at, is_active')
@@ -60,6 +69,7 @@ async function initAuthCheck() {
     return;
   }
 
+  // Si déjà connecté et sur la page de connexion -> redirection accueil
   if (isLoginPage) {
     window.location.href = getUrl('/');
     return;
