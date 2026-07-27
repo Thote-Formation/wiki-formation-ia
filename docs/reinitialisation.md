@@ -34,7 +34,7 @@
 
 <script>
 const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk; // <--- Mets ta clé anon ici
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk"; // <--- PASTE TA NOUVELLE CLÉ ANON ICI !
 
 let supabaseClient = null;
 let activeSession = null;
@@ -50,37 +50,68 @@ function unlockForm() {
   }
 }
 
-// Initialisation immédiate
-(function initRecovery() {
+function showExpiredError() {
+  const warning = document.getElementById('session-warning');
+  if (warning) {
+    warning.style.background = '#ffebee';
+    warning.style.color = '#d32f2f';
+    warning.textContent = "⚠️ Lien expiré ou invalide. Veuillez refaire une demande depuis la page de connexion.";
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
   if (!window.supabase) return;
 
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // 1. Écouter les événements d'authentification en continu
+  // 1. Écoute de la session via Supabase
   supabaseClient.auth.onAuthStateChange((event, session) => {
-    console.log("Événement Auth détecté :", event);
     if (session) {
       activeSession = session;
       unlockForm();
     }
   });
 
-  // 2. Vérification secours immédiate
-  setTimeout(async () => {
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    if (session) {
-      activeSession = session;
+  // 2. Traitement explicite des jetons dans l'URL (# ou ?)
+  const hashParams = new URLSearchParams(window.location.hash.substring(1));
+  const searchParams = new URLSearchParams(window.location.search);
+  
+  const accessToken = hashParams.get('access_token');
+  const refreshToken = hashParams.get('refresh_token');
+  const code = searchParams.get('code');
+
+  if (accessToken && refreshToken) {
+    const { data, error } = await supabaseClient.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken
+    });
+    if (!error && data.session) {
+      activeSession = data.session;
       unlockForm();
-    } else {
-      const warning = document.getElementById('session-warning');
-      if (warning && !activeSession) {
-        warning.style.background = '#ffebee';
-        warning.style.color = '#d32f2f';
-        warning.textContent = "⚠️ Lien expiré ou invalide. Veuillez refaire une demande depuis la page de connexion.";
+      return;
+    }
+  } else if (code) {
+    const { data, error } = await supabaseClient.auth.exchangeCodeForSession(code);
+    if (!error && data.session) {
+      activeSession = data.session;
+      unlockForm();
+      return;
+    }
+  }
+
+  // 3. Fallback de sécurité si la session était déjà en cache
+  setTimeout(async () => {
+    if (!activeSession) {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) {
+        activeSession = session;
+        unlockForm();
+      } else {
+        showExpiredError();
       }
     }
-  }, 1500);
-})();
+  }, 2000);
+});
 
 async function handlePasswordUpdate(e) {
   e.preventDefault();
@@ -95,13 +126,12 @@ async function handlePasswordUpdate(e) {
   successDiv.style.display = "none";
 
   if (!activeSession) {
-    errorDiv.textContent = "Aucune session active détectée. Veuillez refaire une demande.";
+    errorDiv.textContent = "Aucune session active. Veuillez refaire une demande.";
     errorDiv.style.display = "block";
     btn.disabled = false;
     return;
   }
 
-  // Mise à jour explicite du mot de passe
   const { error } = await supabaseClient.auth.updateUser({
     password: newPassword
   });
