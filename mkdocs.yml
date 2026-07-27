@@ -46,6 +46,7 @@ extra_javascript:
   - javascripts/reduction-hallucinations.js
   - javascripts/reduction-hallucinations.js
   - javascripts/quiz-final.js
+  - javascipts/evaluation-entree.js
 
 extra_css:
   - stylesheets/extra.css
