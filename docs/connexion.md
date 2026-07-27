@@ -17,7 +17,9 @@
     <div>
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
         <label for="password" style="font-weight: 600; font-size: 0.85rem;">Mot de passe :</label>
-        <a href="#" onclick="handleForgotPassword(event)" style="font-size: 0.8rem; color: #1976d2; text-decoration: none;">Mot de passe oublié ?</a>
+        <button type="button" onclick="handleForgotPassword(event)" style="background: none; border: none; padding: 0; font-size: 0.8rem; color: #1976d2; cursor: pointer; text-decoration: underline;">
+          Mot de passe oublié ?
+        </button>
       </div>
       <input type="password" id="password" required placeholder="••••••••" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
     </div>
@@ -32,12 +34,29 @@
   </form>
 
   <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.1); font-size: 0.75rem; color: #666; line-height: 1.4; text-align: center;">
-    ⚖️ <strong>RGPD & Confidentialité :</strong> Vos identifiants sont strictly confidentiels et hébergés dans l'UE. Votre licence d'accès individuelle est accordée pour une durée de 1 an à compter de sa création.
+    ⚖️ <strong>RGPD & Confidentialité :</strong> Vos identifiants sont strictement confidentiels et hébergés dans l'UE. Votre licence d'accès individuelle est accordée pour une durée de 1 an à compter de sa création.
   </div>
 
 </div>
 
+<!-- Chargement du SDK Supabase JS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+// CONFIGURATION SUPABASE DÉCLARÉE DIRECTEMENT SUR LA PAGE
+const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk
+
+Service role
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NTEzODMxMiwiZXhwIjoyMTAwNzE0MzEyfQ.-GooX8cqZtGgMWXEf_Il1sLSPqc70VZh64TE3VHRypc"; // <--- Mets ta clé Supabase 'anon' public ici !
+
+function getSupabaseClient() {
+  if (!window.supabase) {
+    throw new Error("SDK Supabase non chargé");
+  }
+  return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
 async function handleLogin(e) {
   e.preventDefault();
   const btn = document.getElementById('login-btn');
@@ -51,18 +70,24 @@ async function handleLogin(e) {
   errorDiv.style.display = "none";
   successDiv.style.display = "none";
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  try {
+    const supabase = getSupabaseClient();
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if (error) {
-    errorDiv.textContent = "Identifiants incorrects ou compte introuvable.";
+    if (error) {
+      errorDiv.textContent = "Identifiants incorrects ou compte introuvable.";
+      errorDiv.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = "Se connecter";
+    } else {
+      const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
+      window.location.href = window.location.origin + basePath + '/';
+    }
+  } catch (err) {
+    errorDiv.textContent = "Erreur lors de la connexion : " + err.message;
     errorDiv.style.display = "block";
     btn.disabled = false;
     btn.textContent = "Se connecter";
-  } else {
-    const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
-    window.location.href = window.location.origin + basePath + '/';
   }
 }
 
@@ -77,28 +102,33 @@ async function handleForgotPassword(e) {
   successDiv.style.display = "none";
 
   if (!email) {
-    errorDiv.textContent = "Veuillez d'abord saisir votre adresse e-mail ci-dessus.";
+    errorDiv.textContent = "Veuillez d'abord saisir votre adresse e-mail dans le champ ci-dessus.";
     errorDiv.style.display = "block";
     return;
   }
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  try {
+    const supabase = getSupabaseClient();
 
-  // Redirection explicite vers la page de réinitialisation
-  const redirectUrl = window.location.hostname.includes('github.io') 
-    ? 'https://pierre-l-hue.github.io/wiki-formation-ia/reinitialisation/'
-    : window.location.origin + '/reinitialisation/';
+    // Redirection vers la page de réinitialisation
+    const redirectUrl = window.location.hostname.includes('github.io') 
+      ? 'https://pierre-l-hue.github.io/wiki-formation-ia/reinitialisation/'
+      : window.location.origin + '/reinitialisation/';
 
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: redirectUrl,
-  });
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectUrl,
+    });
 
-  if (error) {
-    errorDiv.textContent = "Erreur lors de l'envoi : " + error.message;
+    if (error) {
+      errorDiv.textContent = "Erreur lors de l'envoi : " + error.message;
+      errorDiv.style.display = "block";
+    } else {
+      successDiv.textContent = "Un e-mail de réinitialisation vient de vous être envoyé !";
+      successDiv.style.display = "block";
+    }
+  } catch (err) {
+    errorDiv.textContent = "Erreur de configuration Supabase : " + err.message;
     errorDiv.style.display = "block";
-  } else {
-    successDiv.textContent = "Un e-mail de réinitialisation vient de vous être envoyé !";
-    successDiv.style.display = "block";
   }
 }
 </script>
