@@ -7,7 +7,7 @@
     Veuillez saisir votre nouveau mot de passe ci-dessous pour sécuriser votre compte.
   </p>
 
-  <div id="session-warning" style="display: block; background: #fff3cd; color: #856404; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center; margin-bottom: 1rem;">
+  <div id="session-warning" style="display: block; background: #fff3cd; color: #856404; padding: 12px; border-radius: 6px; font-size: 0.85rem; text-align: center; margin-bottom: 1rem;">
     ⏳ Validation du lien de sécurité en cours...
   </div>
 
@@ -34,10 +34,9 @@
 
 <script>
 const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk"; // <--- PASTE TA NOUVELLE CLÉ ANON ICI !
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk"; // <--- Mets ta nouvelle clé anon ici !
 
 let supabaseClient = null;
-let activeSession = null;
 
 function unlockForm() {
   const warning = document.getElementById('session-warning');
@@ -50,68 +49,76 @@ function unlockForm() {
   }
 }
 
-function showExpiredError() {
+function showError(msg) {
   const warning = document.getElementById('session-warning');
   if (warning) {
     warning.style.background = '#ffebee';
     warning.style.color = '#d32f2f';
-    warning.textContent = "⚠️ Lien expiré ou invalide. Veuillez refaire une demande depuis la page de connexion.";
+    warning.innerHTML = "⚠️ " + msg;
   }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function verifyAndInit() {
   if (!window.supabase) return;
 
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // 1. Écoute de la session via Supabase
+  // 1. Écoute directe des événements d'authentification Supabase
   supabaseClient.auth.onAuthStateChange((event, session) => {
+    console.log("Auth Event:", event);
     if (session) {
-      activeSession = session;
       unlockForm();
     }
   });
 
-  // 2. Traitement explicite des jetons dans l'URL (# ou ?)
+  // 2. Extraction du token/code dans l'URL
+  const fullUrl = window.location.href;
   const hashParams = new URLSearchParams(window.location.hash.substring(1));
   const searchParams = new URLSearchParams(window.location.search);
-  
+
   const accessToken = hashParams.get('access_token');
   const refreshToken = hashParams.get('refresh_token');
   const code = searchParams.get('code');
 
-  if (accessToken && refreshToken) {
-    const { data, error } = await supabaseClient.auth.setSession({
-      access_token: accessToken,
-      refresh_token: refreshToken
-    });
-    if (!error && data.session) {
-      activeSession = data.session;
-      unlockForm();
-      return;
-    }
-  } else if (code) {
-    const { data, error } = await supabaseClient.auth.exchangeCodeForSession(code);
-    if (!error && data.session) {
-      activeSession = data.session;
-      unlockForm();
-      return;
-    }
-  }
-
-  // 3. Fallback de sécurité si la session était déjà en cache
-  setTimeout(async () => {
-    if (!activeSession) {
-      const { data: { session } } = await supabaseClient.auth.getSession();
-      if (session) {
-        activeSession = session;
+  try {
+    if (accessToken && refreshToken) {
+      const { data, error } = await supabaseClient.auth.setSession({
+        access_token: accessToken,
+        refresh_token: refreshToken
+      });
+      if (!error && data.session) {
         unlockForm();
-      } else {
-        showExpiredError();
+        return;
+      }
+    } else if (code) {
+      const { data, error } = await supabaseClient.auth.exchangeCodeForSession(code);
+      if (!error && data.session) {
+        unlockForm();
+        return;
       }
     }
-  }, 2000);
-});
+
+    // 3. Si aucun paramètre n'est trouvé dans l'URL, vérifier si la session existe déjà
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+      unlockForm();
+    } else {
+      setTimeout(() => {
+        // Si toujours rien au bout de 2,5s
+        const currentSession = supabaseClient.auth.getSession();
+        currentSession.then(({ data }) => {
+          if (data.session) unlockForm();
+          else showError("Lien expiré ou invalide. Veuillez renvoyer une demande depuis la page de connexion.");
+        });
+      }, 2500);
+    }
+  } catch (err) {
+    showError("Erreur d'initialisation : " + err.message);
+  }
+}
+
+// Lancement immédiat
+verifyAndInit();
 
 async function handlePasswordUpdate(e) {
   e.preventDefault();
@@ -124,13 +131,6 @@ async function handlePasswordUpdate(e) {
   btn.textContent = "Mise à jour en cours...";
   errorDiv.style.display = "none";
   successDiv.style.display = "none";
-
-  if (!activeSession) {
-    errorDiv.textContent = "Aucune session active. Veuillez refaire une demande.";
-    errorDiv.style.display = "block";
-    btn.disabled = false;
-    return;
-  }
 
   const { error } = await supabaseClient.auth.updateUser({
     password: newPassword
