@@ -1,8 +1,8 @@
 // ==========================================
-// CONFIGURATION SUPABASE & NAVIGATION
+// CONFIGURATION SUPABASE & GITHUB PAGES
 // ==========================================
 const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJKV1QiLCJ9..."; // <--- Ta clé anon complète
+const SUPABASE_ANON_KEY = "eyJhbGciOiJKV1QiLCJ9..."; // <--- Remplace avec ta clé anon complète
 
 // Charger le SDK Supabase dynamiquement si non présent
 (function initSupabaseScript() {
@@ -18,39 +18,41 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJKV1QiLCJ9..."; // <--- Ta clé anon compl�
 
 async function initAuthCheck() {
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  
-  // Détection robuste de la page de connexion
+
+  // Helper pour obtenir les URLs relatives dynamiquement (GitHub Pages ou local)
+  const getUrl = (path) => {
+    const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
+    return window.location.origin + basePath + path;
+  };
+
+  // Détection des pages et des flux d'authentification
   const currentPath = window.location.pathname.toLowerCase();
-const isLoginPage = currentPath.includes('connexion') || currentPath.includes('reinitialisation');
+  const currentHash = window.location.hash.toLowerCase();
+  const currentSearch = window.location.search.toLowerCase();
 
-  // Déterminer le chemin de base dynamique (pour éviter les erreurs d'URL absolues)
-  const getConnexionUrl = () => {
-    // Si on est à la racine du sous-dossier GitHub Pages
-    if (window.location.hostname.includes('github.io')) {
-      return '/wiki-formation-ia/connexion/';
-    }
-    return '/connexion/';
-  };
+  const isLoginPage = currentPath.includes('connexion');
+  const isResetPage = currentPath.includes('reinitialisation');
+  const isRecoveryFlow = currentHash.includes('type=recovery') || currentSearch.includes('type=recovery');
 
-  const getHomeUrl = () => {
-    if (window.location.hostname.includes('github.io')) {
-      return '/wiki-formation-ia/';
-    }
-    return '/';
-  };
+  // Si l'utilisateur clique sur un lien de réinitialisation de mot de passe venant de son email
+  if (isRecoveryFlow && !isResetPage) {
+    window.location.href = getUrl('/reinitialisation/') + window.location.hash;
+    return;
+  }
 
   // Récupérer la session active
   const { data: { session } } = await supabase.auth.getSession();
 
   // 1. SI L'UTILISATEUR N'EST PAS CONNECTÉ
   if (!session) {
-    if (!isLoginPage) {
-      window.location.href = getConnexionUrl();
+    // Si on n'est ni sur la page de connexion ni sur la page de réinitialisation -> Redirection vers /connexion/
+    if (!isLoginPage && !isResetPage) {
+      window.location.href = getUrl('/connexion/');
     }
     return;
   }
 
-  // 2. VÉRIFICATION DE LA LICENCE
+  // 2. VÉRIFICATION DE LA LICENCE D'ACCÈS (TABLE 'profiles')
   const { data: profile, error } = await supabase
     .from('profiles')
     .select('expires_at, is_active')
@@ -61,26 +63,28 @@ const isLoginPage = currentPath.includes('connexion') || currentPath.includes('r
   const expiresAt = profile ? new Date(profile.expires_at) : null;
   const isExpired = expiresAt ? now > expiresAt : true;
 
+  // Si licence expirée, inactive ou profil introuvable
   if (error || !profile || !profile.is_active || isExpired) {
-    if (!isLoginPage) {
-      alert("Votre licence d'accès d'un an a expiré ou est inactive.");
+    // Si on est sur la page de réinitialisation, on laisse l'utilisateur changer son mot de passe
+    if (!isLoginPage && !isResetPage) {
+      alert("Votre licence d'accès d'un an a expiré ou est inactive. Contactez votre administrateur.");
       await supabase.auth.signOut();
-      window.location.href = getConnexionUrl();
+      window.location.href = getUrl('/connexion/');
     }
     return;
   }
 
-  // 3. SI CONNECTÉ ET VALIDE SUR LA PAGE DE LOGIN -> Redirection Accueil
+  // 3. SI CONNECTÉ ET VALIDE SUR LA PAGE DE LOGIN -> Redirection vers l'accueil
   if (isLoginPage) {
-    window.location.href = getHomeUrl();
+    window.location.href = getUrl('/');
     return;
   }
 
-  // 4. BOUTON DÉCONNEXION
-  injectLogoutButton(supabase, getConnexionUrl);
+  // 4. INJECTER LE BOUTON DÉCONNEXION
+  injectLogoutButton(supabase, getUrl);
 }
 
-function injectLogoutButton(supabase, getConnexionUrl) {
+function injectLogoutButton(supabase, getUrl) {
   let btn = document.getElementById('logout-btn');
   
   if (!btn) {
@@ -94,7 +98,7 @@ function injectLogoutButton(supabase, getConnexionUrl) {
       
       btn.onclick = async () => {
         await supabase.auth.signOut();
-        window.location.href = getConnexionUrl();
+        window.location.href = getUrl('/connexion/');
       };
 
       headerRight.parentNode.insertBefore(btn, headerRight);
