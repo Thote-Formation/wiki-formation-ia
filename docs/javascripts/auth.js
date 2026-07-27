@@ -1,94 +1,98 @@
-// ==========================================
-// CONFIGURATION SUPABASE & GITHUB PAGES
-// ==========================================
-const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJKV1QiLCJ9..."; // <--- Ta clé anon
+# Réinitialisation du mot de passe
 
-(function() {
-  const currentPath = window.location.pathname.toLowerCase();
-  const currentHash = window.location.hash.toLowerCase();
-  const currentSearch = window.location.search.toLowerCase();
+<div class="summary-box" style="max-width: 480px; margin: 2rem auto; padding: 2rem; border-radius: 12px; background: var(--md-card-bg-color, #ffffff); box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
 
-  // 🛑 SI ON EST SUR LA PAGE DE RÉINITIALISATION : ON STOPPE TOUT LE SCRIPT AUTH.JS
-  if (currentPath.includes('reinitialisation') || currentHash.includes('type=recovery') || currentSearch.includes('type=recovery')) {
-    console.log("Flux de réinitialisation détecté. auth.js désactivé sur cette page.");
-    return; // Stop net l'exécution du script d'authentification
+  <h2 style="margin-top: 0; text-align: center; font-size: 1.5rem;">🔑 Nouveau mot de passe</h2>
+  <p style="text-align: center; color: var(--md-default-fg-color--light); font-size: 0.9rem; margin-bottom: 1.5rem;">
+    Veuillez saisir votre nouveau mot de passe ci-dessous pour sécuriser votre compte.
+  </p>
+
+  <form id="reset-form" onsubmit="handlePasswordUpdate(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+    
+    <div>
+      <label for="new-password" style="display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem;">Nouveau mot de passe :</label>
+      <input type="password" id="new-password" required minlength="6" placeholder="••••••••" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
+    </div>
+
+    <div id="reset-error" style="display: none; color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
+    <div id="reset-success" style="display: none; color: #2e7d32; background: #e8f5e9; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
+
+    <button type="submit" id="reset-btn" style="width: 100%; padding: 12px; background: #1976d2; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem;">
+      Mettre à jour le mot de passe
+    </button>
+
+  </form>
+
+</div>
+
+<!-- SDK Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+let supabaseClient = null;
+
+// Initialisation de Supabase et capture de la session de récupération
+document.addEventListener('DOMContentLoaded', async () => {
+  if (window.supabase) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    // Écoute l'événement de récupération de mot de passe généré par Supabase
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        console.log("Mode récupération activé avec succès.");
+      }
+    });
+  }
+});
+
+async function handlePasswordUpdate(e) {
+  e.preventDefault();
+  const btn = document.getElementById('reset-btn');
+  const errorDiv = document.getElementById('reset-error');
+  const successDiv = document.getElementById('reset-success');
+  const newPassword = document.getElementById('new-password').value;
+
+  btn.disabled = true;
+  btn.textContent = "Mise à jour en cours...";
+  errorDiv.style.display = "none";
+  successDiv.style.display = "none";
+
+  if (!supabaseClient) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   }
 
-  // Sinon, charger le SDK Supabase et contrôler l'accès
-  if (!window.supabase) {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
-    script.onload = () => initAuthCheck();
-    document.head.appendChild(script);
-  } else {
-    initAuthCheck();
-  }
-})();
+  // Vérifier qu'une session existe (soit via le cookie/localStorage, soit via l'URL)
+  const { data: { session } } = await supabaseClient.auth.getSession();
 
-async function initAuthCheck() {
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  const getUrl = (path) => {
-    const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
-    return window.location.origin + basePath + path;
-  };
-
-  const currentPath = window.location.pathname.toLowerCase();
-  const isLoginPage = currentPath.includes('connexion');
-
-  // Obtenir la session active
-  const { data: { session } } = await supabase.auth.getSession();
-
-  // 1. NON CONNECTÉ
   if (!session) {
-    if (!isLoginPage) {
-      window.location.href = getUrl('/connexion/');
-    }
+    errorDiv.textContent = "La session de réinitialisation a expiré ou est invalide. Veuillez refaire une demande de mot de passe.";
+    errorDiv.style.display = "block";
+    btn.disabled = false;
+    btn.textContent = "Mettre à jour le mot de passe";
     return;
   }
 
-  // 2. CONNECTÉ : VÉRIFICATION DE LICENCE
-  const { data: profile, error } = await supabase
-    .from('profiles')
-    .select('expires_at, is_active')
-    .eq('id', session.user.id)
-    .maybeSingle();
+  // Appliquer le nouveau mot de passe à l'utilisateur connecté
+  const { error } = await supabaseClient.auth.updateUser({
+    password: newPassword
+  });
 
-  const now = new Date();
-  const expiresAt = profile ? new Date(profile.expires_at) : null;
-  const isExpired = expiresAt ? now > expiresAt : true;
+  if (error) {
+    errorDiv.textContent = "Erreur : " + error.message;
+    errorDiv.style.display = "block";
+    btn.disabled = false;
+    btn.textContent = "Mettre à jour le mot de passe";
+  } else {
+    successDiv.textContent = "Mot de passe modifié avec succès ! Redirection vers la connexion...";
+    successDiv.style.display = "block";
+    
+    // Déconnexion propre pour forcer la re-connexion avec le nouveau mdp
+    await supabaseClient.auth.signOut();
 
-  if (error || !profile || !profile.is_active || isExpired) {
-    alert("Votre licence d'accès a expiré ou est inactive.");
-    await supabase.auth.signOut();
-    window.location.href = getUrl('/connexion/');
-    return;
-  }
-
-  // Si déjà connecté et sur /connexion/ -> redirection accueil
-  if (isLoginPage) {
-    window.location.href = getUrl('/');
-    return;
-  }
-
-  injectLogoutButton(supabase, getUrl);
-}
-
-function injectLogoutButton(supabase, getUrl) {
-  let btn = document.getElementById('logout-btn');
-  if (!btn) {
-    const headerRight = document.querySelector('.md-header__option') || document.querySelector('.md-search');
-    if (headerRight && headerRight.parentNode) {
-      btn = document.createElement('button');
-      btn.id = 'logout-btn';
-      btn.className = 'header-logout-btn';
-      btn.textContent = 'Déconnexion 🚪';
-      btn.onclick = async () => {
-        await supabase.auth.signOut();
-        window.location.href = getUrl('/connexion/');
-      };
-      headerRight.parentNode.insertBefore(btn, headerRight);
-    }
+    setTimeout(() => {
+      const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
+      window.location.href = window.location.origin + basePath + '/connexion/';
+    }, 2000);
   }
 }
+</script>
