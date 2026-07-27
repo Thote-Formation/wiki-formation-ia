@@ -2,9 +2,20 @@
 // CONFIGURATION SUPABASE & GITHUB PAGES
 // ==========================================
 const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJKV1QiLCJ9..."; // <--- Mets ta vraie clé anon ici !
+const SUPABASE_ANON_KEY = "eyJhbGciOiJKV1QiLCJ9..."; // <--- Ta clé anon
 
-(function initSupabaseScript() {
+(function() {
+  const currentPath = window.location.pathname.toLowerCase();
+  const currentHash = window.location.hash.toLowerCase();
+  const currentSearch = window.location.search.toLowerCase();
+
+  // 🛑 SI ON EST SUR LA PAGE DE RÉINITIALISATION : ON STOPPE TOUT LE SCRIPT AUTH.JS
+  if (currentPath.includes('reinitialisation') || currentHash.includes('type=recovery') || currentSearch.includes('type=recovery')) {
+    console.log("Flux de réinitialisation détecté. auth.js désactivé sur cette page.");
+    return; // Stop net l'exécution du script d'authentification
+  }
+
+  // Sinon, charger le SDK Supabase et contrôler l'accès
   if (!window.supabase) {
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
@@ -24,21 +35,7 @@ async function initAuthCheck() {
   };
 
   const currentPath = window.location.pathname.toLowerCase();
-  const currentHash = window.location.hash.toLowerCase();
-  const currentSearch = window.location.search.toLowerCase();
-
   const isLoginPage = currentPath.includes('connexion');
-  const isResetPage = currentPath.includes('reinitialisation');
-  const hasRecoveryToken = currentHash.includes('type=recovery') || currentSearch.includes('type=recovery') || currentHash.includes('access_token=') || currentSearch.includes('code=');
-
-  // 🛑 RÈGLE D'OR : Si on est sur la page de réinitialisation OU qu'un jeton est dans l'URL, ON NE REDIRIGE JAMAIS !
-  if (isResetPage || hasRecoveryToken) {
-    // Si l'URL a un jeton mais qu'on n'est pas encore sur /reinitialisation/, on l'y emmène avec ses paramètres
-    if (hasRecoveryToken && !isResetPage) {
-      window.location.href = getUrl('/reinitialisation/') + window.location.hash + window.location.search;
-    }
-    return;
-  }
 
   // Obtenir la session active
   const { data: { session } } = await supabase.auth.getSession();
@@ -69,7 +66,7 @@ async function initAuthCheck() {
     return;
   }
 
-  // Si déjà connecté et sur la page de connexion -> redirection accueil
+  // Si déjà connecté et sur /connexion/ -> redirection accueil
   if (isLoginPage) {
     window.location.href = getUrl('/');
     return;
