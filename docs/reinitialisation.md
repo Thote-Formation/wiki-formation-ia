@@ -7,6 +7,10 @@
     Veuillez saisir votre nouveau mot de passe ci-dessous pour sécuriser votre compte.
   </p>
 
+  <div id="session-warning" style="display: block; background: #fff3cd; color: #856404; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center; margin-bottom: 1rem;">
+    ⏳ Validation du lien de sécurité en cours...
+  </div>
+
   <form id="reset-form" onsubmit="handlePasswordUpdate(event)" style="display: flex; flex-direction: column; gap: 1rem;">
     
     <div>
@@ -17,7 +21,7 @@
     <div id="reset-error" style="display: none; color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
     <div id="reset-success" style="display: none; color: #2e7d32; background: #e8f5e9; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
 
-    <button type="submit" id="reset-btn" style="width: 100%; padding: 12px; background: #1976d2; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem;">
+    <button type="submit" id="reset-btn" disabled style="width: 100%; padding: 12px; background: #ccc; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: not-allowed; transition: background 0.2s; margin-top: 0.5rem;">
       Mettre à jour le mot de passe
     </button>
 
@@ -25,47 +29,61 @@
 
 </div>
 
-<!-- Chargement unique du SDK Supabase JS -->
+<!-- SDK Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-// Clés d'accès Supabase (Variables explicites pour éviter tout problème de scope)
 const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk
 
 Service role
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NTEzODMxMiwiZXhwIjoyMTAwNzE0MzEyfQ.-GooX8cqZtGgMWXEf_Il1sLSPqc70VZh64TE3VHRypc"; // <--- Remplace par ta vraie clé anon
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NTEzODMxMiwiZXhwIjoyMTAwNzE0MzEyfQ.-GooX8cqZtGgMWXEf_Il1sLSPqc70VZh64TE3VHRypc"; // <--- Mets ta clé anon ici
 
 let supabaseClient = null;
-let isSessionReady = false;
+let activeSession = null;
 
-document.addEventListener('DOMContentLoaded', async () => {
+function unlockForm() {
+  const warning = document.getElementById('session-warning');
+  const btn = document.getElementById('reset-btn');
+  if (warning) warning.style.display = 'none';
+  if (btn) {
+    btn.disabled = false;
+    btn.style.background = '#1976d2';
+    btn.style.cursor = 'pointer';
+  }
+}
+
+// Initialisation immédiate
+(function initRecovery() {
   if (!window.supabase) return;
 
-  // Création unique de l'instance Supabase
   supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // Écoute de l'état d'authentification fourni par Supabase
-  supabaseClient.auth.onAuthStateChange(async (event, session) => {
-    if (event === 'PASSWORD_RECOVERY' || session) {
-      isSessionReady = true;
-      console.log("Session de réinitialisation validée.");
+  // 1. Écouter les événements d'authentification en continu
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    console.log("Événement Auth détecté :", event);
+    if (session) {
+      activeSession = session;
+      unlockForm();
     }
   });
 
-  // Vérification si un hash d'ancienne version (#access_token=...) est présent
-  const hashParams = new URLSearchParams(window.location.hash.substring(1));
-  const accessToken = hashParams.get('access_token');
-  const refreshToken = hashParams.get('refresh_token');
-
-  if (accessToken && refreshToken) {
-    const { error } = await supabaseClient.auth.setSession({
-      access_token: accessToken,
-      refresh_token: refreshToken
-    });
-    if (!error) isSessionReady = true;
-  }
-});
+  // 2. Vérification secours immédiate
+  setTimeout(async () => {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+      activeSession = session;
+      unlockForm();
+    } else {
+      const warning = document.getElementById('session-warning');
+      if (warning && !activeSession) {
+        warning.style.background = '#ffebee';
+        warning.style.color = '#d32f2f';
+        warning.textContent = "⚠️ Lien expiré ou invalide. Veuillez refaire une demande depuis la page de connexion.";
+      }
+    }
+  }, 1500);
+})();
 
 async function handlePasswordUpdate(e) {
   e.preventDefault();
@@ -79,22 +97,14 @@ async function handlePasswordUpdate(e) {
   errorDiv.style.display = "none";
   successDiv.style.display = "none";
 
-  if (!supabaseClient && window.supabase) {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  }
-
-  // Tenter de récupérer la session active si l'événement ne l'a pas encore fait
-  const { data: { session } } = await supabaseClient.auth.getSession();
-
-  if (!session && !isSessionReady) {
-    errorDiv.textContent = "La session a expiré ou le lien est invalide. Veuillez effectuer une nouvelle demande.";
+  if (!activeSession) {
+    errorDiv.textContent = "Aucune session active détectée. Veuillez refaire une demande.";
     errorDiv.style.display = "block";
     btn.disabled = false;
-    btn.textContent = "Mettre à jour le mot de passe";
     return;
   }
 
-  // Application de la mise à jour du mot de passe
+  // Mise à jour explicite du mot de passe
   const { error } = await supabaseClient.auth.updateUser({
     password: newPassword
   });
@@ -105,10 +115,9 @@ async function handlePasswordUpdate(e) {
     btn.disabled = false;
     btn.textContent = "Mettre à jour le mot de passe";
   } else {
-    successDiv.textContent = "Mot de passe modifié avec succès ! Redirection vers la connexion...";
+    successDiv.textContent = "Mot de passe modifié avec succès ! Redirection...";
     successDiv.style.display = "block";
-
-    // Fermeture de la session temporaire
+    
     await supabaseClient.auth.signOut();
 
     setTimeout(() => {
