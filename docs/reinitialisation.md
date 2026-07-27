@@ -25,6 +25,9 @@
 
 </div>
 
+<!-- Charger le SDK Supabase manuellement sur cette page -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 async function handlePasswordUpdate(e) {
   e.preventDefault();
@@ -37,6 +40,14 @@ async function handlePasswordUpdate(e) {
   btn.textContent = "Mise à jour en cours...";
   errorDiv.style.display = "none";
   successDiv.style.display = "none";
+
+  if (!window.supabase) {
+    errorDiv.textContent = "Erreur de chargement des dépendances. Veuillez rafraîchir la page.";
+    errorDiv.style.display = "block";
+    btn.disabled = false;
+    btn.textContent = "Mettre à jour le mot de passe";
+    return;
+  }
 
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
