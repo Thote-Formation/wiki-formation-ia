@@ -15,11 +15,15 @@
     </div>
 
     <div>
-      <label for="password" style="display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem;">Mot de passe :</label>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+        <label for="password" style="font-weight: 600; font-size: 0.85rem;">Mot de passe :</label>
+        <a href="#" onclick="handleForgotPassword(event)" style="font-size: 0.8rem; color: #1976d2; text-decoration: none;">Mot de passe oublié ?</a>
+      </div>
       <input type="password" id="password" required placeholder="••••••••" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
     </div>
 
     <div id="login-error" style="display: none; color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
+    <div id="login-success" style="display: none; color: #2e7d32; background: #e8f5e9; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
 
     <button type="submit" id="login-btn" style="width: 100%; padding: 12px; background: #1976d2; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem;">
       Se connecter
@@ -28,7 +32,7 @@
   </form>
 
   <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.1); font-size: 0.75rem; color: #666; line-height: 1.4; text-align: center;">
-    ⚖️ <strong>RGPD & Confidentialité :</strong> Vos identifiants sont strictement confidentiels et hébergés dans l'UE. Votre licence d'accès individuelle est accordée pour une durée de 1 an à compter de sa création.
+    ⚖️ <strong>RGPD & Confidentialité :</strong> Vos identifiants sont strictly confidentiels et hébergés dans l'UE. Votre licence d'accès individuelle est accordée pour une durée de 1 an à compter de sa création.
   </div>
 
 </div>
@@ -38,12 +42,14 @@ async function handleLogin(e) {
   e.preventDefault();
   const btn = document.getElementById('login-btn');
   const errorDiv = document.getElementById('login-error');
+  const successDiv = document.getElementById('login-success');
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
   btn.disabled = true;
   btn.textContent = "Vérification...";
   errorDiv.style.display = "none";
+  successDiv.style.display = "none";
 
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -55,8 +61,44 @@ async function handleLogin(e) {
     btn.disabled = false;
     btn.textContent = "Se connecter";
   } else {
-    // La vérification de licence et redirection se fait par auth.js
-    window.location.href = window.location.origin + '/';
+    const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
+    window.location.href = window.location.origin + basePath + '/';
+  }
+}
+
+// GESTION DU MOT DE PASSE OUBLIÉ
+async function handleForgotPassword(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const errorDiv = document.getElementById('login-error');
+  const successDiv = document.getElementById('login-success');
+
+  errorDiv.style.display = "none";
+  successDiv.style.display = "none";
+
+  if (!email) {
+    errorDiv.textContent = "Veuillez d'abord saisir votre adresse e-mail ci-dessus.";
+    errorDiv.style.display = "block";
+    return;
+  }
+
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // Redirection explicite vers la page de réinitialisation
+  const redirectUrl = window.location.hostname.includes('github.io') 
+    ? 'https://pierre-l-hue.github.io/wiki-formation-ia/reinitialisation/'
+    : window.location.origin + '/reinitialisation/';
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: redirectUrl,
+  });
+
+  if (error) {
+    errorDiv.textContent = "Erreur lors de l'envoi : " + error.message;
+    errorDiv.style.display = "block";
+  } else {
+    successDiv.textContent = "Un e-mail de réinitialisation vient de vous être envoyé !";
+    successDiv.style.display = "block";
   }
 }
 </script>
