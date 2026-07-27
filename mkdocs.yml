@@ -39,6 +39,7 @@ theme:
     - toc.integrate
 
 extra_javascript:
+  - javascripts/auth.js
   - javascripts/progress.js
   - javascripts/time-tracker.js
   - javascripts/prompt-generator.js
