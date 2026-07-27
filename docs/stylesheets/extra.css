@@ -422,3 +422,36 @@
     min-height: 130px;
   }
 }
+/* =========================
+   Badge temps passé dans le Header
+   ========================= */
+
+.header-time-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  margin-right: 12px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+  user-select: none;
+}
+
+/* En mode sombre (Slate) */
+[data-md-color-scheme="slate"] .header-time-badge {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Responsive mobile : masquer sur très petit écran si besoin */
+@media screen and (max-width: 400px) {
+  .header-time-badge {
+    display: none;
+  }
+}
