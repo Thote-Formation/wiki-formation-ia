@@ -613,6 +613,164 @@ a[href*="reset"] {
   font-weight: 700 !important;
   letter-spacing: 0.5px;
 }
+/* ==========================================================================
+   NETTOYAGE & FIX TOTAL — FORMULAIRE D'AUTHENTIFICATION
+   ========================================================================== */
+
+/* Conteneur Carte */
+.auth-card {
+  display: block !important;
+  max-width: 460px !important;
+  margin: 2rem auto !important;
+  padding: 2rem !important;
+  border-radius: 16px !important;
+  background-color: var(--md-default-bg-color, #1e293b) !important;
+  border: 1px solid var(--md-default-fg-color--lightest, #334155) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+  box-sizing: border-box !important;
+}
+
+/* Titres & Sous-titres */
+.auth-card .auth-title {
+  display: block !important;
+  text-align: center !important;
+  font-size: 1.5rem !important;
+  margin: 0 0 0.5rem 0 !important;
+  color: var(--md-typeset-color, #ffffff) !important;
+}
+
+.auth-card .auth-subtitle {
+  display: block !important;
+  text-align: center !important;
+  font-size: 0.9rem !important;
+  margin-bottom: 1.5rem !important;
+  color: var(--md-default-fg-color--light, #cbd5e1) !important;
+  opacity: 0.9 !important;
+}
+
+/* Formulaire & Champs */
+.auth-form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.2rem !important;
+  width: 100% !important;
+}
+
+.auth-field {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+}
+
+.auth-field label {
+  display: block !important;
+  font-weight: 600 !important;
+  font-size: 0.88rem !important;
+  margin-bottom: 0.4rem !important;
+  color: var(--md-typeset-color, #ffffff) !important;
+}
+
+.auth-password-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-bottom: 0.4rem !important;
+}
+
+.auth-password-header label {
+  margin-bottom: 0 !important;
+}
+
+/* Lien / Bouton Mot de passe oublié */
+.forgot-btn {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  text-decoration: underline !important;
+  color: #38bdf8 !important; /* Cyan haut contraste */
+}
+
+.forgot-btn:hover {
+  color: #7dd3fc !important;
+}
+
+/* Inputs (Élimine le champ minuscule) */
+.auth-field input {
+  display: block !important;
+  width: 100% !important;
+  padding: 12px 14px !important;
+  border-radius: 8px !important;
+  font-size: 0.95rem !important;
+  box-sizing: border-box !important;
+  background-color: var(--md-code-bg-color, #0f172a) !important;
+  color: #ffffff !important;
+  border: 1.5px solid #475569 !important;
+  height: auto !important;
+}
+
+.auth-field input:focus {
+  outline: none !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
+}
+
+/* Bouton principal */
+.auth-submit-btn {
+  display: block !important;
+  width: 100% !important;
+  padding: 12px !important;
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+  transition: background 0.2s !important;
+  margin-top: 0.5rem !important;
+  box-sizing: border-box !important;
+}
+
+.auth-submit-btn:hover {
+  background-color: #1d4ed8 !important;
+}
+
+/* Messages d'alerte */
+.auth-alert {
+  display: none;
+  padding: 10px !important;
+  border-radius: 6px !important;
+  font-size: 0.85rem !important;
+  text-align: center !important;
+}
+
+.auth-alert.error {
+  background-color: #450a0a !important;
+  color: #fca5a5 !important;
+  border: 1px solid #991b1b !important;
+}
+
+.auth-alert.success {
+  background-color: #052e16 !important;
+  color: #86efac !important;
+  border: 1px solid #166534 !important;
+}
+
+/* Footer RGPD */
+.auth-footer {
+  display: block !important;
+  margin-top: 1.5rem !important;
+  padding-top: 1rem !important;
+  border-top: 1px solid var(--md-default-fg-color--lightest, #334155) !important;
+  font-size: 0.78rem !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+  color: #cbd5e1 !important; /* Gris clair garanti lisible */
+}
 
 .auth-container button:hover {
   background-color: #1d4ed8 !important;
