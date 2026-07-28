@@ -1,3 +1,43 @@
+/* ==========================================================================
+   1. AMÉLIORATIONS GLOBALES DE LISIBILITÉ & ACCESSIBILITÉ (WCAG 2.1 AA / FALC)
+   ========================================================================== */
+
+:root {
+  /* Renforcement des contrastes globaux */
+  --md-default-fg-color--light: #374151; /* Gris plus foncé pour les paragraphes (Ratio > 4.5:1) */
+  --md-code-bg-color: #f1f5f9;
+}
+
+/* Typographie Aérée (Lisibilité FALC / Dyslexie) */
+body {
+  font-size: 1rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+h1, h2, h3, h4 {
+  color: #0f172a !important;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+[data-md-color-scheme="slate"] h1,
+[data-md-color-scheme="slate"] h2,
+[data-md-color-scheme="slate"] h3,
+[data-md-color-scheme="slate"] h4 {
+  color: #ffffff !important;
+}
+
+/* Focus Clavier ultra-visible (Obligatoire RGAA / WCAG) */
+*:focus-visible {
+  outline: 3px solid #d84315 !important;
+  outline-offset: 3px !important;
+}
+
+/* ==========================================================================
+   2. ACCUEIL ET GRILLES DE CARTES
+   ========================================================================== */
+
 .home-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -9,7 +49,7 @@
 .home-card-static {
   display: block;
   padding: 20px;
-  border: 1px solid var(--md-default-fg-color--lightest);
+  border: 2px solid var(--md-default-fg-color--lightest);
   border-radius: 14px;
   background: var(--md-default-bg-color);
   color: var(--md-typeset-color);
@@ -20,7 +60,7 @@
 .home-card:hover {
   transform: translateY(-3px);
   border-color: var(--md-primary-fg-color);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
   text-decoration: none;
 }
 
@@ -28,12 +68,14 @@
 .home-card-static h3 {
   margin-top: 8px;
   margin-bottom: 8px;
+  color: #0d47a1 !important; /* Bleu foncé WCAG */
 }
 
 .home-card p,
 .home-card-static p {
   margin-bottom: 0;
-  color: var(--md-default-fg-color--light);
+  color: #334155; /* Plus lisible qu'un gris clair */
+  font-weight: 500;
 }
 
 .home-card-icon {
@@ -50,8 +92,8 @@
 
 .home-button {
   display: inline-block;
-  padding: 10px 16px;
-  border: 1px solid var(--md-primary-fg-color);
+  padding: 10px 18px;
+  border: 2px solid var(--md-primary-fg-color);
   border-radius: 999px;
   color: var(--md-primary-fg-color);
   font-weight: 700;
@@ -61,23 +103,23 @@
 
 .home-button:hover {
   background: var(--md-primary-fg-color);
-  color: var(--md-primary-bg-color);
+  color: #ffffff;
   transform: translateY(-2px);
   text-decoration: none;
 }
 
 .home-button.primary {
   background: var(--md-primary-fg-color);
-  color: var(--md-primary-bg-color);
+  color: #ffffff !important;
 }
 
 .home-button.primary:hover {
-  filter: brightness(0.95);
+  filter: brightness(0.9);
 }
 
-/* =========================
-   Composants réutilisables
-   ========================= */
+/* ==========================================================================
+   3. COMPOSANTS RÉUTILISABLES & CARTES WIKI
+   ========================================================================== */
 
 .wiki-grid {
   display: grid;
@@ -88,7 +130,7 @@
 
 .wiki-card {
   padding: 20px;
-  border: 1px solid var(--md-default-fg-color--lightest);
+  border: 2px solid var(--md-default-fg-color--lightest);
   border-radius: 16px;
   background: var(--md-default-bg-color);
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
@@ -107,46 +149,58 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   border-radius: 14px;
   font-size: 24px;
-  background: rgba(33, 150, 243, 0.12);
+  background: rgba(13, 71, 161, 0.12);
   margin-bottom: 10px;
 }
 
-/* =========================
-   Blocs pratiques
-   ========================= */
+/* ==========================================================================
+   4. BLOCS PRATIQUES & ENCADRÉS (HAUT CONTRASTE)
+   ========================================================================== */
 
 .real-life-box,
 .good-reflex-box,
 .warning-practice-box,
 .summary-box {
   padding: 18px 20px;
-  border-radius: 14px;
+  border-radius: 12px;
   margin: 22px 0;
-  border-left: 5px solid;
+  border-left: 6px solid;
+  color: #1e293b;
 }
 
+[data-md-color-scheme="slate"] .real-life-box,
+[data-md-color-scheme="slate"] .good-reflex-box,
+[data-md-color-scheme="slate"] .warning-practice-box,
+[data-md-color-scheme="slate"] .summary-box {
+  color: #f8fafc;
+}
+
+/* Cas réel (Bleu) */
 .real-life-box {
-  background: rgba(33, 150, 243, 0.10);
-  border-left-color: #2196f3;
+  background: #eff6ff;
+  border-left-color: #1d4ed8;
 }
 
+/* Bon réflexe (Vert) */
 .good-reflex-box {
-  background: rgba(76, 175, 80, 0.12);
-  border-left-color: #4caf50;
+  background: #f0fdf4;
+  border-left-color: #15803d;
 }
 
+/* Vigilance / Piège (Orange/Jaune) */
 .warning-practice-box {
-  background: rgba(255, 152, 0, 0.14);
-  border-left-color: #ff9800;
+  background: #fffbebfb;
+  border-left-color: #b45309;
 }
 
+/* Résumé / Synthèse (Violet) */
 .summary-box {
-  background: rgba(103, 58, 183, 0.10);
-  border-left-color: #673ab7;
+  background: #faf5ff;
+  border-left-color: #6b21a8;
 }
 
 .real-life-box h3,
@@ -155,9 +209,15 @@
 .summary-box h3 {
   margin-top: 0;
   margin-bottom: 8px;
+  font-size: 1.15rem;
 }
 
-/* Correction affichage listes dans les blocs */
+.real-life-box h3 { color: #1e40af !important; }
+.good-reflex-box h3 { color: #166534 !important; }
+.warning-practice-box h3 { color: #92400e !important; }
+.summary-box h3 { color: #581c87 !important; }
+
+/* Listes dans les blocs */
 .real-life-box ul,
 .good-reflex-box ul,
 .warning-practice-box ul,
@@ -172,47 +232,45 @@
 .warning-practice-box li,
 .summary-box li {
   margin-bottom: 6px;
+  font-weight: 500;
 }
 
-.real-life-box p:last-child,
-.good-reflex-box p:last-child,
-.warning-practice-box p:last-child,
-.summary-box p:last-child {
-  margin-bottom: 0;
-}
-
-/* =========================
-   Badges
-   ========================= */
+/* ==========================================================================
+   5. BADGES HAUT CONTRASTE
+   ========================================================================== */
 
 .wiki-badge {
   display: inline-block;
-  padding: 4px 9px;
+  padding: 4px 10px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 0.8rem;
   font-weight: 700;
-  background: rgba(33, 150, 243, 0.12);
-  color: #1a5fb4;
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #93c5fd;
 }
 
 .wiki-badge.success {
-  background: rgba(76, 175, 80, 0.14);
-  color: #2e7d32;
+  background: #dcfce7;
+  color: #14532d;
+  border: 1px solid #86efac;
 }
 
 .wiki-badge.warning {
-  background: rgba(255, 152, 0, 0.16);
-  color: #b85c00;
+  background: #fef3c7;
+  color: #78350f;
+  border: 1px solid #fde047;
 }
 
 .wiki-badge.danger {
-  background: rgba(198, 40, 40, 0.12);
-  color: #c62828;
+  background: #fee2e2;
+  color: #7f1d1d;
+  border: 1px solid #fca5a5;
 }
 
-/* =========================
-   Boutons réutilisables
-   ========================= */
+/* ==========================================================================
+   6. BOUTONS RÉUTILISABLES
+   ========================================================================== */
 
 .wiki-actions {
   display: flex;
@@ -223,8 +281,8 @@
 
 .wiki-button {
   display: inline-block;
-  padding: 10px 16px;
-  border: 1px solid var(--md-primary-fg-color);
+  padding: 10px 18px;
+  border: 2px solid var(--md-primary-fg-color);
   border-radius: 999px;
   color: var(--md-primary-fg-color);
   font-weight: 700;
@@ -234,38 +292,46 @@
 
 .wiki-button:hover {
   background: var(--md-primary-fg-color);
-  color: var(--md-primary-bg-color);
+  color: #ffffff !important;
   transform: translateY(-2px);
   text-decoration: none;
 }
 
 .wiki-button.primary {
   background: var(--md-primary-fg-color);
-  color: var(--md-primary-bg-color);
+  color: #ffffff !important;
 }
 
-/* =========================
-   Tables plus lisibles
-   ========================= */
+/* ==========================================================================
+   7. TABLEAUX PLUS LISIBLES (WCAG)
+   ========================================================================== */
 
 .md-typeset table:not([class]) {
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
+  border: 1px solid #cbd5e1;
+  font-size: 0.95rem;
 }
 
 .md-typeset table:not([class]) th {
-  background: rgba(33, 150, 243, 0.10);
+  background: #0d47a1 !important;
+  color: #ffffff !important;
   font-weight: 700;
+  padding: 12px;
 }
 
-/* =========================
-   Générateur de prompt
-   ========================= */
+.md-typeset table:not([class]) td {
+  padding: 10px 12px;
+}
+
+/* ==========================================================================
+   8. GÉNÉRATEUR DE PROMPT
+   ========================================================================== */
 
 .prompt-generator {
-  padding: 20px;
+  padding: 22px;
   margin: 24px 0;
-  border: 1px solid var(--md-default-fg-color--lightest);
+  border: 2px solid var(--md-default-fg-color--lightest);
   border-radius: 16px;
   background: var(--md-default-bg-color);
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
@@ -274,24 +340,28 @@
 .prompt-generator-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 14px;
+  gap: 16px;
   margin-bottom: 16px;
 }
 
 .prompt-generator label {
   display: block;
   margin-bottom: 6px;
-  font-size: 13px;
+  font-size: 0.85rem;
   font-weight: 700;
-  color: var(--md-default-fg-color--light);
+  color: #1e293b;
+}
+
+[data-md-color-scheme="slate"] .prompt-generator label {
+  color: #f1f5f9;
 }
 
 .prompt-generator input,
 .prompt-generator textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid var(--md-default-fg-color--lightest);
-  border-radius: 10px;
+  border: 1px solid #94a3b8;
+  border-radius: 8px;
   background: var(--md-code-bg-color);
   color: var(--md-typeset-color);
   font: inherit;
@@ -302,7 +372,7 @@
 .prompt-generator textarea:focus {
   outline: none;
   border-color: var(--md-primary-fg-color);
-  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.12);
+  box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.25);
 }
 
 .prompt-generator textarea {
@@ -324,19 +394,42 @@
 
 .prompt-generator .wiki-button.primary {
   background: var(--md-primary-fg-color);
-  color: var(--md-primary-bg-color) !important;
-  border: 1px solid var(--md-primary-fg-color);
+  color: #ffffff !important;
+  border: 2px solid var(--md-primary-fg-color);
 }
 
-.prompt-generator .wiki-button.primary:hover,
-.prompt-generator .wiki-button.primary:focus,
-.prompt-generator .wiki-button.primary:active {
-  color: var(--md-primary-bg-color) !important;
+/* ==========================================================================
+   9. BOUTONS HEADER ACCESSIBLES (Chrono & Déconnexion)
+   ========================================================================== */
+
+.header-time-badge,
+.header-admin-btn,
+.header-logout-btn {
+  background: #002b66 !important; /* Bleu très sombre pour trancher */
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  padding: 6px 14px !important;
+  border-radius: 999px !important;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* =========================
-   Navigation latérale
-   ========================= */
+.header-logout-btn:hover {
+  background: #dc2626 !important; /* Rouge vif au survol */
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.header-admin-btn:hover {
+  background: #ffffff !important;
+  color: #002b66 !important;
+}
+
+/* ==========================================================================
+   10. NAVIGATION LATÉRALE ET RESPONSIVE
+   ========================================================================== */
 
 @media screen and (min-width: 76.25em) {
   .md-sidebar--primary {
@@ -363,7 +456,7 @@
 
   .md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
     font-weight: 700;
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     letter-spacing: 0.01em;
   }
 
@@ -373,36 +466,24 @@
   }
 
   .md-nav--primary .md-nav__item .md-nav__link {
-    padding-top: 0.22rem;
-    padding-bottom: 0.22rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
     border-radius: 8px;
   }
 
-  .md-nav--primary .md-nav__item--nested > .md-nav__link {
-    font-weight: 600;
-  }
-
-  .md-nav--primary .md-nav__item--nested > nav.md-nav {
-    margin-top: 0.3rem;
-    margin-bottom: 0.45rem;
-  }
-
   .md-nav__link--active {
-    background: rgba(33, 150, 243, 0.08);
-    padding-left: 0.4rem;
+    background: rgba(13, 71, 161, 0.12) !important;
+    font-weight: 700 !important;
+    padding-left: 0.5rem;
   }
 }
 
-/* =========================
-   Responsive
-   ========================= */
-
 @media (max-width: 700px) {
-  .wiki-grid {
+  .wiki-grid, .home-grid {
     grid-template-columns: 1fr;
   }
 
-  .wiki-card {
+  .wiki-card, .home-card {
     padding: 18px;
   }
 
@@ -414,63 +495,7 @@
     padding: 16px;
   }
 
-  .prompt-generator-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .prompt-generator textarea {
-    min-height: 130px;
-  }
-}
-/* =========================
-   Badge temps passé dans le Header
-   ========================= */
-
-.header-time-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 12px;
-  margin-right: 12px;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 999px;
-  color: #ffffff;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  white-space: nowrap;
-  backdrop-filter: blur(4px);
-  user-select: none;
-}
-
-/* En mode sombre (Slate) */
-[data-md-color-scheme="slate"] .header-time-badge {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-/* Responsive mobile : masquer sur très petit écran si besoin */
-@media screen and (max-width: 400px) {
   .header-time-badge {
     display: none;
   }
-}
-.header-logout-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: #fff;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-right: 8px;
-  transition: background 0.2s;
-}
-/* =========================
- DECONNEXION
-   ========================= */
-.header-logout-btn:hover {
-  background: rgba(255, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.6);
 }
