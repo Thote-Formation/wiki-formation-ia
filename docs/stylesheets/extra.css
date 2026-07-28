@@ -572,3 +572,48 @@ select {
   border-color: #334155 !important;
   color: #f8fafc !important;
 }
+/* ==========================================================================
+   CORRECTION ACCESSIBILITÉ — FORMULAIRE DE CONNEXION
+   ========================================================================== */
+
+/* 1. Texte du bloc RGPD & Confidentialité */
+.auth-footer, 
+.auth-container p:last-child,
+div[style*="RGPD"] {
+  color: #cbd5e1 !important; /* Gris très clair / blanc cassé (Ratio > 7:1) */
+  font-size: 0.85rem !important;
+  line-height: 1.5 !important;
+  opacity: 1 !important;
+}
+
+/* 2. Lien Mot de Passe Oublié */
+.auth-container a,
+a[href*="reset"] {
+  color: #38bdf8 !important; /* Cyan lumineux à haut contraste */
+  text-decoration: underline !important; /* Indispensable pour l'accessibilité */
+  font-weight: 600 !important;
+}
+
+.auth-container a:hover {
+  color: #7dd3fc !important;
+}
+
+/* 3. Champs de saisie & Bordures */
+.auth-container input {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+  border: 1.5px solid #64748b !important; /* Bordure nette pour délimiter le champ */
+}
+
+/* 4. Bouton principal (Se connecter) */
+.auth-container button,
+.auth-container input[type="submit"] {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px;
+}
+
+.auth-container button:hover {
+  background-color: #1d4ed8 !important;
+}
