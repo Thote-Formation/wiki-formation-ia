@@ -480,16 +480,22 @@ code, pre, .md-typeset code, .md-typeset pre {
 }
 
 /* ==========================================================================
-   10. NAVIGATION LATÉRALE PRO & DÉPLIANTE (LIGHT & DARK)
+   10. NAVIGATION LATÉRALE ACCORDÉON PRO (COMPATIBLE TABS)
    ========================================================================== */
 
-/* Réinitialisation propre */
+/* Masquer l'en-tête dupliqué généré par navigation.tabs */
+.md-sidebar--primary .md-nav--primary > .md-nav__title {
+  display: none !important;
+}
+
+/* Réinitialisation globale des liens de navigation */
 .md-nav__link {
   color: var(--md-typeset-color) !important;
   font-weight: 400 !important;
   transition: color 0.15s ease;
   border: none !important;
   background: transparent !important;
+  padding: 6px 0 !important;
 }
 
 /* Hover universel */
@@ -497,41 +503,32 @@ code, pre, .md-typeset code, .md-typeset pre {
   color: var(--md-primary-fg-color) !important;
 }
 
-/* NIVEAU 1 : Grand Titre de Section (ex: RESSOURCES) */
-.md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
-  font-family: 'Poppins', sans-serif !important;
-  font-weight: 700 !important;
-  font-size: 0.85rem;
-  color: #64748b !important; /* Gris sobre pour ne pas déranger */
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding-top: 1.2rem;
-}
-
-[data-md-color-scheme="slate"] .md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
-  color: #94a3b8 !important;
-}
-
-/* NIVEAU 2 : Catégories Parentes dépliables (ex: Cas pratiques, Outils d'IA) */
+/* NIVEAU 2 : Catégories parentes (Cas pratiques, Templates, Outils...) */
 .md-nav__item--nested > .md-nav__link {
+  font-family: 'Poppins', sans-serif !important;
   font-weight: 600 !important;
   font-size: 0.9rem;
-  color: var(--md-typeset-color) !important;
-  padding: 6px 0;
+  color: #1e293b !important;
+  margin-top: 8px;
+  cursor: pointer;
 }
 
-/* NIVEAU 3 : Sous-pages (ex: Assistant administratif) */
+[data-md-color-scheme="slate"] .md-nav__item--nested > .md-nav__link {
+  color: #f1f5f9 !important;
+}
+
+/* NIVEAU 3 : Sous-pages (Assistant administratif, Anonymisation...) */
 .md-nav__item--nested .md-nav {
-  padding-left: 0.8rem !important; /* Indentation propre et légère */
+  padding-left: 0.9rem !important; /* Indentation légère pour matérialiser la sous-catégorie */
+  margin-bottom: 8px;
 }
 
 .md-nav__item--nested .md-nav .md-nav__link {
-  font-size: 0.84rem;
+  font-size: 0.83rem;
   font-weight: 400 !important;
-  padding: 4px 0;
 }
 
-/* Pille de sélection / Page Active (Rendu sobre et fluide) */
+/* Page actuellement active */
 [data-md-color-scheme="default"] .md-nav__link--active,
 :root:not([data-md-color-scheme="slate"]) .md-nav__link--active {
   color: #0d47a1 !important;
@@ -543,19 +540,13 @@ code, pre, .md-typeset code, .md-typeset pre {
   font-weight: 600 !important;
 }
 
-/* Espacements globaux desktop */
+/* Alignements Desktop */
 @media screen and (min-width: 76.25em) {
   .md-sidebar--primary {
     width: 17rem;
   }
-
-  .md-nav--primary > .md-nav__list > .md-nav__item {
-    margin: 0.4rem 0;
-    border-bottom: 1px solid var(--md-default-fg-color--lightest);
-    padding-bottom: 0.6rem;
-  }
-
-  .md-nav--primary > .md-nav__list > .md-nav__item:last-child {
-    border-bottom: none;
+  
+  .md-sidebar__inner {
+    padding-top: 1rem;
   }
 }
