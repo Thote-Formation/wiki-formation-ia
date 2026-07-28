@@ -32,9 +32,9 @@ theme:
       
   features:
     - navigation.tabs
-    - navigation.sections
-    - navigation.expand   # Garde les sous-menus repliés par défaut pour éviter un menu trop long
-    - navigation.indexes
+    - navigation.sections   # Permet aux grands titres d'être regroupés
+    - navigation.prune      # Masque le contenu des sections non actives (rend le menu court)
+    - navigation.indexes    # Permet de cliquer sur "Cas pratiques" pour aller sur son index
     - navigation.top
     # navigation.instant retiré pour éviter de casser la logique auth.js
     - navigation.indexes
