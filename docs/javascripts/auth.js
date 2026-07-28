@@ -92,18 +92,23 @@ async function initAuthCheck() {
 // GESTION DES BOUTONS DU HEADER (ADMIN + DECONNEXION)
 // ==========================================
 function injectHeaderButtons(supabase, getUrl, isAdmin) {
-  const headerRight = document.querySelector('.md-header__option') || document.querySelector('.md-search');
-  if (!headerRight || !headerRight.parentNode) return;
+  // Cibler l'élément conteneur du header à droite
+  const searchBox = document.querySelector('.md-search');
+  if (!searchBox || !searchBox.parentNode) return;
 
-  // Bouton Admin (Uniquement visible pour les Admins)
+  const styleCommon = 'text-decoration: none; padding: 6px 14px; background: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 20px; font-size: 0.85em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap;';
+
+  // Bouton Admin
   if (isAdmin && !document.getElementById('admin-btn')) {
     const adminBtn = document.createElement('a');
     adminBtn.id = 'admin-btn';
     adminBtn.className = 'header-admin-btn';
     adminBtn.href = getUrl('/admin/');
     adminBtn.textContent = '⚙️ Admin';
-    adminBtn.style.cssText = 'margin-right: 10px; text-decoration: none; padding: 6px 12px; background: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 20px; font-size: 0.8em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px;';
-    headerRight.parentNode.insertBefore(adminBtn, headerRight);
+    adminBtn.style.cssText = styleCommon + ' margin-left: 10px;';
+    
+    // Placer À DROITE de la barre de recherche
+    searchBox.parentNode.appendChild(adminBtn);
   }
 
   // Bouton Déconnexion
@@ -112,16 +117,19 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
     logoutBtn.id = 'logout-btn';
     logoutBtn.className = 'header-logout-btn';
     logoutBtn.textContent = 'Déconnexion 🚪';
+    logoutBtn.style.cssText = styleCommon + ' margin-left: 8px;';
     logoutBtn.onclick = async () => {
       await supabase.auth.signOut();
       window.location.href = getUrl('/connexion/');
     };
-    headerRight.parentNode.insertBefore(logoutBtn, headerRight);
+    
+    // Placer À DROITE de la barre de recherche
+    searchBox.parentNode.appendChild(logoutBtn);
   }
 }
 
 // ==========================================
-// GESTION DU CHRONOMÈTRE ET SYNCHRO SUPABASE
+// GESTION DU CHRONOMÈTRE (SANS LES SECONDES)
 // ==========================================
 function initTimeTracker(supabase, userId, initialTotalSeconds) {
   const sessionStartTime = Date.now();
@@ -132,28 +140,31 @@ function initTimeTracker(supabase, userId, initialTotalSeconds) {
     return baseTotalSeconds + sessionElapsedSeconds;
   }
 
+  // Formatage propre : Heures et Minutes uniquement !
   function formatTime(seconds) {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
     const pad = (num) => String(num).padStart(2, '0');
 
     if (hrs > 0) {
-      return `⏱️ ${hrs}h ${pad(mins)}m ${pad(secs)}s`;
+      return `⏱️ ${hrs}h ${pad(mins)}m`;
     }
-    return `⏱️ ${mins}m ${pad(secs)}s`;
+    return `⏱️ ${mins} min`;
   }
 
   function updateHeaderBadge(totalSec) {
     let badge = document.getElementById('time-spent-display');
     
     if (!badge) {
-      const headerRight = document.querySelector('.md-header__option') || document.querySelector('.md-search');
-      if (headerRight && headerRight.parentNode) {
+      const searchBox = document.querySelector('.md-search');
+      if (searchBox && searchBox.parentNode) {
         badge = document.createElement('div');
         badge.id = 'time-spent-display';
         badge.className = 'header-time-badge';
-        headerRight.parentNode.insertBefore(badge, headerRight);
+        badge.style.cssText = 'margin-left: 12px; padding: 6px 14px; background: rgba(255, 255, 255, 0.12); color: white; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 20px; font-size: 0.85em; font-weight: 600; display: inline-flex; align-items: center; white-space: nowrap;';
+        
+        // Placer À DROITE de la barre de recherche (en premier)
+        searchBox.parentNode.appendChild(badge);
       }
     }
 
