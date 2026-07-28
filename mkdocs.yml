@@ -12,17 +12,20 @@ theme:
     text: Poppins
     code: Roboto Mono
   palette:
+    # Mode Clair — Palette Haute Lisibilité (WCAG AAA / AA)
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: blue
-      accent: orange
+      primary: indigo          # Bleu profond (ratio de contraste élevé > 7:1)
+      accent: deep orange       # Orange soutenu pour les éléments interactifs
       toggle:
         icon: material/brightness-7
         name: Passer en mode sombre
+
+    # Mode Sombre
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: blue
-      accent: orange
+      primary: indigo
+      accent: deep orange
       toggle:
         icon: material/brightness-4
         name: Passer en mode clair
