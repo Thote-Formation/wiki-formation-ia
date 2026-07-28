@@ -71,9 +71,9 @@ hide:
   .btn-toggle:hover { background-color: #138496; }
 </style>
 
-<!-- FORMULAIRE D'AJOUT -->
+<!-- FORMULAIRE D'INVITATION -->
 <div class="admin-card">
-  <h3>➕ Ajouter un nouvel utilisateur</h3>
+  <h3>➕ Inviter un nouvel utilisateur</h3>
   <form id="add-user-form">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
       <div class="admin-form-group">
@@ -81,15 +81,11 @@ hide:
         <input type="email" id="new-email" placeholder="utilisateur@domaine.fr" required>
       </div>
       <div class="admin-form-group">
-        <label for="new-password">Mot de passe temporaire</label>
-        <input type="password" id="new-password" placeholder="Ex: MonMotDePasse123!" required>
-      </div>
-      <div class="admin-form-group">
         <label for="new-expires">Date d'expiration</label>
         <input type="date" id="new-expires" required>
       </div>
     </div>
-    <button type="submit" class="admin-btn-submit">Créer le compte & Accès</button>
+    <button type="submit" class="admin-btn-submit" style="margin-top: 10px;">➕ Inviter l'utilisateur par E-mail</button>
   </form>
   <div id="form-message" style="margin-top: 10px; font-weight: bold;"></div>
 </div>
@@ -119,7 +115,7 @@ hide:
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Définir la date d'expiration par défaut à +1 ans dans le formulaire
+  // Définir la date d'expiration par défaut à +1 an
   const nextYear = new Date();
   nextYear.setFullYear(nextYear.getFullYear() + 1);
   document.getElementById('new-expires').value = nextYear.toISOString().split('T')[0];
@@ -146,21 +142,23 @@ async function loadAdminPanel() {
   // 1. Charger la liste des utilisateurs
   await fetchUsersList(supabase);
 
-  // 2. Écouteur sur la soumission du formulaire
+  // 2. Écouteur sur la soumission du formulaire d'invitation
   document.getElementById('add-user-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const msgDiv = document.getElementById('form-message');
     msgDiv.style.color = '#007bff';
-    msgDiv.textContent = '⏳ Création du compte en cours...';
+    msgDiv.textContent = '⏳ Envoi de l\'invitation...';
 
     const email = document.getElementById('new-email').value;
-    const password = document.getElementById('new-password').value;
     const expiresAt = document.getElementById('new-expires').value + 'T23:59:59Z';
+    
+    // Génération d'un mot de passe temporaire aléatoire
+    const randomPassword = Math.random().toString(36).slice(-10) + 'A1!' + Math.random().toString(36).slice(-10);
 
-    // Création via l'API auth de Supabase
+    // Création du compte
     const { data, error } = await supabase.auth.signUp({
       email: email,
-      password: password
+      password: randomPassword
     });
 
     if (error) {
@@ -170,14 +168,21 @@ async function loadAdminPanel() {
     }
 
     if (data.user) {
-      // Mettre à jour la date d'expiration sur le profil créé automatiquement
+      // Configuration de la date d'expiration et activation du profil
       await supabase.from('profiles').update({
         expires_at: expiresAt,
         is_active: true
       }).eq('id', data.user.id);
 
+      // Envoi de l'e-mail automatique de création / définition du mot de passe
+      const redirectUrl = window.location.origin + (window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '') + '/reinitialisation/';
+      
+      await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: redirectUrl
+      });
+
       msgDiv.style.color = '#28a745';
-      msgDiv.textContent = '✅ Compte créé avec succès !';
+      msgDiv.textContent = '✅ Compte créé ! Un e-mail a été envoyé à l\'utilisateur pour créer son mot de passe.';
       document.getElementById('add-user-form').reset();
       
       // Recharger le tableau
