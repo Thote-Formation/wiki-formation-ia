@@ -21,7 +21,7 @@
           Mot de passe oublié ?
         </button>
       </div>
-      <input type="password" id="password" required placeholder="••••••••" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
+      <input type="password" id="password" autocomplete="current-password" required placeholder="••••••••" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
     </div>
 
     <div id="login-error" style="display: none; color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
@@ -43,15 +43,18 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-// CONFIGURATION SUPABASE DÉCLARÉE DIRECTEMENT SUR LA PAGE
-const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk"; // <--- Mets ta clé Supabase 'anon' public ici !
+// Utilisation du scope window pour éviter les conflits avec auth.js
+window.SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
+window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk";
 
 function getSupabaseClient() {
   if (!window.supabase) {
     throw new Error("SDK Supabase non chargé");
   }
-  return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  if (!window.supabaseClient) {
+    window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+  }
+  return window.supabaseClient;
 }
 
 async function handleLogin(e) {
@@ -59,7 +62,7 @@ async function handleLogin(e) {
   const btn = document.getElementById('login-btn');
   const errorDiv = document.getElementById('login-error');
   const successDiv = document.getElementById('login-success');
-  const email = document.getElementById('email').value;
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
 
   btn.disabled = true;
@@ -69,19 +72,59 @@ async function handleLogin(e) {
 
   try {
     const supabase = getSupabaseClient();
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    
+    // 1. Authentification
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({ email, password });
 
-    if (error) {
+    if (authError) {
       errorDiv.textContent = "Identifiants incorrects ou compte introuvable.";
       errorDiv.style.display = "block";
       btn.disabled = false;
       btn.textContent = "Se connecter";
-    } else {
+      return;
+    }
+
+    // 2. Vérification de la licence dans 'profiles'
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('expires_at, is_active')
+      .eq('id', authData.user.id)
+      .maybeSingle();
+
+    if (profileError || !profile) {
+      console.error("Erreur profil :", profileError);
+      errorDiv.textContent = "Impossible de récupérer votre profil d'accès.";
+      errorDiv.style.display = "block";
+      await supabase.auth.signOut();
+      btn.disabled = false;
+      btn.textContent = "Se connecter";
+      return;
+    }
+
+    // 3. Contrôle de validité de la licence
+    const now = new Date();
+    const expirationDate = new Date(profile.expires_at);
+
+    if (!profile.is_active || expirationDate < now) {
+      errorDiv.textContent = "Votre licence d'accès a expiré ou est inactive.";
+      errorDiv.style.display = "block";
+      await supabase.auth.signOut();
+      btn.disabled = false;
+      btn.textContent = "Se connecter";
+      return;
+    }
+
+    // 4. Succès et redirection
+    successDiv.textContent = "Connexion réussie ! Redirection...";
+    successDiv.style.display = "block";
+    
+    setTimeout(() => {
       const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
       window.location.href = window.location.origin + basePath + '/';
-    }
+    }, 1000);
+
   } catch (err) {
-    errorDiv.textContent = "Erreur lors de la connexion : " + err.message;
+    errorDiv.textContent = "Erreur de connexion : " + err.message;
     errorDiv.style.display = "block";
     btn.disabled = false;
     btn.textContent = "Se connecter";
@@ -91,7 +134,7 @@ async function handleLogin(e) {
 // GESTION DU MOT DE PASSE OUBLIÉ
 async function handleForgotPassword(e) {
   e.preventDefault();
-  const email = document.getElementById('email').value;
+  const email = document.getElementById('email').value.trim();
   const errorDiv = document.getElementById('login-error');
   const successDiv = document.getElementById('login-success');
 
@@ -107,7 +150,6 @@ async function handleForgotPassword(e) {
   try {
     const supabase = getSupabaseClient();
 
-    // Redirection vers la page de réinitialisation
     const redirectUrl = window.location.hostname.includes('github.io') 
       ? 'https://pierre-l-hue.github.io/wiki-formation-ia/reinitialisation/'
       : window.location.origin + '/reinitialisation/';
@@ -124,7 +166,7 @@ async function handleForgotPassword(e) {
       successDiv.style.display = "block";
     }
   } catch (err) {
-    errorDiv.textContent = "Erreur de configuration Supabase : " + err.message;
+    errorDiv.textContent = "Erreur de configuration : " + err.message;
     errorDiv.style.display = "block";
   }
 }
