@@ -15,7 +15,7 @@ theme:
     # Mode Clair — Palette Haute Lisibilité (WCAG AAA / AA)
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo          # Bleu profond (ratio de contraste élevé > 7:1)
+      primary: indigo           # Bleu profond (ratio de contraste élevé > 7:1)
       accent: deep orange       # Orange soutenu pour les éléments interactifs
       toggle:
         icon: material/brightness-7
@@ -31,17 +31,14 @@ theme:
         name: Passer en mode clair
       
   features:
-    - navigation.tabs
-    - navigation.sections   # Permet aux grands titres d'être regroupés
-    - navigation.prune      # Masque le contenu des sections non actives (rend le menu court)
-    - navigation.indexes    # Permet de cliquer sur "Cas pratiques" pour aller sur son index
-    - navigation.top
-    # navigation.instant retiré pour éviter de casser la logique auth.js
-    - navigation.indexes
+    - navigation.tabs           # Onglets principaux en haut (Accueil, Certification, Ressources...)
+    - navigation.tabs.sticky    # Garde la barre d'onglets visible au scroll
+    - navigation.prune          # Ferme automatiquement les sous-menus inactifs
+    - navigation.indexes        # Permet de cliquer sur une catégorie (ex: Cas pratiques) pour ouvrir son index.md
+    - navigation.top            # Bouton de retour en haut de page
     - search.suggest
     - search.highlight
     - content.code.copy
-    - toc.integrate
 
 extra_javascript:
   - javascripts/auth.js
@@ -58,7 +55,6 @@ extra_css:
 
 nav:
   - Accueil: index.md
-  # Connexion et Réinitialisation retirées d'ici pour cacher les onglets !
   - Certification RS6776:
       - Présentation: certification-rs6776.md
       - Évaluation d'entrée: evaluation-entree.md
