@@ -102,8 +102,7 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
     adminBtn.className = 'header-admin-btn';
     adminBtn.href = getUrl('/admin/');
     adminBtn.textContent = '⚙️ Admin';
-    adminBtn.style.cssText = 'margin-right: 8px; text-decoration: none; padding: 4px 8px; background: #007bff; color: white; border-radius: 4px; font-size: 0.85em; font-weight: bold;';
-    headerRight.parentNode.insertBefore(adminBtn, headerRight);
+    adminBtn.style.cssText = 'margin-right: 10px; text-decoration: none; padding: 6px 12px; background: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 20px; font-size: 0.8em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px;';
   }
 
   // Bouton Déconnexion
