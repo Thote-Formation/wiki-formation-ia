@@ -10,7 +10,6 @@ window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXB
   const currentSearch = window.location.search.toLowerCase();
 
   // 🛑 SI ON EST SUR LA PAGE DE RÉINITIALISATION OU CONNEXION :
-  // On laisse la page gérer elle-même son flux d'authentification pour éviter les conflits !
   if (
     currentPath.includes('reinitialisation') || 
     currentPath.includes('connexion') || 
@@ -52,10 +51,10 @@ async function initAuthCheck() {
     return;
   }
 
-  // 3. SI CONNECTÉ : VÉRIFICATION DE LA LICENCE DANS PROFILES
+  // 3. SI CONNECTÉ : VÉRIFICATION DU PROFIL ET DU RÔLE
   const { data: profile, error } = await supabase
     .from('profiles')
-    .select('expires_at, is_active, total_time_seconds')
+    .select('expires_at, is_active, total_time_seconds, role')
     .eq('id', session.user.id)
     .maybeSingle();
 
@@ -71,12 +70,54 @@ async function initAuthCheck() {
     return;
   }
 
-  // 4. Lancement du suivi du temps en direct dans le header
+  // 🔒 VÉRIFICATION DE SÉCURITÉ : Restriction de la page Admin
+  const isPageAdmin = window.location.pathname.toLowerCase().includes('/admin');
+  const isAdmin = profile.role === 'admin';
+
+  if (isPageAdmin && !isAdmin) {
+    alert("Accès refusé : cette zone est réservée aux administrateurs.");
+    window.location.href = getUrl('/');
+    return;
+  }
+
+  // 4. Suivi du temps dans le header
   const initialSeconds = (profile && profile.total_time_seconds) ? profile.total_time_seconds : 0;
   initTimeTracker(supabase, session.user.id, initialSeconds);
 
-  // 5. Si tout est valide, injection du bouton de déconnexion
-  injectLogoutButton(supabase, getUrl);
+  // 5. Injections dans le header (Bouton Admin si autorisé + Déconnexion)
+  injectHeaderButtons(supabase, getUrl, isAdmin);
+}
+
+// ==========================================
+// GESTION DES BOUTONS DU HEADER (ADMIN + DECONNEXION)
+// ==========================================
+function injectHeaderButtons(supabase, getUrl, isAdmin) {
+  const headerRight = document.querySelector('.md-header__option') || document.querySelector('.md-search');
+  if (!headerRight || !headerRight.parentNode) return;
+
+  // Bouton Admin (Uniquement visible pour les Admins)
+  if (isAdmin && !document.getElementById('admin-btn')) {
+    const adminBtn = document.createElement('a');
+    adminBtn.id = 'admin-btn';
+    adminBtn.className = 'header-admin-btn';
+    adminBtn.href = getUrl('/admin/');
+    adminBtn.textContent = '⚙️ Admin';
+    adminBtn.style.cssText = 'margin-right: 8px; text-decoration: none; padding: 4px 8px; background: #007bff; color: white; border-radius: 4px; font-size: 0.85em; font-weight: bold;';
+    headerRight.parentNode.insertBefore(adminBtn, headerRight);
+  }
+
+  // Bouton Déconnexion
+  if (!document.getElementById('logout-btn')) {
+    const logoutBtn = document.createElement('button');
+    logoutBtn.id = 'logout-btn';
+    logoutBtn.className = 'header-logout-btn';
+    logoutBtn.textContent = 'Déconnexion 🚪';
+    logoutBtn.onclick = async () => {
+      await supabase.auth.signOut();
+      window.location.href = getUrl('/connexion/');
+    };
+    headerRight.parentNode.insertBefore(logoutBtn, headerRight);
+  }
 }
 
 // ==========================================
@@ -129,15 +170,12 @@ function initTimeTracker(supabase, userId, initialTotalSeconds) {
       .eq('id', userId);
   }
 
-  // Sauvegarde auto toutes les 30 sec
   setInterval(syncTimeToDatabase, 30000);
 
-  // Sauvegarde à la fermeture
   window.addEventListener('beforeunload', () => {
     syncTimeToDatabase();
   });
 
-  // Mise à jour chaque seconde sur la page
   setInterval(() => {
     updateHeaderBadge(getUpdatedTotalSeconds());
   }, 1000);
@@ -146,23 +184,5 @@ function initTimeTracker(supabase, userId, initialTotalSeconds) {
 
   if (typeof document$ !== 'undefined') {
     document$.subscribe(() => updateHeaderBadge(getUpdatedTotalSeconds()));
-  }
-}
-
-function injectLogoutButton(supabase, getUrl) {
-  let btn = document.getElementById('logout-btn');
-  if (!btn) {
-    const headerRight = document.querySelector('.md-header__option') || document.querySelector('.md-search');
-    if (headerRight && headerRight.parentNode) {
-      btn = document.createElement('button');
-      btn.id = 'logout-btn';
-      btn.className = 'header-logout-btn';
-      btn.textContent = 'Déconnexion 🚪';
-      btn.onclick = async () => {
-        await supabase.auth.signOut();
-        window.location.href = getUrl('/connexion/');
-      };
-      headerRight.parentNode.insertBefore(btn, headerRight);
-    }
   }
 }
