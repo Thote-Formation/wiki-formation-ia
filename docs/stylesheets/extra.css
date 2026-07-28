@@ -2,34 +2,42 @@
    1. IMPORTS & TYPOGRAPHIE ACCESSIBLE (WCAG 2.1 AA / FALC)
    ========================================================================== */
 
-/* Import des polices Google : Poppins (Titres), Inter (Lecture), Roboto Mono (Code) */
+/* Import des polices Google */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&family=Roboto+Mono:wght@400;500&display=swap');
 
 :root {
-  /* Renforcement des contrastes globaux */
-  --md-default-fg-color--light: #374151; /* Gris foncé pour paragraphes (Ratio > 4.5:1) */
+  --md-default-fg-color--light: #374151;
   --md-code-bg-color: #f1f5f9;
+  
+  /* Ajustement global MkDocs (15px de base au lieu de 16px/18px) */
+  --md-typeset-font-size: 0.76rem; 
 }
 
-/* Corps de texte : Inter pour un confort de lecture optimal et accessible */
+/* Corps de texte : Inter (sans forcer une taille géante) */
 body, .md-typeset {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  font-size: 1rem;
   line-height: 1.6;
   letter-spacing: 0.01em;
 }
 
-/* Titres & Structure : Poppins pour l'impact visuel et la modernité */
+/* Paragraphes normaux */
+.md-typeset p {
+  font-size: 0.92rem;
+}
+
+/* Titres : Poppins avec tailles ajustées */
 h1, h2, h3, h4, h5, h6, 
 .md-nav__link, 
-.home-card h3, 
-.wiki-card h3, 
 .auth-login-title {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif !important;
   color: #0f172a !important;
   font-weight: 700;
   line-height: 1.35;
 }
+
+.md-typeset h1 { font-size: 1.6rem; }
+.md-typeset h2 { font-size: 1.3rem; }
+.md-typeset h3, .home-card h3, .wiki-card h3 { font-size: 1.1rem !important; }
 
 [data-md-color-scheme="slate"] h1,
 [data-md-color-scheme="slate"] h2,
@@ -40,22 +48,22 @@ h1, h2, h3, h4, h5, h6,
   color: #ffffff !important;
 }
 
-/* Code : Roboto Mono à chasse fixe */
+/* Code : Roboto Mono */
 code, pre, .md-typeset code, .md-typeset pre {
   font-family: 'Roboto Mono', monospace !important;
+  font-size: 0.85em;
 }
 
-/* Focus Clavier ultra-visible (Obligatoire RGAA / WCAG) */
+/* Focus Clavier ultra-visible */
 *:focus-visible {
   outline: 3px solid #d84315 !important;
   outline-offset: 3px !important;
 }
 
-/* Fix Loupe de recherche MkDocs */
+/* Fix Loupe de recherche */
 .md-search__input {
   padding-left: 2.2rem !important;
 }
-
 /* ==========================================================================
    2. ACCUEIL ET GRILLES DE CARTES
    ========================================================================== */
