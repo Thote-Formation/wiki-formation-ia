@@ -1,14 +1,12 @@
 /* ==========================================================================
-   1. AMÉLIORATIONS GLOBALES DE LISIBILITÉ & ACCESSIBILITÉ (WCAG 2.1 AA / FALC)
+   1. AMÉLIORATIONS GLOBALES & ACCESSIBILITÉ (WCAG 2.1 AA / FALC)
    ========================================================================== */
 
 :root {
-  /* Renforcement des contrastes globaux */
-  --md-default-fg-color--light: #374151; /* Gris plus foncé pour les paragraphes (Ratio > 4.5:1) */
+  --md-default-fg-color--light: #374151;
   --md-code-bg-color: #f1f5f9;
 }
 
-/* Typographie Aérée (Lisibilité FALC / Dyslexie) */
 body {
   font-size: 1rem;
   line-height: 1.6;
@@ -28,10 +26,15 @@ h1, h2, h3, h4 {
   color: #ffffff !important;
 }
 
-/* Focus Clavier ultra-visible (Obligatoire RGAA / WCAG) */
+/* Focus Clavier Ultra-Visible */
 *:focus-visible {
   outline: 3px solid #d84315 !important;
   outline-offset: 3px !important;
+}
+
+/* Fix Loupe Recherche MkDocs (Évite le chevauchement) */
+.md-search__input {
+  padding-left: 2.2rem !important;
 }
 
 /* ==========================================================================
@@ -68,13 +71,13 @@ h1, h2, h3, h4 {
 .home-card-static h3 {
   margin-top: 8px;
   margin-bottom: 8px;
-  color: #0d47a1 !important; /* Bleu foncé WCAG */
+  color: #0d47a1 !important;
 }
 
 .home-card p,
 .home-card-static p {
   margin-bottom: 0;
-  color: #334155; /* Plus lisible qu'un gris clair */
+  color: #334155;
   font-weight: 500;
 }
 
@@ -118,7 +121,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   3. COMPOSANTS RÉUTILISABLES & CARTES WIKI
+   3. CARTES WIKI & COMPOSANTS RÉUTILISABLES
    ========================================================================== */
 
 .wiki-grid {
@@ -158,7 +161,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   4. BLOCS PRATIQUES & ENCADRÉS (HAUT CONTRASTE LIGHT & DARK)
+   4. BLOCS PRATIQUES & ENCADRÉS (LIGHT & DARK HAUT CONTRASTE)
    ========================================================================== */
 
 .real-life-box,
@@ -171,7 +174,7 @@ h1, h2, h3, h4 {
   border-left: 6px solid;
 }
 
-/* --- MODE CLAIR (LIGHT) --- */
+/* --- Mode Clair --- */
 [data-md-color-scheme="default"] .real-life-box,
 :root:not([data-md-color-scheme="slate"]) .real-life-box {
   background: #eff6ff;
@@ -208,8 +211,7 @@ h1, h2, h3, h4 {
 [data-md-color-scheme="default"] .summary-box h3,
 :root:not([data-md-color-scheme="slate"]) .summary-box h3 { color: #581c87 !important; }
 
-
-/* --- MODE SOMBRE (SLATE / DARK) --- */
+/* --- Mode Sombre --- */
 [data-md-color-scheme="slate"] .real-life-box {
   background: #1e293b !important;
   border-left-color: #60a5fa !important;
@@ -238,8 +240,6 @@ h1, h2, h3, h4 {
 }
 [data-md-color-scheme="slate"] .summary-box h3 { color: #e9d5ff !important; }
 
-
-/* Style des éléments dans les blocs */
 .real-life-box h3, .good-reflex-box h3, .warning-practice-box h3, .summary-box h3 {
   margin-top: 0;
   margin-bottom: 8px;
@@ -347,7 +347,7 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   8. GÉNÉRATEUR DE PROMPT
+   8. GÉNÉRATEUR DE PROMPT & FORMULAIRES ADMIN
    ========================================================================== */
 
 .prompt-generator {
@@ -405,29 +405,26 @@ h1, h2, h3, h4 {
   line-height: 1.5;
 }
 
-.prompt-generator .wiki-actions {
-  margin-bottom: 0;
+.admin-card {
+  background-color: var(--md-default-bg-color) !important;
+  color: var(--md-typeset-color) !important;
+  border: 1px solid var(--md-default-fg-color--lightest);
 }
 
-.prompt-generator .wiki-button {
-  cursor: pointer;
-  background: transparent;
-}
-
-.prompt-generator .wiki-button.primary {
-  background: var(--md-primary-fg-color);
-  color: #ffffff !important;
-  border: 2px solid var(--md-primary-fg-color);
+[data-md-color-scheme="slate"] .admin-card {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
 }
 
 /* ==========================================================================
-   9. BOUTONS HEADER ACCESSIBLES (Chrono & Déconnexion)
+   9. BOUTONS HEADER ACCESSIBLES
    ========================================================================== */
 
 .header-time-badge,
 .header-admin-btn,
 .header-logout-btn {
-  background: #002b66 !important; /* Bleu très sombre pour trancher */
+  background: #002b66 !important;
   color: #ffffff !important;
   border: 2px solid #ffffff !important;
   font-size: 0.82rem !important;
@@ -439,7 +436,7 @@ h1, h2, h3, h4 {
 }
 
 .header-logout-btn:hover {
-  background: #dc2626 !important; /* Rouge vif au survol */
+  background: #dc2626 !important;
   color: #ffffff !important;
   border-color: #ffffff !important;
 }
@@ -454,17 +451,9 @@ h1, h2, h3, h4 {
    ========================================================================== */
 
 @media screen and (min-width: 76.25em) {
-  .md-sidebar--primary {
-    width: 18rem;
-  }
-
-  .md-sidebar__inner {
-    padding-top: 0.6rem;
-  }
-
-  .md-nav--primary .md-nav__item {
-    margin: 0.18rem 0;
-  }
+  .md-sidebar--primary { width: 18rem; }
+  .md-sidebar__inner { padding-top: 0.6rem; }
+  .md-nav--primary .md-nav__item { margin: 0.18rem 0; }
 
   .md-nav--primary > .md-nav__list > .md-nav__item {
     margin: 0.65rem 0 0.85rem;
@@ -501,226 +490,146 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 700px) {
-  .wiki-grid, .home-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .wiki-card, .home-card {
-    padding: 18px;
-  }
-
-  .real-life-box,
-  .good-reflex-box,
-  .warning-practice-box,
-  .summary-box,
-  .prompt-generator {
-    padding: 16px;
-  }
-
-  .header-time-badge {
-    display: none;
-  }
+  .wiki-grid, .home-grid { grid-template-columns: 1fr; }
+  .wiki-card, .home-card { padding: 18px; }
+  .real-life-box, .good-reflex-box, .warning-practice-box, .summary-box, .prompt-generator { padding: 16px; }
+  .header-time-badge { display: none; }
 }
+
 /* ==========================================================================
-   11. FORMULAIRES ET CARTES DE L'INTERFACE D'ADMINISTRATION
+   11. BLOC AUTHENTIFICATION / ESPACE APPRENANT (ENTIÈREMENT AUTONOME)
    ========================================================================== */
 
-/* Cartes / Conteneurs d'administration */
-.admin-card, 
-.prompt-generator,
-.wiki-card {
-  background-color: var(--md-default-bg-color) !important;
-  color: var(--md-typeset-color) !important;
-  border: 1px solid var(--md-default-fg-color--lightest);
-}
-
-/* Libellés de formulaires (Labels) */
-label, 
-.prompt-generator label,
-form label {
-  color: var(--md-typeset-color) !important;
-  font-weight: 700 !important;
-  opacity: 0.9;
-}
-
-/* Champs de saisie (Inputs, Datepickers, Selects) */
-input[type="text"],
-input[type="email"],
-input[type="date"],
-textarea,
-select {
-  background-color: var(--md-code-bg-color) !important;
-  color: var(--md-typeset-color) !important;
-  border: 1px solid var(--md-default-fg-color--lightest) !important;
-  border-radius: 8px !important;
-  padding: 10px 12px !important;
-}
-
-/* Couleur du texte de placeholder / exemple */
-::placeholder {
-  color: var(--md-default-fg-color--light) !important;
-  opacity: 0.7;
-}
-
-/* Adaptation spécifique du mode sombre pour les cartes custom */
-[data-md-color-scheme="slate"] .admin-card,
-[data-md-color-scheme="slate"] div[style*="background: white"],
-[data-md-color-scheme="slate"] div[style*="background-color: white"],
-[data-md-color-scheme="slate"] div[style*="background: #fff"],
-[data-md-color-scheme="slate"] div[style*="background:#fff"] {
-  background-color: #1e293b !important; /* Fond sombre au lieu du blanc */
-  border-color: #334155 !important;
-  color: #f8fafc !important;
-}
-/* ==========================================================================
-   CORRECTION ACCESSIBILITÉ — FORMULAIRE DE CONNEXION
-   ========================================================================== */
-
-/* 1. Texte du bloc RGPD & Confidentialité */
-.auth-footer, 
-.auth-container p:last-child,
-div[style*="RGPD"] {
-  color: #cbd5e1 !important; /* Gris très clair / blanc cassé (Ratio > 7:1) */
-  font-size: 0.85rem !important;
-  line-height: 1.5 !important;
-  opacity: 1 !important;
-}
-
-/* 2. Lien Mot de Passe Oublié */
-.auth-container a,
-a[href*="reset"] {
-  color: #38bdf8 !important; /* Cyan lumineux à haut contraste */
-  text-decoration: underline !important; /* Indispensable pour l'accessibilité */
-  font-weight: 600 !important;
-}
-
-.auth-container a:hover {
-  color: #7dd3fc !important;
-}
-
-/* 3. Champs de saisie & Bordures */
-.auth-container input {
-  background-color: #1e293b !important;
-  color: #ffffff !important;
-  border: 1.5px solid #64748b !important; /* Bordure nette pour délimiter le champ */
-}
-
-/* 4. Bouton principal (Se connecter) */
-.auth-container button,
-.auth-container input[type="submit"] {
-  background-color: #2563eb !important;
-  color: #ffffff !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.5px;
-}
-/* ==========================================================================
-   NETTOYAGE & FIX TOTAL — FORMULAIRE D'AUTHENTIFICATION
-   ========================================================================== */
-
-/* Conteneur Carte */
-.auth-card {
-  display: block !important;
-  max-width: 460px !important;
+/* Structure de la carte */
+.auth-login-card {
+  max-width: 440px !important;
   margin: 2rem auto !important;
   padding: 2rem !important;
   border-radius: 16px !important;
-  background-color: var(--md-default-bg-color, #1e293b) !important;
-  border: 1px solid var(--md-default-fg-color--lightest, #334155) !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
   box-sizing: border-box !important;
+  transition: all 0.3s ease !important;
 }
 
-/* Titres & Sous-titres */
-.auth-card .auth-title {
-  display: block !important;
+/* --- Mode Clair --- */
+[data-md-color-scheme="default"] .auth-login-card,
+:root:not([data-md-color-scheme="slate"]) .auth-login-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+[data-md-color-scheme="default"] .auth-login-title,
+:root:not([data-md-color-scheme="slate"]) .auth-login-title { color: #0f172a !important; }
+
+[data-md-color-scheme="default"] .auth-login-subtitle,
+:root:not([data-md-color-scheme="slate"]) .auth-login-subtitle { color: #475569 !important; }
+
+[data-md-color-scheme="default"] .auth-login-field label,
+:root:not([data-md-color-scheme="slate"]) .auth-login-field label { color: #1e293b !important; }
+
+[data-md-color-scheme="default"] .auth-login-field input,
+:root:not([data-md-color-scheme="slate"]) .auth-login-field input {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border: 1.5px solid #cbd5e1 !important;
+}
+
+[data-md-color-scheme="default"] .auth-login-forgot,
+:root:not([data-md-color-scheme="slate"]) .auth-login-forgot { color: #0284c7 !important; }
+
+[data-md-color-scheme="default"] .auth-login-footer,
+:root:not([data-md-color-scheme="slate"]) .auth-login-footer {
+  border-top-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+/* --- Mode Sombre --- */
+[data-md-color-scheme="slate"] .auth-login-card {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+}
+
+[data-md-color-scheme="slate"] .auth-login-title { color: #ffffff !important; }
+[data-md-color-scheme="slate"] .auth-login-subtitle { color: #94a3b8 !important; }
+[data-md-color-scheme="slate"] .auth-login-field label { color: #f1f5f9 !important; }
+
+[data-md-color-scheme="slate"] .auth-login-field input {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border: 1.5px solid #475569 !important;
+}
+
+[data-md-color-scheme="slate"] .auth-login-forgot { color: #38bdf8 !important; }
+
+[data-md-color-scheme="slate"] .auth-login-footer {
+  border-top-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+/* Layout Interne */
+.auth-login-title {
+  font-size: 1.4rem !important;
   text-align: center !important;
-  font-size: 1.5rem !important;
   margin: 0 0 0.5rem 0 !important;
-  color: var(--md-typeset-color, #ffffff) !important;
+  font-weight: 700 !important;
 }
 
-.auth-card .auth-subtitle {
-  display: block !important;
-  text-align: center !important;
-  font-size: 0.9rem !important;
-  margin-bottom: 1.5rem !important;
-  color: var(--md-default-fg-color--light, #cbd5e1) !important;
-  opacity: 0.9 !important;
-}
-
-/* Formulaire & Champs */
-.auth-form {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 1.2rem !important;
-  width: 100% !important;
-}
-
-.auth-field {
-  display: flex !important;
-  flex-direction: column !important;
-  width: 100% !important;
-}
-
-.auth-field label {
-  display: block !important;
-  font-weight: 600 !important;
+.auth-login-subtitle {
   font-size: 0.88rem !important;
-  margin-bottom: 0.4rem !important;
-  color: var(--md-typeset-color, #ffffff) !important;
+  text-align: center !important;
+  margin-bottom: 1.5rem !important;
+  line-height: 1.4 !important;
 }
 
-.auth-password-header {
+.auth-login-form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+  width: 100% !important;
+}
+
+.auth-login-field {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+}
+
+.auth-login-field label {
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.3rem !important;
+}
+
+.auth-login-pass-row {
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
   width: 100% !important;
-  margin-bottom: 0.4rem !important;
+  margin-bottom: 0.3rem !important;
 }
 
-.auth-password-header label {
-  margin-bottom: 0 !important;
-}
+.auth-login-pass-row label { margin-bottom: 0 !important; }
 
-/* Lien / Bouton Mot de passe oublié */
-.forgot-btn {
+.auth-login-forgot {
   background: none !important;
   border: none !important;
   padding: 0 !important;
-  font-size: 0.82rem !important;
+  font-size: 0.8rem !important;
   font-weight: 600 !important;
   cursor: pointer !important;
   text-decoration: underline !important;
-  color: #38bdf8 !important; /* Cyan haut contraste */
+  white-space: nowrap !important;
 }
 
-.forgot-btn:hover {
-  color: #7dd3fc !important;
-}
-
-/* Inputs (Élimine le champ minuscule) */
-.auth-field input {
-  display: block !important;
+.auth-login-field input {
   width: 100% !important;
-  padding: 12px 14px !important;
+  padding: 10px 12px !important;
   border-radius: 8px !important;
-  font-size: 0.95rem !important;
+  font-size: 0.92rem !important;
   box-sizing: border-box !important;
-  background-color: var(--md-code-bg-color, #0f172a) !important;
-  color: #ffffff !important;
-  border: 1.5px solid #475569 !important;
-  height: auto !important;
 }
 
-.auth-field input:focus {
-  outline: none !important;
-  border-color: #38bdf8 !important;
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
-}
-
-/* Bouton principal */
-.auth-submit-btn {
-  display: block !important;
+.auth-login-btn {
   width: 100% !important;
   padding: 12px !important;
   background-color: #2563eb !important;
@@ -728,50 +637,26 @@ a[href*="reset"] {
   border: none !important;
   border-radius: 8px !important;
   font-weight: 700 !important;
-  font-size: 1rem !important;
+  font-size: 0.95rem !important;
   cursor: pointer !important;
-  transition: background 0.2s !important;
   margin-top: 0.5rem !important;
-  box-sizing: border-box !important;
 }
 
-.auth-submit-btn:hover {
-  background-color: #1d4ed8 !important;
+.auth-login-btn:hover { background-color: #1d4ed8 !important; }
+
+.auth-login-footer {
+  margin-top: 1.2rem !important;
+  padding-top: 0.8rem !important;
+  border-top: 1px solid ;
+  font-size: 0.75rem !important;
+  line-height: 1.4 !important;
+  text-align: center !important;
 }
 
-/* Messages d'alerte */
-.auth-alert {
+.auth-login-alert {
   display: none;
-  padding: 10px !important;
+  padding: 8px 10px !important;
   border-radius: 6px !important;
-  font-size: 0.85rem !important;
+  font-size: 0.82rem !important;
   text-align: center !important;
-}
-
-.auth-alert.error {
-  background-color: #450a0a !important;
-  color: #fca5a5 !important;
-  border: 1px solid #991b1b !important;
-}
-
-.auth-alert.success {
-  background-color: #052e16 !important;
-  color: #86efac !important;
-  border: 1px solid #166534 !important;
-}
-
-/* Footer RGPD */
-.auth-footer {
-  display: block !important;
-  margin-top: 1.5rem !important;
-  padding-top: 1rem !important;
-  border-top: 1px solid var(--md-default-fg-color--lightest, #334155) !important;
-  font-size: 0.78rem !important;
-  line-height: 1.5 !important;
-  text-align: center !important;
-  color: #cbd5e1 !important; /* Gris clair garanti lisible */
-}
-
-.auth-container button:hover {
-  background-color: #1d4ed8 !important;
 }
