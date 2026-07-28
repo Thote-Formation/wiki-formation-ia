@@ -4,7 +4,7 @@ hide:
   - toc
 ---
 
-# 🛠️ Administration des Accès & Licences
+# 🛠️ Administration des Accès
 
 <style>
   .admin-card {
@@ -23,12 +23,13 @@ hide:
     font-weight: bold;
     margin-bottom: 5px;
   }
-  .admin-form-group input {
+  .admin-form-group input, .admin-form-group select {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    font-family: inherit;
   }
   .admin-btn-submit {
     background-color: #28a745;
@@ -71,7 +72,7 @@ hide:
   .btn-toggle:hover { background-color: #138496; }
 </style>
 
-<!-- FORMULAIRE D'INVITATION -->
+<!-- FORMULAIRE D'INVITATION UTILISATEUR -->
 <div class="admin-card">
   <h3>➕ Inviter un nouvel utilisateur</h3>
   <form id="add-user-form">
@@ -115,12 +116,10 @@ hide:
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Définir la date d'expiration par défaut à +1 an
   const nextYear = new Date();
   nextYear.setFullYear(nextYear.getFullYear() + 1);
   document.getElementById('new-expires').value = nextYear.toISOString().split('T')[0];
 
-  // Attendre l'initialisation du client Supabase
   const checkSupabase = setInterval(() => {
     if (window.supabaseClient) {
       clearInterval(checkSupabase);
@@ -138,11 +137,9 @@ function formatSeconds(seconds) {
 
 async function loadAdminPanel() {
   const supabase = window.supabaseClient;
-  
-  // 1. Charger la liste des utilisateurs
   await fetchUsersList(supabase);
 
-  // 2. Écouteur sur la soumission du formulaire d'invitation
+  // Invitation Utilisateur
   document.getElementById('add-user-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const msgDiv = document.getElementById('form-message');
@@ -151,11 +148,8 @@ async function loadAdminPanel() {
 
     const email = document.getElementById('new-email').value;
     const expiresAt = document.getElementById('new-expires').value + 'T23:59:59Z';
-    
-    // Génération d'un mot de passe temporaire aléatoire
     const randomPassword = Math.random().toString(36).slice(-10) + 'A1!' + Math.random().toString(36).slice(-10);
 
-    // Création du compte
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: randomPassword
@@ -168,13 +162,11 @@ async function loadAdminPanel() {
     }
 
     if (data.user) {
-      // Configuration de la date d'expiration et activation du profil
       await supabase.from('profiles').update({
         expires_at: expiresAt,
         is_active: true
       }).eq('id', data.user.id);
 
-      // Envoi de l'e-mail automatique de création / définition du mot de passe
       const redirectUrl = window.location.origin + (window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '') + '/reinitialisation/';
       
       await supabase.auth.resetPasswordForEmail(email, {
@@ -182,10 +174,8 @@ async function loadAdminPanel() {
       });
 
       msgDiv.style.color = '#28a745';
-      msgDiv.textContent = '✅ Compte créé ! Un e-mail a été envoyé à l\'utilisateur pour créer son mot de passe.';
+      msgDiv.textContent = '✅ Compte créé ! Un e-mail a été envoyé à l\'utilisateur.';
       document.getElementById('add-user-form').reset();
-      
-      // Recharger le tableau
       await fetchUsersList(supabase);
     }
   });
@@ -212,27 +202,33 @@ async function fetchUsersList(supabase) {
   profiles.forEach(p => {
     const expDate = new Date(p.expires_at);
     const isExpired = expDate < now;
+    const isAdmin = p.role === 'admin';
     
     let statusBadge = '<span class="badge-active">Actif</span>';
     if (!p.is_active) {
       statusBadge = '<span class="badge-inactive">Inactif</span>';
-    } else if (isExpired) {
+    } else if (isExpired && !isAdmin) {
       statusBadge = '<span class="badge-expired">Expiré</span>';
+    }
+
+    let expirationCell = `<input type="date" value="${p.expires_at ? p.expires_at.split('T')[0] : ''}" onchange="updateExpiration('${p.id}', this.value)">`;
+    
+    if (isAdmin) {
+      expirationCell = '<span style="font-weight: bold; color: #007bff;">Illimité ♾️ (Admin)</span>';
     }
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><strong>${p.email || 'N/A'}</strong></td>
+      <td><strong>${p.email || 'N/A'}</strong> ${isAdmin ? '👑' : ''}</td>
       <td>${statusBadge}</td>
-      <td>
-        <input type="date" value="${p.expires_at ? p.expires_at.split('T')[0] : ''}" 
-               onchange="updateExpiration('${p.id}', this.value)">
-      </td>
+      <td>${expirationCell}</td>
       <td>${formatSeconds(p.total_time_seconds)}</td>
       <td>
-        <button class="action-btn btn-toggle" onclick="toggleActive('${p.id}', ${p.is_active})">
-          ${p.is_active ? 'Désactiver' : 'Activer'}
-        </button>
+        ${isAdmin ? '<em>Aucune action</em>' : `
+          <button class="action-btn btn-toggle" onclick="toggleActive('${p.id}', ${p.is_active})">
+            ${p.is_active ? 'Désactiver' : 'Activer'}
+          </button>
+        `}
       </td>
     `;
     tbody.appendChild(tr);
