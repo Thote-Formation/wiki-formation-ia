@@ -1,21 +1,27 @@
 // ==========================================
 // CONFIGURATION SUPABASE & GITHUB PAGES
 // ==========================================
-const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJKV1QiLCJ9..."; // <--- Ta clé anon
+window.SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
+window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk";
 
 (function() {
   const currentPath = window.location.pathname.toLowerCase();
   const currentHash = window.location.hash.toLowerCase();
   const currentSearch = window.location.search.toLowerCase();
 
-  // 🛑 SI ON EST SUR LA PAGE DE RÉINITIALISATION : ON STOPPE TOUT LE SCRIPT AUTH.JS
-  if (currentPath.includes('reinitialisation') || currentHash.includes('type=recovery') || currentSearch.includes('type=recovery')) {
-    console.log("Flux de réinitialisation détecté. auth.js désactivé sur cette page.");
-    return; // Stop net l'exécution du script d'authentification
+  // 🛑 SI ON EST SUR LA PAGE DE RÉINITIALISATION OU CONNEXION :
+  // On laisse la page gérer elle-même son flux d'authentification pour éviter les conflits !
+  if (
+    currentPath.includes('reinitialisation') || 
+    currentPath.includes('connexion') || 
+    currentHash.includes('type=recovery') || 
+    currentSearch.includes('type=recovery')
+  ) {
+    console.log("Page d'auth détectée. auth.js ne force pas le contrôle automatique.");
+    return;
   }
 
-  // Sinon, charger le SDK Supabase et contrôler l'accès
+  // Charger le SDK Supabase si non présent puis contrôler l'accès
   if (!window.supabase) {
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
@@ -27,28 +33,26 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJKV1QiLCJ9..."; // <--- Ta clé anon
 })();
 
 async function initAuthCheck() {
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  if (!window.supabaseClient) {
+    window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+  }
+  const supabase = window.supabaseClient;
 
   const getUrl = (path) => {
     const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
     return window.location.origin + basePath + path;
   };
 
-  const currentPath = window.location.pathname.toLowerCase();
-  const isLoginPage = currentPath.includes('connexion');
-
-  // Obtenir la session active
+  // 1. Obtenir la session active
   const { data: { session } } = await supabase.auth.getSession();
 
-  // 1. NON CONNECTÉ
+  // 2. SI NON CONNECTÉ : Redirection vers la page de connexion
   if (!session) {
-    if (!isLoginPage) {
-      window.location.href = getUrl('/connexion/');
-    }
+    window.location.href = getUrl('/connexion/');
     return;
   }
 
-  // 2. CONNECTÉ : VÉRIFICATION DE LICENCE
+  // 3. SI CONNECTÉ : VÉRIFICATION DE LA LICENCE DANS PROFILES
   const { data: profile, error } = await supabase
     .from('profiles')
     .select('expires_at, is_active')
@@ -66,12 +70,7 @@ async function initAuthCheck() {
     return;
   }
 
-  // Si déjà connecté et sur /connexion/ -> redirection accueil
-  if (isLoginPage) {
-    window.location.href = getUrl('/');
-    return;
-  }
-
+  // 4. Si tout est valide, injection du bouton de déconnexion
   injectLogoutButton(supabase, getUrl);
 }
 
