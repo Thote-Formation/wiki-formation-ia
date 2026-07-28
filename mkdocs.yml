@@ -41,7 +41,6 @@ theme:
 extra_javascript:
   - javascripts/auth.js
   - javascripts/progress.js
-  - javascripts/time-tracker.js
   - javascripts/prompt-generator.js
   - javascripts/prompting-avance.js
   - javascripts/contexte-memoire.js
