@@ -480,89 +480,79 @@ code, pre, .md-typeset code, .md-typeset pre {
 }
 
 /* ==========================================================================
-   10. NAVIGATION LATÉRALE ET STYLES DE NIVEAUX (LIGHT & DARK)
+   10. NAVIGATION LATÉRALE PRO & DÉPLIANTE (LIGHT & DARK)
    ========================================================================== */
 
-/* Tous les liens par défaut */
+/* Réinitialisation propre */
 .md-nav__link {
   color: var(--md-typeset-color) !important;
   font-weight: 400 !important;
-  transition: all 0.15s ease;
+  transition: color 0.15s ease;
+  border: none !important;
+  background: transparent !important;
 }
 
-/* NIVEAU 1 : Titres principaux de la Nav (ex: Ressources) */
-.md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
-  font-family: 'Poppins', sans-serif !important;
-  font-weight: 700 !important;
-  font-size: 0.95rem;
-  color: var(--md-typeset-color) !important;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding-top: 0.8rem;
-}
-
-/* NIVEAU 2 : Catégories parentes (ex: Cas pratiques, Templates et méthodes) */
-.md-nav__item--nested > .md-nav__link {
-  font-weight: 600 !important;
-  font-size: 0.88rem;
-  color: #1e293b !important;
-  padding: 6px 8px;
-  border-radius: 6px;
-  background: rgba(0, 0, 0, 0.03); /* Petit fond discret pour marquer le sous-dossier */
-  margin-top: 6px;
-  margin-bottom: 2px;
-}
-
-[data-md-color-scheme="slate"] .md-nav__item--nested > .md-nav__link {
-  color: #f1f5f9 !important;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* NIVEAU 3 : Sous-catégories & Pages enfants (ex: Assistant administratif) */
-.md-nav__item--nested .md-nav .md-nav__link {
-  font-size: 0.82rem;
-  font-weight: 400 !important;
-  padding-left: 1rem !important; /* Indentation marquée */
-  border-left: 2px solid var(--md-default-fg-color--lightest); /* Ligne de guidage à gauche */
-  border-radius: 0 6px 6px 0;
-}
-
-/* Au survol des sous-pages */
-.md-nav__item--nested .md-nav .md-nav__link:hover {
-  border-left-color: var(--md-primary-fg-color);
+/* Hover universel */
+.md-nav__link:hover {
   color: var(--md-primary-fg-color) !important;
 }
 
-/* Page active (Surlignée proprement) */
+/* NIVEAU 1 : Grand Titre de Section (ex: RESSOURCES) */
+.md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem;
+  color: #64748b !important; /* Gris sobre pour ne pas déranger */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-top: 1.2rem;
+}
+
+[data-md-color-scheme="slate"] .md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
+  color: #94a3b8 !important;
+}
+
+/* NIVEAU 2 : Catégories Parentes dépliables (ex: Cas pratiques, Outils d'IA) */
+.md-nav__item--nested > .md-nav__link {
+  font-weight: 600 !important;
+  font-size: 0.9rem;
+  color: var(--md-typeset-color) !important;
+  padding: 6px 0;
+}
+
+/* NIVEAU 3 : Sous-pages (ex: Assistant administratif) */
+.md-nav__item--nested .md-nav {
+  padding-left: 0.8rem !important; /* Indentation propre et légère */
+}
+
+.md-nav__item--nested .md-nav .md-nav__link {
+  font-size: 0.84rem;
+  font-weight: 400 !important;
+  padding: 4px 0;
+}
+
+/* Pille de sélection / Page Active (Rendu sobre et fluide) */
 [data-md-color-scheme="default"] .md-nav__link--active,
 :root:not([data-md-color-scheme="slate"]) .md-nav__link--active {
-  background: rgba(13, 71, 161, 0.08) !important;
   color: #0d47a1 !important;
   font-weight: 600 !important;
-  border-left-color: #0d47a1 !important;
 }
 
 [data-md-color-scheme="slate"] .md-nav__link--active {
-  background: rgba(147, 197, 253, 0.15) !important;
-  color: #93c5fd !important;
+  color: #60a5fa !important;
   font-weight: 600 !important;
-  border-left-color: #93c5fd !important;
 }
 
-/* Alignements Desktop */
+/* Espacements globaux desktop */
 @media screen and (min-width: 76.25em) {
   .md-sidebar--primary {
-    width: 18rem;
-  }
-
-  .md-sidebar__inner {
-    padding-top: 0.6rem;
+    width: 17rem;
   }
 
   .md-nav--primary > .md-nav__list > .md-nav__item {
-    margin: 0.65rem 0 0.85rem;
-    padding-bottom: 0.55rem;
+    margin: 0.4rem 0;
     border-bottom: 1px solid var(--md-default-fg-color--lightest);
+    padding-bottom: 0.6rem;
   }
 
   .md-nav--primary > .md-nav__list > .md-nav__item:last-child {
