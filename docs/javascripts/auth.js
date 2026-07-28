@@ -55,7 +55,7 @@ async function initAuthCheck() {
   // 3. SI CONNECTÉ : VÉRIFICATION DE LA LICENCE DANS PROFILES
   const { data: profile, error } = await supabase
     .from('profiles')
-    .select('expires_at, is_active')
+    .select('expires_at, is_active, total_time_seconds')
     .eq('id', session.user.id)
     .maybeSingle();
 
@@ -64,14 +64,89 @@ async function initAuthCheck() {
   const isExpired = expiresAt ? now > expiresAt : true;
 
   if (error || !profile || !profile.is_active || isExpired) {
+    console.error("Erreur de licence Supabase :", error);
     alert("Votre licence d'accès a expiré ou est inactive.");
     await supabase.auth.signOut();
     window.location.href = getUrl('/connexion/');
     return;
   }
 
-  // 4. Si tout est valide, injection du bouton de déconnexion
+  // 4. Lancement du suivi du temps en direct dans le header
+  const initialSeconds = (profile && profile.total_time_seconds) ? profile.total_time_seconds : 0;
+  initTimeTracker(supabase, session.user.id, initialSeconds);
+
+  // 5. Si tout est valide, injection du bouton de déconnexion
   injectLogoutButton(supabase, getUrl);
+}
+
+// ==========================================
+// GESTION DU CHRONOMÈTRE ET SYNCHRO SUPABASE
+// ==========================================
+function initTimeTracker(supabase, userId, initialTotalSeconds) {
+  const sessionStartTime = Date.now();
+  const baseTotalSeconds = initialTotalSeconds;
+
+  function getUpdatedTotalSeconds() {
+    const sessionElapsedSeconds = Math.floor((Date.now() - sessionStartTime) / 1000);
+    return baseTotalSeconds + sessionElapsedSeconds;
+  }
+
+  function formatTime(seconds) {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    const pad = (num) => String(num).padStart(2, '0');
+
+    if (hrs > 0) {
+      return `⏱️ ${hrs}h ${pad(mins)}m ${pad(secs)}s`;
+    }
+    return `⏱️ ${mins}m ${pad(secs)}s`;
+  }
+
+  function updateHeaderBadge(totalSec) {
+    let badge = document.getElementById('time-spent-display');
+    
+    if (!badge) {
+      const headerRight = document.querySelector('.md-header__option') || document.querySelector('.md-search');
+      if (headerRight && headerRight.parentNode) {
+        badge = document.createElement('div');
+        badge.id = 'time-spent-display';
+        badge.className = 'header-time-badge';
+        headerRight.parentNode.insertBefore(badge, headerRight);
+      }
+    }
+
+    if (badge) {
+      badge.textContent = formatTime(totalSec);
+    }
+  }
+
+  async function syncTimeToDatabase() {
+    const total = getUpdatedTotalSeconds();
+    await supabase
+      .from('profiles')
+      .update({ total_time_seconds: total })
+      .eq('id', userId);
+  }
+
+  // Sauvegarde auto toutes les 30 sec
+  setInterval(syncTimeToDatabase, 30000);
+
+  // Sauvegarde à la fermeture
+  window.addEventListener('beforeunload', () => {
+    syncTimeToDatabase();
+  });
+
+  // Mise à jour chaque seconde sur la page
+  setInterval(() => {
+    updateHeaderBadge(getUpdatedTotalSeconds());
+  }, 1000);
+
+  updateHeaderBadge(baseTotalSeconds);
+
+  if (typeof document$ !== 'undefined') {
+    document$.subscribe(() => updateHeaderBadge(getUpdatedTotalSeconds()));
+  }
 }
 
 function injectLogoutButton(supabase, getUrl) {
