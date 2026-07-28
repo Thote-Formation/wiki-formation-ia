@@ -52,10 +52,10 @@ async function initAuthCheck() {
     return;
   }
 
-  // 3. SI CONNECTÉ : VÉRIFICATION DE LA LICENCE DANS PROFILES
+  // 3. SI CONNECTÉ : VÉRIFICATION DE LA LICENCE ET RÉCUPÉRATION DU TEMPS TOTAL
   const { data: profile, error } = await supabase
     .from('profiles')
-    .select('expires_at, is_active')
+    .select('expires_at, is_active, total_time_seconds')
     .eq('id', session.user.id)
     .maybeSingle();
 
@@ -70,8 +70,58 @@ async function initAuthCheck() {
     return;
   }
 
-  // 4. Si tout est valide, injection du bouton de déconnexion
+  // 4. Lancement du suivi du temps en direct et synchronisation Supabase
+  initTimeTracker(supabase, session.user.id, profile.total_time_seconds || 0);
+
+  // 5. Injection du bouton de déconnexion
   injectLogoutButton(supabase, getUrl);
+}
+
+// ==========================================
+// GESTION DU CHRONOMÈTRE ET SYNCHRO SUPABASE
+// ==========================================
+function initTimeTracker(supabase, userId, initialTotalSeconds) {
+  const sessionStartTime = Date.now();
+  const baseTotalSeconds = initialTotalSeconds;
+
+  // Calcul du temps cumulé total (précédent + session en cours)
+  function getUpdatedTotalSeconds() {
+    const sessionElapsedSeconds = Math.floor((Date.now() - sessionStartTime) / 1000);
+    return baseTotalSeconds + sessionElapsedSeconds;
+  }
+
+  // Envoi de la sauvegarde à Supabase
+  async function syncTimeToDatabase() {
+    const total = getUpdatedTotalSeconds();
+    await supabase
+      .from('profiles')
+      .update({ total_time_seconds: total })
+      .eq('id', userId);
+  }
+
+  // 1. Sauvegarde automatique dans Supabase toutes les 30 secondes
+  setInterval(syncTimeToDatabase, 30000);
+
+  // 2. Sauvegarde quand l'utilisateur quitte la page / ferme l'onglet
+  window.addEventListener('beforeunload', () => {
+    syncTimeToDatabase();
+  });
+
+  // 3. Mise à jour dynamique du texte du compteur sur le site (chaque seconde)
+  setInterval(() => {
+    const totalSec = getUpdatedTotalSeconds();
+    const hours = Math.floor(totalSec / 3600);
+    const minutes = Math.floor((totalSec % 3600) / 60);
+    const seconds = totalSec % 60;
+
+    const formattedTime = `${hours}h ${minutes}m ${seconds}s`;
+
+    // Met à jour l'élément HTML s'il existe sur la page
+    const displayElement = document.getElementById('total-time-display') || document.getElementById('time-display');
+    if (displayElement) {
+      displayElement.textContent = formattedTime;
+    }
+  }, 1000);
 }
 
 function injectLogoutButton(supabase, getUrl) {
