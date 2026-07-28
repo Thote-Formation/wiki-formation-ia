@@ -104,7 +104,7 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
     adminBtn.id = 'admin-btn';
     adminBtn.className = 'header-admin-btn';
     adminBtn.href = getUrl('/admin/');
-    adminBtn.textContent = '⚙️ Admin';
+    adminBtn.textContent = '⚙️';
     adminBtn.style.cssText = styleCommon + ' margin-left: 10px;';
     
     searchBox.parentNode.appendChild(adminBtn);
@@ -115,7 +115,7 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
     const logoutBtn = document.createElement('button');
     logoutBtn.id = 'logout-btn';
     logoutBtn.className = 'header-logout-btn';
-    logoutBtn.textContent = 'Déconnexion 🚪';
+    logoutBtn.textContent = 'Déconnexion';
     logoutBtn.style.cssText = styleCommon + ' margin-left: 8px;';
     logoutBtn.onclick = async () => {
       await supabase.auth.signOut();
