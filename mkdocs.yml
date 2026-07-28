@@ -33,6 +33,8 @@ theme:
   features:
     - navigation.tabs
     - navigation.sections
+    - navigation.expand   # Garde les sous-menus repliés par défaut pour éviter un menu trop long
+    - navigation.indexes
     - navigation.top
     # navigation.instant retiré pour éviter de casser la logique auth.js
     - navigation.indexes
