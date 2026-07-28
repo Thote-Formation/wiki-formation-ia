@@ -521,3 +521,54 @@ h1, h2, h3, h4 {
     display: none;
   }
 }
+/* ==========================================================================
+   11. FORMULAIRES ET CARTES DE L'INTERFACE D'ADMINISTRATION
+   ========================================================================== */
+
+/* Cartes / Conteneurs d'administration */
+.admin-card, 
+.prompt-generator,
+.wiki-card {
+  background-color: var(--md-default-bg-color) !important;
+  color: var(--md-typeset-color) !important;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* Libellés de formulaires (Labels) */
+label, 
+.prompt-generator label,
+form label {
+  color: var(--md-typeset-color) !important;
+  font-weight: 700 !important;
+  opacity: 0.9;
+}
+
+/* Champs de saisie (Inputs, Datepickers, Selects) */
+input[type="text"],
+input[type="email"],
+input[type="date"],
+textarea,
+select {
+  background-color: var(--md-code-bg-color) !important;
+  color: var(--md-typeset-color) !important;
+  border: 1px solid var(--md-default-fg-color--lightest) !important;
+  border-radius: 8px !important;
+  padding: 10px 12px !important;
+}
+
+/* Couleur du texte de placeholder / exemple */
+::placeholder {
+  color: var(--md-default-fg-color--light) !important;
+  opacity: 0.7;
+}
+
+/* Adaptation spécifique du mode sombre pour les cartes custom */
+[data-md-color-scheme="slate"] .admin-card,
+[data-md-color-scheme="slate"] div[style*="background: white"],
+[data-md-color-scheme="slate"] div[style*="background-color: white"],
+[data-md-color-scheme="slate"] div[style*="background: #fff"],
+[data-md-color-scheme="slate"] div[style*="background:#fff"] {
+  background-color: #1e293b !important; /* Fond sombre au lieu du blanc */
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
