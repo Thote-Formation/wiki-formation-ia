@@ -92,11 +92,11 @@ async function initAuthCheck() {
 // GESTION DES BOUTONS DU HEADER (ADMIN + DECONNEXION)
 // ==========================================
 function injectHeaderButtons(supabase, getUrl, isAdmin) {
-  // Cibler l'élément conteneur du header à droite
   const searchBox = document.querySelector('.md-search');
   if (!searchBox || !searchBox.parentNode) return;
 
-  const styleCommon = 'text-decoration: none; padding: 6px 14px; background: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 20px; font-size: 0.85em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap;';
+  // Style agrandi & équilibré
+  const styleCommon = 'text-decoration: none; padding: 7px 16px; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 20px; font-size: 0.9em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap;';
 
   // Bouton Admin
   if (isAdmin && !document.getElementById('admin-btn')) {
@@ -107,7 +107,6 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
     adminBtn.textContent = '⚙️ Admin';
     adminBtn.style.cssText = styleCommon + ' margin-left: 10px;';
     
-    // Placer À DROITE de la barre de recherche
     searchBox.parentNode.appendChild(adminBtn);
   }
 
@@ -123,13 +122,12 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
       window.location.href = getUrl('/connexion/');
     };
     
-    // Placer À DROITE de la barre de recherche
     searchBox.parentNode.appendChild(logoutBtn);
   }
 }
 
 // ==========================================
-// GESTION DU CHRONOMÈTRE (SANS LES SECONDES)
+// GESTION DU CHRONOMÈTRE
 // ==========================================
 function initTimeTracker(supabase, userId, initialTotalSeconds) {
   const sessionStartTime = Date.now();
@@ -140,7 +138,6 @@ function initTimeTracker(supabase, userId, initialTotalSeconds) {
     return baseTotalSeconds + sessionElapsedSeconds;
   }
 
-  // Formatage propre : Heures et Minutes uniquement !
   function formatTime(seconds) {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
@@ -161,9 +158,9 @@ function initTimeTracker(supabase, userId, initialTotalSeconds) {
         badge = document.createElement('div');
         badge.id = 'time-spent-display';
         badge.className = 'header-time-badge';
-        badge.style.cssText = 'margin-left: 12px; padding: 6px 14px; background: rgba(255, 255, 255, 0.12); color: white; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 20px; font-size: 0.85em; font-weight: 600; display: inline-flex; align-items: center; white-space: nowrap;';
+        // Ajustement taille badge chrono
+        badge.style.cssText = 'margin-left: 14px; padding: 7px 16px; background: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 20px; font-size: 0.9em; font-weight: 600; display: inline-flex; align-items: center; white-space: nowrap;';
         
-        // Placer À DROITE de la barre de recherche (en premier)
         searchBox.parentNode.appendChild(badge);
       }
     }
