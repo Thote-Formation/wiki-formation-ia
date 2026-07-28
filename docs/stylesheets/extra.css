@@ -480,48 +480,76 @@ code, pre, .md-typeset code, .md-typeset pre {
 }
 
 /* ==========================================================================
-   10. NAVIGATION LATÉRALE ET RESPONSIVE (CORRIGÉE LIGHT & DARK)
+   10. NAVIGATION LATÉRALE ET STYLES DE NIVEAUX (LIGHT & DARK)
    ========================================================================== */
 
-/* Couleur des liens de nav par défaut */
+/* Tous les liens par défaut */
 .md-nav__link {
   color: var(--md-typeset-color) !important;
-  font-weight: 500 !important; /* Fin du gras absolu */
-  transition: color 0.15s ease, background 0.15s ease;
+  font-weight: 400 !important;
+  transition: all 0.15s ease;
 }
 
-/* Survol des liens de nav */
-.md-nav__link:hover {
-  color: var(--md-accent-fg-color) !important;
-}
-
-/* Titres de sections dans le menu latéral */
+/* NIVEAU 1 : Titres principaux de la Nav (ex: Ressources) */
 .md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
-  font-weight: 600 !important;
-  font-size: 0.85rem;
-  letter-spacing: 0.01em;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem;
+  color: var(--md-typeset-color) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-top: 0.8rem;
 }
 
-/* Élément actif en Mode Clair (Light) */
+/* NIVEAU 2 : Catégories parentes (ex: Cas pratiques, Templates et méthodes) */
+.md-nav__item--nested > .md-nav__link {
+  font-weight: 600 !important;
+  font-size: 0.88rem;
+  color: #1e293b !important;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.03); /* Petit fond discret pour marquer le sous-dossier */
+  margin-top: 6px;
+  margin-bottom: 2px;
+}
+
+[data-md-color-scheme="slate"] .md-nav__item--nested > .md-nav__link {
+  color: #f1f5f9 !important;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* NIVEAU 3 : Sous-catégories & Pages enfants (ex: Assistant administratif) */
+.md-nav__item--nested .md-nav .md-nav__link {
+  font-size: 0.82rem;
+  font-weight: 400 !important;
+  padding-left: 1rem !important; /* Indentation marquée */
+  border-left: 2px solid var(--md-default-fg-color--lightest); /* Ligne de guidage à gauche */
+  border-radius: 0 6px 6px 0;
+}
+
+/* Au survol des sous-pages */
+.md-nav__item--nested .md-nav .md-nav__link:hover {
+  border-left-color: var(--md-primary-fg-color);
+  color: var(--md-primary-fg-color) !important;
+}
+
+/* Page active (Surlignée proprement) */
 [data-md-color-scheme="default"] .md-nav__link--active,
 :root:not([data-md-color-scheme="slate"]) .md-nav__link--active {
   background: rgba(13, 71, 161, 0.08) !important;
   color: #0d47a1 !important;
   font-weight: 600 !important;
-  padding-left: 0.5rem;
-  border-radius: 6px;
+  border-left-color: #0d47a1 !important;
 }
 
-/* Élément actif en Mode Sombre (Slate) */
 [data-md-color-scheme="slate"] .md-nav__link--active {
   background: rgba(147, 197, 253, 0.15) !important;
   color: #93c5fd !important;
   font-weight: 600 !important;
-  padding-left: 0.5rem;
-  border-radius: 6px;
+  border-left-color: #93c5fd !important;
 }
 
-/* Ajustements desktop */
+/* Alignements Desktop */
 @media screen and (min-width: 76.25em) {
   .md-sidebar--primary {
     width: 18rem;
@@ -529,10 +557,6 @@ code, pre, .md-typeset code, .md-typeset pre {
 
   .md-sidebar__inner {
     padding-top: 0.6rem;
-  }
-
-  .md-nav--primary .md-nav__item {
-    margin: 0.18rem 0;
   }
 
   .md-nav--primary > .md-nav__list > .md-nav__item {
@@ -543,38 +567,5 @@ code, pre, .md-typeset code, .md-typeset pre {
 
   .md-nav--primary > .md-nav__list > .md-nav__item:last-child {
     border-bottom: none;
-  }
-
-  .md-nav--primary .md-nav__item .md-nav {
-    margin-top: 0.35rem;
-    padding-left: 0.35rem;
-  }
-
-  .md-nav--primary .md-nav__item .md-nav__link {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-    border-radius: 8px;
-  }
-}
-
-@media (max-width: 700px) {
-  .wiki-grid, .home-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .wiki-card, .home-card {
-    padding: 18px;
-  }
-
-  .real-life-box,
-  .good-reflex-box,
-  .warning-practice-box,
-  .summary-box,
-  .prompt-generator {
-    padding: 16px;
-  }
-
-  .header-time-badge {
-    display: none;
   }
 }
