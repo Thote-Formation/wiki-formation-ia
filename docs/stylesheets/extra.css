@@ -550,3 +550,21 @@ code, pre, .md-typeset code, .md-typeset pre {
     padding-top: 1rem;
   }
 }
+/* Restauration et style du sommaire interne (Table des matières de la page) */
+.md-nav--secondary .md-nav__link {
+  font-size: 0.82rem !important;
+  color: var(--md-typeset-color) !important;
+  padding: 3px 0 3px 0.8rem !important;
+  border-left: 2px solid transparent;
+}
+
+.md-nav--secondary .md-nav__link:hover {
+  color: var(--md-primary-fg-color) !important;
+  border-left-color: var(--md-primary-fg-color);
+}
+
+.md-nav--secondary .md-nav__link--active {
+  color: var(--md-primary-fg-color) !important;
+  border-left-color: var(--md-primary-fg-color) !important;
+  font-weight: 600 !important;
+}
