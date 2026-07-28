@@ -35,6 +35,7 @@ theme:
     - navigation.tabs.sticky    # Garde la barre d'onglets visible au scroll
     - navigation.indexes        # Permet de cliquer sur une catégorie (ex: Cas pratiques) pour ouvrir son index.md
     - navigation.top            # Bouton de retour en haut de page
+    - toc.integrate
     - toc.follow
     - search.suggest
     - search.highlight
