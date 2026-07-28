@@ -70,7 +70,7 @@ async function initAuthCheck() {
     return;
   }
 
-  // 4. Lancement du suivi du temps en direct et synchronisation Supabase
+  // 4. Lancement du suivi du temps et injection du badge dans le header
   initTimeTracker(supabase, session.user.id, profile.total_time_seconds || 0);
 
   // 5. Injection du bouton de déconnexion
@@ -84,10 +84,42 @@ function initTimeTracker(supabase, userId, initialTotalSeconds) {
   const sessionStartTime = Date.now();
   const baseTotalSeconds = initialTotalSeconds;
 
-  // Calcul du temps cumulé total (précédent + session en cours)
+  // Calcul du temps cumulé total
   function getUpdatedTotalSeconds() {
     const sessionElapsedSeconds = Math.floor((Date.now() - sessionStartTime) / 1000);
     return baseTotalSeconds + sessionElapsedSeconds;
+  }
+
+  // Formatage propre du temps
+  function formatTime(seconds) {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    const pad = (num) => String(num).padStart(2, '0');
+
+    if (hrs > 0) {
+      return `⏱️ ${hrs}h ${pad(mins)}m ${pad(secs)}s`;
+    }
+    return `⏱️ ${mins}m ${pad(secs)}s`;
+  }
+
+  // Injection/Mise à jour du badge dans le header de MkDocs
+  function updateHeaderBadge(totalSec) {
+    let badge = document.getElementById('time-spent-display');
+    
+    if (!badge) {
+      const headerRight = document.querySelector('.md-header__option') || document.querySelector('.md-search');
+      if (headerRight && headerRight.parentNode) {
+        badge = document.createElement('div');
+        badge.id = 'time-spent-display';
+        badge.className = 'header-time-badge';
+        headerRight.parentNode.insertBefore(badge, headerRight);
+      }
+    }
+
+    if (badge) {
+      badge.textContent = formatTime(totalSec);
+    }
   }
 
   // Envoi de la sauvegarde à Supabase
@@ -107,23 +139,24 @@ function initTimeTracker(supabase, userId, initialTotalSeconds) {
     syncTimeToDatabase();
   });
 
-  // 3. Mise à jour dynamique du texte du compteur sur le site (chaque seconde)
+  // 3. Chronomètre local (mis à jour chaque seconde)
   setInterval(() => {
     const totalSec = getUpdatedTotalSeconds();
-    const hours = Math.floor(totalSec / 3600);
-    const minutes = Math.floor((totalSec % 3600) / 60);
-    const seconds = totalSec % 60;
-
-    const formattedTime = `${hours}h ${minutes}m ${seconds}s`;
-
-    // Met à jour l'élément HTML s'il existe sur la page
-    const displayElement = document.getElementById('total-time-display') || document.getElementById('time-display');
-    if (displayElement) {
-      displayElement.textContent = formattedTime;
-    }
+    updateHeaderBadge(totalSec);
   }, 1000);
+
+  // Premier affichage immédiat
+  updateHeaderBadge(baseTotalSeconds);
+
+  // Compatibilité navigation instantanée MkDocs Material
+  if (typeof document$ !== 'undefined') {
+    document$.subscribe(() => updateHeaderBadge(getUpdatedTotalSeconds()));
+  }
 }
 
+// ==========================================
+// INJECTION DU BOUTON DE DÉCONNEXION
+// ==========================================
 function injectLogoutButton(supabase, getUrl) {
   let btn = document.getElementById('logout-btn');
   if (!btn) {
