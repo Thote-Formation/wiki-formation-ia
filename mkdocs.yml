@@ -33,9 +33,9 @@ theme:
   features:
     - navigation.tabs           # Onglets principaux en haut (Accueil, Certification, Ressources...)
     - navigation.tabs.sticky    # Garde la barre d'onglets visible au scroll
-    - navigation.prune          # Ferme automatiquement les sous-menus inactifs
     - navigation.indexes        # Permet de cliquer sur une catégorie (ex: Cas pratiques) pour ouvrir son index.md
     - navigation.top            # Bouton de retour en haut de page
+    - toc.follow
     - search.suggest
     - search.highlight
     - content.code.copy
