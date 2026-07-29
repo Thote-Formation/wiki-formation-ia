@@ -577,3 +577,27 @@ code, pre, .md-typeset code, .md-typeset pre {
     width: 15rem;
   }
 }
+/* ==========================================================================
+   BOUTON HOME MOBILE DANS LE HEADER
+   ========================================================================== */
+.header-home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  color: #ffffff !important;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: opacity 0.2s ease;
+}
+
+.header-home-btn:hover {
+  opacity: 0.8;
+}
+
+/* Visibilité : visible sur Mobile & Tablette, discret sur Grand Desktop */
+@media screen and (min-width: 76.25em) {
+  .header-home-btn {
+    display: none;
+  }
+}
