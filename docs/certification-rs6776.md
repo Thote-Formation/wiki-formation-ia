@@ -30,34 +30,30 @@ Elle évalue notamment votre capacité à :
 ## Alignement : Exercices RS6776 & Modules de Formation
 
 ```mermaid
-flowchart LR
-    subgraph RS [🎓 6 Épreuves RS6776]
+graph TD
+    subgraph RS ["🎓 Épreuves de Certification RS6776"]
         direction TB
-        E1["Ex 1: Stratégie IA"]
-        E2["Ex 2: Prompts Texte & Visuel"]
-        E3["Ex 3: Confidentialité & RGPD"]
-        E4["Ex 4: Accessibilité & Inclusion"]
-        E5["Ex 5: Simplification & FALC"]
-        E6["Ex 6: Éthique, Biais & IA Act"]
+        E1["Exercice 1 : Stratégie d'implémentation IA"]
+        E2["Exercice 2 : Prompt rédactionnel & visuel"]
+        E3["Exercice 3 : Confidentialité & Données sensibles"]
+        E4["Exercices 4 & 5 : Accessibilité & Simplification FALC"]
+        E6["Exercice 6 : Éthique, Biais & IA Act"]
     end
 
-    subgraph MOD [📚 Modules de Formation]
+    subgraph MOD ["📚 Modules de Formation (Wiki)"]
         direction TB
-        H2["H2 — Stratégie d'implémentation"]
-        H3["H3 — Structurer un prompt"]
-        H4["H4 — Visuels attractifs"]
-        H5["H5 — Confidentialité & Sécurité"]
-        H6["H6 — Accessibilité & Inclusivité"]
-        H7["H7 — Éthique, Biais & IA Act"]
+        H2["Module H2 — Stratégie IA"]
+        H34["Modules H3 & H4 — Prompting & Visuels"]
+        H5["Module H5 — Confidentialité & Sécurité"]
+        H6["Module H6 — Accessibilité & Inclusivité"]
+        H7["Module H7 — Éthique, Biais & IA Act"]
     end
 
-    E1 --> H2
-    E2 --> H3
-    E2 --> H4
-    E3 --> H5
-    E4 --> H6
-    E5 --> H6
-    E6 --> H7
+    E1 ==> H2
+    E2 ==> H34
+    E3 ==> H5
+    E4 ==> H6
+    E6 ==> H7
 
     style RS fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0f172a
     style MOD fill:#f1f5f9,stroke:#64748b,stroke-width:2px,color:#0f172a
