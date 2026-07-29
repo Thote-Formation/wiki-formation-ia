@@ -49,6 +49,7 @@ extra_javascript:
   - javascripts/h3-interactivity.js
   - javascripts/h4-interactivity.js
   - javascripts/h5-interactivity.js
+  - javascripts/h6-interactivity.js
   - javascripts/auth.js
   - javascripts/progress.js
   - javascripts/prompt-generator.js
