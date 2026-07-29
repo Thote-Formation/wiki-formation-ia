@@ -50,6 +50,7 @@ extra_javascript:
   - javascripts/reduction-hallucinations.js
   - javascripts/quiz-final.js
   - javascripts/evaluation-entree.js
+  - javascripts/home-orientation.js
 
 extra_css:
   - stylesheets/extra.css
