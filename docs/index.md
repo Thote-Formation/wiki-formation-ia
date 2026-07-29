@@ -5,8 +5,7 @@ description: Espace de ressources et de préparation à la certification RS6776 
 
 ![Illustration Formation IA Générative](./assets/image-accueil.png){ .home-hero-image align=center }
 
-# Wiki Formation IA générative
-<span class="md-tag" style="background-color: var(--md-accent-fallback-color); color: white; padding: 4px 12px; border-radius: 15px; font-weight: bold; font-size: 0.85em;">Certification RS6776</span>
+# Wiki Formation IA générative <span class="md-tag" style="background-color: var(--md-accent-fallback-color); color: white; padding: 4px 12px; border-radius: 15px; font-weight: bold; font-size: 0.85em;">Certification RS6776</span>
 
 Bienvenue dans votre espace de ressources dédié à l’IA générative et à la préparation de la certification **RS6776**. Ce wiki interactif vous accompagne au quotidien pour réviser, appliquer et maîtriser les compétences clés.
 
@@ -58,3 +57,45 @@ graph LR
     style C fill:#E8EAF6,stroke:#3F51B5,stroke-width:2px
     style D fill:#E8EAF6,stroke:#3F51B5,stroke-width:2px
     style E fill:#FFECB3,stroke:#FF6F00,stroke-width:3px
+```
+
+??? tip "Dérouler le détail de la cartographie du site"
+
+    | Rubrique | Objectif Pédagogique | Ressources Clés |
+    | :--- | :--- | :--- |
+    | **Certification RS6776** | Maîtriser le référentiel et l'examen | Fiche synthèse, critères |
+    | **Formation (H0-H7)** | Développer la compétence pratique | Fiches cours, exercices |
+    | **Ressources pratiques** | Appliquer au quotidien professionnel | Templates CROFT, fiches outils |
+    | **Glossaire** | Fixer le vocabulaire technique | Définitions, concepts clés |
+
+---
+
+## 🧭 Outil d'orientation rapide
+
+!!! question "Où devez-vous aller aujourd'hui ?"
+    Utilisez le sélecteur ci-dessous pour accéder directement au contenu adapté à votre objectif immédiat.
+
+<div id="home-orientation-container"></div>
+
+---
+
+## 🛡️ Le réflexe à adopter au quotidien
+
+!!! warning "L'IA est un co-pilote, pas un pilote automatique"
+    Avant de valider ou diffuser une production générée par IA, appliquez systématiquement la grille de contrôle :
+
+=== "1. Cadrer"
+    * [ ] Le contexte métier est-il clairement précisé ?
+    * [ ] Le rôle/persona attribué à l'IA est-il adapté ?
+
+=== "2. Sécuriser"
+    * [ ] Aucune donnée personnelle ou confidentielle n'a été partagée.
+    * [ ] Respect du RGPD et des chartes internes.
+
+=== "3. Vérifier"
+    * [ ] Contrôle factuel des données et statistiques.
+    * [ ] Absence d'hallucinations ou de liens cassés.
+
+=== "4. Contribuer (Humain dans la boucle)"
+    * [ ] Ton et style réadaptés à votre identité de marque.
+    * [ ] Validation finale par un expert métier.
