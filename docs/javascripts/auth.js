@@ -194,3 +194,22 @@ function initTimeTracker(supabase, userId, initialTotalSeconds) {
     document$.subscribe(() => updateHeaderBadge(getUpdatedTotalSeconds()));
   }
 }
+document.addEventListener("DOMContentLoaded", function () {
+  const headerTopic = document.querySelector(".md-header__title");
+  
+  if (headerTopic && !document.querySelector(".header-home-btn")) {
+    const homeBtn = document.createElement("a");
+    homeBtn.href = document.querySelector("a.md-header__button.md-logo")?.href || "/";
+    homeBtn.className = "header-home-btn";
+    homeBtn.setAttribute("aria-label", "Accueil");
+    homeBtn.title = "Retour à l'accueil";
+    homeBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+      </svg>
+    `;
+    
+    // Insertion juste à côté du titre/logo dans le header
+    headerTopic.insertAdjacentElement("beforebegin", homeBtn);
+  }
+});
