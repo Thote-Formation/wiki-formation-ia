@@ -1,63 +1,232 @@
-## 🖼️ Comparateur visuel interactif : Prompt Naïf vs Prompt Structuré
+/**
+ * formation/js/h4-interactivity.js
+ * Interactive visual comparator with REAL images + Quiz module
+ */
 
-Expérimentez ci-dessous l'impact direct entre un prompt générique et un prompt professionnel structuré selon les 5 éléments, comparés sur **DALL-E 3** et **Adobe Firefly** :
+(function () {
+  'use strict';
 
-<div class="prompt-comparator-box" style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0); margin: 24px 0;">
-  
-  <!-- Sélecteur de sujet -->
-  <div style="margin-bottom: 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-    <span style="font-weight: 700; font-size: 14px;">Choisissez un cas d'étude :</span>
-    <button type="button" class="comparator-tab active" data-case="house" style="padding: 6px 14px; border-radius: 6px; border: 1px solid #1a5fb4; background: #1a5fb4; color: #fff; cursor: pointer; font-size: 13px; font-weight: 600;">🏠 Une maison</button>
-    <button type="button" class="comparator-tab" data-case="robot" style="padding: 6px 14px; border-radius: 6px; border: 1px solid var(--md-default-fg-color--light, #ccc); background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000); cursor: pointer; font-size: 13px; font-weight: 600;">🤖 Un robot au travail</button>
-    <button type="button" class="comparator-tab" data-case="coffee" style="padding: 6px 14px; border-radius: 6px; border: 1px solid var(--md-default-fg-color--light, #ccc); background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000); cursor: pointer; font-size: 13px; font-weight: 600;">☕ Une tasse de café</button>
-  </div>
-
-  <!-- Conteneur de comparaison -->
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+  function initComparatorH4() {
+    const tabs = document.querySelectorAll('.comparator-tab');
     
-    <!-- CARTE PROMPT NAÏF -->
-    <div style="background: var(--md-default-bg-color, #fff); border: 1px solid rgba(201, 86, 74, 0.4); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; justify: space-between;">
-      <div>
-        <div style="background: rgba(201, 86, 74, 0.1); color: #c9564a; font-weight: 700; font-size: 12px; padding: 4px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px;">❌ Prompt Naïf / Simpliste</div>
-        <div id="naive-prompt-text" style="font-style: italic; font-size: 13px; margin-bottom: 12px; color: var(--md-typeset-color, #333); background: rgba(0,0,0,0.02); padding: 8px; border-radius: 4px;">« Une maison »</div>
-        
-        <!-- Aperçu Visuel Naïf -->
-        <div style="position: relative; border-radius: 6px; overflow: hidden; margin-bottom: 12px; aspect-ratio: 16/9; background: #eee;">
-          <img id="naive-image-preview" src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80" alt="Rendu prompt naïf" style="width: 100%; height: 100%; object-fit: cover;">
-          <span style="position: absolute; bottom: 6px; right: 6px; background: rgba(0,0,0,0.7); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px;">Rendu impersonnel</span>
-        </div>
+    const naivePromptEl = document.getElementById('naive-prompt-text');
+    const naiveImgEl = document.getElementById('naive-image-preview');
+    const naiveDescEl = document.getElementById('naive-desc');
 
-        <div style="font-size: 12px; font-weight: 700; margin-bottom: 6px;">Résultat :</div>
-        <p id="naive-desc" style="font-size: 12px; line-height: 1.4; color: #555; margin: 0 0 10px 0;">
-          L'IA génère un pavillon standard très classique. Le résultat est imprévisible d'un essai à l'autre et manque totalement de style propre.
-        </p>
-      </div>
-      <div style="margin-top: 10px; font-size: 11px; color: #c9564a; font-weight: 600; padding-top: 8px; border-top: 1px dashed rgba(201, 86, 74, 0.3);">
-        ⚠️ Diagnostic : Flou créatif, inutilisable pour une charte graphique d'entreprise.
-      </div>
-    </div>
+    const structPromptEl = document.getElementById('structured-prompt-text');
+    const structImgEl = document.getElementById('struct-image-preview');
+    const structDescEl = document.getElementById('struct-desc');
 
-    <!-- CARTE PROMPT STRUCTURÉ -->
-    <div style="background: var(--md-default-bg-color, #fff); border: 1px solid rgba(74, 155, 94, 0.4); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; justify: space-between;">
-      <div>
-        <div style="background: rgba(74, 155, 94, 0.1); color: #4a9b5e; font-weight: 700; font-size: 12px; padding: 4px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px;">✅ Prompt Structuré (5 Éléments)</div>
-        <div id="structured-prompt-text" style="font-style: italic; font-size: 12px; margin-bottom: 12px; color: var(--md-typeset-color, #333); background: rgba(0,0,0,0.02); padding: 8px; border-radius: 4px;">« Villa contemporaine bioclimatique en bois. Style illustration vectorielle. Ambiance crépusculaire. Palette : bois, vert sauge, orange. Format 16:9. »</div>
-        
-        <!-- Aperçu Visuel Structuré -->
-        <div style="position: relative; border-radius: 6px; overflow: hidden; margin-bottom: 12px; aspect-ratio: 16/9; background: #eee;">
-          <img id="struct-image-preview" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Rendu prompt structuré" style="width: 100%; height: 100%; object-fit: cover;">
-          <span style="position: absolute; bottom: 6px; right: 6px; background: rgba(26, 95, 180, 0.85); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px;">Rendu 100% maîtrisé</span>
-        </div>
+    if (!naivePromptEl || !structPromptEl) return;
 
-        <div style="font-size: 12px; font-weight: 700; margin-bottom: 6px;">Résultat :</div>
-        <p id="struct-desc" style="font-size: 12px; line-height: 1.4; color: #555; margin: 0 0 10px 0;">
-          L'IA respecte au pixel près le style vectoriel, les matériaux (bois), l'éclairage de fin de journée et la palette chromatique exigée.
-        </p>
-      </div>
-      <div style="margin-top: 10px; font-size: 11px; color: #4a9b5e; font-weight: 600; padding-top: 8px; border-top: 1px dashed rgba(74, 155, 94, 0.3);">
-        🎯 Diagnostic : Résultat ciblé, esthétique constante, immédiatement publiable.
-      </div>
-    </div>
+    const casesData = {
+      house: {
+        naivePrompt: '« Une maison »',
+        naiveImg: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80',
+        naiveDesc: 'Photo de pavillon générique sans identité. L\'IA a choisi arbitrairement le style, la météo, la couleur et le cadrage.',
+        structPrompt: '« Villa contemporaine bioclimatique en bois. Style illustration vectorielle moderne. Ambiance crépusculaire chaleureuse. Palette : bois chaud, vert sauge et orange. Format 16:9. »',
+        structImg: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80',
+        structDesc: 'Rendu d\'architecte cadré, respectant les teintes exogènes, le style moderne et la lumière tombante demandée.'
+      },
+      robot: {
+        naivePrompt: '« Un robot au travail »',
+        naiveImg: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80',
+        naiveDesc: 'Robot métallique froid d\'aspect industriel classique sur fond sombre. Effet vu et revu.',
+        structPrompt: '« Petit robot collaboratif amical assistant une équipe en agence design. Style 3D Pixar. Éclairage doux du matin. Palette pastel bleu et jaune. Format 16:9. »',
+        structImg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
+        structDesc: 'Illustration 3D vivante et chaleureuse, couleurs douces, parfaite pour illustrer un article sur le futur du travail.'
+      },
+      coffee: {
+        naivePrompt: '« Une tasse de café »',
+        naiveImg: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80',
+        naiveDesc: 'Tasse ordinaire posée au hasard. Aucune recherche de composition ou d\'émotion.',
+        structPrompt: '« Tasse de café latte art posée sur une table en bois brut à côté d\'un carnet. Style photo macro. Ambiance cozy, lumière dorée du matin. Palette terreuse & crème. »',
+        structImg: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80',
+        structDesc: 'Photographie professionnelle style Instagram/magazine, profondeur de champ travaillée et lumière cocooning parfaite.'
+      }
+    };
 
-  </div>
-</div>
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function () {
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.style.background = 'var(--md-default-bg-color, #fff)';
+          t.style.color = 'var(--md-typeset-color, #000)';
+          t.style.borderColor = 'var(--md-default-fg-color--light, #ccc)';
+        });
+
+        this.classList.add('active');
+        this.style.background = '#1a5fb4';
+        this.style.color = '#fff';
+        this.style.borderColor = '#1a5fb4';
+
+        const caseKey = this.getAttribute('data-case');
+        const data = casesData[caseKey];
+
+        if (data) {
+          naivePromptEl.textContent = data.naivePrompt;
+          naiveImgEl.src = data.naiveImg;
+          naiveDescEl.textContent = data.naiveDesc;
+
+          structPromptEl.textContent = data.structPrompt;
+          structImgEl.src = data.structImg;
+          structDescEl.textContent = data.structDesc;
+        }
+      });
+    });
+  }
+
+  function initFindElementGame() {
+    const allElements = [
+      "Sujet principal",
+      "Style artistique",
+      "Ambiance / Lumière",
+      "Palette de couleurs",
+      "Composition / Format"
+    ];
+
+    const questions = [
+      {
+        prompt: "Un chat noir assis sur un rebord de fenêtre, la nuit, palette bleu nuit et argent, format carré 1:1.",
+        correct: "Style artistique",
+        explain: "Aucun style n'est précisé (photo réaliste, aquarelle, vectoriel, 3D...)."
+      },
+      {
+        prompt: "Portrait d'un artisan dans son atelier, style photo réaliste, ambiance chaleureuse et intime, format portrait 4:5.",
+        correct: "Palette de couleurs",
+        explain: "Aucune indication de couleurs ou de tonalités dominantes."
+      },
+      {
+        prompt: "Une maison contemporaine en bord de mer, style aquarelle douce, palette bleu ciel et beige, composition centrée.",
+        correct: "Ambiance / Lumière",
+        explain: "L'éclairage et l'atmosphère ne sont pas décrits (matinal, tempétueux, néon, apaisant...)."
+      },
+      {
+        prompt: "Illustration flat design d'un espace de coworking, ambiance dynamique, palette jaune et turquoise.",
+        correct: "Composition / Format",
+        explain: "Ni le ratio (16:9, carré, vertical) ni le cadrage ne sont stipulés."
+      },
+      {
+        prompt: "Style vectoriel minimaliste, ambiance calme et zen, palette vert d'eau et blanc, format paysage 16:9.",
+        correct: "Sujet principal",
+        explain: "Le prompt décrit l'enrobage, mais on ignore totalement ce qui doit être dessiné !"
+      }
+    ];
+
+    let idx = 0;
+    let scoreCount = 0;
+
+    const progress = document.getElementById('find-element-progress');
+    const promptBox = document.getElementById('find-element-prompt-box');
+    const choicesEl = document.getElementById('find-element-choices');
+    const feedback = document.getElementById('find-element-feedback');
+    const nextBtn = document.getElementById('find-element-next');
+    const resetBtn = document.getElementById('find-element-reset');
+    const scoreEl = document.getElementById('find-element-score');
+
+    if (!promptBox || !choicesEl) return;
+
+    function render() {
+      feedback.style.display = 'none';
+      nextBtn.style.display = 'none';
+      resetBtn.style.display = 'none';
+      scoreEl.style.display = 'none';
+
+      progress.textContent = `Question ${idx + 1} sur ${questions.length}`;
+      promptBox.textContent = `« ${questions[idx].prompt} »`;
+      choicesEl.innerHTML = '';
+
+      allElements.forEach(el => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.style.cssText = `
+          text-align: center;
+          padding: 10px;
+          border: 1px solid var(--md-default-fg-color--lightest, #d5d5d5);
+          border-radius: 6px;
+          background: var(--md-default-bg-color, #fff);
+          cursor: pointer;
+          font-size: 13px;
+          color: var(--md-typeset-color, #1a1a1a);
+          width: 100%;
+          transition: background 0.2s, border-color 0.2s;
+        `;
+        btn.textContent = el;
+        btn.addEventListener('click', () => answer(el, btn));
+        choicesEl.appendChild(btn);
+      });
+    }
+
+    function answer(chosen, btn) {
+      const q = questions[idx];
+      const allBtns = choicesEl.querySelectorAll('button');
+
+      allBtns.forEach(b => {
+        b.disabled = true;
+        if (b.textContent === q.correct) {
+          b.style.background = "rgba(74, 155, 94, 0.2)";
+          b.style.borderColor = "#4a9b5e";
+        }
+      });
+
+      if (chosen === q.correct) {
+        feedback.style.background = "rgba(74, 155, 94, 0.15)";
+        feedback.style.border = "1px solid #4a9b5e";
+        feedback.style.color = "var(--md-typeset-color, #1a1a1a)";
+        feedback.innerHTML = `✅ <strong>Exact !</strong> ${q.explain}`;
+        scoreCount++;
+      } else {
+        btn.style.background = "rgba(201, 86, 74, 0.2)";
+        btn.style.borderColor = "#c9564a";
+        feedback.style.background = "rgba(201, 86, 74, 0.15)";
+        feedback.style.border = "1px solid #c9564a";
+        feedback.style.color = "var(--md-typeset-color, #1a1a1a)";
+        feedback.innerHTML = `❌ <strong>Pas tout à fait.</strong> ${q.explain}`;
+      }
+
+      feedback.style.display = 'block';
+
+      if (idx < questions.length - 1) {
+        nextBtn.style.display = 'inline-block';
+      } else {
+        scoreEl.style.display = 'block';
+        scoreEl.textContent = `Résultat final : ${scoreCount} / ${questions.length}`;
+        resetBtn.style.display = 'inline-block';
+      }
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        idx++;
+        render();
+      });
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        idx = 0;
+        scoreCount = 0;
+        render();
+      });
+    }
+
+    render();
+  }
+
+  function initAllH4Modules() {
+    initComparatorH4();
+    initFindElementGame();
+  }
+
+  if (typeof document$ !== "undefined") {
+    document$.subscribe(function () {
+      initAllH4Modules();
+    });
+  } else {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAllH4Modules);
+    } else {
+      initAllH4Modules();
+    }
+  }
+})();
