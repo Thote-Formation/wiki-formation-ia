@@ -46,6 +46,7 @@ extra_javascript:
   - javascripts/certification-rs6776.js
   - javascripts/h1-interactivity.js
   - javascripts/h2-interactivity.js
+  - javascripts/h3-interactivity.js
   - javascripts/auth.js
   - javascripts/progress.js
   - javascripts/prompt-generator.js
