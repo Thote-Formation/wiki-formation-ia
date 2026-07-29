@@ -43,6 +43,7 @@ theme:
 
 extra_javascript:
   - javascripts/index.js
+  - javascripts/certification-rs6776.js
   - javascripts/auth.js
   - javascripts/progress.js
   - javascripts/prompt-generator.js
