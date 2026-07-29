@@ -1,86 +1,80 @@
 /**
  * formation/js/h2-interactivity.js
- * Modules interactifs pour la séance H2 (Prompt Builder & Quiz de sélection d'outils)
+ * Modules interactifs pour la séance H2 :
+ * 1. Simulateur d'Audit de poste & Gain de temps (RS6776)
+ * 2. Quiz "Quel outil pour quelle tâche ?"
  */
 
 (function () {
   'use strict';
 
   // =========================================================================
-  // 1. MODULE : PROMPT BUILDER (CONSTRUCTEUR DE PROMPT)
+  // 1. MODULE : SIMULATEUR D'AUDIT DE POSTE & ROI (RS6776)
   // =========================================================================
-  function initPromptBuilder() {
-    const roleInput = document.getElementById('pb-role');
-    const taskInput = document.getElementById('pb-task');
-    const contextInput = document.getElementById('pb-context');
-    const formatInput = document.getElementById('pb-format');
-    const constraintsInput = document.getElementById('pb-constraints');
+  function initRoiSimulator() {
+    const taskSelect = document.getElementById('sim-task-type');
+    const hoursSelect = document.getElementById('sim-hours');
+    const planSelect = document.getElementById('sim-plan');
+    const resultBox = document.getElementById('sim-result');
 
-    const outputEl = document.getElementById('pb-output');
-    const copyBtn = document.getElementById('pb-btn-copy');
-    const templateBtn = document.getElementById('pb-btn-template');
+    if (!taskSelect || !resultBox) return;
 
-    if (!roleInput || !outputEl) return;
-
-    function generatePrompt() {
-      const role = roleInput.value.trim();
-      const task = taskInput.value.trim();
-      const context = contextInput.value.trim();
-      const format = formatInput.value.trim();
-      const constraints = constraintsInput.value.trim();
-
-      if (!role && !task && !context && !format && !constraints) {
-        outputEl.textContent = "Remplissez les champs ci-dessus pour générer votre prompt...";
-        return;
+    const taskData = {
+      emails: {
+        tool: "ChatGPT / Le Chat (LLM Généraliste)",
+        savingsRate: 0.5,
+        justification: "Gain de 50% du temps de saisie via des trames interactives et une reformulation rapide."
+      },
+      pdf: {
+        tool: "NotebookLM (Analyse documentaire)",
+        savingsRate: 0.7,
+        justification: "Gain de 70% sur la recherche d'information dans vos PDF internes sans risque d'hallucination."
+      },
+      schema: {
+        tool: "Napkin.ai (Générateur de schémas)",
+        savingsRate: 0.65,
+        justification: "Conversion quasi instantanée de texte brut en schémas et workflows lisibles."
+      },
+      social: {
+        tool: "Gem / GPT Personnalisé sur-mesure",
+        savingsRate: 0.6,
+        justification: "Maintien automatique de la ligne éditoriale et diminution du temps de brouillon."
       }
+    };
 
-      let parts = [];
-      if (role) parts.push(`[RÔLE]\n${role}`);
-      if (task) parts.push(`[TÂCHE]\n${task}`);
-      if (context) parts.push(`[CONTEXTE]\n${context}`);
-      if (format) parts.push(`[FORMAT DE SORTIE]\n${format}`);
-      if (constraints) parts.push(`[CONTRAINTES]\n${constraints}`);
+    function updateSimulation() {
+      const taskKey = taskSelect.value;
+      const hours = parseFloat(hoursSelect.value);
+      const isPro = planSelect.value === 'pro';
 
-      outputEl.textContent = parts.join('\n\n');
+      const data = taskData[taskKey];
+      const hoursSavedWeek = (hours * data.savingsRate).toFixed(1);
+      const hoursSavedMonth = (hoursSavedWeek * 4).toFixed(0);
+      const cost = isPro ? "20 € / mois (Licence Pro)" : "0 € (Offre Freemium)";
+
+      resultBox.innerHTML = `
+        <div style="font-size: 13px; font-weight: 600;">🛠️ <strong>Outil préconisé :</strong> ${data.tool}</div>
+        <div style="font-size: 13px; color: var(--md-typeset-color, #333);">💡 <strong>Valeur ajoutée :</strong> ${data.justification}</div>
+        <div style="display: flex; gap: 12px; margin-top: 6px; flex-wrap: wrap;">
+          <span style="font-size: 12px; font-weight: 700; background: rgba(74, 155, 94, 0.15); color: #2e7d32; padding: 4px 8px; border-radius: 4px;">
+            ⏱️ Temps gagné : ~${hoursSavedWeek}h / sem. (${hoursSavedMonth}h / mois)
+          </span>
+          <span style="font-size: 12px; font-weight: 700; background: rgba(26, 95, 180, 0.15); color: #1a5fb4; padding: 4px 8px; border-radius: 4px;">
+            💰 Budget estimé : ${cost}
+          </span>
+        </div>
+      `;
     }
 
-    [roleInput, taskInput, contextInput, formatInput, constraintsInput].forEach(input => {
-      if (input) input.addEventListener('input', generatePrompt);
-    });
+    taskSelect.addEventListener('change', updateSimulation);
+    hoursSelect.addEventListener('change', updateSimulation);
+    planSelect.addEventListener('change', updateSimulation);
 
-    if (templateBtn) {
-      templateBtn.addEventListener('click', () => {
-        roleInput.value = "Tu es un chef de projet événementiel sénior spécialisé en éco-conception.";
-        taskInput.value = "Rédige une checklist de contrôle pour l'organisation d'un séminaire d'entreprise de 100 personnes.";
-        contextInput.value = "Le séminaire dure 2 jours en zone rurale. L'objectif est de réduire l'empreinte carbone globale de 30%.";
-        formatInput.value = "Présente la checklist sous forme de tableau Markdown avec 3 colonnes : Phase, Action, Indicateur d'impact.";
-        constraintsInput.value = "Pas plus de 10 actions clés au total. Ne pas inclure de jargon complexe. Ton direct et opérationnel.";
-        generatePrompt();
-      });
-    }
-
-    if (copyBtn) {
-      copyBtn.addEventListener('click', () => {
-        const textToCopy = outputEl.textContent;
-        if (!textToCopy || textToCopy.startsWith("Remplissez")) return;
-
-        navigator.clipboard.writeText(textToCopy).then(() => {
-          const originalText = copyBtn.textContent;
-          copyBtn.textContent = "✅ Copié !";
-          copyBtn.style.background = "#4a9b5e";
-          setTimeout(() => {
-            copyBtn.textContent = originalText;
-            copyBtn.style.background = "#1a5fb4";
-          }, 2000);
-        }).catch(() => {
-          alert("Erreur lors de la copie.");
-        });
-      });
-    }
+    updateSimulation();
   }
 
   // =========================================================================
-  // 2. MODULE : QUIZ SÉLECTION D'OUTILS
+  // 2. MODULE : QUIZ "QUEL OUTIL POUR QUELLE TÂCHE ?"
   // =========================================================================
   function initToolQuiz() {
     const questions = [
@@ -156,13 +150,6 @@
         `;
         btn.textContent = opt;
 
-        btn.addEventListener('mouseenter', () => {
-          if (!btn.disabled) btn.style.background = "rgba(26, 95, 180, 0.08)";
-        });
-        btn.addEventListener('mouseleave', () => {
-          if (!btn.disabled) btn.style.background = "var(--md-default-bg-color, #fff)";
-        });
-
         btn.addEventListener('click', () => answer(idx, btn));
         choicesEl.appendChild(btn);
       });
@@ -172,10 +159,7 @@
       const q = questions[i];
       const allBtns = choicesEl.querySelectorAll('button');
 
-      allBtns.forEach(b => {
-        b.disabled = true;
-        b.style.cursor = 'default';
-      });
+      allBtns.forEach(b => b.disabled = true);
 
       if (idx === q.correct) {
         selectedBtn.style.background = "rgba(74, 155, 94, 0.2)";
@@ -188,7 +172,7 @@
       } else {
         selectedBtn.style.background = "rgba(201, 86, 74, 0.2)";
         selectedBtn.style.borderColor = "#c9564a";
-        
+
         allBtns[q.correct].style.background = "rgba(74, 155, 94, 0.2)";
         allBtns[q.correct].style.borderColor = "#4a9b5e";
 
@@ -203,8 +187,8 @@
       if (i < questions.length - 1) {
         nextBtn.style.display = 'inline-block';
       } else {
-        scoreEl.style.display = 'inline-block';
-        scoreEl.textContent = `Score : ${scoreCount} / ${questions.length}`;
+        scoreEl.style.display = 'block';
+        scoreEl.textContent = `Résultat final : ${scoreCount} / ${questions.length}`;
         resetBtn.style.display = 'inline-block';
       }
     }
@@ -227,14 +211,14 @@
     render();
   }
 
-  // Initialisation DOM
+  // Initialisation au chargement de la page
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-      initPromptBuilder();
+      initRoiSimulator();
       initToolQuiz();
     });
   } else {
-    initPromptBuilder();
+    initRoiSimulator();
     initToolQuiz();
   }
 })();
