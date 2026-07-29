@@ -213,3 +213,44 @@ document.addEventListener("DOMContentLoaded", function () {
     headerTopic.insertAdjacentElement("beforebegin", homeBtn);
   }
 });
+/* ==========================================================================
+   DÉCONNEXION AUTOMATIQUE APRÈS INACTIVITÉ (60 minutes)
+   ========================================================================== */
+(function autoLogoutModule() {
+  const INACTIVITY_LIMIT_MS = 60 * 60 * 1000; // 60 minutes en millisecondes
+  let inactivityTimer;
+
+  // Fonction qui effectue la déconnexion
+  function logoutUser() {
+    // Supprime la session (ajuste la clé si la tienne est différente, ex: 'auth', 'isLoggedIn', etc.)
+    localStorage.removeItem("auth");
+    sessionStorage.removeItem("auth");
+    
+    // Alerte discrète ou redirection immédiate
+    alert("Vous avez été déconnecté suite à une période d'inactivité de 60 minutes.");
+    window.location.reload(); // Ou redirige vers la page de login
+  }
+
+  // Fonction pour réinitialiser le chronomètre d'inactivité
+  function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(logoutUser, INACTIVITY_LIMIT_MS);
+  }
+
+  // Vérifier si l'utilisateur est actuellement connecté avant d'activer le listener
+  // (Ajuste selon la façon dont tu vérifies la connexion dans ton auth.js)
+  const isAuthenticated = localStorage.getItem("auth") || sessionStorage.getItem("auth");
+
+  if (isAuthenticated) {
+    // Événements écoutés pour détecter l'activité de l'utilisateur
+    const activityEvents = ["mousemove", "mousedown", "keydown", "touchstart", "scroll"];
+
+    activityEvents.forEach(function (eventName) {
+      window.addEventListener(eventName, resetInactivityTimer, { passive: true });
+    });
+
+    // Lancer le timer au chargement de la page
+    resetInactivityTimer();
+  }
+})();
+
