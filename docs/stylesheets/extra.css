@@ -483,23 +483,21 @@ code, pre, .md-typeset code, .md-typeset pre {
    10. NAVIGATION LATÉRALE (FIX DÉFINITIF CHEVAUCHEMENT & SOMMAIRE)
    ========================================================================== */
 
-/* 10.1 - FIX CHEVAUCHEMENT : Masquer TOUS les titres parasites "Ressources" dans la sidebar gauche */
-.md-sidebar--primary .md-nav__title,
-.md-sidebar--primary [data-md-component="navigation"] > .md-nav__title,
-.md-sidebar--primary .md-nav--primary > .md-nav__title,
-.md-sidebar--primary .md-nav__title--site {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-/* 10.2 - Réalignement propre de la sidebar principale */
-.md-sidebar--primary .md-sidebar__inner {
-  padding-top: 0.5rem !important;
+/* 10.1 - FIX CHEVAUCHEMENT : Masquer les titres parasites UNIQUEMENT sur Desktop (min-width: 76.25em)
+   afin de conserver le bouton/flèche "Retour" au niveau supérieur sur Mobile ! */
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary .md-nav__title,
+  .md-sidebar--primary [data-md-component="navigation"] > .md-nav__title,
+  .md-sidebar--primary .md-nav--primary > .md-nav__title,
+  .md-sidebar--primary .md-nav__title--site {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
 }
 
 /* Style des liens du menu latéral */
