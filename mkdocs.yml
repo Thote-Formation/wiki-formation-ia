@@ -82,7 +82,7 @@ nav:
       - H7 — Éthique, IA Act, biais: formation/h7.md
       - Quiz final: formation/quiz-final.md
 
-  - 🧰 Studio Outils:
+  - Outils:
       - Vue d'ensemble: outils-interactifs/index.md
       - Générateur de Prompt CROFT: outils-interactifs/generateur-croft.md
       - Masqueur & Anonymiseur RGPD: outils-interactifs/anonymiseur.md
