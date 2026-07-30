@@ -108,7 +108,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
 
       try {
         // ⚠️ REMPLACE CETTE URL PAR L'URL EXACTE DE TON WORKER CLOUDFLARE
-        const WORKER_URL = "https://tuteur-gemini.TON-PSEUDO.workers.dev";
+        const WORKER_URL = "https://tuteur-gemini.pierre-l.workers.dev/";
         
         const response = await fetch(WORKER_URL, {
           method: "POST",
