@@ -84,10 +84,13 @@ nav:
 
   - Outils:
       - Vue d'ensemble: outils-interactifs/index.md
-      - Générateur de Prompt CROFT: outils-interactifs/generateur-croft.md
-      - Masqueur & Anonymiseur RGPD: outils-interactifs/anonymiseur.md
-      - Assistant Prompt Visuel: outils-interactifs/generateur-visuel.md
-      - Anti-Hallucinations & Grounding: outils-interactifs/anti-hallucinations.md
+      - Générateur CROFT: outils-interactifs/generateur-croft.md
+      - Masqueur RGPD: outils-interactifs/anonymiseur.md
+      - Prompt Visuel: outils-interactifs/generateur-visuel.md
+      - Anti-Hallucinations: outils-interactifs/anti-hallucinations.md
+      - Calculateur de Tokens: outils-interactifs/calculateur-tokens.md
+      - Audit Biais & Inclusivité: outils-interactifs/audit-biais.md
+      - Formateur JSON/CSV/MD: outils-interactifs/formateur-donnees.md
       
 
   - Ressources:
