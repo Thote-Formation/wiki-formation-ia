@@ -1,4 +1,4 @@
-# 🧰 Studio d'Outils Interactifs
+# Outils Interactifs
 
 Bienvenue dans le studio d'outils interactifs. Ces micro-applications légères vous permettent de préparer, nettoyer, optimiser et sécuriser vos requêtes pour les modèles d'intelligence artificielle.
 
