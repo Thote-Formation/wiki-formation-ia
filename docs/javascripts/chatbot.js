@@ -22,11 +22,11 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
         <div id="sitebot-chat-window" style="display: none; position: absolute; bottom: 70px; right: 0; width: 360px; height: 500px; background: #0f172a; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.5); flex-direction: column; overflow: hidden; color: white;">
           
           <!-- Entête -->
-          <div style="padding: 14px 16px; background: #1e1b4b; border-bottom: 1px solid #312e81; display: flex; justify-content: space-between; align-items: center;">
+          <div style="padding: 14px 16px; background: #4051B5; border-bottom: 1px solid #312e81; display: flex; justify-content: space-between; align-items: center;">
             <div style="display: flex; align-items: center; gap: 8px;">
               <span style="font-size: 18px;">🤖</span>
               <div>
-                <div style="font-weight: bold; font-size: 14px; color: #f8fafc;">Tuteur RS6776</div>
+                <div style="font-weight: bold; font-size: 14px; color: #f8fafc;">Thotie IA</div>
                 <div style="font-size: 11px; color: #a5b4fc;">IA Générative</div>
               </div>
             </div>
