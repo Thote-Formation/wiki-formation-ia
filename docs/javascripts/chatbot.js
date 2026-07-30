@@ -35,7 +35,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
 
           <!-- Zone de messages -->
           <div id="sitebot-messages" style="flex: 1; padding: 14px; overflow-y: auto; font-size: 13px; display: flex; flex-direction: column; gap: 10px; background: #0f172a;">
-            <div style="background: #1e293b; color: #e2e8f0; padding: 10px 14px; border-radius: 12px 12px 12px 2px; max-width: 85%; border: 1px solid #334155;">
+            <div style="background: #fffff; color: #e2e8f0; padding: 10px 14px; border-radius: 12px 12px 12px 2px; max-width: 85%; border: 1px solid #334155;">
               Bonjour ! Je suis l'assistant pédagogique RS6776. Posez-moi vos questions sur le cours ou les outils !
             </div>
           </div>
