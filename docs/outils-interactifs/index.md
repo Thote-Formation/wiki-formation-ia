@@ -21,7 +21,7 @@ Combinez sujet, style, cadrage et couleurs pour générer une consigne d'image c
 
 ---
 
-### 🛡️ [Anti-Hallucinations & Grounding](anti-hallucinations.md)
+### 🛡️ [Anti-Hallucinations & Ancrage factuel](anti-hallucinations.md)
 Générez des clauses d'ancrage strictes pour forcer l'IA à citer ses sources et à ne répondre qu'à partir de vos documents réels.
 
 ---
