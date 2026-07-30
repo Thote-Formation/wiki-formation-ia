@@ -1,4 +1,4 @@
-# 🛡️ Générateur Anti-Hallucinations & Grounding
+# 🛡️ Générateur Anti-Hallucinations & Ancrage factuel
 
 Sélectionnez votre cas d'usage pour générer les garde-fous d'ancrage et forcer l'IA à restituer des réponses 100% vérifiables sans inventer de faits.
 
