@@ -96,7 +96,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
       return msgDiv;
     }
 
-    // Appel via le Worker Cloudflare
+  // Appel via le Worker Cloudflare avec extraction propre de l'erreur
     async function handleSend() {
       const userMessage = input.value.trim();
       if (!userMessage) return;
@@ -108,7 +108,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
 
       try {
         // ⚠️ REMPLACE CETTE URL PAR CELLE DE TON WORKER CLOUDFLARE
-        const WORKER_URL = "https://tuteur-gemini.pierre-l.workers.dev/";
+        const WORKER_URL = "https://tuteur-gemini.TON-PSEUDO.workers.dev";
         
         const response = await fetch(WORKER_URL, {
           method: "POST",
@@ -116,14 +116,14 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
           body: JSON.stringify({ userMessage: userMessage })
         });
 
-        if (!response.ok) {
-          throw new Error("Erreur serveur : " + response.status);
-        }
-
         const data = await response.json();
         
+        // Si une erreur est renvoyée par le Worker ou par l'API Gemini
         if (data.error) {
-          throw new Error(data.error);
+          const errorMessage = typeof data.error === "object" 
+            ? (data.error.message || JSON.stringify(data.error)) 
+            : data.error;
+          throw new Error(errorMessage);
         }
 
         const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text;
@@ -134,22 +134,3 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
         loadingMessage.innerText = `⚠️ Erreur : ${error.message}`;
       }
     }
-
-    sendBtn.addEventListener("click", handleSend);
-
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleSend();
-      }
-    });
-  }
-
-  if (typeof document$ !== "undefined") {
-    document$.subscribe(function () {
-      initChatbot();
-    });
-  } else {
-    document.addEventListener("DOMContentLoaded", initChatbot);
-  }
-})();
