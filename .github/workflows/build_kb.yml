@@ -1,0 +1,31 @@
+name: Build RAG KB
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run build_kb.py
+        run: python build_kb.py
+
+      - name: Commit and push kb.json
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add rag/kb.json
+          git status
+          git diff-index --quiet HEAD || (git commit -m "auto: update rag/kb.json" && git push)
