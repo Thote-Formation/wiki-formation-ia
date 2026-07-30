@@ -33,7 +33,7 @@ theme:
   features:
     - navigation.tabs           # Onglets principaux en haut (Accueil, Certification, Ressources...)
     - navigation.tabs.sticky    # Garde la barre d'onglets visible au scroll
-    - navigation.indexes        # Permet de cliquer sur une catégorie (ex: Cas pratiques) pour ouvrir son index.md
+    - navigation.indexes        # Permet de cliquer sur une catégorie pour ouvrir son index.md
     - navigation.top            # Bouton de retour en haut de page
     - toc.integrate
     - toc.follow
@@ -66,6 +66,7 @@ extra_css:
 
 nav:
   - Accueil: index.md
+
   - Certification RS6776:
       - Présentation: certification-rs6776.md
       - Évaluation d'entrée: evaluation-entree.md
@@ -81,6 +82,13 @@ nav:
       - H7 — Éthique, IA Act, biais: formation/h7.md
       - Quiz final: formation/quiz-final.md
 
+  - 🧰 Studio Outils:
+      - Vue d'ensemble: outils-interactifs/index.md
+      - Générateur de Prompt CROFT: outils-interactifs/generateur-croft.md
+      - Masqueur & Anonymiseur RGPD: outils-interactifs/anonymiseur.md
+      - Assistant Prompt Visuel: outils-interactifs/generateur-visuel.md
+      - Démonstrateur Anti-Hallucinations: outils-interactifs/lab-hallucinations.md
+
   - Ressources:
       - Cas pratiques:
           - Vue d'ensemble: cas-pratiques/index.md
@@ -95,7 +103,7 @@ nav:
           - Audit de biais: audit-biais.md
           - Checklist accessibilité: checklist-accessibilite.md
 
-      - Outils d'IA:
+      - Comparatifs IA:
           - Comparatif LLM: outils/comparatif.md
           - ChatGPT: outils/chatgpt.md
           - Claude: outils/claude.md
@@ -108,8 +116,8 @@ nav:
       - Veille et approfondissement:
           - Sources officielles: sources-officielles.md
           - Vue d'ensemble: articles/index.md
-          - Prompting avancé (Few-shot & Chain-of-thought): articles/prompting-avance.md
-          - Comment éviter la "perte de mémoire": articles/contexte-memoire.md
+          - Prompting avancé (Few-shot & CoT): articles/prompting-avance.md
+          - Gestion du contexte & mémoire: articles/contexte-memoire.md
           - Réduire les hallucinations: articles/reduction-hallucinations.md
 
   - Glossaire: glossaire.md
@@ -126,10 +134,10 @@ markdown_extensions:
       anchorlink: false
   - pymdownx.details
   - pymdownx.superfences:
-        custom_fences:
-          - name: mermaid
-            class: mermaid
-            format: !!python/name:pymdownx.superfences.fence_code_format
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - attr_list
   - pymdownx.emoji
   - pymdownx.tabbed:
