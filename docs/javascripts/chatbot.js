@@ -1,9 +1,19 @@
-// 🤖 Widget Chatbot IA pour MkDocs RS6776 - Anti-Reload Version
+// 🤖 Widget Chatbot IA - Version Direct API Gemini pour GitHub Pages
 (function () {
+  // 🔑 REMPLACE ICI PAR TA CLÉ API GEMINI
+  const GEMINI_API_KEY = "TA_CLE_API_GEMINI_ICI";
+
+  // Consignes pédagogiques données à l'IA
+  const SYSTEM_INSTRUCTION = `
+Tu es le tuteur pédagogique virtuel spécialisé dans la certification RS6776 (IA Générative).
+Ton rôle est d'aider les apprenants en répondant à leurs questions de manière synthétique, claire et bienveillante.
+Tes réponses doivent s'appuyer sur le programme du cours (Fondamentaux IA, Prompting ROFT/CROFT/SOCRATE, Confidentialité RGPD, Accessibilité, Éthique & IA Act).
+Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment que tu es spécialisé dans la formation RS6776.
+`;
+
   function initChatbot() {
     if (document.getElementById("sitebot-widget-container")) return;
 
-    // 1. Structure HTML sans balise <form> (évite tout rechargement de page)
     const widgetHTML = `
       <div id="sitebot-widget-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: sans-serif;">
         <!-- Bouton Flottant -->
@@ -33,7 +43,7 @@
             </div>
           </div>
 
-          <!-- Zone de Saisie (Div au lieu de Form) -->
+          <!-- Zone de Saisie -->
           <div style="padding: 12px; border-top: 1px solid #1e293b; display: flex; gap: 8px; background: #0f172a;">
             <input type="text" id="sitebot-input" placeholder="Posez une question sur le cours..." style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: white; font-size: 13px; outline: none;" />
             <button type="button" id="sitebot-send-btn" style="padding: 10px 14px; border-radius: 8px; border: none; background: #4f46e5; color: white; font-weight: bold; cursor: pointer; font-size: 13px;">
@@ -53,9 +63,6 @@
     const input = document.getElementById("sitebot-input");
     const messagesContainer = document.getElementById("sitebot-messages");
 
-    const API_ENDPOINT = "http://localhost:3000/api/chat";
-
-    // Gestion Ouverture / Fermeture
     toggleBtn.addEventListener("click", () => {
       const isHidden = chatWindow.style.display === "none";
       chatWindow.style.display = isHidden ? "flex" : "none";
@@ -66,7 +73,6 @@
       chatWindow.style.display = "none";
     });
 
-    // Ajouter un message dans le chat
     function appendMessage(text, isUser = false) {
       const msgDiv = document.createElement("div");
       msgDiv.style.padding = "10px 14px";
@@ -93,7 +99,7 @@
       return msgDiv;
     }
 
-    // Traitement de l'envoi
+    // Appel Direct à l'API Gemini REST
     async function handleSend() {
       const userMessage = input.value.trim();
       if (!userMessage) return;
@@ -104,25 +110,40 @@
       const loadingMessage = appendMessage("🤔 Gemini réfléchit...", false);
 
       try {
-        const response = await fetch(API_ENDPOINT, {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        
+        const response = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: userMessage })
+          body: JSON.stringify({
+            system_instruction: {
+              parts: [{ text: SYSTEM_INSTRUCTION }]
+            },
+            contents: [
+              {
+                parts: [{ text: userMessage }]
+              }
+            ]
+          })
         });
 
-        if (!response.ok) throw new Error("Erreur réseau");
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.error?.message || "Erreur lors de l'appel API");
+        }
 
         const data = await response.json();
-        loadingMessage.innerText = data.reply || "Désolé, je n'ai pas pu obtenir de réponse.";
+        const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        loadingMessage.innerText = replyText || "Désolé, je n'ai pas pu obtenir de réponse.";
       } catch (error) {
-        loadingMessage.innerText = "⚠️ Le serveur backend n'est pas encore connecté (Étape 5).";
+        console.error("Erreur Gemini Direct :", error);
+        loadingMessage.innerText = "⚠️ Erreur : Verifiez votre clé API Gemini ou votre connexion.";
       }
     }
 
-    // Événement Clic sur le bouton Envoyer
     sendBtn.addEventListener("click", handleSend);
 
-    // Événement Touche "Entrée" dans l'input
     input.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -131,7 +152,6 @@
     });
   }
 
-  // Support navigation MkDocs (Material Theme AJAX)
   if (typeof document$ !== "undefined") {
     document$.subscribe(function () {
       initChatbot();
