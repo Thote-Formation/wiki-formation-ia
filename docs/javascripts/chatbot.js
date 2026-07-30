@@ -1,8 +1,5 @@
-// 🤖 Widget Chatbot IA - Version Direct API Gemini pour GitHub Pages
+// 🤖 Widget Chatbot IA - Version Proxy Cloudflare pour GitHub Pages
 (function () {
-  // 🔑 TA NOUVELLE CLÉ API GEMINI
-  const GEMINI_API_KEY = "AQ.Ab8RN6JIbJu27mapsyOB57XGElvHjABBg_D-Q_xLkW5NlVuxrg";
-
   // Consignes pédagogiques données à l'IA
   const SYSTEM_INSTRUCTION = `
 Tu es le tuteur pédagogique virtuel spécialisé dans la certification RS6776 (IA Générative).
@@ -99,7 +96,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
       return msgDiv;
     }
 
-    // Appel Direct à l'API Gemini REST
+    // Appel via le Worker Cloudflare
     async function handleSend() {
       const userMessage = input.value.trim();
       if (!userMessage) return;
@@ -110,34 +107,30 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
       const loadingMessage = appendMessage("🤔 Gemini réfléchit...", false);
 
       try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+        // ⚠️ REMPLACE CETTE URL PAR CELLE DE TON WORKER CLOUDFLARE
+        const WORKER_URL = "https://tuteur-gemini.pierre-l.workers.dev/";
         
-        const response = await fetch(url, {
+        const response = await fetch(WORKER_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            system_instruction: {
-              parts: [{ text: SYSTEM_INSTRUCTION }]
-            },
-            contents: [
-              {
-                parts: [{ text: userMessage }]
-              }
-            ]
-          })
+          body: JSON.stringify({ userMessage: userMessage })
         });
 
         if (!response.ok) {
-          const errData = await response.json();
-          throw new Error(errData.error?.message || "Erreur HTTP " + response.status);
+          throw new Error("Erreur serveur : " + response.status);
         }
 
         const data = await response.json();
-        const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        
+        if (data.error) {
+          throw new Error(data.error);
+        }
 
+        const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text;
         loadingMessage.innerText = replyText || "Désolé, je n'ai pas pu obtenir de réponse.";
+
       } catch (error) {
-        console.error("Erreur Gemini Direct :", error);
+        console.error("Erreur Chatbot :", error);
         loadingMessage.innerText = `⚠️ Erreur : ${error.message}`;
       }
     }
