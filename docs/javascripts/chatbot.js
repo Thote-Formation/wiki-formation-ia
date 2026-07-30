@@ -1,6 +1,6 @@
 // 🤖 Widget Chatbot IA - Version Direct API Gemini pour GitHub Pages
 (function () {
-  // 🔑 REMPLACE ICI PAR TA CLÉ API GEMINI
+  // 🔑 TA CLÉ API GEMINI
   const GEMINI_API_KEY = "AQ.Ab8RN6KjWvAEJL75FDbqH5RT3yrUKAV_1sMBn7rg5lDxykgVCg";
 
   // Consignes pédagogiques données à l'IA
@@ -110,7 +110,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
       const loadingMessage = appendMessage("🤔 Gemini réfléchit...", false);
 
       try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const response = await fetch(url, {
           method: "POST",
