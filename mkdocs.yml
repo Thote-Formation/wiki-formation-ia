@@ -60,7 +60,7 @@ extra_javascript:
   - javascripts/reduction-hallucinations.js
   - javascripts/quiz-final.js
   - javascripts/evaluation-entree.js
-
+  - javascripts/agent-simulator.js
 extra_css:
   - stylesheets/extra.css
 
@@ -123,6 +123,7 @@ nav:
           - Prompting avancé (Few-shot & CoT): articles/prompting-avance.md
           - Gestion du contexte & mémoire: articles/contexte-memoire.md
           - Réduire les hallucinations: articles/reduction-hallucinations.md
+          - Les Agents IA: articles/agents-rag.md
 
   - Glossaire: glossaire.md
 
