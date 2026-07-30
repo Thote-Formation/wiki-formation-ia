@@ -1,15 +1,54 @@
-// 🤖 Widget Chatbot IA - Version Proxy Cloudflare pour GitHub Pages
+// 🤖 Widget Chatbot IA - Version Proxy Cloudflare + Rendu Markdown Pro
 (function () {
-  // Consignes pédagogiques données à l'IA
-  const SYSTEM_INSTRUCTION = `
-Tu es le tuteur pédagogique virtuel spécialisé dans la certification RS6776 (IA Générative).
-Ton rôle est d'aider les apprenants en répondant à leurs questions de manière synthétique, claire et bienveillante.
-Tes réponses doivent s'appuyer sur le programme du cours (Fondamentaux IA, Prompting ROFT/CROFT/SOCRATE, Confidentialité RGPD, Accessibilité, Éthique & IA Act).
-Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment que tu es spécialisé dans la formation RS6776.
-`;
+  // Chargement dynamique de la bibliothèque Marked.js pour interpréter le Markdown
+  if (!window.marked) {
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/marked/marked.min.js";
+    document.head.appendChild(script);
+  }
 
   function initChatbot() {
     if (document.getElementById("sitebot-widget-container")) return;
+
+    // Styles CSS injectés pour le rendu propre du Markdown (tableaux, listes, code)
+    const customStyles = `
+      <style>
+        #sitebot-messages table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 8px 0;
+          font-size: 11px;
+        }
+        #sitebot-messages th, #sitebot-messages td {
+          border: 1px solid #334155;
+          padding: 4px 6px;
+          text-align: left;
+        }
+        #sitebot-messages th {
+          background-color: #334155;
+          color: #f8fafc;
+        }
+        #sitebot-messages p {
+          margin: 4px 0;
+        }
+        #sitebot-messages ul, #sitebot-messages ol {
+          padding-left: 18px;
+          margin: 4px 0;
+        }
+        #sitebot-messages a {
+          color: #818cf8;
+          text-decoration: underline;
+        }
+        #sitebot-messages code {
+          background: #0f172a;
+          padding: 2px 4px;
+          border-radius: 4px;
+          font-family: monospace;
+          font-size: 11px;
+        }
+      </style>
+    `;
+    document.head.insertAdjacentHTML("beforeend", customStyles);
 
     const widgetHTML = `
       <div id="sitebot-widget-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: sans-serif;">
@@ -19,7 +58,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
         </button>
 
         <!-- Fenêtre de Chat -->
-        <div id="sitebot-chat-window" style="display: none; position: absolute; bottom: 70px; right: 0; width: 360px; height: 500px; background: #0f172a; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.5); flex-direction: column; overflow: hidden; color: white;">
+        <div id="sitebot-chat-window" style="display: none; position: absolute; bottom: 70px; right: 0; width: 380px; height: 520px; background: #0f172a; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.5); flex-direction: column; overflow: hidden; color: white;">
           
           <!-- Entête -->
           <div style="padding: 14px 16px; background: #4051B5; border-bottom: 1px solid #312e81; display: flex; justify-content: space-between; align-items: center;">
@@ -35,7 +74,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
 
           <!-- Zone de messages -->
           <div id="sitebot-messages" style="flex: 1; padding: 14px; overflow-y: auto; font-size: 13px; display: flex; flex-direction: column; gap: 10px; background: #0f172a;">
-            <div style="background: #fffff; color: #e2e8f0; padding: 10px 14px; border-radius: 12px 12px 12px 2px; max-width: 85%; border: 1px solid #334155;">
+            <div style="background: #1e293b; color: #e2e8f0; padding: 10px 14px; border-radius: 12px 12px 12px 2px; max-width: 90%; border: 1px solid #334155;">
               Bonjour ! Je suis l'assistant pédagogique RS6776. Posez-moi vos questions sur le cours ou les outils !
             </div>
           </div>
@@ -74,7 +113,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
       const msgDiv = document.createElement("div");
       msgDiv.style.padding = "10px 14px";
       msgDiv.style.borderRadius = isUser ? "12px 12px 2px 12px" : "12px 12px 12px 2px";
-      msgDiv.style.maxWidth = "85%";
+      msgDiv.style.maxWidth = "90%";
       msgDiv.style.fontSize = "13px";
       msgDiv.style.lineHeight = "1.4";
       msgDiv.style.wordBreak = "break-word";
@@ -83,20 +122,26 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
         msgDiv.style.background = "#4f46e5";
         msgDiv.style.color = "#ffffff";
         msgDiv.style.alignSelf = "flex-end";
+        msgDiv.innerText = text; // Texte brut pour l'utilisateur
       } else {
         msgDiv.style.background = "#1e293b";
         msgDiv.style.color = "#e2e8f0";
         msgDiv.style.border = "1px solid #334155";
         msgDiv.style.alignSelf = "flex-start";
+
+        // Traitement Markdown pour l'assistant IA
+        if (window.marked) {
+          msgDiv.innerHTML = window.marked.parse(text);
+        } else {
+          msgDiv.innerText = text;
+        }
       }
 
-      msgDiv.innerText = text;
       messagesContainer.appendChild(msgDiv);
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
       return msgDiv;
     }
 
-    // Appel via le Worker Cloudflare avec extraction propre de l'erreur
     async function handleSend() {
       const userMessage = input.value.trim();
       if (!userMessage) return;
@@ -107,9 +152,8 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
       const loadingMessage = appendMessage("🤖 Thotie réfléchit...", false);
 
       try {
-        // ⚠️ REMPLACE CETTE URL PAR L'URL EXACTE DE TON WORKER CLOUDFLARE
         const WORKER_URL = "https://tuteur-gemini.pierre-l.workers.dev/";
-        
+
         const response = await fetch(WORKER_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -117,16 +161,22 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
         });
 
         const data = await response.json();
-        
+
         if (data.error) {
-          const errorMessage = typeof data.error === "object" 
-            ? (data.error.message || JSON.stringify(data.error)) 
+          const errorMessage = typeof data.error === "object"
+            ? (data.error.message || JSON.stringify(data.error))
             : data.error;
           throw new Error(errorMessage);
         }
 
         const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        loadingMessage.innerText = replyText || "Désolé, je n'ai pas pu obtenir de réponse.";
+        
+        // Remplacement du message d'attente par la réponse formatée
+        if (replyText) {
+          loadingMessage.innerHTML = window.marked ? window.marked.parse(replyText) : replyText;
+        } else {
+          loadingMessage.innerText = "Désolé, je n'ai pas pu obtenir de réponse.";
+        }
 
       } catch (error) {
         console.error("Erreur Chatbot :", error);
@@ -144,7 +194,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
     });
   }
 
-  // Support pour MkDocs Material (document$) et chargement classique
+  // Support MkDocs Material et chargement classique
   if (typeof document$ !== "undefined") {
     document$.subscribe(function () {
       initChatbot();
