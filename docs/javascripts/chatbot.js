@@ -1,7 +1,7 @@
 // 🤖 Widget Chatbot IA - Version Direct API Gemini pour GitHub Pages
 (function () {
   // 🔑 REMPLACE ICI PAR TA CLÉ API GEMINI
-  const GEMINI_API_KEY = "TA_CLE_API_GEMINI_ICI";
+  const GEMINI_API_KEY = "AQ.Ab8RN6KjWvAEJL75FDbqH5RT3yrUKAV_1sMBn7rg5lDxykgVCg";
 
   // Consignes pédagogiques données à l'IA
   const SYSTEM_INSTRUCTION = `
