@@ -1,7 +1,7 @@
 // 🤖 Widget Chatbot IA - Version Direct API Gemini pour GitHub Pages
 (function () {
-  // 🔑 TA CLÉ API GEMINI
-  const GEMINI_API_KEY = "AQ.Ab8RN6LsNZdTj9KPyCkkiRcDtsVVTGRT2FODVFo2VYh3hDt6KA";
+  // 🔑 TA NOUVELLE CLÉ API GEMINI
+  const GEMINI_API_KEY = "AQ.Ab8RN6JIbJu27mapsyOB57XGElvHjABBg_D-Q_xLkW5NlVuxrg";
 
   // Consignes pédagogiques données à l'IA
   const SYSTEM_INSTRUCTION = `
@@ -110,7 +110,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
       const loadingMessage = appendMessage("🤔 Gemini réfléchit...", false);
 
       try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const response = await fetch(url, {
           method: "POST",
@@ -129,7 +129,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
 
         if (!response.ok) {
           const errData = await response.json();
-          throw new Error(errData.error?.message || "Erreur lors de l'appel API");
+          throw new Error(errData.error?.message || "Erreur HTTP " + response.status);
         }
 
         const data = await response.json();
@@ -138,7 +138,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
         loadingMessage.innerText = replyText || "Désolé, je n'ai pas pu obtenir de réponse.";
       } catch (error) {
         console.error("Erreur Gemini Direct :", error);
-        loadingMessage.innerText = "⚠️ Erreur : Verifiez votre clé API Gemini ou votre connexion.";
+        loadingMessage.innerText = `⚠️ Erreur : ${error.message}`;
       }
     }
 
