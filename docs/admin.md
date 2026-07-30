@@ -8,12 +8,13 @@ hide:
 
 <style>
   .admin-card {
-    background: var(--md-card-bg-color, #ffffff);
-    border: 1px solid #e0e0e0;
+    background: var(--md-card-bg-color, var(--md-default-bg-color, #ffffff));
+    color: var(--md-default-fg-color, #000000);
+    border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0);
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 25px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   }
   .admin-form-group {
     margin-bottom: 15px;
@@ -22,14 +23,17 @@ hide:
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
+    color: var(--md-default-fg-color, #000000);
   }
   .admin-form-group input, .admin-form-group select {
     width: 100%;
     padding: 8px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--md-default-fg-color--light, #ccc);
     border-radius: 4px;
     box-sizing: border-box;
     font-family: inherit;
+    background-color: var(--md-default-bg-color, #ffffff);
+    color: var(--md-default-fg-color, #000000);
   }
   .admin-btn-submit {
     background-color: #28a745;
@@ -46,15 +50,24 @@ hide:
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
+    color: var(--md-default-fg-color, #000000);
   }
   .admin-table th, .admin-table td {
     padding: 10px 12px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0);
     text-align: left;
   }
   .admin-table th {
-    background-color: #f8f9fa;
+    background-color: var(--md-code-bg-color, #f8f9fa);
+    color: var(--md-default-fg-color, #000000);
     font-weight: bold;
+  }
+  .admin-table input[type="date"] {
+    background-color: var(--md-default-bg-color, #ffffff);
+    color: var(--md-default-fg-color, #000000);
+    border: 1px solid var(--md-default-fg-color--light, #ccc);
+    padding: 4px 6px;
+    border-radius: 4px;
   }
   .badge-active { color: #28a745; font-weight: bold; }
   .badge-inactive { color: #dc3545; font-weight: bold; }
