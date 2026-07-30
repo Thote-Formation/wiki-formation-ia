@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initPromptGenerator();
 });
 
-/* --- FUNCTION 1: BEFORE / AFTER TOGGLE BUTTONS --- */
+/* --- FUNCTION 1: DISCRET TOGGLE SWITCH --- */
 function initBeforeAfter() {
   const scenarios = [
     {
@@ -34,68 +34,48 @@ function initBeforeAfter() {
   ];
 
   const scenarioSelect = document.getElementById('before-after-scenario');
-  const btnBefore = document.getElementById('btn-show-before');
-  const btnAfter = document.getElementById('btn-show-after');
+  const toggleInput = document.getElementById('toggle-before-after');
+  const labelBefore = document.getElementById('label-before');
+  const labelAfter = document.getElementById('label-after');
   const stage = document.getElementById('before-after-stage');
   const checklist = document.getElementById('before-after-checklist');
   const copyBtn = document.getElementById('before-after-copy-btn');
 
-  if (!btnBefore || !btnAfter || !stage) return;
+  if (!toggleInput || !stage) return;
 
   let currentScenario = 0;
-  let isApresState = false; // Mode 'Avant' par défaut
 
   function render() {
     const sc = scenarios[currentScenario];
+    const isApres = toggleInput.checked;
 
     // Mise à jour du texte
-    stage.textContent = isApresState ? sc.apres : sc.avant;
+    stage.textContent = isApres ? sc.apres : sc.avant;
 
-    // Style des boutons poussés
-    if (isApresState) {
-      btnAfter.style.background = '#4a9b5e';
-      btnAfter.style.borderColor = '#4a9b5e';
-      btnAfter.style.color = '#fff';
-
-      btnBefore.style.background = 'var(--md-default-bg-color, #fff)';
-      btnBefore.style.borderColor = 'var(--md-default-fg-color--light, #ccc)';
-      btnBefore.style.color = 'var(--md-typeset-color, #333)';
-    } else {
-      btnBefore.style.background = '#c9564a';
-      btnBefore.style.borderColor = '#c9564a';
-      btnBefore.style.color = '#fff';
-
-      btnAfter.style.background = 'var(--md-default-bg-color, #fff)';
-      btnAfter.style.borderColor = 'var(--md-default-fg-color--light, #ccc)';
-      btnAfter.style.color = 'var(--md-typeset-color, #333)';
+    // Opacité dynamique sur les libellés autour du toggle
+    if (labelBefore && labelAfter) {
+      labelBefore.style.opacity = isApres ? '0.4' : '1';
+      labelAfter.style.opacity = isApres ? '1' : '0.4';
     }
 
-    // Mise à jour de la checklist
+    // Mise à jour des critères
     checklist.innerHTML = '';
     sc.criteria.forEach((crit) => {
       const item = document.createElement('div');
       item.style.cssText = "display: flex; align-items: center; gap: 10px; padding: 4px 0; font-size: 13px;";
-      const mark = isApresState ? '✓' : '✗';
-      const color = isApresState ? '#4a9b5e' : '#c9564a';
+      const mark = isApres ? '✓' : '✗';
+      const color = isApres ? '#4a9b5e' : '#c9564a';
       item.innerHTML = `<span style="font-weight: 700; min-width: 18px; color: ${color};">${mark}</span> <span>${crit}</span>`;
       checklist.appendChild(item);
     });
   }
 
   // Événements
-  btnBefore.addEventListener('click', () => {
-    isApresState = false;
-    render();
-  });
-
-  btnAfter.addEventListener('click', () => {
-    isApresState = true;
-    render();
-  });
+  toggleInput.addEventListener('change', render);
 
   scenarioSelect.addEventListener('change', (e) => {
     currentScenario = parseInt(e.target.value, 10);
-    isApresState = false; // Repasse en mode "Avant" lors du changement de scénario
+    toggleInput.checked = false; // Retour sur 'Avant' lors du changement de cas
     render();
   });
 
@@ -112,7 +92,6 @@ function initBeforeAfter() {
 
   render();
 }
-
 /* --- FUNCTION 2: QUIZ DETECTEUR DE BIAIS --- */
 function initH6Quiz() {
   const quizData = [
