@@ -104,7 +104,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
       appendMessage(userMessage, true);
       input.value = "";
 
-      const loadingMessage = appendMessage("🤔 Gemini réfléchit...", false);
+      const loadingMessage = appendMessage("🤖 Thotie réfléchit...", false);
 
       try {
         // ⚠️ REMPLACE CETTE URL PAR L'URL EXACTE DE TON WORKER CLOUDFLARE
