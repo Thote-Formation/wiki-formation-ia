@@ -51,7 +51,7 @@ Choisissez votre domaine ou votre fonction pour découvrir des exemples de promp
   <div class="wiki-card">
     <div class="wiki-card-icon">👥</div>
     <h3>Ressources Humaines</h3>
-    <p>Rédaction d'fres d'emploi attractives, grilles d'entretien de recrutement, fiches de postes et communications internes.</p>
+    <p>Rédaction d'offres d'emploi attractives, grilles d'entretien de recrutement, fiches de postes et communications internes.</p>
     <div style="margin-top: 14px;">
       <span class="wiki-badge">Conformité</span>
       <span class="wiki-badge warning">Point de vigilance RH</span>
@@ -90,6 +90,11 @@ Pour vous garantir un apprentissage homogène, chaque cas pratique est découpé
     <h3>Risques & Vigilance</h3>
     <p>RGPD, données sensibles, biais de sélection ou risque d'hallucination.</p>
   </div>
+  <div class="wiki-card">
+    <span class="wiki-badge">5</span>
+    <h3>Validation finale</h3>
+    <p>La grille de relecture critique humaine avant toute diffusion ou publication.</p>
+  </div>
 </div>
 
 ---
@@ -112,5 +117,5 @@ Pour vous garantir un apprentissage homogène, chaque cas pratique est découpé
 
 <div class="wiki-actions">
   <a class="wiki-button primary" href="./assistant-administratif/">Commencer : Assistant administratif ➔</a>
-  <a class="wiki-button" href="../../formation/quiz-final/">Revoir le Quiz Final</a>
+  <a class="wiki-button" href="../">Retour à l'accueil de la formation</a>
 </div>
