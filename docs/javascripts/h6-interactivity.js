@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initPromptGenerator();
 });
 
-/* --- FUNCTION 1: BEFORE / AFTER SLIDER --- */
+/* --- FUNCTION 1: BEFORE / AFTER TOGGLE BUTTONS --- */
 function initBeforeAfter() {
   const scenarios = [
     {
@@ -34,77 +34,83 @@ function initBeforeAfter() {
   ];
 
   const scenarioSelect = document.getElementById('before-after-scenario');
-  const slider = document.getElementById('before-after-slider');
-  const avant = document.getElementById('before-after-text-avant');
-  const apres = document.getElementById('before-after-text-apres');
+  const btnBefore = document.getElementById('btn-show-before');
+  const btnAfter = document.getElementById('btn-show-after');
   const stage = document.getElementById('before-after-stage');
   const checklist = document.getElementById('before-after-checklist');
   const copyBtn = document.getElementById('before-after-copy-btn');
 
-  if (!slider || !avant || !apres) return;
+  if (!btnBefore || !btnAfter || !stage) return;
 
   let currentScenario = 0;
+  let isApresState = false; // Mode 'Avant' par défaut
 
-  function loadScenario(index) {
-    currentScenario = index;
-    const sc = scenarios[index];
-    avant.textContent = sc.avant;
-    apres.textContent = sc.apres;
-    
+  function render() {
+    const sc = scenarios[currentScenario];
+
+    // Mise à jour du texte
+    stage.textContent = isApresState ? sc.apres : sc.avant;
+
+    // Style des boutons poussés
+    if (isApresState) {
+      btnAfter.style.background = '#4a9b5e';
+      btnAfter.style.borderColor = '#4a9b5e';
+      btnAfter.style.color = '#fff';
+
+      btnBefore.style.background = 'var(--md-default-bg-color, #fff)';
+      btnBefore.style.borderColor = 'var(--md-default-fg-color--light, #ccc)';
+      btnBefore.style.color = 'var(--md-typeset-color, #333)';
+    } else {
+      btnBefore.style.background = '#c9564a';
+      btnBefore.style.borderColor = '#c9564a';
+      btnBefore.style.color = '#fff';
+
+      btnAfter.style.background = 'var(--md-default-bg-color, #fff)';
+      btnAfter.style.borderColor = 'var(--md-default-fg-color--light, #ccc)';
+      btnAfter.style.color = 'var(--md-typeset-color, #333)';
+    }
+
+    // Mise à jour de la checklist
     checklist.innerHTML = '';
-    sc.criteria.forEach((crit, i) => {
+    sc.criteria.forEach((crit) => {
       const item = document.createElement('div');
       item.style.cssText = "display: flex; align-items: center; gap: 10px; padding: 4px 0; font-size: 13px;";
-      item.innerHTML = `<span id="ba-mark-${i}" style="font-weight: 700; min-width: 18px; color: #c9564a;">✗</span> <span>${crit}</span>`;
+      const mark = isApresState ? '✓' : '✗';
+      const color = isApresState ? '#4a9b5e' : '#c9564a';
+      item.innerHTML = `<span style="font-weight: 700; min-width: 18px; color: ${color};">${mark}</span> <span>${crit}</span>`;
       checklist.appendChild(item);
     });
-
-    update();
   }
 
-  function update() {
-    const v = parseInt(slider.value, 10);
-    slider.setAttribute('aria-valuenow', v);
-    slider.setAttribute('aria-valuetext', v > 50 ? "Affichage version Après" : "Affichage version Avant");
-
-    avant.style.opacity = (100 - v) / 100;
-    apres.style.opacity = v / 100;
-    
-    const stageHeight = Math.max(avant.offsetHeight, apres.offsetHeight) + 32;
-    stage.style.minHeight = stageHeight + 'px';
-    
-    const isApres = v > 50;
-    const sc = scenarios[currentScenario];
-    
-    sc.criteria.forEach((_, i) => {
-      const mark = document.getElementById(`ba-mark-${i}`);
-      if (mark) {
-        mark.textContent = isApres ? '✓' : '✗';
-        mark.style.color = isApres ? '#4a9b5e' : '#c9564a';
-      }
-    });
-  }
-
-  scenarioSelect.addEventListener('change', (e) => {
-    slider.value = 0;
-    loadScenario(parseInt(e.target.value, 10));
+  // Événements
+  btnBefore.addEventListener('click', () => {
+    isApresState = false;
+    render();
   });
 
-  slider.addEventListener('input', update);
-  
+  btnAfter.addEventListener('click', () => {
+    isApresState = true;
+    render();
+  });
+
+  scenarioSelect.addEventListener('change', (e) => {
+    currentScenario = parseInt(e.target.value, 10);
+    isApresState = false; // Repasse en mode "Avant" lors du changement de scénario
+    render();
+  });
+
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
       const sc = scenarios[currentScenario];
       navigator.clipboard.writeText(sc.apres).then(() => {
         const originalText = copyBtn.textContent;
-        copyBtn.textContent = "✅ Texte copié !";
+        copyBtn.textContent = "✅ Version optimisée copiée !";
         setTimeout(() => { copyBtn.textContent = originalText; }, 2000);
       });
     });
   }
 
-  loadScenario(0);
-  window.addEventListener('resize', update);
+  render();
 }
 
 /* --- FUNCTION 2: QUIZ DETECTEUR DE BIAIS --- */
