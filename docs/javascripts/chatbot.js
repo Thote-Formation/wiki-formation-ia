@@ -96,7 +96,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
       return msgDiv;
     }
 
-  // Appel via le Worker Cloudflare avec extraction propre de l'erreur
+    // Appel via le Worker Cloudflare avec extraction propre de l'erreur
     async function handleSend() {
       const userMessage = input.value.trim();
       if (!userMessage) return;
@@ -107,7 +107,7 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
       const loadingMessage = appendMessage("🤔 Gemini réfléchit...", false);
 
       try {
-        // ⚠️ REMPLACE CETTE URL PAR CELLE DE TON WORKER CLOUDFLARE
+        // ⚠️ REMPLACE CETTE URL PAR L'URL EXACTE DE TON WORKER CLOUDFLARE
         const WORKER_URL = "https://tuteur-gemini.TON-PSEUDO.workers.dev";
         
         const response = await fetch(WORKER_URL, {
@@ -118,7 +118,6 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
 
         const data = await response.json();
         
-        // Si une erreur est renvoyée par le Worker ou par l'API Gemini
         if (data.error) {
           const errorMessage = typeof data.error === "object" 
             ? (data.error.message || JSON.stringify(data.error)) 
@@ -134,3 +133,23 @@ Si une question sort totalement du cadre du cours ou de l'IA, réponds poliment 
         loadingMessage.innerText = `⚠️ Erreur : ${error.message}`;
       }
     }
+
+    sendBtn.addEventListener("click", handleSend);
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleSend();
+      }
+    });
+  }
+
+  // Support pour MkDocs Material (document$) et chargement classique
+  if (typeof document$ !== "undefined") {
+    document$.subscribe(function () {
+      initChatbot();
+    });
+  } else {
+    document.addEventListener("DOMContentLoaded", initChatbot);
+  }
+})();
