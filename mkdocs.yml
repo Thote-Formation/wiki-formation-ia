@@ -87,7 +87,8 @@ nav:
       - Générateur de Prompt CROFT: outils-interactifs/generateur-croft.md
       - Masqueur & Anonymiseur RGPD: outils-interactifs/anonymiseur.md
       - Assistant Prompt Visuel: outils-interactifs/generateur-visuel.md
-      - Démonstrateur Anti-Hallucinations: outils-interactifs/lab-hallucinations.md
+      - Anti-Hallucinations & Grounding: outils-interactifs/anti-hallucinations.md
+      
 
   - Ressources:
       - Cas pratiques:
