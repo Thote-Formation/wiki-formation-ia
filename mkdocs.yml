@@ -51,6 +51,7 @@ extra_javascript:
   - javascripts/h5-interactivity.js
   - javascripts/h6-interactivity.js
   - javascripts/h7-interactivity.js
+  - javascripts/cas-pratiques.js
   - javascripts/auth.js
   - javascripts/progress.js
   - javascripts/prompt-generator.js
