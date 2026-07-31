@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. IMPORTS & TYPOGRAPHIE ACCESSIBLE (WCAG 2.1 AA / FALC)
+   1. IMPORTS & TYPOGRAPHIE ACCESSIBLE (WCAG 2.1 AA / FALC / RESPONSIVE)
    ========================================================================== */
 
 /* Import des polices Google */
@@ -7,13 +7,13 @@
 
 :root {
   --md-default-fg-color--light: #374151;
-  --md-code-bg-color: #f1f5f9;
+  --md-code-bg-color: #f8fafc;
   
-  /* Ajustement global MkDocs (15px de base au lieu de 16px/18px) */
-  --md-typeset-font-size: 0.76rem; 
+  /* Ajustement de la taille de base (15-16px conforme WCAG / FALC) */
+  --md-typeset-font-size: 0.95rem; 
 }
 
-/* Corps de texte : Inter (sans forcer une taille géante) */
+/* Corps de texte : Inter pour une lisibilité maximale */
 body, .md-typeset {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   line-height: 1.6;
@@ -22,23 +22,25 @@ body, .md-typeset {
 
 /* Paragraphes normaux */
 .md-typeset p {
-  font-size: 0.92rem;
+  font-size: 1rem;
+  margin-bottom: 1em;
 }
 
-/* Titres : Poppins avec tailles ajustées */
+/* Titres : Poppins avec hauteur de ligne confortable (FALC) */
 h1, h2, h3, h4, h5, h6, 
 .md-nav__link, 
 .auth-login-title {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif !important;
-  color: #0f172a !important;
+  color: var(--md-typeset-color, #0f172a) !important;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
-.md-typeset h1 { font-size: 1.6rem; }
-.md-typeset h2 { font-size: 1.3rem; }
-.md-typeset h3, .home-card h3, .wiki-card h3 { font-size: 1.1rem !important; }
+.md-typeset h1 { font-size: 1.75rem; margin-top: 1em; }
+.md-typeset h2 { font-size: 1.4rem; margin-top: 1.2em; }
+.md-typeset h3, .home-card h3, .wiki-card h3 { font-size: 1.15rem !important; }
 
+/* Adaptabilité des titres en Mode Sombre (Slate) */
 [data-md-color-scheme="slate"] h1,
 [data-md-color-scheme="slate"] h2,
 [data-md-color-scheme="slate"] h3,
@@ -51,10 +53,10 @@ h1, h2, h3, h4, h5, h6,
 /* Code : Roboto Mono */
 code, pre, .md-typeset code, .md-typeset pre {
   font-family: 'Roboto Mono', monospace !important;
-  font-size: 0.85em;
+  font-size: 0.88em;
 }
 
-/* Focus Clavier ultra-visible */
+/* Focus Clavier ultra-visible (Accessibilité Moteur & Visuelle) */
 *:focus-visible {
   outline: 3px solid #d84315 !important;
   outline-offset: 3px !important;
@@ -64,24 +66,26 @@ code, pre, .md-typeset code, .md-typeset pre {
 .md-search__input {
   padding-left: 2.2rem !important;
 }
+
 /* ==========================================================================
-   2. ACCUEIL ET GRILLES DE CARTES
+   2. ACCUEIL ET GRILLES DE CARTES (RESPONSIVE MOBILE)
    ========================================================================== */
 
 .home-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
   margin: 24px 0;
 }
 
 .home-card,
 .home-card-static {
-  display: block;
+  display: flex;
+  flex-direction: column;
   padding: 20px;
-  border: 2px solid var(--md-default-fg-color--lightest);
+  border: 2px solid var(--md-default-fg-color--lightest, #cbd5e1);
   border-radius: 14px;
-  background: var(--md-default-bg-color);
+  background: var(--md-default-bg-color, #ffffff);
   color: var(--md-typeset-color);
   text-decoration: none;
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
@@ -98,13 +102,18 @@ code, pre, .md-typeset code, .md-typeset pre {
 .home-card-static h3 {
   margin-top: 8px;
   margin-bottom: 8px;
-  color: #0d47a1 !important; /* Bleu foncé WCAG */
+  color: #0d47a1 !important; /* Bleu foncé haut contraste */
+}
+
+[data-md-color-scheme="slate"] .home-card h3,
+[data-md-color-scheme="slate"] .home-card-static h3 {
+  color: #60a5fa !important; /* Bleu clair pour mode sombre */
 }
 
 .home-card p,
 .home-card-static p {
   margin-bottom: 0;
-  color: #334155; /* Plus lisible qu'un gris clair */
+  color: var(--md-typeset-color, #334155);
   font-weight: 500;
 }
 
@@ -121,8 +130,11 @@ code, pre, .md-typeset code, .md-typeset pre {
 }
 
 .home-button {
-  display: inline-block;
-  padding: 10px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px; /* Zone tactile 44px (Mobile WCAG) */
+  padding: 10px 20px;
   border: 2px solid var(--md-primary-fg-color);
   border-radius: 999px;
   color: var(--md-primary-fg-color);
@@ -133,7 +145,7 @@ code, pre, .md-typeset code, .md-typeset pre {
 
 .home-button:hover {
   background: var(--md-primary-fg-color);
-  color: #ffffff;
+  color: #ffffff !important;
   transform: translateY(-2px);
   text-decoration: none;
 }
@@ -153,17 +165,17 @@ code, pre, .md-typeset code, .md-typeset pre {
 
 .wiki-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 18px;
   margin: 24px 0;
 }
 
 .wiki-card {
   padding: 20px;
-  border: 2px solid var(--md-default-fg-color--lightest);
+  border: 2px solid var(--md-default-fg-color--lightest, #cbd5e1);
   border-radius: 16px;
-  background: var(--md-default-bg-color);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  background: var(--md-default-bg-color, #ffffff);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
 }
 
 .wiki-card h3 {
@@ -188,7 +200,7 @@ code, pre, .md-typeset code, .md-typeset pre {
 }
 
 /* ==========================================================================
-   4. BLOCS PRATIQUES & ENCADRÉS (HAUT CONTRASTE LIGHT & DARK)
+   4. BLOCS PRATIQUES & ENCADRÉS (CONTRASTE AA LIGHT & DARK)
    ========================================================================== */
 
 .real-life-box,
@@ -222,7 +234,7 @@ code, pre, .md-typeset code, .md-typeset pre {
 
 [data-md-color-scheme="default"] .warning-practice-box,
 :root:not([data-md-color-scheme="slate"]) .warning-practice-box {
-  background: #fffbebfb;
+  background: #fffbeb;
   border-left-color: #b45309;
   color: #1e293b;
 }
@@ -239,7 +251,7 @@ code, pre, .md-typeset code, .md-typeset pre {
 :root:not([data-md-color-scheme="slate"]) .summary-box h3 { color: #581c87 !important; }
 
 
-/* --- MODE SOMBRE (SLATE / DARK) --- */
+/* --- MODE SOMBRE (SLATE) --- */
 [data-md-color-scheme="slate"] .real-life-box {
   background: #1e293b !important;
   border-left-color: #60a5fa !important;
@@ -268,8 +280,7 @@ code, pre, .md-typeset code, .md-typeset pre {
 }
 [data-md-color-scheme="slate"] .summary-box h3 { color: #e9d5ff !important; }
 
-
-/* Style des éléments dans les blocs */
+/* Style des éléments dans les encadrés */
 .real-life-box h3, .good-reflex-box h3, .warning-practice-box h3, .summary-box h3 {
   margin-top: 0;
   margin-bottom: 8px;
@@ -321,7 +332,7 @@ code, pre, .md-typeset code, .md-typeset pre {
 }
 
 /* ==========================================================================
-   6. BOUTONS RÉUTILISABLES
+   6. BOUTONS RÉUTILISABLES (ACCESSIBILITÉ TACTILE 44PX)
    ========================================================================== */
 
 .wiki-actions {
@@ -332,8 +343,11 @@ code, pre, .md-typeset code, .md-typeset pre {
 }
 
 .wiki-button {
-  display: inline-block;
-  padding: 10px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px; /* Zone de clic 44px mobile */
+  padding: 10px 20px;
   border: 2px solid var(--md-primary-fg-color);
   border-radius: 999px;
   color: var(--md-primary-fg-color);
@@ -363,6 +377,7 @@ code, pre, .md-typeset code, .md-typeset pre {
   overflow: hidden;
   border: 1px solid #cbd5e1;
   font-size: 0.95rem;
+  width: 100%;
 }
 
 .md-typeset table:not([class]) th {
@@ -377,21 +392,22 @@ code, pre, .md-typeset code, .md-typeset pre {
 }
 
 /* ==========================================================================
-   8. GÉNÉRATEUR DE PROMPT
+   8. GÉNÉRATEUR DE PROMPT & FORMULAIRES (CORRECTIF PLACEHOLDERS ET RESPONSIVE)
    ========================================================================== */
 
 .prompt-generator {
   padding: 22px;
   margin: 24px 0;
-  border: 2px solid var(--md-default-fg-color--lightest);
+  border: 2px solid var(--md-default-fg-color--lightest, #cbd5e1);
   border-radius: 16px;
-  background: var(--md-default-bg-color);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  background: var(--md-default-bg-color, #ffffff);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
 }
 
+/* Grille réactive : Passe en 1 colonne sur Mobile */
 .prompt-generator-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
   margin-bottom: 16px;
 }
@@ -399,36 +415,58 @@ code, pre, .md-typeset code, .md-typeset pre {
 .prompt-generator label {
   display: block;
   margin-bottom: 6px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--md-typeset-color, #1e293b);
 }
 
-[data-md-color-scheme="slate"] .prompt-generator label {
-  color: #f1f5f9;
+/* Champs de texte : Contraste & Lisibilité */
+.prompt-generator input[type="text"],
+.prompt-generator textarea,
+.prompt-generator select {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 12px !important;
+  border: 1px solid #94a3b8 !important;
+  border-radius: 8px !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  font: inherit !important;
+  font-size: 0.9rem !important;
 }
 
-.prompt-generator input,
-.prompt-generator textarea {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #94a3b8;
-  border-radius: 8px;
-  background: var(--md-code-bg-color);
-  color: var(--md-typeset-color);
-  font: inherit;
-  box-sizing: border-box;
+/* Correctif Mode Sombre pour inputs */
+[data-md-color-scheme="slate"] .prompt-generator input[type="text"],
+[data-md-color-scheme="slate"] .prompt-generator textarea,
+[data-md-color-scheme="slate"] .prompt-generator select {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #475569 !important;
+}
+
+/* Correctif Placeholders Haute Lisibilité (WCAG AA) */
+.prompt-generator input::placeholder,
+.prompt-generator textarea::placeholder {
+  color: #64748b !important;
+  opacity: 1 !important;
+  font-style: italic;
+}
+
+[data-md-color-scheme="slate"] .prompt-generator input::placeholder,
+[data-md-color-scheme="slate"] .prompt-generator textarea::placeholder {
+  color: #94a3b8 !important;
+  opacity: 1 !important;
 }
 
 .prompt-generator input:focus,
 .prompt-generator textarea:focus {
-  outline: none;
-  border-color: var(--md-primary-fg-color);
-  box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.25);
+  outline: none !important;
+  border-color: var(--md-primary-fg-color) !important;
+  box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.25) !important;
 }
 
 .prompt-generator textarea {
-  min-height: 150px;
+  min-height: 140px;
   resize: vertical;
   margin-top: 6px;
   font-family: 'Roboto Mono', monospace !important;
@@ -441,7 +479,6 @@ code, pre, .md-typeset code, .md-typeset pre {
 
 .prompt-generator .wiki-button {
   cursor: pointer;
-  background: transparent;
 }
 
 .prompt-generator .wiki-button.primary {
@@ -460,7 +497,7 @@ code, pre, .md-typeset code, .md-typeset pre {
   background: #002b66 !important; /* Bleu très sombre pour trancher */
   color: #ffffff !important;
   border: 2px solid #ffffff !important;
-  font-size: 0.82rem !important;
+  font-size: 0.85rem !important;
   font-weight: 700 !important;
   padding: 6px 14px !important;
   border-radius: 999px !important;
@@ -480,11 +517,10 @@ code, pre, .md-typeset code, .md-typeset pre {
 }
 
 /* ==========================================================================
-   10. NAVIGATION LATÉRALE (FIX DÉFINITIF CHEVAUCHEMENT & SOMMAIRE)
+   10. NAVIGATION LATÉRALE ET SOMMAIRE (FIX DESOVERLAP ET FALC)
    ========================================================================== */
 
-/* 10.1 - FIX CHEVAUCHEMENT : Masquer les titres parasites UNIQUEMENT sur Desktop (min-width: 76.25em)
-   afin de conserver le bouton/flèche "Retour" au niveau supérieur sur Mobile ! */
+/* Fix Chevauchement sur Desktop */
 @media screen and (min-width: 76.25em) {
   .md-sidebar--primary .md-nav__title,
   .md-sidebar--primary [data-md-component="navigation"] > .md-nav__title,
@@ -503,7 +539,7 @@ code, pre, .md-typeset code, .md-typeset pre {
 /* Style des liens du menu latéral */
 .md-sidebar--primary .md-nav__link {
   font-family: 'Inter', sans-serif !important;
-  font-size: 0.88rem !important;
+  font-size: 0.9rem !important;
   font-weight: 500 !important;
   color: var(--md-typeset-color) !important;
   padding: 6px 0 !important;
@@ -520,48 +556,35 @@ code, pre, .md-typeset code, .md-typeset pre {
   font-weight: 700 !important;
 }
 
-/* NIVEAU 2 : Catégories parentes (Cas pratiques, Outils d'IA...) */
+/* NIVEAU 2 : Catégories parentes */
 .md-sidebar--primary .md-nav__item--nested > .md-nav__link {
   font-family: 'Poppins', sans-serif !important;
   font-weight: 600 !important;
-  color: #0f172a !important;
+  color: var(--md-typeset-color) !important;
   margin-top: 10px;
 }
 
-[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item--nested > .md-nav__link {
-  color: #ffffff !important;
-}
-
-/* 10.3 - SOMMAIRE DE LA PAGE (Table des matières - Colonne Droite ou Intégrée) */
-.md-sidebar--secondary {
-  display: block !important;
-  visibility: visible !important;
-}
-
+/* Sommaire de la page (Table des matières) sans majuscules intégrales (FALC) */
 .md-sidebar--secondary .md-nav__title {
   font-family: 'Poppins', sans-serif !important;
-  font-size: 0.85rem !important;
+  font-size: 0.9rem !important;
   font-weight: 700 !important;
   color: var(--md-primary-fg-color) !important;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  text-transform: none; /* FALC : Évite les MAJUSCULES intégrales */
+  letter-spacing: 0.02em;
   margin-bottom: 8px;
 }
 
 .md-sidebar--secondary .md-nav__link {
-  font-size: 0.82rem !important;
+  font-size: 0.85rem !important;
   font-weight: 400 !important;
-  color: #475569 !important;
+  color: var(--md-typeset-color) !important;
   padding: 4px 0 4px 10px !important;
-  border-left: 2px solid #e2e8f0;
+  border-left: 2px solid #cbd5e1;
   line-height: 1.3 !important;
 }
 
-.md-sidebar--secondary .md-nav__link:hover {
-  color: var(--md-primary-fg-color) !important;
-  border-left-color: var(--md-primary-fg-color) !important;
-}
-
+.md-sidebar--secondary .md-nav__link:hover,
 .md-sidebar--secondary .md-nav__link--active {
   color: var(--md-primary-fg-color) !important;
   border-left-color: var(--md-primary-fg-color) !important;
@@ -570,24 +593,22 @@ code, pre, .md-typeset code, .md-typeset pre {
 
 /* Ajustement largeur desktop */
 @media screen and (min-width: 76.25em) {
-  .md-sidebar--primary {
-    width: 16rem;
-  }
-  .md-sidebar--secondary {
-    width: 15rem;
-  }
+  .md-sidebar--primary { width: 16rem; }
+  .md-sidebar--secondary { width: 15rem; }
 }
+
 /* ==========================================================================
-   BOUTON HOME MOBILE DANS LE HEADER
+   11. BOUTON HOME MOBILE DANS LE HEADER
    ========================================================================== */
+
 .header-home-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.4rem;
+  padding: 0.5rem;
   color: #ffffff !important;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   transition: opacity 0.2s ease;
 }
 
@@ -595,7 +616,6 @@ code, pre, .md-typeset code, .md-typeset pre {
   opacity: 0.8;
 }
 
-/* Visibilité : visible sur Mobile & Tablette, discret sur Grand Desktop */
 @media screen and (min-width: 76.25em) {
   .header-home-btn {
     display: none;
