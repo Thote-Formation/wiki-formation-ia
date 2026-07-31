@@ -23,7 +23,7 @@ from pathlib import Path
 # --- Configuration --------------------------------------------------------
 
 DOCS_DIR = Path("docs")
-SITE_URL = "https://pierre-l-hue.github.io/wiki-formation-ia/"
+SITE_URL = "https://thote-formation.github.io/wiki-formation-ia/"
 OUTPUT = Path("rag/kb.json")
 CHUNK_SIZE = 800  # caractères max par morceau de section
 
