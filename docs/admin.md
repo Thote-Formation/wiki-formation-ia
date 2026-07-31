@@ -70,8 +70,6 @@ hide:
 <!-- FORMULAIRE D'INVITATION UTILISATEUR -->
 <div class="wiki-card prompt-generator">
 
-### ➕ Inviter un nouvel utilisateur
-
 <form id="add-user-form" onsubmit="handleAddUser(event)">
   <div class="prompt-generator-grid">
     <div>
