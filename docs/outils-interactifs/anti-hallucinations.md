@@ -2,10 +2,10 @@
 
 Sélectionnez votre cas d'usage pour générer les garde-fous d'ancrage et forcer l'IA à restituer des réponses 100% vérifiables sans inventer de faits.
 
-<div style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; margin: 20px 0;">
+<div class="prompt-generator">
   <div style="margin-bottom: 16px;">
-    <label style="font-weight: 700; font-size: 13px; display: block; margin-bottom: 6px; color: var(--md-typeset-color, #333);">1. Type de garde-fou souhaité :</label>
-    <select id="hallu-type" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000);">
+    <label for="hallu-type">1. Type de garde-fou souhaité :</label>
+    <select id="hallu-type" style="width: 100%; padding: 10px 12px; border: 1px solid #94a3b8; border-radius: 8px; background: var(--md-code-bg-color); color: var(--md-typeset-color); font: inherit;">
       <option value="strict-context">Ancrage strict sur document fourni (Ne répondre qu'avec le texte joint)</option>
       <option value="uncertainty-clause">Clause d'incertitude autorisée (Dire "Je ne sais pas" plutôt qu'inventer)</option>
       <option value="source-citation">Citation systématique des sources et extraits exacts</option>
@@ -14,15 +14,17 @@ Sélectionnez votre cas d'usage pour générer les garde-fous d'ancrage et force
   </div>
 
   <div style="margin-bottom: 16px;">
-    <label style="font-weight: 700; font-size: 13px; display: block; margin-bottom: 6px; color: var(--md-typeset-color, #333);">2. Votre sujet ou document d'origine (Optionnel) :</label>
-    <input type="text" id="hallu-topic" placeholder="Ex: Analyse de la note de service interne n°12 sur le télétravail" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000);">
+    <label for="hallu-topic">2. Votre sujet ou document d'origine (Optionnel) :</label>
+    <input type="text" id="hallu-topic" placeholder="Ex: Analyse de la note de service interne n°12 sur le télétravail">
   </div>
 
-  <button type="button" id="hallu-generate-btn" style="padding: 8px 16px; background: #1a5fb4; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; margin-bottom: 14px;">⚙️ Générer la clause anti-hallucination</button>
+  <div class="wiki-actions">
+    <button type="button" id="hallu-generate-btn" class="wiki-button primary">⚙️ Générer la clause anti-hallucination</button>
+  </div>
 
-  <div style="position: relative;">
-    <button type="button" id="hallu-copy-btn" style="position: absolute; top: 10px; right: 10px; padding: 4px 8px; font-size: 11px; font-weight: 600; border: 1px solid #ccc; border-radius: 4px; background: #fff; cursor: pointer; color: #333;">📋 Copier</button>
-    <pre id="hallu-generated-output" style="background: var(--md-default-bg-color, #fff); padding: 14px; border-radius: 6px; border: 1px solid #d5d9de; font-size: 12px; min-height: 80px; white-space: pre-wrap; color: var(--md-typeset-color, #222); font-family: monospace;">Sélectionnez une option et cliquez sur "Générer la clause anti-hallucination"...</pre>
+  <div style="position: relative; margin-top: 16px;">
+    <button type="button" id="hallu-copy-btn" class="wiki-button" style="position: absolute; top: 10px; right: 10px; padding: 4px 10px; font-size: 0.75rem; border-radius: 6px;">📋 Copier</button>
+    <pre id="hallu-generated-output" style="background: var(--md-code-bg-color); padding: 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.85em; min-height: 80px; white-space: pre-wrap; color: var(--md-typeset-color); font-family: var(--md-code-font-family, monospace);">Sélectionnez une option et cliquez sur "Générer la clause anti-hallucination"...</pre>
   </div>
 </div>
 
@@ -53,7 +55,7 @@ Sujet / Contexte : ${topic}
 RÈGLES D'INSTRUCTION :
 1. Réponds avec précision en te basant sur des faits vérifiables.
 2. Si tu n'es pas certain(e) à 100 % d'une donnée, d'une date ou d'un chiffre, indique clairement ton degré d'incertitude.
-3. Il est strictement interdit d'inventer des éléments pour combler les lacunes. Préfère dire "Information non confirmée" ou "Je ne sais pas".`,
+3. Il est strictly interdit d'inventer des éléments pour combler les lacunes. Préfère dire "Information non confirmée" ou "Je ne sais pas".`,
 
       'source-citation': (topic) => 
 `[CONSIGNE DE CITATION SYSTÉMATIQUE DES SOURCES]
