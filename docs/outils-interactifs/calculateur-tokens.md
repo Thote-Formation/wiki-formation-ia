@@ -1,71 +1,72 @@
 # 🧮 Calculateur de Tokens, Coûts & Volume
 
-> 💡 **C'est quoi un "Token" ?**  
-> Les IA ne lisent pas en mots mais en "tokens" (des morceaux de mots ou de ponctuation). En français, **100 mots ≈ 130 à 140 tokens**. Les tokens déterminent la **limite de mémoire de l'IA** et la **facturation** si vous utilisez l'API.
+<div class="real-life-box">
+  <h3>💡 C'est quoi un "Token" ?</h3>
+  <p>Les IA ne lisent pas en mots mais en <strong>tokens</strong> (des morceaux de mots ou de ponctuation). En français, <strong>100 mots ≈ 130 à 140 tokens</strong>. Le nombre de tokens détermine la <strong>limite de mémoire</strong> de l'IA et le <strong>coût de traitement</strong>.</p>
+</div>
 
 ---
 
 ## 🧪 Votre outil de mesure en temps réel
 
-Collez ou tapez votre texte ci-dessous pour analyser instantanément son volume, son coût et sa saturation de contexte :
+Collez ou tapez votre texte ci-dessous pour analyser instantanément son volume, son coût et sa saturation de mémoire :
 
-<div style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; margin: 20px 0;">
-  
-  <label for="token-input" style="display: block; font-weight: 700; font-size: 13px; margin-bottom: 8px; color: var(--md-typeset-color, #333);">1. Votre texte ou prompt :</label>
-  <textarea id="token-input" rows="5" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 13px; margin-bottom: 16px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000);" placeholder="Collez votre document, note ou prompt ici pour calculer sa taille..."></textarea>
+<div class="prompt-generator">
+  <label for="token-input">1. Votre texte ou prompt :</label>
+  <textarea id="token-input" rows="5" placeholder="Collez votre document, note ou prompt ici pour calculer sa taille..."></textarea>
 
   <!-- MÉTROLOGIE DE BASE -->
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px;">
+  <div class="prompt-generator-grid" style="margin-top: 16px;">
     
-    <div style="background: var(--md-default-bg-color, #fff); padding: 12px; border-radius: 6px; border: 1px solid #d5d9de; text-align: center;">
-      <span style="font-size: 11px; color: #666; font-weight: 700; display: block; text-transform: uppercase;">Mots</span>
-      <strong id="token-words-count" style="font-size: 22px; color: #1a5fb4;">0</strong>
+    <div style="background: var(--md-code-bg-color); padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; text-align: center;">
+      <span style="font-size: 0.75rem; color: var(--md-typeset-color); font-weight: 700; display: block; text-transform: uppercase;">Mots</span>
+      <strong id="token-words-count" style="font-size: 1.4rem; color: #0d47a1;">0</strong>
     </div>
 
-    <div style="background: var(--md-default-bg-color, #fff); padding: 12px; border-radius: 6px; border: 1px solid #d5d9de; text-align: center;">
-      <span style="font-size: 11px; color: #666; font-weight: 700; display: block; text-transform: uppercase;">Tokens estimé(s)</span>
-      <strong id="token-estimated-count" style="font-size: 22px; color: #1a5fb4;">0</strong>
+    <div style="background: var(--md-code-bg-color); padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; text-align: center;">
+      <span style="font-size: 0.75rem; color: var(--md-typeset-color); font-weight: 700; display: block; text-transform: uppercase;">Tokens estimé(s)</span>
+      <strong id="token-estimated-count" style="font-size: 1.4rem; color: #0d47a1;">0</strong>
     </div>
 
-    <div style="background: var(--md-default-bg-color, #fff); padding: 12px; border-radius: 6px; border: 1px solid #d5d9de; text-align: center;">
-      <span style="font-size: 11px; color: #666; font-weight: 700; display: block; text-transform: uppercase;">Volume équivalent</span>
-      <strong id="token-page-equiv" style="font-size: 15px; color: #333; display: block; margin-top: 5px;">0 page(s) A4</strong>
+    <div style="background: var(--md-code-bg-color); padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; text-align: center;">
+      <span style="font-size: 0.75rem; color: var(--md-typeset-color); font-weight: 700; display: block; text-transform: uppercase;">Volume équivalent</span>
+      <strong id="token-page-equiv" style="font-size: 0.95rem; display: block; margin-top: 5px;">0 page(s) A4</strong>
     </div>
 
   </div>
 
   <!-- COMPARATEUR DE COÛTS PAR MODÈLE -->
-  <div style="background: var(--md-default-bg-color, #fff); padding: 14px; border-radius: 6px; border: 1px solid #d5d9de; margin-bottom: 16px;">
-    <span style="font-size: 12px; font-weight: 700; color: #333; display: block; margin-bottom: 10px;">📊 Estimation du coût de lecture (Entrée API) :</span>
+  <div style="background: var(--md-code-bg-color); padding: 14px; border-radius: 8px; border: 1px solid #cbd5e1; margin: 16px 0;">
+    <span style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 10px;">📊 Estimation du coût de lecture (Entrée API) :</span>
     
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; font-size: 12px;">
-      <div style="padding: 8px; background: #f0f4f9; border-radius: 4px;">
-        <span style="font-weight: 600; display: block;">GPT-4o (Standard)</span>
-        <span id="cost-gpt4o" style="font-weight: 700; color: #1a5fb4;">0.0000 €</span>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; font-size: 0.82rem;">
+      <div style="padding: 8px; background: var(--md-default-bg-color); border-radius: 6px; border: 1px solid #e2e8f0;">
+        <span style="font-weight: 600; display: block;">GPT-4o</span>
+        <span id="cost-gpt4o" style="font-weight: 700; color: #0d47a1;">0.0000 €</span>
       </div>
-      <div style="padding: 8px; background: #f0f4f9; border-radius: 4px;">
-        <span style="font-weight: 600; display: block;">GPT-4o Mini (Éco)</span>
-        <span id="cost-gpt4o-mini" style="font-weight: 700; color: #2e6939;">0.0000 €</span>
+      <div style="padding: 8px; background: var(--md-default-bg-color); border-radius: 6px; border: 1px solid #e2e8f0;">
+        <span style="font-weight: 600; display: block;">GPT-4o Mini</span>
+        <span id="cost-gpt4o-mini" style="font-weight: 700; color: #15803d;">0.0000 €</span>
       </div>
-      <div style="padding: 8px; background: #f0f4f9; border-radius: 4px;">
+      <div style="padding: 8px; background: var(--md-default-bg-color); border-radius: 6px; border: 1px solid #e2e8f0;">
         <span style="font-weight: 600; display: block;">Claude 3.5 Sonnet</span>
-        <span id="cost-claude-sonnet" style="font-weight: 700; color: #1a5fb4;">0.0000 €</span>
+        <span id="cost-claude-sonnet" style="font-weight: 700; color: #0d47a1;">0.0000 €</span>
       </div>
-      <div style="padding: 8px; background: #f0f4f9; border-radius: 4px;">
+      <div style="padding: 8px; background: var(--md-default-bg-color); border-radius: 6px; border: 1px solid #e2e8f0;">
         <span style="font-weight: 600; display: block;">Claude 3.5 Haiku</span>
-        <span id="cost-claude-haiku" style="font-weight: 700; color: #2e6939;">0.0000 €</span>
+        <span id="cost-claude-haiku" style="font-weight: 700; color: #15803d;">0.0000 €</span>
       </div>
     </div>
   </div>
 
-  <!-- JAUGE D'INCLU DE CONTEXTE -->
+  <!-- JAUGE D'INCLUSION DE CONTEXTE -->
   <div>
-    <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; margin-bottom: 4px; color: #555;">
+    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px;">
       <span>Remplissage de la mémoire standard (Fenêtre de 128k tokens)</span>
       <span id="jauge-percent">0%</span>
     </div>
-    <div style="width: 100%; height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden;">
-      <div id="jauge-fill" style="width: 0%; height: 100%; background: #1a5fb4; transition: width 0.3s;"></div>
+    <div style="width: 100%; height: 10px; background: #cbd5e1; border-radius: 999px; overflow: hidden;">
+      <div id="jauge-fill" style="width: 0%; height: 100%; background: #0d47a1; transition: width 0.3s, background 0.3s;"></div>
     </div>
   </div>
 
@@ -148,9 +149,9 @@ Collez ou tapez votre texte ci-dessous pour analyser instantanément son volume,
       jaugePercent.textContent = pct + "%";
 
       if (pct > 80) {
-        jaugeFill.style.background = "#c9564a"; // Alerte rouge si on dépasse 80% du contexte
+        jaugeFill.style.background = "#dc2626"; // Rouge d'alerte WCAG si > 80%
       } else {
-        jaugeFill.style.background = "#1a5fb4";
+        jaugeFill.style.background = "#0d47a1"; // Bleu WCAG standard
       }
     }
 
