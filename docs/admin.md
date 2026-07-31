@@ -7,124 +7,88 @@ hide:
 # 🛠️ Administration des Accès
 
 <style>
-  .admin-card {
-    background: var(--md-card-bg-color, var(--md-default-bg-color, #ffffff));
-    color: var(--md-default-fg-color, #000000);
-    border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  .admin-form-group {
-    margin-bottom: 15px;
-  }
-  .admin-form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: var(--md-default-fg-color, #000000);
-  }
-  .admin-form-group input, .admin-form-group select {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid var(--md-default-fg-color--light, #ccc);
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-family: inherit;
-    background-color: var(--md-default-bg-color, #ffffff);
-    color: var(--md-default-fg-color, #000000);
-  }
-  .admin-btn-submit {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .admin-btn-submit:hover { background-color: #218838; }
-  
+  /* Adaptations spécifiques au composant Administration */
   .admin-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
-    color: var(--md-default-fg-color, #000000);
+    color: var(--md-typeset-color);
   }
   .admin-table th, .admin-table td {
-    padding: 10px 12px;
-    border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0);
+    padding: 12px;
+    border: 1px solid var(--md-default-fg-color--lightest, #cbd5e1);
     text-align: left;
+    vertical-align: middle;
   }
   .admin-table th {
-    background-color: var(--md-code-bg-color, #f8f9fa);
-    color: var(--md-default-fg-color, #000000);
-    font-weight: bold;
+    background-color: #0d47a1 !important;
+    color: #ffffff !important;
+    font-weight: 700;
   }
   .admin-table input[type="date"] {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #94a3b8;
     background-color: var(--md-default-bg-color, #ffffff);
-    color: var(--md-default-fg-color, #000000);
-    border: 1px solid var(--md-default-fg-color--light, #ccc);
-    padding: 4px 6px;
-    border-radius: 4px;
+    color: var(--md-typeset-color);
+    font-family: inherit;
   }
-  .badge-active { color: #28a745; font-weight: bold; }
-  .badge-inactive { color: #dc3545; font-weight: bold; }
-  .badge-expired { color: #ffc107; font-weight: bold; }
-  
-  .action-btn {
-    padding: 4px 8px;
-    border-radius: 4px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 0.85em;
+  [data-md-color-scheme="slate"] .admin-table input[type="date"] {
+    background-color: #1e293b;
+    border-color: #475569;
+    color: #f8fafc;
   }
-  .btn-toggle { background-color: #17a2b8; }
-  .btn-toggle:hover { background-color: #138496; }
 </style>
 
 <!-- FORMULAIRE D'INVITATION UTILISATEUR -->
-<div class="admin-card">
-  <h3>➕ Inviter un nouvel utilisateur</h3>
-  <form id="add-user-form">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-      <div class="admin-form-group">
-        <label for="new-email">Adresse E-mail</label>
-        <input type="email" id="new-email" placeholder="utilisateur@domaine.fr" required>
-      </div>
-      <div class="admin-form-group">
-        <label for="new-expires">Date d'expiration</label>
-        <input type="date" id="new-expires" required>
-      </div>
+<div class="wiki-card prompt-generator" markdown="1">
+
+### ➕ Inviter un nouvel utilisateur
+
+<form id="add-user-form">
+  <div class="prompt-generator-grid">
+    <div>
+      <label for="new-email">Adresse E-mail</label>
+      <input type="email" id="new-email" placeholder="utilisateur@domaine.fr" required>
     </div>
-    <button type="submit" class="admin-btn-submit" style="margin-top: 10px;">➕ Inviter l'utilisateur par E-mail</button>
-  </form>
-  <div id="form-message" style="margin-top: 10px; font-weight: bold;"></div>
+    <div>
+      <label for="new-expires">Date d'expiration</label>
+      <input type="date" id="new-expires" required>
+    </div>
+  </div>
+  <div class="wiki-actions">
+    <button type="submit" class="wiki-button primary">➕ Inviter l'utilisateur par E-mail</button>
+  </div>
+</form>
+
+<div id="form-message" style="margin-top: 12px; font-weight: 700;"></div>
+
 </div>
 
 <!-- LISTE DES UTILISATEURS -->
-<div class="admin-card">
-  <h3>👥 Utilisateurs enregistrés (<span id="user-count">0</span>)</h3>
-  <div style="overflow-x: auto;">
-    <table class="admin-table">
-      <thead>
-        <tr>
-          <th>E-mail</th>
-          <th>Statut</th>
-          <th>Expiration</th>
-          <th>Temps Passé</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="users-table-body">
-        <tr>
-          <td colspan="5">Chargement de la liste...</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="wiki-card" markdown="1">
+
+### 👥 Utilisateurs enregistrés (<span id="user-count">0</span>)
+
+<div style="overflow-x: auto;">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>E-mail</th>
+        <th>Statut</th>
+        <th>Expiration</th>
+        <th>Temps Passé</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="users-table-body">
+      <tr>
+        <td colspan="5">Chargement de la liste...</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 </div>
 
 <script>
@@ -156,7 +120,7 @@ async function loadAdminPanel() {
   document.getElementById('add-user-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const msgDiv = document.getElementById('form-message');
-    msgDiv.style.color = '#007bff';
+    msgDiv.style.color = '#0d47a1';
     msgDiv.textContent = '⏳ Envoi de l\'invitation...';
 
     const email = document.getElementById('new-email').value;
@@ -169,7 +133,7 @@ async function loadAdminPanel() {
     });
 
     if (error) {
-      msgDiv.style.color = '#dc3545';
+      msgDiv.style.color = '#dc2626';
       msgDiv.textContent = '❌ Erreur : ' + error.message;
       return;
     }
@@ -186,7 +150,7 @@ async function loadAdminPanel() {
         redirectTo: redirectUrl
       });
 
-      msgDiv.style.color = '#28a745';
+      msgDiv.style.color = '#15803d';
       msgDiv.textContent = '✅ Compte créé ! Un e-mail a été envoyé à l\'utilisateur.';
       document.getElementById('add-user-form').reset();
       await fetchUsersList(supabase);
@@ -203,7 +167,7 @@ async function fetchUsersList(supabase) {
     .order('created_at', { ascending: false });
 
   if (error) {
-    tbody.innerHTML = `<tr><td colspan="5" style="color:red">Erreur : ${error.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" style="color:#dc2626; font-weight:700;">Erreur : ${error.message}</td></tr>`;
     return;
   }
 
@@ -217,17 +181,17 @@ async function fetchUsersList(supabase) {
     const isExpired = expDate < now;
     const isAdmin = p.role === 'admin';
     
-    let statusBadge = '<span class="badge-active">Actif</span>';
+    let statusBadge = '<span class="wiki-badge success">Actif</span>';
     if (!p.is_active) {
-      statusBadge = '<span class="badge-inactive">Inactif</span>';
+      statusBadge = '<span class="wiki-badge danger">Inactif</span>';
     } else if (isExpired && !isAdmin) {
-      statusBadge = '<span class="badge-expired">Expiré</span>';
+      statusBadge = '<span class="wiki-badge warning">Expiré</span>';
     }
 
     let expirationCell = `<input type="date" value="${p.expires_at ? p.expires_at.split('T')[0] : ''}" onchange="updateExpiration('${p.id}', this.value)">`;
     
     if (isAdmin) {
-      expirationCell = '<span style="font-weight: bold; color: #007bff;">Illimité ♾️ (Admin)</span>';
+      expirationCell = '<span style="font-weight: 700; color: #60a5fa;">Illimité ♾️ (Admin)</span>';
     }
 
     const tr = document.createElement('tr');
@@ -238,7 +202,7 @@ async function fetchUsersList(supabase) {
       <td>${formatSeconds(p.total_time_seconds)}</td>
       <td>
         ${isAdmin ? '<em>Aucune action</em>' : `
-          <button class="action-btn btn-toggle" onclick="toggleActive('${p.id}', ${p.is_active})">
+          <button type="button" class="wiki-button" style="padding: 4px 12px; min-height: 36px; font-size: 0.82rem;" onclick="toggleActive('${p.id}', ${p.is_active})">
             ${p.is_active ? 'Désactiver' : 'Activer'}
           </button>
         `}
