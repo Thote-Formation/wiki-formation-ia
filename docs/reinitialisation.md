@@ -11,23 +11,46 @@
     ⏳ Validation du lien de sécurité en cours...
   </div>
 
-  <form id="reset-form" onsubmit="handlePasswordUpdate(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+<!-- FORMULAIRE DE RÉINITIALISATION -->
+<form id="reset-form" onsubmit="handlePasswordUpdate(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+  
+  <div>
+    <label for="new-password" style="display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem;">
+      Nouveau mot de passe :
+    </label>
     
-    <div>
-      <label for="new-password" style="display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem;">Nouveau mot de passe :</label>
-      <input type="password" id="new-password" required minlength="6" placeholder="••••••••" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
+    <!-- Input avec un placeholder clair et explicite -->
+    <input 
+      type="password" 
+      id="new-password" 
+      required 
+      minlength="8" 
+      placeholder="Entrez votre nouveau mot de passe" 
+      oninput="validatePasswordRules(this.value)"
+      style="width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;"
+    >
+
+    <!-- Exigences et consignes de sécurité du mot de passe -->
+    <div id="password-rules" style="margin-top: 0.6rem; font-size: 0.8rem; background: rgba(0,0,0,0.03); padding: 10px 12px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.06);">
+      <span style="font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-default-fg-color--light);">
+        📋 Consignes de sécurité :
+      </span>
+      <ul style="margin: 0; padding-left: 1.2rem; line-height: 1.5; color: var(--md-default-fg-color--light);">
+        <li id="rule-length">Au moins 8 caractères</li>
+        <li id="rule-uppercase">Au moins une lettre majuscule</li>
+        <li id="rule-number">Au moins un chiffre</li>
+      </ul>
     </div>
+  </div>
 
-    <div id="reset-error" style="display: none; color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
-    <div id="reset-success" style="display: none; color: #2e7d32; background: #e8f5e9; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
+  <div id="reset-error" style="display: none; color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
+  <div id="reset-success" style="display: none; color: #2e7d32; background: #e8f5e9; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
 
-    <button type="submit" id="reset-btn" disabled style="width: 100%; padding: 12px; background: #ccc; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: not-allowed; transition: background 0.2s; margin-top: 0.5rem;">
-      Mettre à jour le mot de passe
-    </button>
+  <button type="submit" id="reset-btn" disabled style="width: 100%; padding: 12px; background: #ccc; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: not-allowed; transition: background 0.2s; margin-top: 0.5rem;">
+    Mettre à jour le mot de passe
+  </button>
 
-  </form>
-
-</div>
+</form>
 
 <!-- SDK Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
