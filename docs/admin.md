@@ -14,9 +14,9 @@ hide:
     padding: 10px 14px !important;
     font-size: 0.95rem !important;
     font-family: inherit !important;
-    border: 1.5px solid #94a3b8 !important; /* Bordure nette */
+    border: 1.5px solid #94a3b8 !important;
     border-radius: 8px !important;
-    background-color: #f8fafc !important; /* Fond légèrement teinté pour marquer la zone */
+    background-color: #f8fafc !important;
     color: #0f172a !important;
     transition: all 0.2s ease !important;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
@@ -68,7 +68,7 @@ hide:
 </style>
 
 <!-- FORMULAIRE D'INVITATION UTILISATEUR -->
-<div class="wiki-card prompt-generator" markdown="1">
+<div class="wiki-card prompt-generator">
 
 ### ➕ Inviter un nouvel utilisateur
 
@@ -93,7 +93,7 @@ hide:
 </div>
 
 <!-- LISTE DES UTILISATEURS -->
-<div class="wiki-card" markdown="1">
+<div class="wiki-card">
 
 ### 👥 Utilisateurs enregistrés (<span id="user-count">0</span>)
 
@@ -118,16 +118,33 @@ hide:
 
 </div>
 
+<!-- Charger Supabase si non présent -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk";
+
+function getAdminSupabase() {
+  if (window.supabaseClient) return window.supabaseClient;
+  if (window.supabase) {
+    window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    return window.supabaseClient;
+  }
+  return null;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const nextYear = new Date();
   nextYear.setFullYear(nextYear.getFullYear() + 1);
-  document.getElementById('new-expires').value = nextYear.toISOString().split('T')[0];
+  const expInput = document.getElementById('new-expires');
+  if (expInput) expInput.value = nextYear.toISOString().split('T')[0];
 
-  const checkSupabase = setInterval(() => {
-    if (window.supabaseClient) {
-      clearInterval(checkSupabase);
-      fetchUsersList(window.supabaseClient);
+  const checkInterval = setInterval(() => {
+    const sb = getAdminSupabase();
+    if (sb) {
+      clearInterval(checkInterval);
+      fetchUsersList(sb);
     }
   }, 200);
 });
@@ -143,11 +160,11 @@ async function handleAddUser(e) {
   e.preventDefault();
   const msgDiv = document.getElementById('form-message');
   const btn = document.getElementById('submit-btn');
-  const supabase = window.supabaseClient;
+  const supabase = getAdminSupabase();
 
   if (!supabase) {
     msgDiv.style.color = '#dc2626';
-    msgDiv.textContent = '❌ Erreur : Connexion à Supabase en cours... Réessayez dans un instant.';
+    msgDiv.textContent = '❌ Erreur : Impossible de contacter Supabase. Veuillez rafraîchir la page.';
     return;
   }
 
@@ -189,7 +206,6 @@ async function handleAddUser(e) {
       msgDiv.textContent = '✅ Compte créé ! Un e-mail a été envoyé à l\'utilisateur.';
       document.getElementById('add-user-form').reset();
       
-      // Remettre la date par défaut (+1 an) après le reset
       const nextYear = new Date();
       nextYear.setFullYear(nextYear.getFullYear() + 1);
       document.getElementById('new-expires').value = nextYear.toISOString().split('T')[0];
@@ -206,6 +222,7 @@ async function handleAddUser(e) {
 
 async function fetchUsersList(supabase) {
   const tbody = document.getElementById('users-table-body');
+  if (!tbody) return;
   
   const { data: profiles, error } = await supabase
     .from('profiles')
@@ -217,7 +234,8 @@ async function fetchUsersList(supabase) {
     return;
   }
 
-  document.getElementById('user-count').textContent = profiles.length;
+  const userCount = document.getElementById('user-count');
+  if (userCount) userCount.textContent = profiles.length;
   tbody.innerHTML = '';
 
   const now = new Date();
@@ -259,14 +277,16 @@ async function fetchUsersList(supabase) {
 }
 
 async function toggleActive(userId, currentStatus) {
-  const supabase = window.supabaseClient;
+  const supabase = getAdminSupabase();
+  if (!supabase) return;
   await supabase.from('profiles').update({ is_active: !currentStatus }).eq('id', userId);
   fetchUsersList(supabase);
 }
 
 async function updateExpiration(userId, newDate) {
   if (!newDate) return;
-  const supabase = window.supabaseClient;
+  const supabase = getAdminSupabase();
+  if (!supabase) return;
   await supabase.from('profiles').update({ expires_at: newDate + 'T23:59:59Z' }).eq('id', userId);
   alert('Date d\'expiration mise à jour !');
   fetchUsersList(supabase);
