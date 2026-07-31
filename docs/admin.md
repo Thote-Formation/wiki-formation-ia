@@ -93,7 +93,7 @@ hide:
 <!-- LISTE DES UTILISATEURS -->
 <div class="wiki-card">
 
-### 👥 Utilisateurs enregistrés (<span id="user-count">0</span>)
+👥 Utilisateurs enregistrés (<span id="user-count">0</span>)
 
 <div style="overflow-x: auto;">
   <table class="admin-table">
