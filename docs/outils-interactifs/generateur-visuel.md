@@ -2,35 +2,37 @@
 
 Spécifiez les caractéristiques esthétiques de votre image pour générer une consigne précise adaptée à Midjourney, DALL·E ou Adobe Firefly.
 
-<div style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; margin: 20px 0;">
-  <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 16px;">
+<div class="prompt-generator">
+  <div class="prompt-generator-grid">
     <div>
-      <label style="font-weight: 700; font-size: 12px; display: block; margin-bottom: 4px; color: var(--md-typeset-color, #333);">1. Sujet principal :</label>
-      <input type="text" id="visuel-sujet" placeholder="Ex: Une équipe d'experts analysant des données sur tablette" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000);">
+      <label for="visuel-sujet">1. Sujet principal :</label>
+      <input type="text" id="visuel-sujet" placeholder="Ex: Une équipe d'experts analysant des données sur tablette">
     </div>
     <div>
-      <label style="font-weight: 700; font-size: 12px; display: block; margin-bottom: 4px; color: var(--md-typeset-color, #333);">2. Style artistique :</label>
-      <input type="text" id="visuel-style" placeholder="Ex: Illustration vectorielle flat design moderne" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000);">
+      <label for="visuel-style">2. Style artistique :</label>
+      <input type="text" id="visuel-style" placeholder="Ex: Illustration vectorielle flat design moderne">
     </div>
     <div>
-      <label style="font-weight: 700; font-size: 12px; display: block; margin-bottom: 4px; color: var(--md-typeset-color, #333);">3. Ambiance & Éclairage :</label>
-      <input type="text" id="visuel-ambiance" placeholder="Ex: Lumineuse, dynamique et technologique" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000);">
+      <label for="visuel-ambiance">3. Ambiance & Éclairage :</label>
+      <input type="text" id="visuel-ambiance" placeholder="Ex: Lumineuse, dynamique et technologique">
     </div>
     <div>
-      <label style="font-weight: 700; font-size: 12px; display: block; margin-bottom: 4px; color: var(--md-typeset-color, #333);">4. Palette de couleurs :</label>
-      <input type="text" id="visuel-couleurs" placeholder="Ex: Bleu marine, blanc et touches de vert menthe" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000);">
+      <label for="visuel-couleurs">4. Palette de couleurs :</label>
+      <input type="text" id="visuel-couleurs" placeholder="Ex: Bleu marine, blanc et touches de vert menthe">
     </div>
     <div>
-      <label style="font-weight: 700; font-size: 12px; display: block; margin-bottom: 4px; color: var(--md-typeset-color, #333);">5. Cadrage & Format :</label>
-      <input type="text" id="visuel-format" placeholder="Ex: Plan moyen, format paysage 16:9" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000);">
+      <label for="visuel-format">5. Cadrage & Format :</label>
+      <input type="text" id="visuel-format" placeholder="Ex: Plan moyen, format paysage 16:9">
     </div>
   </div>
 
-  <button type="button" id="visuel-generate-btn" style="padding: 8px 16px; background: #1a5fb4; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; margin-bottom: 12px;">⚙️ Générer le prompt visuel</button>
+  <div class="wiki-actions">
+    <button type="button" id="visuel-generate-btn" class="wiki-button primary">⚙️ Générer le prompt visuel</button>
+  </div>
 
-  <div style="position: relative;">
-    <button type="button" id="visuel-copy-btn" style="position: absolute; top: 10px; right: 10px; padding: 4px 8px; font-size: 11px; font-weight: 600; border: 1px solid #ccc; border-radius: 4px; background: #fff; cursor: pointer; color: #333;">📋 Copier</button>
-    <pre id="visuel-generated-output" style="background: var(--md-default-bg-color, #fff); padding: 14px; border-radius: 6px; border: 1px solid #d5d9de; font-size: 12px; min-height: 80px; white-space: pre-wrap; color: var(--md-typeset-color, #222); font-family: monospace;">Remplissez les champs ci-dessus et cliquez sur "Générer le prompt visuel"...</pre>
+  <div style="position: relative; margin-top: 16px;">
+    <button type="button" id="visuel-copy-btn" class="wiki-button" style="position: absolute; top: 10px; right: 10px; padding: 4px 10px; font-size: 0.75rem; border-radius: 6px;">📋 Copier</button>
+    <pre id="visuel-generated-output" style="background: var(--md-code-bg-color); padding: 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.85em; min-height: 80px; white-space: pre-wrap; color: var(--md-typeset-color); font-family: var(--md-code-font-family, monospace);">Remplissez les champs ci-dessus et cliquez sur "Générer le prompt visuel"...</pre>
   </div>
 </div>
 
