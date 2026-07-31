@@ -72,7 +72,7 @@ hide:
 
 ### ➕ Inviter un nouvel utilisateur
 
-<form id="add-user-form">
+<form id="add-user-form" onsubmit="handleAddUser(event)">
   <div class="prompt-generator-grid">
     <div>
       <label for="new-email">Adresse E-mail</label>
@@ -83,8 +83,8 @@ hide:
       <input type="date" id="new-expires" class="admin-input" required>
     </div>
   </div>
-  <div class="wiki-actions">
-    <button type="submit" class="wiki-button primary">➕ Inviter l'utilisateur par E-mail</button>
+  <div class="wiki-actions" style="margin-top: 15px;">
+    <button type="submit" id="submit-btn" class="wiki-button primary" style="cursor: pointer;">➕ Inviter l'utilisateur par E-mail</button>
   </div>
 </form>
 
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkSupabase = setInterval(() => {
     if (window.supabaseClient) {
       clearInterval(checkSupabase);
-      loadAdminPanel();
+      fetchUsersList(window.supabaseClient);
     }
   }, 200);
 });
@@ -139,21 +139,27 @@ function formatSeconds(seconds) {
   return hrs > 0 ? `${hrs}h ${mins}m` : `${mins} min`;
 }
 
-async function loadAdminPanel() {
+async function handleAddUser(e) {
+  e.preventDefault();
+  const msgDiv = document.getElementById('form-message');
+  const btn = document.getElementById('submit-btn');
   const supabase = window.supabaseClient;
-  await fetchUsersList(supabase);
 
-  // Invitation Utilisateur
-  document.getElementById('add-user-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const msgDiv = document.getElementById('form-message');
-    msgDiv.style.color = '#0d47a1';
-    msgDiv.textContent = '⏳ Envoi de l\'invitation...';
+  if (!supabase) {
+    msgDiv.style.color = '#dc2626';
+    msgDiv.textContent = '❌ Erreur : Connexion à Supabase en cours... Réessayez dans un instant.';
+    return;
+  }
 
-    const email = document.getElementById('new-email').value;
-    const expiresAt = document.getElementById('new-expires').value + 'T23:59:59Z';
-    const randomPassword = Math.random().toString(36).slice(-10) + 'A1!' + Math.random().toString(36).slice(-10);
+  btn.disabled = true;
+  msgDiv.style.color = '#0d47a1';
+  msgDiv.textContent = '⏳ Envoi de l\'invitation...';
 
+  const email = document.getElementById('new-email').value.trim();
+  const expiresAt = document.getElementById('new-expires').value + 'T23:59:59Z';
+  const randomPassword = Math.random().toString(36).slice(-10) + 'A1!' + Math.random().toString(36).slice(-10);
+
+  try {
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: randomPassword
@@ -162,6 +168,7 @@ async function loadAdminPanel() {
     if (error) {
       msgDiv.style.color = '#dc2626';
       msgDiv.textContent = '❌ Erreur : ' + error.message;
+      btn.disabled = false;
       return;
     }
 
@@ -171,7 +178,8 @@ async function loadAdminPanel() {
         is_active: true
       }).eq('id', data.user.id);
 
-      const redirectUrl = window.location.origin + (window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '') + '/reinitialisation/';
+      const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
+      const redirectUrl = window.location.origin + basePath + '/reinitialisation/';
       
       await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: redirectUrl
@@ -180,9 +188,20 @@ async function loadAdminPanel() {
       msgDiv.style.color = '#15803d';
       msgDiv.textContent = '✅ Compte créé ! Un e-mail a été envoyé à l\'utilisateur.';
       document.getElementById('add-user-form').reset();
+      
+      // Remettre la date par défaut (+1 an) après le reset
+      const nextYear = new Date();
+      nextYear.setFullYear(nextYear.getFullYear() + 1);
+      document.getElementById('new-expires').value = nextYear.toISOString().split('T')[0];
+
       await fetchUsersList(supabase);
     }
-  });
+  } catch (err) {
+    msgDiv.style.color = '#dc2626';
+    msgDiv.textContent = '❌ Erreur inattendue : ' + err.message;
+  } finally {
+    btn.disabled = false;
+  }
 }
 
 async function fetchUsersList(supabase) {
