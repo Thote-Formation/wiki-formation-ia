@@ -150,9 +150,9 @@ async function handleForgotPassword(e) {
   try {
     const supabase = getSupabaseClient();
 
-    const redirectUrl = window.location.hostname.includes('github.io') 
-      ? 'https://pierre-l-hue.github.io/wiki-formation-ia/reinitialisation/'
-      : window.location.origin + '/reinitialisation/';
+    // Redirection construite de manière totalement dynamique
+    const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
+    const redirectUrl = window.location.origin + basePath + '/reinitialisation/';
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: redirectUrl,
@@ -170,4 +170,3 @@ async function handleForgotPassword(e) {
     errorDiv.style.display = "block";
   }
 }
-</script>
