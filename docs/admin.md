@@ -7,7 +7,47 @@ hide:
 # 🛠️ Administration des Accès
 
 <style>
-  /* Adaptations spécifiques au composant Administration */
+  /* 1. Style des champs de saisie (Inputs visibles et explicites) */
+  .admin-input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 10px 14px !important;
+    font-size: 0.95rem !important;
+    font-family: inherit !important;
+    border: 1.5px solid #94a3b8 !important; /* Bordure nette */
+    border-radius: 8px !important;
+    background-color: #f8fafc !important; /* Fond légèrement teinté pour marquer la zone */
+    color: #0f172a !important;
+    transition: all 0.2s ease !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .admin-input:hover {
+    border-color: #64748b !important;
+    background-color: #ffffff !important;
+  }
+
+  .admin-input:focus {
+    outline: none !important;
+    border-color: #0d47a1 !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2) !important;
+  }
+
+  /* Support Mode Sombre pour les Inputs */
+  [data-md-color-scheme="slate"] .admin-input {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #475569 !important;
+  }
+
+  [data-md-color-scheme="slate"] .admin-input:hover,
+  [data-md-color-scheme="slate"] .admin-input:focus {
+    background-color: #0f172a !important;
+    border-color: #60a5fa !important;
+  }
+
+  /* 2. Style de la Table des Utilisateurs */
   .admin-table {
     width: 100%;
     border-collapse: collapse;
@@ -25,19 +65,6 @@ hide:
     color: #ffffff !important;
     font-weight: 700;
   }
-  .admin-table input[type="date"] {
-    padding: 8px 10px;
-    border-radius: 8px;
-    border: 1px solid #94a3b8;
-    background-color: var(--md-default-bg-color, #ffffff);
-    color: var(--md-typeset-color);
-    font-family: inherit;
-  }
-  [data-md-color-scheme="slate"] .admin-table input[type="date"] {
-    background-color: #1e293b;
-    border-color: #475569;
-    color: #f8fafc;
-  }
 </style>
 
 <!-- FORMULAIRE D'INVITATION UTILISATEUR -->
@@ -49,11 +76,11 @@ hide:
   <div class="prompt-generator-grid">
     <div>
       <label for="new-email">Adresse E-mail</label>
-      <input type="email" id="new-email" placeholder="utilisateur@domaine.fr" required>
+      <input type="email" id="new-email" class="admin-input" placeholder="ex: utilisateur@domaine.fr" required>
     </div>
     <div>
       <label for="new-expires">Date d'expiration</label>
-      <input type="date" id="new-expires" required>
+      <input type="date" id="new-expires" class="admin-input" required>
     </div>
   </div>
   <div class="wiki-actions">
@@ -188,7 +215,7 @@ async function fetchUsersList(supabase) {
       statusBadge = '<span class="wiki-badge warning">Expiré</span>';
     }
 
-    let expirationCell = `<input type="date" value="${p.expires_at ? p.expires_at.split('T')[0] : ''}" onchange="updateExpiration('${p.id}', this.value)">`;
+    let expirationCell = `<input type="date" class="admin-input" style="padding: 4px 8px !important;" value="${p.expires_at ? p.expires_at.split('T')[0] : ''}" onchange="updateExpiration('${p.id}', this.value)">`;
     
     if (isAdmin) {
       expirationCell = '<span style="font-weight: 700; color: #60a5fa;">Illimité ♾️ (Admin)</span>';
