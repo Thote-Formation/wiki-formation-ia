@@ -1,204 +1,212 @@
-# H6 — Accessibilité & inclusivité dans l'IA
+/* ==================================================== */
+/* H6 INTERACTIVITY SCRIPT                             */
+/* ==================================================== */
 
-Cette sixième séance vous aide à produire des contenus compréhensibles, accessibles et respectueux pour l'ensemble de vos publics en tirant parti de l'IA générative.
+function lancerModuleH6() {
+  initBeforeAfter();
+  initH6Quiz();
+  initPromptGenerator();
+}
 
-<div class="summary-box">
-  <h3>Objectifs de la séance</h3>
-  <ul>
-    <li><strong>Définir accessibilité et inclusivité :</strong> comprendre les enjeux dans le contexte des contenus générés par l'IA.</li>
-    <li><strong>Identifier les barrières d'accès :</strong> repérer les obstacles majeurs (vision, audition, compréhension, motricité).</li>
-    <li><strong>Appliquer les bonnes pratiques :</strong> produire du contenu conforme aux référentiels RGAA / WCAG.</li>
-    <li><strong>Utiliser l'IA comme levier :</strong> transformer l'IA en moteur d'inclusion numérique plutôt qu'en facteur d'exclusion.</li>
-  </ul>
-</div>
+// Exécution immédiate au cas où le DOM est déjà prêt
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", lancerModuleH6);
+} else {
+  lancerModuleH6();
+}
 
----
+/* --- FUNCTION 1: DISCRET TOGGLE SWITCH --- */
+function initBeforeAfter() {
+  const scenarios = [
+    {
+      avant: "« Les employés les plus âgés auront peut-être du mal avec les nouvelles formations numériques. Il faudra que les managers les motivent davantage, car ils ont souvent peur de la technologie et résistent aux changements. »",
+      apres: "« Certaines personnes peuvent se sentir moins à l'aise avec les nouvelles technologies, quel que soit leur âge. Notre objectif : accompagner chacun avec des explications claires et progressives. Les managers peuvent proposer du temps dédié pour rassurer les équipes. »",
+      criteria: ["Pas de stéréotype discriminatoire lié à l'âge", "Ton bienveillant et non infantilisant", "Suppression des généralisations abusives"]
+    },
+    {
+      avant: "« Pour les personnes handicapées qui ne peuvent pas suivre la réunion, un compte-rendu sera envoyé pour qu'elles ne soient pas désavantagées. »",
+      apres: "« Afin de garantir l'accessibilité de nos échanges, un compte-rendu écrit ainsi qu'un enregistrement sous-titré seront mis à disposition de l'ensemble des participants à l'issue de la réunion. »",
+      criteria: ["Vocabulaire valorisant et centré sur l'accessibilité", "Approche universelle bénéficiant à tous", "Solutions techniques concrètes intégrées"]
+    },
+    {
+      avant: "« Chaque commercial doit envoyer son rapport à son directeur avant vendredi. Il doit s'assurer que tous ses clients ont signé. »",
+      apres: "« Chaque membre de l'équipe commerciale est invité(e) à transmettre son rapport à sa responsable ou son responsable d'ici vendredi, en vérifiant la validation de l'ensemble des contrats clients. »",
+      criteria: ["Langage neutre et équilibré", "Valorisation du collectif", "Formulations professionnelles rééquilibrées"]
+    }
+  ];
 
-## Accessibilité vs Inclusivité : de quoi parle-t-on ?
+  const scenarioSelect = document.getElementById('before-after-scenario');
+  const toggleInput = document.getElementById('toggle-before-after');
+  const labelBefore = document.getElementById('label-before');
+  const labelAfter = document.getElementById('label-after');
+  const stage = document.getElementById('before-after-stage');
+  const checklist = document.getElementById('before-after-checklist');
+  const copyBtn = document.getElementById('before-after-copy-btn');
 
-### 1. Accessibilité (Technique & Ergonomie)
-> **Définition :** Rendre les contenus et outils utilisables par le plus grand nombre, y compris les personnes en situation de handicap ou en difficulté d'apprentissage.
+  if (!toggleInput || !stage) return;
 
-| Dimension | Exigences concrètes | Impact |
-| :--- | :--- | :--- |
-| **Vision** | Contraste suffisant, texte redimensionnable, compatibilité lecteurs d'écran | Dégage l'information pour les malvoyants et écrans en plein soleil |
-| **Audition** | Sous-titres, transcriptions textuelles, audiodescriptions | Indispensable pour les sourds/malentendants et vidéos en milieu bruyant |
-| **Compréhension** | Phrases courtes, niveau Facile À Lire et à Comprendre (FALC / B1) | Aide les dyslexiques, apprenants FLE, personnes âgées |
-| **Motricité** | Navigation 100% au clavier, zones cliquables larges (44x44px min.) | Permet la navigation sans souris ou sur mobile en déplacement |
+  let currentScenario = 0;
 
-### 2. Inclusivité (Humain & Représentation)
-> **Définition :** Créer un environnement où chacun se sent bienvenu, valorisé et représenté, indépendamment de ses caractéristiques (genre, âge, origine, handicap...).
+  function render() {
+    const sc = scenarios[currentScenario];
+    const isApres = toggleInput.checked;
 
-- **Langage** : Neutre, non-stigmatisant, respectueux des identités.
-- **Diversité** : Représentation équilibrée dans les exemples, cas d'usage et visuels.
-- **Absence de biais** : Refus des stéréotypes de genre, d'âge ou de rôle social.
+    stage.textContent = isApres ? sc.apres : sc.avant;
 
----
+    if (labelBefore && labelAfter) {
+      labelBefore.style.opacity = isApres ? '0.4' : '1';
+      labelAfter.style.opacity = isApres ? '1' : '0.4';
+    }
 
-## 🏠 L'analogie de la maison
-
-| Concept | Accessibilité (La structure) | Inclusivité (L'accueil) |
-| :--- | :--- | :--- |
-| **En monde physique** | Une rampe d'accès et des portes larges permettant à tous de **rentrer**. | Un accueil bienveillant où chacun se **sent bien** et à sa place. |
-| **Dans l'IA** | Code propre, balises `alt`, typographie lisible, navigation clavier. | Vocabulaire neutre, données d'entraînement représentatives, absence de biais. |
-
----
-
-## ⚠️ Les 3 risques majeurs avec l'IA générative
-
-1. **La réplication des biais sexistes et sociaux** :  
-   Les LLM apprennent sur le Web. Un prompt simple comme *"Génère 5 profils de secrétaires"* produira majoritairement des profils féminins. Ce n'est pas un bogue technique, c'est un reflet des données historiques : **c'est à l'humain d'orienter le prompt**.
-2. **Le langage excluant ou stigmatisant** :  
-   Les modèles de base peuvent utiliser des tournures dépassées (*« Les handicapés... »*, *« Les séniors résistent au changement »*).
-3. **La surcharge cognitive** :  
-   Par défaut, une IA produit souvent des pavés de texte denses, du jargon et des phrases à rallonge, illisibles pour les lecteurs d'écran ou les personnes DYS.
-
----
-
-## 🎛️ Comparateur interactif : Avant / Après la relecture IA
-
-Choisissez un cas d'étude puis basculez le bouton pour observer la réécriture :
-
-<div class="before-after-widget" style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0); margin: 24px 0; color: var(--md-typeset-color, #1a1a1a);">
-
-  <!-- SÉLECTEUR DE SCÉNARIO -->
-  <label for="before-after-scenario" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px;">Sélectionnez un scénario à analyser :</label>
-  <select id="before-after-scenario" style="width: 100%; padding: 8px 10px; border: 1px solid var(--md-default-fg-color--light, #ccc); border-radius: 6px; font-size: 14px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000); margin-bottom: 16px;">
-    <option value="0">Cas 1 : Inclusion & Stéréotypes d'âge (Seniors & Tech)</option>
-    <option value="1">Cas 2 : Inclusivité & Situation de Handicap</option>
-    <option value="2">Cas 3 : Communication Neutre & Égalité Professionnelle</option>
-  </select>
-
-  <!-- TOGGLE SWITCH DISCRET -->
-  <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px; background: var(--md-default-bg-color, #fff); padding: 8px 14px; border-radius: 20px; border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0); width: fit-content;">
-    <span id="label-before" style="font-size: 13px; font-weight: 700; color: #c9564a; transition: opacity 0.2s;">❌ Avant (Brut)</span>
-    
-    <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px; margin: 0;">
-      <input type="checkbox" id="toggle-before-after" style="opacity: 0; width: 0; height: 0;">
-      <span class="slider round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #c9564a; transition: .3s; border-radius: 24px;"></span>
-    </label>
-    
-    <span id="label-after" style="font-size: 13px; font-weight: 700; color: #4a9b5e; opacity: 0.4; transition: opacity 0.2s;">✅ Après (IA Accessible)</span>
-  </div>
-
-  <!-- ZONE D'AFFICHAGE DU TEXTE -->
-  <div id="before-after-stage" style="padding: 16px; background: var(--md-default-bg-color, #fff); border: 1px solid var(--md-default-fg-color--lightest, #d5d9de); border-radius: 8px; font-size: 14px; line-height: 1.6; min-height: 90px;">
-    <!-- Injecté en JS -->
-  </div>
-
-  <!-- CHECKLIST DE CRITÈRES -->
-  <div id="before-after-checklist" style="margin-top: 16px; border-top: 1px solid var(--md-default-fg-color--lightest, #e0e0e0); padding-top: 14px;"></div>
-
-  <!-- ACTION COPIER -->
-  <div style="margin-top: 16px; text-align: right;">
-    <button type="button" id="before-after-copy-btn" style="padding: 8px 14px; font-size: 13px; font-weight: 600; border: 1px solid var(--md-default-fg-color--light, #ccc); border-radius: 6px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #333); cursor: pointer;">
-      📋 Copier la version optimisée (Après)
-    </button>
-  </div>
-</div>
-
-<style>
-  .switch .slider:before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    transition: .3s;
-    border-radius: 50%;
+    checklist.innerHTML = '';
+    sc.criteria.forEach((crit) => {
+      const item = document.createElement('div');
+      item.style.cssText = "display: flex; align-items: center; gap: 10px; padding: 4px 0; font-size: 13px;";
+      const mark = isApres ? '✓' : '✗';
+      const color = isApres ? '#4a9b5e' : '#c9564a';
+      item.innerHTML = `<span style="font-weight: 700; min-width: 18px; color: ${color};">${mark}</span> <span>${crit}</span>`;
+      checklist.appendChild(item);
+    });
   }
-  .switch input:checked + .slider {
-    background-color: #4a9b5e !important;
+
+  toggleInput.addEventListener('change', render);
+
+  scenarioSelect?.addEventListener('change', (e) => {
+    currentScenario = parseInt(e.target.value, 10);
+    toggleInput.checked = false;
+    render();
+  });
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const sc = scenarios[currentScenario];
+      navigator.clipboard.writeText(sc.apres).then(() => {
+        const originalText = copyBtn.textContent;
+        copyBtn.textContent = "✅ Version optimisée copiée !";
+        setTimeout(() => { copyBtn.textContent = originalText; }, 2000);
+      });
+    });
   }
-  .switch input:checked + .slider:before {
-    transform: translateX(20px);
+
+  render();
+}
+
+/* --- FUNCTION 2: QUIZ DETECTEUR DE BIAIS --- */
+function initH6Quiz() {
+  const quizData = [
+    {
+      q: "Un prompt demande à l'IA : « Génère une photo d'un expert en cybersécurité ». L'IA génère systématiquement un homme de 30 ans avec un sweat à capuche. De quoi s'agit-il ?",
+      options: [
+        "D'un bogue technique de l'algorithme.",
+        "D'un biais d'entraînement reproduisant un stéréotype.",
+        "D'une consigne d'accessibilité RGAA."
+      ],
+      correct: 1,
+      explanation: "L'IA réplique les stéréotypes dominants sur le Web. C'est au concepteur d'orienter le prompt (ex: préciser le genre, l'âge, l'environnement)."
+    },
+    {
+      q: "Quelle est la meilleure façon de rendre une image accessible aux personnes malvoyantes ?",
+      options: [
+        "Mettre l'image en noir et blanc.",
+        "Rédiger un texte alternatif (`alt`) explicatif et descriptif.",
+        "Augmenter simplement la taille de l'image."
+      ],
+      correct: 1,
+      explanation: "La balise `alt` permet aux lecteurs d'écran de vocaliser l'image de manière précise pour les personnes déficientes visuelles."
+    }
+  ];
+
+  let currentQ = 0;
+  const qBox = document.getElementById('h6-quiz-question');
+  const optBox = document.getElementById('h6-quiz-options');
+  const feedBox = document.getElementById('h6-quiz-feedback');
+  const nextBtn = document.getElementById('h6-quiz-next');
+
+  if (!qBox || !optBox) return;
+
+  function loadQ() {
+    feedBox.style.display = 'none';
+    nextBtn.style.display = 'none';
+    const q = quizData[currentQ];
+    qBox.textContent = `Question ${currentQ + 1}/${quizData.length} : ${q.q}`;
+    optBox.innerHTML = '';
+
+    q.options.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.style.cssText = "padding: 10px 14px; text-align: left; border: 1px solid var(--md-default-fg-color--light, #ccc); border-radius: 6px; background: var(--md-default-bg-color, #fff); cursor: pointer; font-size: 13px; font-weight: 500; color: var(--md-typeset-color, #333);";
+      btn.textContent = opt;
+      btn.onclick = () => checkAns(idx, btn);
+      optBox.appendChild(btn);
+    });
   }
-</style>
 
----
+  function checkAns(idx, btn) {
+    const q = quizData[currentQ];
+    const allBtns = optBox.querySelectorAll('button');
+    allBtns.forEach(b => b.disabled = true);
 
-## 🎯 Quiz Flash : Détecteur de Biais & Barrières
+    if (idx === q.correct) {
+      btn.style.background = "rgba(74, 155, 94, 0.2)";
+      btn.style.borderColor = "#4a9b5e";
+      feedBox.style.background = "rgba(74, 155, 94, 0.1)";
+      feedBox.style.border = "1px solid #4a9b5e";
+      feedBox.style.color = "#2e6939";
+      feedBox.innerHTML = `<strong>✅ Exact !</strong> ${q.explanation}`;
+    } else {
+      btn.style.background = "rgba(201, 86, 74, 0.2)";
+      btn.style.borderColor = "#c9564a";
+      feedBox.style.background = "rgba(201, 86, 74, 0.1)";
+      feedBox.style.border = "1px solid #c9564a";
+      feedBox.style.color = "#a13227";
+      feedBox.innerHTML = `<strong>❌ Incorrect.</strong> ${q.explanation}`;
+    }
+    feedBox.style.display = 'block';
 
-<div style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0); margin: 24px 0;">
-  <div id="h6-quiz-question" style="font-weight: 700; font-size: 14px; margin-bottom: 12px; color: var(--md-typeset-color, #1a1a1a);"></div>
-  <div id="h6-quiz-options" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px;"></div>
-  <div id="h6-quiz-feedback" style="display: none; padding: 12px; border-radius: 6px; font-size: 13px; margin-bottom: 12px;"></div>
-  <button type="button" id="h6-quiz-next" style="display: none; padding: 8px 16px; background: #1a5fb4; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px;">Question suivante ➔</button>
-</div>
+    if (currentQ < quizData.length - 1) {
+      nextBtn.style.display = 'inline-block';
+    }
+  }
 
----
+  nextBtn.onclick = () => {
+    currentQ++;
+    loadQ();
+  };
 
-## 🛠️ Générateur de Prompts d'Inclusion & Simplification
+  loadQ();
+}
 
-Choisissez le public ou l'objectif ciblé pour obtenir le prompt d'adaptation adéquat :
+/* --- FUNCTION 3: GENERATEUR DE PROMPT --- */
+function initPromptGenerator() {
+  const targetSelect = document.getElementById('gen-target');
+  const resultBox = document.getElementById('gen-prompt-result');
+  const copyGenBtn = document.getElementById('gen-copy-btn');
 
-<div style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0); margin: 24px 0;">
-  <label for="gen-target" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--md-typeset-color, #333);">Public ou objectif spécifique :</label>
-  <select id="gen-target" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--md-default-fg-color--light, #ccc); background: var(--md-default-bg-color, #fff); font-size: 14px; margin-bottom: 14px; color: var(--md-typeset-color, #000);">
-    <option value="dys">Troubles DYS / TDAH (Lisibilité maximale)</option>
-    <option value="falc">FALC / FLE (Facile à Lire et à Comprendre)</option>
-    <option value="inclusive">Réécriture Inclusive & Anti-Biais</option>
-  </select>
+  if (!targetSelect || !resultBox) return;
 
-  <textarea id="gen-prompt-result" rows="3" readonly style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #d5d9de; border-left: 4px solid #1a5fb4; font-size: 13px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #222); margin-bottom: 12px; font-family: inherit;"></textarea>
+  const prompts = {
+    dys: "« Agis en expert en lisibilité DYS. Reformule le texte suivant en utilisant des phrases courtes (15 mots max), des paragraphes aérés, des listes à puces et un vocabulaire simple sans jargon. Enlève les doubles négations. »",
+    falc: "« Rédige la version Facile À Lire et à Comprendre (FALC / Niveau B1) du texte ci-dessous. Utilise des mots simples du quotidien, une seule idée par phrase et une structure chronologique claire. »",
+    inclusive: "« Réécris ce texte en adoptant un langage neutre et inclusif. Élimine tout stéréotype de genre, d'âge ou d'origine. Assure-toi que chaque groupe concerné est représenté de manière équitable et valorisante. »"
+  };
+
+  function updatePrompt() {
+    const val = targetSelect.value;
+    resultBox.value = prompts[val] || "";
+  }
+
+  targetSelect.addEventListener('change', updatePrompt);
   
-  <button type="button" id="gen-copy-btn" style="padding: 8px 14px; font-size: 13px; font-weight: 600; border: 1px solid #1a5fb4; border-radius: 6px; background: #1a5fb4; color: #fff; cursor: pointer;">
-    📋 Copier ce prompt d'adaptation
-  </button>
-</div>
+  if (copyGenBtn) {
+    copyGenBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(resultBox.value).then(() => {
+        const txt = copyGenBtn.textContent;
+        copyGenBtn.textContent = "✅ Prompt copié !";
+        setTimeout(() => { copyGenBtn.textContent = txt; }, 2000);
+      });
+    });
+  }
 
----
-
-## 🛠️ Les 2 Checklists réflexes
-
-### Checklist 1 : Accessibilité du contenu
-- [ ] **Phrases courtes** : 1 seule idée par phrase (15 à 20 mots max).
-- [ ] **Vocabulaire simple** : Niveau Facile À Lire et à Comprendre (FALC / B1).
-- [ ] **Structure claire** : Titres hiérarchisés (`H1`, `H2`, `H3`), paragraphes aérés, listes à puces.
-- [ ] **Compatibilité lecteurs d'écran** : Balises `alt` informatives sur toutes les images.
-- [ ] **Pas de couleur unique** : Une information importante ne doit pas reposer uniquement sur la couleur (ajouter un symbole, du texte ou du gras).
-
-### Checklist 2 : Inclusivité du contenu
-- [ ] **Terminologie neutre** : Préférer *"les personnes en situation de handicap"* à *"les handicapés"*.
-- [ ] **Représentation équilibrée** : Alterner les genres, prénoms et rôles dans les exemples professionnels.
-- [ ] **Absence de jugement** : Éviter le ton infantilisant ou condescendant.
-- [ ] **Données personnelles anonymisées** : Pas de mention inutile d'âge, d'origine ou d'état de santé.
-
----
-
-<div class="good-reflex-box">
-  <h3>Dans la vraie vie</h3>
-  <p>Quand vous demandez à l’IA de simplifier un texte, précisez toujours le public cible :</p>
-  <ul>
-    <li>nouveaux salariés ;</li>
-    <li>clients non spécialistes ;</li>
-    <li>personnes peu à l’aise avec le numérique ;</li>
-    <li>personnes avec troubles DYS ;</li>
-    <li>public FLE (Français Langue Étrangère).</li>
-  </ul>
-  <p><em>Un texte simple n’est pas un texte pauvre. C’est un texte plus facile à comprendre pour tous.</em></p>
-</div>
-
----
-
-<div class="summary-box">
-  <h3>Bilan de la séance H6</h3>
-  <ul>
-    <li><strong>Le réflexe d'audit :</strong> Utiliser l'IA pour relire et simplifier ses propres écrits.</li>
-    <li><strong>La règle du Facile à Lire :</strong> Réduire la complexité pour augmenter l'impact.</li>
-    <li><strong>La question clé :</strong> <em>« Si je recevais ce texte, est-ce que je me sentirais inclus, respecté et capable de le comprendre sans effort ? »</em></li>
-  </ul>
-</div>
-
----
-
-## Prêt pour la suite ?
-
-<div class="wiki-actions">
-  <a class="wiki-button primary" href="../h7/">Passer à la séance H7 — Éthique, IA Act, encadrement juridique et biais</a>
-  <a class="wiki-button" href="../h5/">Revoir la séance H5 — Confidentialité, sécurité et sobriété</a>
-</div>
-
-<script src="../../javascripts/h6-interactivity.js"></script>
+  // Initialisation au chargement
+  updatePrompt();
+}
