@@ -1,39 +1,167 @@
 # Authentification — Wiki Formation IA
 
-<div class="summary-box" style="max-width: 480px; margin: 2rem auto; padding: 2rem; border-radius: 12px; background: var(--md-card-bg-color, #ffffff); box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+<style>
+  /* Container de connexion responsive et centré */
+  .auth-card {
+    max-width: 440px;
+    margin: 2rem auto;
+    padding: 24px;
+  }
+
+  /* Formulaire */
+  .auth-form-group {
+    margin-bottom: 16px;
+  }
+
+  .auth-form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--md-typeset-color, #1e293b);
+  }
+
+  /* Inputs stylisés (Visibilité renforcée WCAG) */
+  .auth-input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 10px 14px !important;
+    font-size: 0.95rem !important;
+    font-family: inherit !important;
+    border: 1.5px solid #94a3b8 !important;
+    border-radius: 8px !important;
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+    transition: all 0.2s ease !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .auth-input:hover {
+    border-color: #64748b !important;
+    background-color: #ffffff !important;
+  }
+
+  .auth-input:focus {
+    outline: none !important;
+    border-color: #0d47a1 !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2) !important;
+  }
+
+  /* Support Mode Sombre pour Inputs */
+  [data-md-color-scheme="slate"] .auth-input {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #475569 !important;
+  }
+
+  [data-md-color-scheme="slate"] .auth-input:hover,
+  [data-md-color-scheme="slate"] .auth-input:focus {
+    background-color: #0f172a !important;
+    border-color: #60a5fa !important;
+  }
+
+  /* Bouton Mot de passe oublié */
+  .forgot-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--md-primary-fg-color, #0d47a1);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .forgot-btn:hover {
+    opacity: 0.8;
+  }
+
+  /* Messages de notification d'état */
+  .auth-alert {
+    display: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 16px;
+    border: 1px solid transparent;
+  }
+
+  .auth-alert-error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-color: #fca5a5;
+  }
+
+  .auth-alert-success {
+    background-color: #dcfce7;
+    color: #166534;
+    border-color: #86efac;
+  }
+
+  [data-md-color-scheme="slate"] .auth-alert-error {
+    background-color: #450a0a;
+    color: #fca5a5;
+    border-color: #991b1b;
+  }
+
+  [data-md-color-scheme="slate"] .auth-alert-success {
+    background-color: #052e16;
+    color: #86efac;
+    border-color: #166534;
+  }
+
+  /* RGPD Footer */
+  .auth-rgpd {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--md-default-fg-color--lightest, #cbd5e1);
+    font-size: 0.8rem;
+    color: var(--md-typeset-color);
+    opacity: 0.8;
+    line-height: 1.4;
+    text-align: center;
+  }
+</style>
+
+<div class="wiki-card auth-card">
 
   <h2 style="margin-top: 0; text-align: center; font-size: 1.5rem;">🔒 Espace Apprenant</h2>
-  <p style="text-align: center; color: var(--md-default-fg-color--light); font-size: 0.9rem; margin-bottom: 1.5rem;">
+  <p style="text-align: center; font-size: 0.9rem; margin-bottom: 1.5rem; opacity: 0.9;">
     Connectez-vous pour accéder à l'ensemble des ressources de la formation.
   </p>
 
-  <form id="login-form" onsubmit="handleLogin(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+  <form id="login-form" onsubmit="handleLogin(event)">
     
-    <div>
-      <label for="email" style="display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem;">Adresse e-mail :</label>
-      <input type="email" id="email" required placeholder="votre.email@domaine.com" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
+    <div class="auth-form-group">
+      <label for="email">Adresse e-mail :</label>
+      <input type="email" id="email" class="auth-input" required placeholder="votre.email@domaine.com">
     </div>
 
-    <div>
+    <div class="auth-form-group">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-        <label for="password" style="font-weight: 600; font-size: 0.85rem;">Mot de passe :</label>
-        <button type="button" onclick="handleForgotPassword(event)" style="background: none; border: none; padding: 0; font-size: 0.8rem; color: #1976d2; cursor: pointer; text-decoration: underline;">
+        <label for="password" style="margin-bottom: 0;">Mot de passe :</label>
+        <button type="button" class="forgot-btn" onclick="handleForgotPassword(event)">
           Mot de passe oublié ?
         </button>
       </div>
-      <input type="password" id="password" autocomplete="current-password" required placeholder="••••••••" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.2); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
+      <input type="password" id="password" class="auth-input" autocomplete="current-password" required placeholder="••••••••">
     </div>
 
-    <div id="login-error" style="display: none; color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
-    <div id="login-success" style="display: none; color: #2e7d32; background: #e8f5e9; padding: 10px; border-radius: 6px; font-size: 0.85rem; text-align: center;"></div>
+    <div id="login-error" class="auth-alert auth-alert-error"></div>
+    <div id="login-success" class="auth-alert auth-alert-success"></div>
 
-    <button type="submit" id="login-btn" style="width: 100%; padding: 12px; background: #1976d2; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem;">
-      Se connecter
-    </button>
+    <div class="wiki-actions" style="margin: 1rem 0 0 0;">
+      <button type="submit" id="login-btn" class="wiki-button primary" style="width: 100%; cursor: pointer;">
+        Se connecter
+      </button>
+    </div>
 
   </form>
 
-  <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.1); font-size: 0.75rem; color: #666; line-height: 1.4; text-align: center;">
+  <div class="auth-rgpd">
     ⚖️ <strong>RGPD & Confidentialité :</strong> Vos identifiants sont strictement confidentiels et hébergés dans l'UE. Votre licence d'accès individuelle est accordée pour une durée de 1 an à compter de sa création.
   </div>
 
