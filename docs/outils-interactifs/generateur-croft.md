@@ -2,34 +2,95 @@
 
 Remplissez les 5 piliers du framework CROFT pour générer instantanément un prompt structuré et optimisé.
 
-<div style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; margin: 20px 0;">
-  <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 16px;">
+<div class="prompt-generator">
+  <div class="prompt-generator-grid">
     <div>
-      <label style="font-weight: 700; font-size: 12px; display: block; margin-bottom: 4px;">C — Contexte :</label>
-      <input type="text" id="croft-c" placeholder="Ex: PME de courtage, réorganisation de l'accueil téléphonique" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px;">
+      <label for="croft-c">C — Contexte :</label>
+      <input type="text" id="croft-c" placeholder="Ex: PME de courtage, réorganisation de l'accueil téléphonique">
     </div>
     <div>
-      <label style="font-weight: 700; font-size: 12px; display: block; margin-bottom: 4px;">R — Rôle :</label>
-      <input type="text" id="croft-r" placeholder="Ex: Expert en relation client et organisation d'entreprise" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px;">
+      <label for="croft-r">R — Rôle :</label>
+      <input type="text" id="croft-r" placeholder="Ex: Expert en relation client et organisation d'entreprise">
     </div>
     <div>
-      <label style="font-weight: 700; font-size: 12px; display: block; margin-bottom: 4px;">O — Objectif :</label>
-      <input type="text" id="croft-o" placeholder="Ex: Rédiger une procédure claire pour les appels entrants" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px;">
+      <label for="croft-o">O — Objectif :</label>
+      <input type="text" id="croft-o" placeholder="Ex: Rédiger une procédure claire pour les appels entrants">
     </div>
     <div>
-      <label style="font-weight: 700; font-size: 12px; display: block; margin-bottom: 4px;">F — Format :</label>
-      <input type="text" id="croft-f" placeholder="Ex: Liste à puces numérotée avec titres en gras, max 1 page" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px;">
+      <label for="croft-f">F — Format :</label>
+      <input type="text" id="croft-f" placeholder="Ex: Liste à puces numérotée avec titres en gras, max 1 page">
     </div>
     <div>
-      <label style="font-weight: 700; font-size: 12px; display: block; margin-bottom: 4px;">T — Ton :</label>
-      <input type="text" id="croft-t" placeholder="Ex: Professionnel, direct, bienveillant" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px;">
+      <label for="croft-t">T — Ton :</label>
+      <input type="text" id="croft-t" placeholder="Ex: Professionnel, direct, bienveillant">
     </div>
   </div>
 
-  <button type="button" id="croft-generate-btn" style="padding: 8px 16px; background: #1a5fb4; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; margin-bottom: 12px;">⚙️ Générer le prompt</button>
+  <div class="wiki-actions">
+    <button type="button" id="croft-generate-btn" class="wiki-button primary">⚙️ Générer le prompt</button>
+  </div>
 
-  <div style="position: relative;">
-    <button type="button" class="prompt-copy-btn" data-target="croft-generated-output" style="position: absolute; top: 10px; right: 10px; padding: 4px 8px; font-size: 11px; font-weight: 600; border: 1px solid #ccc; border-radius: 4px; background: #fff; cursor: pointer;">📋 Copier</button>
-    <pre id="croft-generated-output" style="background: var(--md-default-bg-color, #fff); padding: 14px; border-radius: 6px; border: 1px solid #d5d9de; font-size: 12px; min-height: 80px; white-space: pre-wrap;">Remplissez les champs ci-dessus et cliquez sur "Générer le prompt"...</pre>
+  <div style="position: relative; margin-top: 16px;">
+    <button type="button" id="croft-copy-btn" class="wiki-button" style="position: absolute; top: 10px; right: 10px; padding: 4px 10px; font-size: 0.75rem; border-radius: 6px;">📋 Copier</button>
+    <pre id="croft-generated-output" style="background: var(--md-code-bg-color); padding: 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.85em; min-height: 80px; white-space: pre-wrap; color: var(--md-typeset-color);">Remplissez les champs ci-dessus et cliquez sur "Générer le prompt"...</pre>
   </div>
 </div>
+
+<script>
+(function() {
+  function initCroftGenerator() {
+    const btnGen = document.getElementById('croft-generate-btn');
+    const btnCopy = document.getElementById('croft-copy-btn');
+    const output = document.getElementById('croft-generated-output');
+
+    if (!btnGen || !output) return;
+
+    btnGen.addEventListener('click', function() {
+      const c = document.getElementById('croft-c')?.value.trim() || "Non spécifié";
+      const r = document.getElementById('croft-r')?.value.trim() || "Expert dans le domaine concerné";
+      const o = document.getElementById('croft-o')?.value.trim() || "Atteindre l'objectif décrit";
+      const f = document.getElementById('croft-f')?.value.trim() || "Réponse claire et structurée";
+      const t = document.getElementById('croft-t')?.value.trim() || "Professionnel et direct";
+
+      const finalPrompt = `[PROMPT GENERÉ VIA FRAMEWORK CROFT]
+
+CONTEXTE :
+${c}
+
+RÔLE :
+Agis en tant que : ${r}.
+
+OBJECTIF :
+${o}
+
+FORMAT ATTENDU :
+${f}
+
+TON & STYLE :
+${t}`;
+
+      output.textContent = finalPrompt;
+    });
+
+    if (btnCopy) {
+      btnCopy.addEventListener('click', function() {
+        if (!output.textContent || output.textContent.startsWith("Remplissez")) return;
+
+        navigator.clipboard.writeText(output.textContent).then(function() {
+          const txtOriginal = btnCopy.textContent;
+          btnCopy.textContent = "✅ Copié !";
+          setTimeout(function() {
+            btnCopy.textContent = txtOriginal;
+          }, 2000);
+        });
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCroftGenerator);
+  } else {
+    initCroftGenerator();
+  }
+})();
+</script>
