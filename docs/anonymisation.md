@@ -37,45 +37,77 @@ Avant de soumettre un document ou un message à l’IA, appliquez la **technique
 Entraînez-vous à transformer un texte confidentiel avant de le transmettre à un modèle d'IA :
 
 <div style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; margin: 20px 0;">
-  <label for="masker-input" style="display: block; font-weight: 700; font-size: 13px; margin-bottom: 8px;">1. Collez votre texte brut ou confidentiel :</label>
-  <textarea id="masker-input" rows="3" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 13px; margin-bottom: 12px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000);" placeholder="Ex: Contacter M. Jean DUPONT (jean.dupont@entreprise.com / 06 12 34 56 78) pour valider le devis n°450 de 12 500 € HT..."></textarea>
+  <label for="masker-input" style="display: block; font-weight: 700; font-size: 13px; margin-bottom: 8px; color: var(--md-typeset-color, #333);">1. Collez votre texte brut ou confidentiel :</label>
+  <textarea id="masker-input" rows="4" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 13px; margin-bottom: 12px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000);" placeholder="Ex: Contacter M. Jean DUPONT (jean.dupont@entreprise.com / 06 12 34 56 78) pour valider le devis n°450 de 12 500 € HT..."></textarea>
   
-  <button type="button" id="masker-btn" style="padding: 8px 16px; background: #1a5fb4; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; margin-bottom: 14px;">🎭 Masquer automatiquement les données</button>
+  <button type="button" id="masker-btn" onclick="executerAnonymisation()" style="padding: 8px 16px; background: #1a5fb4; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; margin-bottom: 14px;">🎭 Masquer automatiquement les données</button>
 
-  <label style="display: block; font-weight: 700; font-size: 13px; margin-bottom: 8px;">2. Résultat anonymisé prêt pour l'IA :</label>
-  <div id="masker-output" style="padding: 12px; background: var(--md-default-bg-color, #fff); border: 1px solid #d5d9de; border-radius: 6px; font-style: italic; font-size: 13px; min-height: 45px; color: var(--md-typeset-color, #333);">Le texte anonymisé apparaîtra ici...</div>
+  <label style="display: block; font-weight: 700; font-size: 13px; margin-bottom: 8px; color: var(--md-typeset-color, #333);">2. Résultat anonymisé prêt pour l'IA :</label>
+  <textarea id="masker-output" rows="4" readonly style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #d5d9de; font-size: 13px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #222);" placeholder="Le texte anonymisé apparaîtra ici..."></textarea>
 </div>
+
+<script>
+function executerAnonymisation() {
+  const textarea = document.getElementById('masker-input');
+  const output = document.getElementById('masker-output');
+  if (!textarea || !output) return;
+
+  let txt = textarea.value;
+  if (!txt.trim()) return;
+
+  // 1. SIRET / SIREN / TVA / numéros longs
+  txt = txt.replace(/(?:SIRET|SIREN|TVA|RCS)?\s*:?\s*\b(?:\d[\s\u00a0\u202f.-]*){9,14}\b/gi, '[SIRET_ANONYMISÉ]');
+
+  // 2. Adresses postales
+  txt = txt.replace(/\b\d+\s*(?:er|ème|e)?\s+(?:rue|avenue|boulevard|bd|allée|place|chemin|impasse|route|square|quai|cours)\s+[^,\.\n\r]+,\s*\d{5}\s+[A-ZÀ-ÖØ-ßa-zà-öø-ÿ\s-]+/gi, '[ADRESSE_ANONYMISÉE]');
+
+  // 3. Montants financiers
+  txt = txt.replace(/\b\d+[\d\s\u00a0\u202f.,]*(?:\s*€|\s*euros?|\s*EUR)\b(?:\s*(?:HT|TTC))?/gi, '[MONTANT_ANONYMISÉ]');
+
+  // 4. Sociétés / Entreprises
+  txt = txt.replace(/(?:la\s+société|l'entreprise|le\s+groupe)\s+([A-ZÀ-ÖØ-ß0-9_\-]+(?:\s+[A-ZÀ-ÖØ-ß0-9_\-]+)*\s*(?:SARL|SAS|SASU|EURL|SA|SNC|INC|LTD|GIE)?)/gi, 'la société [ENTREPRISE_ANONYMISÉE]');
+  txt = txt.replace(/\b[A-ZÀ-ÖØ-ß0-9_\-]+\s+(?:SARL|SAS|SASU|EURL|SA|SNC|INC|LTD|GIE)\b/gi, '[ENTREPRISE_ANONYMISÉE]');
+
+  // 5. Civilité + Prénom + Nom
+  txt = txt.replace(/\b(Monsieur|M\.|Madame|Mme|Mademoiselle|Mlle|Dr|Pr)\s+([A-ZÀ-ÖØ-ß[a-zà-öø-ÿ-]+(?:\s+[A-ZÀ-ÖØ-ß[a-zà-öø-ÿ-]+)+)/gi, '$1 [PERSONNE_ANONYMISÉE]');
+
+  // 6. Emails
+  txt = txt.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, '[EMAIL_ANONYMISÉ]');
+
+  // 7. Téléphones
+  txt = txt.replace(/(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}/g, '[TÉLÉPHONE_ANONYMISÉ]');
+
+  output.value = txt;
+}
+
+document.getElementById('masker-btn')?.addEventListener('click', executerAnonymisation);
+</script>
 
 ---
 
-## 🛠️ Prompt modèle : Assistant d’anonymisation
+## 🛠️ Prompt modèle : Traitement d'un texte anonymisé
 
-Si vous hésitez sur certains éléments, utilisez ce prompt pour demander à l'IA d'effectuer un pré-audit de votre texte :
+Une fois votre texte **strictement anonymisé** via l'outil ci-dessus, utilisez ce prompt pour demander à l'IA de le retravailler ou de le synthétiser en toute sécurité :
 
 <div style="position: relative; margin: 16px 0;">
   <button type="button" class="prompt-copy-btn" data-target="prompt-anon-dpo" style="position: absolute; top: 10px; right: 10px; padding: 6px 12px; font-size: 12px; font-weight: 600; border: 1px solid #ccc; border-radius: 4px; background: #fff; cursor: pointer;">📋 Copier le prompt</button>
   <pre id="prompt-anon-dpo" style="background: var(--md-code-bg-color, #f8f9fa); padding: 16px; border-radius: 8px; border: 1px solid #e0e0e0; font-size: 13px; line-height: 1.5;">
 CONTEXTE :
-Je souhaite utiliser un texte dans un outil d’IA générative, mais je dois m’assurer
-qu’il ne contient aucune donnée personnelle ou confidentielle.
+Le texte fourni ci-dessous a déjà été préalablement anonymisé (les noms, montants et références sensibles ont été remplacés par des balises entre crochets `[...]`).
 
 RÔLE :
-Agis comme un DPO (Délégué à la Protection des Données) et expert en sécurité de l’information.
+Rédacteur et assistant professionnel.
 
 OBJECTIF :
-Analyse le texte ci-dessous et repère toutes les données personnelles, confidentielles
-ou sensibles (RGPD, secret des affaires).
+[Reformuler / Synthesiser / Corriger le ton de] ce texte tout en CONSERVANT STRICTEMENT les balises d'anonymisation entre crochets `[...]` à leur emplacement d'origine.
 
-FORMAT DE RÉPONSE :
-Pour chaque élément à risque détecté, présente un tableau avec 3 colonnes :
-1. Élément détecté
-2. Type de risque (RGPD, Financier, RH, Stratégique)
-3. Proposition de remplacement neutre (ex : [Client A], [Montant X])
+DIRECTIVES :
+1. Ne cherche pas à deviner ni à remplacer ce qui se trouve à l'intérieur des balises `[...]`.
+2. Conserve l'intégralité du contexte métier.
+3. Ne modifie pas la structure générale sauf instruction contraire.
 
-Propose ensuite une version finale 100% anonymisée du texte, prête à être réutilisée.
-
-TEXTE À ANALYSER :
-"[Coller ici votre texte brut]"
+TEXTE SÉCURISÉ À TRAITER :
+"[Coller ici votre texte préalablement anonymisé]"
   </pre>
 </div>
 
@@ -92,7 +124,7 @@ TEXTE À ANALYSER :
 <div class="good-reflex-box">
   <h3>✅ Le bon réflexe : la règle du double coup d’œil</h3>
   <ul>
-    <li><strong>Étape 1 :</strong> masquer les données directement dans votre traitement de texte avant de copier la note.</li>
+    <li><strong>Étape 1 :</strong> masquer les données directement dans votre outil interactif avant de copier la note.</li>
     <li><strong>Étape 2 :</strong> relire uniquement les variables entre crochets <code>[...]</code> juste avant de cliquer sur « Envoyer ».</li>
     <li><strong>Étape 3 :</strong> après la génération de l’IA, réinjecter les vraies données dans le document final sur votre poste local.</li>
   </ul>
@@ -105,7 +137,7 @@ TEXTE À ANALYSER :
 <div class="summary-box">
   <h3>Checklist « Zéro fuite de données »</h3>
   <ul>
-    <li>[ ] Tous les noms et prénoms ont été retirés ou remplacés par des balises (ex: <code>[Client A]</code>).</li>
+    <li>[ ] Tous les noms et prénoms ont été retirés ou remplacés par des balises (ex: <code>[PERSONNE_ANONYMISÉE]</code>).</li>
     <li>[ ] Les adresses emails et numéros de téléphone ont été masqués.</li>
     <li>[ ] Les adresses postales précises ont été réduites à la région ou au pays.</li>
     <li>[ ] Les données relatives à la santé ou à la vie privée ont été supprimées.</li>
