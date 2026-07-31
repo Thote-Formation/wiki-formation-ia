@@ -162,7 +162,7 @@
   </form>
 
   <div class="auth-rgpd">
-    ⚖️ <strong>RGPD & Confidentialité :</strong> Vos identifiants sont strictement confidentiels et hébergés dans l'UE. Votre licence d'accès individuelle est accordée pour une durée de 1 an à compter de sa création.
+    ⚖️ <strong>RGPD & Confidentialité :</strong> Vos identifiants sont strictly confidentiels et hébergés dans l'UE. Votre licence d'accès individuelle est accordée pour une durée de 1 an à compter de sa création.
   </div>
 
 </div>
@@ -278,9 +278,8 @@ async function handleForgotPassword(e) {
   try {
     const supabase = getSupabaseClient();
 
-    const redirectUrl = window.location.hostname.includes('github.io') 
-      ? 'https://Thote-Formation.github.io/wiki-formation-ia/reinitialisation/'
-      : window.location.origin + '/reinitialisation/';
+    const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
+    const redirectUrl = window.location.origin + basePath + '/reinitialisation/';
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: redirectUrl,
