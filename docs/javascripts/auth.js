@@ -87,12 +87,37 @@ async function initAuthCheck() {
     firstName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
   }
 
-  // 4. Suivi du temps et prénom dans le header
-  const initialSeconds = (profile && profile.total_time_seconds) ? profile.total_time_seconds : 0;
-  initTimeTracker(supabase, session.user.id, initialSeconds, firstName);
+  // 📌 4. MISE À JOUR DU TITRE PRINCIPAL ("Bonjour [PRENOM], bienvenue sur ta formation IA générative")
+  updateHeaderTitle(firstName);
 
-  // 5. Injections dans le header (Bouton Admin si autorisé + Déconnexion)
+  // 5. Suivi du temps (Chrono seul à droite)
+  const initialSeconds = (profile && profile.total_time_seconds) ? profile.total_time_seconds : 0;
+  initTimeTracker(supabase, session.user.id, initialSeconds);
+
+  // 6. Injections dans le header (Boutons Admin ⚙️ + Déconnexion ⏻)
   injectHeaderButtons(supabase, getUrl, isAdmin);
+}
+
+// ==========================================
+// PERSONNALISATION DU TITRE DU HEADER
+// ==========================================
+function updateHeaderTitle(firstName) {
+  function applyTitle() {
+    // Cibler l'élément du titre dans MkDocs / Material
+    const titleElement = document.querySelector('.md-header__title .md-ellipsis') || document.querySelector('.md-header__title');
+    if (titleElement) {
+      if (firstName) {
+        titleElement.innerHTML = `Bonjour <strong>${firstName}</strong>, bienvenue sur ta formation IA générative`;
+      } else {
+        titleElement.textContent = `Bienvenue sur ta formation IA générative`;
+      }
+    }
+  }
+
+  applyTitle();
+  if (typeof document$ !== 'undefined') {
+    document$.subscribe(() => applyTitle());
+  }
 }
 
 // ==========================================
@@ -102,8 +127,7 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
   const searchBox = document.querySelector('.md-search');
   if (!searchBox || !searchBox.parentNode) return;
 
-  // Style harmonisé en cercle parfait pour les icônes
-  const styleIconBtn = 'text-decoration: none; width: 38px; height: 38px; padding: 0; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 50%; font-size: 1.15em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; white-space: nowrap; line-height: 1; vertical-align: middle; box-sizing: border-border-box;';
+  const styleIconBtn = 'text-decoration: none; width: 36px; height: 36px; padding: 0; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 50%; font-size: 1.1em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; white-space: nowrap; line-height: 1; vertical-align: middle; box-sizing: border-box;';
 
   // Bouton Admin ⚙️
   if (isAdmin && !document.getElementById('admin-btn')) {
@@ -113,7 +137,7 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
     adminBtn.href = getUrl('/admin/');
     adminBtn.textContent = '⚙️';
     adminBtn.title = "Panneau d'administration";
-    adminBtn.style.cssText = styleIconBtn + ' margin-left: 12px;';
+    adminBtn.style.cssText = styleIconBtn + ' margin-left: 10px;';
     
     searchBox.parentNode.appendChild(adminBtn);
   }
@@ -125,7 +149,7 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
     logoutBtn.className = 'header-logout-btn';
     logoutBtn.textContent = '⏻';
     logoutBtn.title = "Se déconnecter";
-    logoutBtn.style.cssText = styleIconBtn + ' margin-left: 8px; font-size: 1.25em;';
+    logoutBtn.style.cssText = styleIconBtn + ' margin-left: 8px; font-size: 1.2em;';
     logoutBtn.onclick = async () => {
       await supabase.auth.signOut();
       window.location.href = getUrl('/connexion/');
@@ -136,9 +160,9 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
 }
 
 // ==========================================
-// GESTION DU CHRONOMÈTRE ET MESSAGE BIENVENUE
+// GESTION DU CHRONOMÈTRE SEUL (À DROITE)
 // ==========================================
-function initTimeTracker(supabase, userId, initialTotalSeconds, firstName) {
+function initTimeTracker(supabase, userId, initialTotalSeconds) {
   const sessionStartTime = Date.now();
   const baseTotalSeconds = initialTotalSeconds;
 
@@ -159,38 +183,20 @@ function initTimeTracker(supabase, userId, initialTotalSeconds, firstName) {
   }
 
   function updateHeaderBadge(totalSec) {
-    let container = document.getElementById('user-info-container');
+    let badge = document.getElementById('time-spent-display');
     
-    if (!container) {
+    if (!badge) {
       const searchBox = document.querySelector('.md-search');
       if (searchBox && searchBox.parentNode) {
-        // Conteneur principal vertical
-        container = document.createElement('div');
-        container.id = 'user-info-container';
-        container.style.cssText = 'display: inline-flex !important; flex-direction: column !important; align-items: flex-start !important; justify-content: center !important; margin-left: 16px; margin-right: 4px; vertical-align: middle; line-height: 1.2;';
-        
-        // 1. "👋 Bonjour Pierre" (Agrandit)
-        if (firstName) {
-          const welcomeLabel = document.createElement('span');
-          welcomeLabel.id = 'welcome-text-label';
-          welcomeLabel.style.cssText = 'color: #ffffff; font-size: 1.05em; font-weight: 600; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.25);';
-          welcomeLabel.innerHTML = `👋 Bonjour <strong style="color: #ffffff;">${firstName}</strong>`;
-          container.appendChild(welcomeLabel);
-        }
-
-        // 2. Chronomètre (Agrandit)
-        const badge = document.createElement('div');
+        badge = document.createElement('div');
         badge.id = 'time-spent-display';
-        badge.style.cssText = 'color: rgba(255, 255, 255, 0.92); font-size: 0.95em; font-weight: 600; white-space: nowrap; margin-top: 2px;';
+        // Texte seul grand, net, bien espacé
+        badge.style.cssText = 'color: #ffffff; font-size: 1.05em; font-weight: 600; white-space: nowrap; margin-left: 14px; margin-right: 6px; display: inline-flex; align-items: center; vertical-align: middle; text-shadow: 0 1px 2px rgba(0,0,0,0.25);';
         
-        container.appendChild(badge);
-
-        // Insertion
-        searchBox.parentNode.appendChild(container);
+        searchBox.parentNode.appendChild(badge);
       }
     }
 
-    const badge = document.getElementById('time-spent-display');
     if (badge) {
       badge.textContent = formatTime(totalSec);
     }
