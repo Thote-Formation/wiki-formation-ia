@@ -13,7 +13,7 @@ Un **Robot-Garde alimenté par une IA** surveille chaque porte. Il a reçu des c
   <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #313244; padding-bottom: 12px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
     <div>
       <span id="level-indicator" style="background: #cba6f7; color: #11111b; font-weight: bold; padding: 4px 12px; border-radius: 12px; font-size: 0.85em;">NIVEAU 1 / 5</span>
-      <h3 id="level-title" style="margin: 8px 0 0 0; color: #fff;"></h3>
+      <h3 id="level-title" style="margin: 8px 0 0 0; color: #fffff;"></h3>
     </div>
     <div style="display:flex; gap:20px; align-items:center;">
       <div style="text-align: center;">
