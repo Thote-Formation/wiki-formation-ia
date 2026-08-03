@@ -65,13 +65,27 @@ hide:
     color: #ffffff !important;
     font-weight: 700;
   }
+  
+  .prompt-generator-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
 </style>
 
 <!-- FORMULAIRE D'INVITATION UTILISATEUR -->
 <div class="wiki-card prompt-generator">
 
 <form id="add-user-form" onsubmit="handleAddUser(event)">
-  <div class="prompt-generator-grid">
+  <div class="prompt-generator-grid-4">
+    <div>
+      <label for="new-firstname">Prénom</label>
+      <input type="text" id="new-firstname" class="admin-input" placeholder="ex: Jean" required>
+    </div>
+    <div>
+      <label for="new-lastname">Nom</label>
+      <input type="text" id="new-lastname" class="admin-input" placeholder="ex: Dupont" required>
+    </div>
     <div>
       <label for="new-email">Adresse E-mail</label>
       <input type="email" id="new-email" class="admin-input" placeholder="ex: utilisateur@domaine.fr" required>
@@ -90,15 +104,22 @@ hide:
 
 </div>
 
-<!-- LISTE DES UTILISATEURS -->
+<!-- LISTE DES UTILISATEURS ET EXPORT -->
 <div class="wiki-card">
 
-👥 Utilisateurs enregistrés (<span id="user-count">0</span>)
+<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+  <span style="font-weight: bold; font-size: 1.1rem;">👥 Utilisateurs enregistrés (<span id="user-count">0</span>)</span>
+  <button type="button" onclick="exportUsersToCSV()" class="wiki-button" style="cursor: pointer; padding: 6px 14px; font-size: 0.9rem; background-color: #107c41; color: white; border: none; border-radius: 6px;">
+    📥 Exporter en CSV (Excel)
+  </button>
+</div>
 
 <div style="overflow-x: auto;">
   <table class="admin-table">
     <thead>
       <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
         <th>E-mail</th>
         <th>Statut</th>
         <th>Expiration</th>
@@ -108,7 +129,7 @@ hide:
     </thead>
     <tbody id="users-table-body">
       <tr>
-        <td colspan="5">Chargement de la liste...</td>
+        <td colspan="7">Chargement de la liste...</td>
       </tr>
     </tbody>
   </table>
@@ -122,6 +143,8 @@ hide:
 <script>
 const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk";
+
+let currentProfilesList = [];
 
 function getAdminSupabase() {
   if (window.supabaseClient) return window.supabaseClient;
@@ -170,6 +193,8 @@ async function handleAddUser(e) {
   msgDiv.style.color = '#0d47a1';
   msgDiv.textContent = '⏳ Envoi de l\'invitation...';
 
+  const firstName = document.getElementById('new-firstname').value.trim();
+  const lastName = document.getElementById('new-lastname').value.trim();
   const email = document.getElementById('new-email').value.trim();
   const expiresAt = document.getElementById('new-expires').value + 'T23:59:59Z';
   const randomPassword = Math.random().toString(36).slice(-10) + 'A1!' + Math.random().toString(36).slice(-10);
@@ -189,6 +214,8 @@ async function handleAddUser(e) {
 
     if (data.user) {
       await supabase.from('profiles').update({
+        first_name: firstName,
+        last_name: lastName,
         expires_at: expiresAt,
         is_active: true
       }).eq('id', data.user.id);
@@ -228,9 +255,11 @@ async function fetchUsersList(supabase) {
     .order('created_at', { ascending: false });
 
   if (error) {
-    tbody.innerHTML = `<tr><td colspan="5" style="color:#dc2626; font-weight:700;">Erreur : ${error.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" style="color:#dc2626; font-weight:700;">Erreur : ${error.message}</td></tr>`;
     return;
   }
+
+  currentProfilesList = profiles || [];
 
   const userCount = document.getElementById('user-count');
   if (userCount) userCount.textContent = profiles.length;
@@ -258,7 +287,9 @@ async function fetchUsersList(supabase) {
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><strong>${p.email || 'N/A'}</strong> ${isAdmin ? '👑' : ''}</td>
+      <td><strong>${p.last_name || '-'}</strong></td>
+      <td><strong>${p.first_name || '-'}</strong></td>
+      <td>${p.email || 'N/A'} ${isAdmin ? '👑' : ''}</td>
       <td>${statusBadge}</td>
       <td>${expirationCell}</td>
       <td>${formatSeconds(p.total_time_seconds)}</td>
@@ -288,5 +319,56 @@ async function updateExpiration(userId, newDate) {
   await supabase.from('profiles').update({ expires_at: newDate + 'T23:59:59Z' }).eq('id', userId);
   alert('Date d\'expiration mise à jour !');
   fetchUsersList(supabase);
+}
+
+function exportUsersToCSV() {
+  if (!currentProfilesList || currentProfilesList.length === 0) {
+    alert("Aucun utilisateur à exporter.");
+    return;
+  }
+
+  const headers = ["Nom", "Prénom", "E-mail", "Temps de connexion"];
+  const rows = [headers];
+
+  currentProfilesList.forEach(p => {
+    let email = p.email || "";
+    let firstName = p.first_name || p.prenom || "";
+    let lastName = p.last_name || p.nom || "";
+
+    // Sécurité au cas où la BDD n'a pas encore de prénom/nom renseignés pour les anciens comptes
+    if (!firstName && !lastName && email.includes('@')) {
+      const parts = email.split('@')[0].split('.');
+      if (parts.length >= 2) {
+        firstName = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+        lastName = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
+      } else {
+        firstName = parts[0];
+      }
+    }
+
+    const formattedTime = formatSeconds(p.total_time_seconds);
+
+    const cleanLastName = `"${lastName.replace(/"/g, '""')}"`;
+    const cleanFirstName = `"${firstName.replace(/"/g, '""')}"`;
+    const cleanEmail = `"${email.replace(/"/g, '""')}"`;
+    const cleanTime = `"${formattedTime.replace(/"/g, '""')}"`;
+
+    rows.push([cleanLastName, cleanFirstName, cleanEmail, cleanTime]);
+  });
+
+  const csvContent = rows.map(r => r.join(",")).join("\n");
+  const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+  
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  
+  const dateStr = new Date().toISOString().split('T')[0];
+  link.setAttribute("href", url);
+  link.setAttribute("download", `compteurs_connexion_${dateStr}.csv`);
+  link.style.visibility = 'hidden';
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 </script>
