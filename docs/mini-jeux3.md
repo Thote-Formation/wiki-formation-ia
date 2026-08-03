@@ -6,55 +6,112 @@ La recette du jour : demander à une IA de **rédiger une annonce de recrutement
 
 ---
 
-<div id="chef-container" style="background:#1e1e2e; color:#cdd6f4; border-radius:12px; padding:24px; box-shadow:0 8px 24px rgba(0,0,0,0.3); font-family: system-ui, -apple-system, sans-serif;">
+<style>
+  /* Extensions CSS pour l'interactivité spécifique du Chef Prompteur */
+  .chef-quality-bg {
+    width: 140px;
+    height: 12px;
+    background: #cbd5e1;
+    border-radius: 6px;
+    overflow: hidden;
+  }
 
-  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #313244; padding-bottom:12px; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-    <span id="step-indicator" style="background:#fab387; color:#11111b; font-weight:bold; padding:4px 12px; border-radius:12px; font-size:0.85em;">INGRÉDIENT 1 / 5</span>
-    <div style="text-align:right;">
-      <span style="font-size:0.8em; color:#a6adc8;">Qualité du prompt</span>
-      <div style="width:140px; height:12px; background:#313244; border-radius:6px; overflow:hidden; margin-top:4px;">
-        <div id="quality-bar" style="width:0%; height:100%; background:#f38ba8; transition: all 0.4s;"></div>
+  [data-md-color-scheme="slate"] .chef-quality-bg {
+    background: #475569;
+  }
+
+  .chef-quality-fill {
+    height: 100%;
+    width: 0%;
+    background: #dc2626;
+    transition: all 0.4s ease;
+  }
+
+  .chef-prompt-preview {
+    background: var(--md-code-bg-color, #f8fafc);
+    border: 1px solid var(--md-default-fg-color--lightest, #cbd5e1);
+    border-radius: 12px;
+    padding: 16px;
+    font-family: 'Roboto Mono', monospace !important;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--md-typeset-color);
+    white-space: pre-wrap;
+  }
+
+  [data-md-color-scheme="slate"] .chef-prompt-preview {
+    background: #1e293b;
+    border-color: #475569;
+  }
+
+  .chef-option-btn {
+    width: 100%;
+    text-align: left;
+    justify-content: flex-start;
+    white-space: normal;
+    height: auto;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+</style>
+
+<!-- INTERFACE DU JEU -->
+<div id="chef-container" class="prompt-generator">
+
+  <!-- En-tête -->
+  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--md-default-fg-color--lightest, #cbd5e1); padding-bottom: 16px; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+    <span id="step-indicator" class="wiki-badge warning">INGRÉDIENT 1 / 5</span>
+    <div style="text-align: right;">
+      <span style="font-size: 0.8rem; font-weight: 600; opacity: 0.8;">Qualité du prompt</span>
+      <div class="chef-quality-bg" style="margin-top: 4px;">
+        <div id="quality-bar" class="chef-quality-fill"></div>
       </div>
     </div>
   </div>
 
-  <h3 id="step-title" style="margin-top:0; color:#fff;"></h3>
-  <p id="step-desc" style="color:#a6adc8; font-size:0.9em;"></p>
+  <h3 id="step-title" style="margin-top: 0;"></h3>
+  <p id="step-desc" style="opacity: 0.8; font-size: 0.95rem; margin-bottom: 16px;"></p>
 
-  <div id="options-container" style="display:flex; flex-direction:column; gap:10px; margin-bottom:20px;"></div>
+  <div id="options-container" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;"></div>
 
   <!-- Prompt en construction -->
-  <div style="background:#181825; border-radius:8px; padding:16px;">
-    <div style="font-size:0.8em; color:#a6adc8; margin-bottom:6px;">📝 VOTRE PROMPT EN CONSTRUCTION :</div>
-    <div id="prompt-preview" style="font-family: 'Roboto Mono', monospace; font-size:0.9em; line-height:1.6; color:#f9e2af; white-space:pre-wrap;">(vide)</div>
+  <div style="margin-bottom: 20px;">
+    <div style="font-size: 0.8rem; font-weight: 700; opacity: 0.8; margin-bottom: 8px;">📝 VOTRE PROMPT EN CONSTRUCTION :</div>
+    <div id="prompt-preview" class="chef-prompt-preview">(vide)</div>
   </div>
 
-  <div id="debrief-box" style="display:none; background:#232634; border:2px solid #a6e3a1; border-radius:8px; padding:20px; margin-top:20px;">
-    <h3 style="color:#a6e3a1; margin-top:0;">🍽️ VOTRE PROMPT EST PRÊT !</h3>
-    <p id="final-quality" style="font-weight:bold;"></p>
+  <!-- Bilan final -->
+  <div id="debrief-box" class="good-reflex-box" style="display: none; margin-top: 20px;">
+    <h3 style="margin-top: 0;">🍽️ VOTRE PROMPT EST PRÊT !</h3>
+    <p id="final-quality" style="font-weight: 700; font-size: 1.1rem;"></p>
 
-    <div style="display:flex; flex-direction:column; gap:14px; margin:16px 0;">
-      <div style="background:#181825; padding:12px; border-radius:6px;">
-        <strong style="color:#f38ba8;">❌ Un prompt faible aurait donné :</strong><br>
-        <small style="color:#a6adc8;">"Écris une annonce pour un comptable." → Une réponse générique, sans ton, sans structure, à retravailler entièrement.</small>
+    <div style="display: flex; flex-direction: column; gap: 14px; margin: 16px 0;">
+      <div class="wiki-card">
+        <strong style="color: #dc2626;">❌ Un prompt faible aurait donné :</strong><br>
+        <small style="opacity: 0.8;">"Écris une annonce pour un comptable." → Une réponse générique, sans ton, sans structure, à retravailler entièrement.</small>
       </div>
-      <div style="background:#181825; padding:12px; border-radius:6px;">
-        <strong style="color:#a6e3a1;">✅ Votre prompt CROFT donnerait :</strong><br>
-        <small id="good-result" style="color:#a6adc8;"></small>
+      <div class="wiki-card">
+        <strong style="color: #16a34a;">✅ Votre prompt CROFT donnerait :</strong><br>
+        <small id="good-result" style="opacity: 0.8;"></small>
       </div>
     </div>
 
     <p>La méthode <strong>CROFT</strong> (Contexte, Rôle, Objectif, Format, Ton) permet de structurer n'importe quel prompt :</p>
-    <div style="display:flex; flex-direction:column; gap:10px; margin:12px 0;">
-      <div style="background:#181825; padding:10px; border-radius:6px;"><strong>C</strong>ontexte : la situation, les infos de fond nécessaires.</div>
-      <div style="background:#181825; padding:10px; border-radius:6px;"><strong>R</strong>ôle : qui l'IA doit incarner pour répondre.</div>
-      <div style="background:#181825; padding:10px; border-radius:6px;"><strong>O</strong>bjectif : ce que vous voulez concrètement obtenir.</div>
-      <div style="background:#181825; padding:10px; border-radius:6px;"><strong>F</strong>ormat : la structure attendue de la réponse.</div>
-      <div style="background:#181825; padding:10px; border-radius:6px;"><strong>T</strong>on : le style et le registre de langage.</div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px; margin: 12px 0;">
+      <div class="wiki-card"><strong>C</strong>ontexte : la situation, les infos de fond nécessaires.</div>
+      <div class="wiki-card"><strong>R</strong>ôle : qui l'IA doit incarner pour répondre.</div>
+      <div class="wiki-card"><strong>O</strong>bjectif : ce que vous voulez concrètement obtenir.</div>
+      <div class="wiki-card"><strong>F</strong>ormat : la structure attendue de la réponse.</div>
+      <div class="wiki-card"><strong>T</strong>on : le style et le registre de langage.</div>
     </div>
 
-    <button onclick="restartGame()" style="background:#a6e3a1; color:#11111b; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:10px;">🔄 Recommencer la recette</button>
+    <button onclick="restartGame()" class="wiki-button primary" style="margin-top: 10px;">
+      🔄 Recommencer la recette
+    </button>
   </div>
+
 </div>
 
 <script>
@@ -105,10 +162,8 @@ function loadStep() {
   container.innerHTML = '';
   s.options.forEach(opt => {
     const btn = document.createElement('button');
-    btn.style.cssText = "background:#313244; color:#cdd6f4; border:1px solid #45475a; padding:12px 16px; border-radius:8px; text-align:left; cursor:pointer; font-size:0.95em; line-height:1.4;";
+    btn.className = 'wiki-button chef-option-btn';
     btn.textContent = opt.label;
-    btn.onmouseover = () => btn.style.background = '#45475a';
-    btn.onmouseout = () => btn.style.background = '#313244';
     btn.onclick = () => chooseOption(opt);
     container.appendChild(btn);
   });
@@ -120,7 +175,15 @@ function chooseOption(opt) {
   const pct = Math.round((quality / maxQuality) * 100);
   const bar = document.getElementById('quality-bar');
   bar.style.width = pct + '%';
-  bar.style.background = pct > 70 ? '#a6e3a1' : (pct > 35 ? '#f9e2af' : '#f38ba8');
+  
+  // Changement dynamique de la couleur de la barre selon la qualité
+  if (pct > 70) {
+    bar.style.background = '#16a34a';
+  } else if (pct > 35) {
+    bar.style.background = '#d97706';
+  } else {
+    bar.style.background = '#dc2626';
+  }
 
   if (opt.text) promptParts.push(opt.text);
   document.getElementById('prompt-preview').textContent = promptParts.length ? promptParts.join('\n') : '(vide)';
