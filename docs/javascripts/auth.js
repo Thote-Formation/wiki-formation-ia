@@ -87,18 +87,18 @@ async function initAuthCheck() {
     firstName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
   }
 
-  // 4. Suivi du temps dans le header
+  // 4. Suivi du temps et prénom dans le header (PASSAGE DE firstName ICI !)
   const initialSeconds = (profile && profile.total_time_seconds) ? profile.total_time_seconds : 0;
-  initTimeTracker(supabase, session.user.id, initialSeconds);
+  initTimeTracker(supabase, session.user.id, initialSeconds, firstName);
 
-  // 5. Injections dans le header (Bonjour Prénom + Bouton Admin si autorisé + Déconnexion)
-  injectHeaderButtons(supabase, getUrl, isAdmin, firstName);
+  // 5. Injections dans le header (Bouton Admin si autorisé + Déconnexion)
+  injectHeaderButtons(supabase, getUrl, isAdmin);
 }
 
 // ==========================================
 // GESTION DES BOUTONS DU HEADER (ADMIN + DECONNEXION)
 // ==========================================
-function injectHeaderButtons(supabase, getUrl, isAdmin, firstName) {
+function injectHeaderButtons(supabase, getUrl, isAdmin) {
   const searchBox = document.querySelector('.md-search');
   if (!searchBox || !searchBox.parentNode) return;
 
@@ -131,9 +131,7 @@ function injectHeaderButtons(supabase, getUrl, isAdmin, firstName) {
     searchBox.parentNode.appendChild(logoutBtn);
   }
 }
-// ==========================================
-// GESTION DU CHRONOMÈTRE
-// ==========================================
+
 // ==========================================
 // GESTION DU CHRONOMÈTRE ET MESSAGE BIENVENUE
 // ==========================================
@@ -163,29 +161,29 @@ function initTimeTracker(supabase, userId, initialTotalSeconds, firstName) {
     if (!container) {
       const searchBox = document.querySelector('.md-search');
       if (searchBox && searchBox.parentNode) {
-        // Conteneur principal
+        // Conteneur principal forcé en bloc vertical
         container = document.createElement('div');
         container.id = 'user-info-container';
-        container.style.cssText = 'display: inline-flex; flex-direction: column; align-items: center; justify-content: center; margin-left: 14px; vertical-align: middle;';
+        container.style.cssText = 'display: inline-flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; margin-left: 14px; vertical-align: middle; line-height: 1.1;';
         
-        // 1. Text "Bonjour Prénom" au-dessus, sans bordure
+        // 1. Text "Bonjour Prénom" sans bordure au-dessus
         if (firstName) {
           const welcomeLabel = document.createElement('span');
           welcomeLabel.id = 'welcome-text-label';
-          welcomeLabel.style.cssText = 'color: rgba(255, 255, 255, 0.95); font-size: 0.78em; font-weight: 600; margin-bottom: 2px; white-space: nowrap; line-height: 1;';
-          welcomeLabel.innerHTML = `👋 Bonjour <strong style="color: #ffffff;">${firstName}</strong>`;
+          welcomeLabel.style.cssText = 'color: #ffffff; font-size: 0.75em; font-weight: 600; margin-bottom: 3px; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.3);';
+          welcomeLabel.innerHTML = `👋 Bonjour <strong style="color: #93c5fd;">${firstName}</strong>`;
           container.appendChild(welcomeLabel);
         }
 
         // 2. Badge Chronomètre
         const badge = document.createElement('div');
         badge.id = 'time-spent-display';
-        badge.style.cssText = 'padding: 4px 14px; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 20px; font-size: 0.85em; font-weight: 700; display: inline-flex; align-items: center; white-space: nowrap;';
+        badge.style.cssText = 'padding: 5px 14px; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 20px; font-size: 0.85em; font-weight: 700; display: inline-flex; align-items: center; white-space: nowrap;';
         
         container.appendChild(badge);
 
-        // Insertion après la barre de recherche
-        searchBox.parentNode.insertBefore(container, searchBox.nextSibling);
+        // Insertion
+        searchBox.parentNode.appendChild(container);
       }
     }
 
@@ -219,6 +217,7 @@ function initTimeTracker(supabase, userId, initialTotalSeconds, firstName) {
     document$.subscribe(() => updateHeaderBadge(getUpdatedTotalSeconds()));
   }
 }
+
 document.addEventListener("DOMContentLoaded", function () {
   const headerTopic = document.querySelector(".md-header__title");
   
@@ -234,47 +233,36 @@ document.addEventListener("DOMContentLoaded", function () {
       </svg>
     `;
     
-    // Insertion juste à côté du titre/logo dans le header
     headerTopic.insertAdjacentElement("beforebegin", homeBtn);
   }
 });
+
 /* ==========================================================================
    DÉCONNEXION AUTOMATIQUE APRÈS INACTIVITÉ (60 minutes)
    ========================================================================== */
 (function autoLogoutModule() {
-  const INACTIVITY_LIMIT_MS = 60 * 60 * 1000; // 60 minutes en millisecondes
+  const INACTIVITY_LIMIT_MS = 60 * 60 * 1000;
   let inactivityTimer;
 
-  // Fonction qui effectue la déconnexion
   function logoutUser() {
-    // Supprime la session (ajuste la clé si la tienne est différente, ex: 'auth', 'isLoggedIn', etc.)
     localStorage.removeItem("auth");
     sessionStorage.removeItem("auth");
-    
-    // Alerte discrète ou redirection immédiate
     alert("Vous avez été déconnecté suite à une période d'inactivité de 60 minutes.");
-    window.location.reload(); // Ou redirige vers la page de login
+    window.location.reload();
   }
 
-  // Fonction pour réinitialiser le chronomètre d'inactivité
   function resetInactivityTimer() {
     clearTimeout(inactivityTimer);
     inactivityTimer = setTimeout(logoutUser, INACTIVITY_LIMIT_MS);
   }
 
-  // Vérifier si l'utilisateur est actuellement connecté avant d'activer le listener
-  // (Ajuste selon la façon dont tu vérifies la connexion dans ton auth.js)
   const isAuthenticated = localStorage.getItem("auth") || sessionStorage.getItem("auth");
 
   if (isAuthenticated) {
-    // Événements écoutés pour détecter l'activité de l'utilisateur
     const activityEvents = ["mousemove", "mousedown", "keydown", "touchstart", "scroll"];
-
     activityEvents.forEach(function (eventName) {
       window.addEventListener(eventName, resetInactivityTimer, { passive: true });
     });
-
-    // Lancer le timer au chargement de la page
     resetInactivityTimer();
   }
 })();
