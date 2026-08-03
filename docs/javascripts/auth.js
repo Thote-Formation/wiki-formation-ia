@@ -121,7 +121,7 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
     const logoutBtn = document.createElement('button');
     logoutBtn.id = 'logout-btn';
     logoutBtn.className = 'header-logout-btn';
-    logoutBtn.textContent = 'Déconnexion';
+    logoutBtn.textContent = '⏻';
     logoutBtn.style.cssText = styleCommon + ' margin-left: 8px;';
     logoutBtn.onclick = async () => {
       await supabase.auth.signOut();
