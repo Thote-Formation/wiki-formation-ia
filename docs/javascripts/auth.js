@@ -87,7 +87,7 @@ async function initAuthCheck() {
     firstName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
   }
 
-  // 4. Suivi du temps et prénom dans le header (PASSAGE DE firstName ICI !)
+  // 4. Suivi du temps et prénom dans le header
   const initialSeconds = (profile && profile.total_time_seconds) ? profile.total_time_seconds : 0;
   initTimeTracker(supabase, session.user.id, initialSeconds, firstName);
 
@@ -102,27 +102,30 @@ function injectHeaderButtons(supabase, getUrl, isAdmin) {
   const searchBox = document.querySelector('.md-search');
   if (!searchBox || !searchBox.parentNode) return;
 
-  const styleCommon = 'text-decoration: none; padding: 7px 16px; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 20px; font-size: 0.9em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap;';
+  // Style harmonisé en cercle parfait pour les icônes
+  const styleIconBtn = 'text-decoration: none; width: 38px; height: 38px; padding: 0; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 50%; font-size: 1.15em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; white-space: nowrap; line-height: 1; vertical-align: middle; box-sizing: border-border-box;';
 
-  // Bouton Admin
+  // Bouton Admin ⚙️
   if (isAdmin && !document.getElementById('admin-btn')) {
     const adminBtn = document.createElement('a');
     adminBtn.id = 'admin-btn';
     adminBtn.className = 'header-admin-btn';
     adminBtn.href = getUrl('/admin/');
     adminBtn.textContent = '⚙️';
-    adminBtn.style.cssText = styleCommon + ' margin-left: 10px;';
+    adminBtn.title = "Panneau d'administration";
+    adminBtn.style.cssText = styleIconBtn + ' margin-left: 12px;';
     
     searchBox.parentNode.appendChild(adminBtn);
   }
 
-  // Bouton Déconnexion
+  // Bouton Déconnexion ⏻
   if (!document.getElementById('logout-btn')) {
     const logoutBtn = document.createElement('button');
     logoutBtn.id = 'logout-btn';
     logoutBtn.className = 'header-logout-btn';
     logoutBtn.textContent = '⏻';
-    logoutBtn.style.cssText = styleCommon + ' margin-left: 8px;';
+    logoutBtn.title = "Se déconnecter";
+    logoutBtn.style.cssText = styleIconBtn + ' margin-left: 8px; font-size: 1.25em;';
     logoutBtn.onclick = async () => {
       await supabase.auth.signOut();
       window.location.href = getUrl('/connexion/');
@@ -161,24 +164,24 @@ function initTimeTracker(supabase, userId, initialTotalSeconds, firstName) {
     if (!container) {
       const searchBox = document.querySelector('.md-search');
       if (searchBox && searchBox.parentNode) {
-        // Conteneur principal vertical et bien espacé
+        // Conteneur principal vertical
         container = document.createElement('div');
         container.id = 'user-info-container';
-        container.style.cssText = 'display: inline-flex !important; flex-direction: column !important; align-items: flex-start !important; justify-content: center !important; margin-left: 14px; margin-right: 6px; vertical-align: middle; line-height: 1.25;';
+        container.style.cssText = 'display: inline-flex !important; flex-direction: column !important; align-items: flex-start !important; justify-content: center !important; margin-left: 16px; margin-right: 4px; vertical-align: middle; line-height: 1.2;';
         
-        // 1. "👋 Bonjour Pierre" (plus grand, net, sans bordure)
+        // 1. "👋 Bonjour Pierre" (Agrandit)
         if (firstName) {
           const welcomeLabel = document.createElement('span');
           welcomeLabel.id = 'welcome-text-label';
-          welcomeLabel.style.cssText = 'color: #ffffff; font-size: 0.9em; font-weight: 600; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.2);';
+          welcomeLabel.style.cssText = 'color: #ffffff; font-size: 1.05em; font-weight: 600; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.25);';
           welcomeLabel.innerHTML = `👋 Bonjour <strong style="color: #ffffff;">${firstName}</strong>`;
           container.appendChild(welcomeLabel);
         }
 
-        // 2. Chronomètre (Sans pilule/fond/bordure, plus lisible)
+        // 2. Chronomètre (Agrandit)
         const badge = document.createElement('div');
         badge.id = 'time-spent-display';
-        badge.style.cssText = 'color: rgba(255, 255, 255, 0.9); font-size: 0.88em; font-weight: 600; white-space: nowrap; margin-top: 1px;';
+        badge.style.cssText = 'color: rgba(255, 255, 255, 0.92); font-size: 0.95em; font-weight: 600; white-space: nowrap; margin-top: 2px;';
         
         container.appendChild(badge);
 
@@ -217,6 +220,7 @@ function initTimeTracker(supabase, userId, initialTotalSeconds, firstName) {
     document$.subscribe(() => updateHeaderBadge(getUpdatedTotalSeconds()));
   }
 }
+
 document.addEventListener("DOMContentLoaded", function () {
   const headerTopic = document.querySelector(".md-header__title");
   
