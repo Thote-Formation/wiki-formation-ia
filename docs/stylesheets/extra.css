@@ -621,3 +621,17 @@ code, pre, .md-typeset code, .md-typeset pre {
     display: none;
   }
 }
+th[onclick] {
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+th[onclick]:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+th span[id^="sort-"] {
+  font-size: 0.8em;
+  opacity: 0.7;
+  margin-left: 4px;
+}
