@@ -1,372 +1,427 @@
----
-hide:
-  - navigation
-  - toc
----
+# Panneau d'Administration - Gestion des Utilisateurs
 
-# 🛠️ Administration des Accès
+<div id="admin-container" style="display:none;">
 
-<style>
-  /* 1. Style des champs de saisie (Inputs visibles et explicites) */
-  .admin-input {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 10px 14px !important;
-    font-size: 0.95rem !important;
-    font-family: inherit !important;
-    border: 1.5px solid #94a3b8 !important;
-    border-radius: 8px !important;
-    background-color: #f8fafc !important;
-    color: #0f172a !important;
-    transition: all 0.2s ease !important;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
-  }
-
-  .admin-input:hover {
-    border-color: #64748b !important;
-    background-color: #ffffff !important;
-  }
-
-  .admin-input:focus {
-    outline: none !important;
-    border-color: #0d47a1 !important;
-    background-color: #ffffff !important;
-    box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2) !important;
-  }
-
-  /* Support Mode Sombre pour les Inputs */
-  [data-md-color-scheme="slate"] .admin-input {
-    background-color: #1e293b !important;
-    color: #f8fafc !important;
-    border-color: #475569 !important;
-  }
-
-  [data-md-color-scheme="slate"] .admin-input:hover,
-  [data-md-color-scheme="slate"] .admin-input:focus {
-    background-color: #0f172a !important;
-    border-color: #60a5fa !important;
-  }
-
-  /* 2. Style de la Table des Utilisateurs */
-  .admin-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    color: var(--md-typeset-color);
-  }
-  .admin-table th, .admin-table td {
-    padding: 12px;
-    border: 1px solid var(--md-default-fg-color--lightest, #cbd5e1);
-    text-align: left;
-    vertical-align: middle;
-  }
-  .admin-table th {
-    background-color: #0d47a1 !important;
-    color: #ffffff !important;
-    font-weight: 700;
-  }
-  
-  .prompt-generator-grid-4 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-  }
-</style>
-
-<!-- FORMULAIRE D'INVITATION UTILISATEUR -->
-<div class="wiki-card prompt-generator">
-
-<form id="add-user-form" onsubmit="handleAddUser(event)">
-  <div class="prompt-generator-grid-4">
-    <div>
-      <label for="new-firstname">Prénom</label>
-      <input type="text" id="new-firstname" class="admin-input" placeholder="ex: Jean" required>
-    </div>
-    <div>
-      <label for="new-lastname">Nom</label>
-      <input type="text" id="new-lastname" class="admin-input" placeholder="ex: Dupont" required>
-    </div>
-    <div>
-      <label for="new-email">Adresse E-mail</label>
-      <input type="email" id="new-email" class="admin-input" placeholder="ex: utilisateur@domaine.fr" required>
-    </div>
-    <div>
-      <label for="new-expires">Date d'expiration</label>
-      <input type="date" id="new-expires" class="admin-input" required>
+  <!-- BARRE D'ACTIONS : RECHERCHE + BOUTONS -->
+  <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+    <input type="text" id="search-input" placeholder="🔍 Rechercher par nom, prénom ou email..." style="padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; flex: 1; min-width: 250px;">
+    
+    <div style="display: flex; gap: 10px;">
+      <button onclick="exportCSV()" style="padding: 8px 16px; background-color: #27ae60; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+        📥 Exporter en CSV
+      </button>
+      <button onclick="openCreateModal()" style="padding: 8px 16px; background-color: #2980b9; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+        ➕ Ajouter un utilisateur
+      </button>
     </div>
   </div>
-  <div class="wiki-actions" style="margin-top: 15px;">
-    <button type="submit" id="submit-btn" class="wiki-button primary" style="cursor: pointer;">➕ Inviter l'utilisateur par E-mail</button>
+
+  <!-- TABLEAU DES UTILISATEURS AVEC TRI SUR LES EN-TÊTES -->
+  <div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+      <thead>
+        <tr style="background-color: #1e293b; color: white; text-align: left;">
+          <th onclick="sortUsers('last_name')" style="padding: 10px; cursor: pointer; user-select: none;">
+            Nom <span id="sort-last_name">↕</span>
+          </th>
+          <th onclick="sortUsers('first_name')" style="padding: 10px; cursor: pointer; user-select: none;">
+            Prénom <span id="sort-first_name">↕</span>
+          </th>
+          <th onclick="sortUsers('email')" style="padding: 10px; cursor: pointer; user-select: none;">
+            Email <span id="sort-email">↕</span>
+          </th>
+          <th onclick="sortUsers('role')" style="padding: 10px; cursor: pointer; user-select: none;">
+            Rôle <span id="sort-role">↕</span>
+          </th>
+          <th onclick="sortUsers('is_active')" style="padding: 10px; cursor: pointer; user-select: none;">
+            Statut <span id="sort-is_active">↕</span>
+          </th>
+          <th onclick="sortUsers('expires_at')" style="padding: 10px; cursor: pointer; user-select: none;">
+            Expiration <span id="sort-expires_at">↕</span>
+          </th>
+          <th onclick="sortUsers('total_time_seconds')" style="padding: 10px; cursor: pointer; user-select: none;">
+            Temps passé <span id="sort-total_time_seconds">↕</span>
+          </th>
+          <th style="padding: 10px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="users-table-body">
+        <tr>
+          <td colspan="8" style="text-align: center; padding: 20px;">Chargement des données...</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</form>
-
-<div id="form-message" style="margin-top: 12px; font-weight: 700;"></div>
 
 </div>
 
-<!-- LISTE DES UTILISATEURS ET EXPORT -->
-<div class="wiki-card">
+<!-- MODAL CRÉATION / ÉDITION -->
+<div id="user-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
+  <div style="background: white; padding: 25px; border-radius: 8px; width: 400px; max-width: 90%; color: #333;">
+    <h3 id="modal-title" style="margin-top: 0;">Ajouter un utilisateur</h3>
+    <form id="user-form" onsubmit="handleFormSubmit(event)">
+      <input type="hidden" id="form-user-id">
+      
+      <div style="margin-bottom: 12px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 4px;">Nom</label>
+        <input type="text" id="form-last-name" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
 
-<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-  <span style="font-weight: bold; font-size: 1.1rem;">👥 Utilisateurs enregistrés (<span id="user-count">0</span>)</span>
-  <button type="button" onclick="exportUsersToCSV()" class="wiki-button" style="cursor: pointer; padding: 6px 14px; font-size: 0.9rem; background-color: #107c41; color: white; border: none; border-radius: 6px;">
-    📥 Exporter en CSV (Excel)
-  </button>
+      <div style="margin-bottom: 12px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 4px;">Prénom</label>
+        <input type="text" id="form-first-name" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 4px;">Email *</label>
+        <input type="email" id="form-email" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+
+      <div id="password-group" style="margin-bottom: 12px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 4px;">Mot de passe *</label>
+        <input type="password" id="form-password" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 4px;">Rôle</label>
+        <select id="form-role" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+          <option value="user">Utilisateur</option>
+          <option value="admin">Administrateur</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="display: block; font-weight: bold; margin-bottom: 4px;">Date d'expiration</label>
+        <input type="date" id="form-expires-at" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" id="form-is-active" checked> Compte actif
+        </label>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button type="button" onclick="closeModal()" style="padding: 8px 16px; background: #7f8c8d; color: white; border: none; border-radius: 4px; cursor: pointer;">Annuler</button>
+        <button type="submit" style="padding: 8px 16px; background: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer;">Enregistrer</button>
+      </div>
+    </form>
+  </div>
 </div>
-
-<div style="overflow-x: auto;">
-  <table class="admin-table">
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>E-mail</th>
-        <th>Statut</th>
-        <th>Expiration</th>
-        <th>Temps Passé</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody id="users-table-body">
-      <tr>
-        <td colspan="7">Chargement de la liste...</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-</div>
-
-<!-- Charger Supabase si non présent -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const SUPABASE_URL = "https://gwitigcaweavuvspboly.supabase.co"; 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3aXRpZ2Nhd2VhdnV2c3Bib2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMzgzMTIsImV4cCI6MjEwMDcxNDMxMn0.U4CpcEiRTUpH7Eop5lirMLiX7cgjkfCC0oQoL3c0Srk";
+let allUsers = [];
+let filteredUsers = [];
+let currentSortColumn = 'last_name';
+let currentSortAsc = true;
 
-let currentProfilesList = [];
-
-function getAdminSupabase() {
-  if (window.supabaseClient) return window.supabaseClient;
-  if (window.supabase) {
-    window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    return window.supabaseClient;
-  }
-  return null;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const nextYear = new Date();
-  nextYear.setFullYear(nextYear.getFullYear() + 1);
-  const expInput = document.getElementById('new-expires');
-  if (expInput) expInput.value = nextYear.toISOString().split('T')[0];
-
-  const checkInterval = setInterval(() => {
-    const sb = getAdminSupabase();
-    if (sb) {
-      clearInterval(checkInterval);
-      fetchUsersList(sb);
+document.addEventListener('DOMContentLoaded', async () => {
+  // Attendre l'initialisation de Supabase
+  const checkSupabase = setInterval(async () => {
+    if (window.supabaseClient) {
+      clearInterval(checkSupabase);
+      initAdminPage();
     }
-  }, 200);
+  }, 100);
 });
 
-function formatSeconds(seconds) {
-  if (!seconds) return '0 min';
-  const hrs = Math.floor(seconds / 3600);
-  const mins = Math.floor((seconds % 3600) / 60);
-  return hrs > 0 ? `${hrs}h ${mins}m` : `${mins} min`;
+async function initAdminPage() {
+  const supabase = window.supabaseClient;
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (!session) return;
+
+  // Affichage de la page si autorisé
+  document.getElementById('admin-container').style.display = 'block';
+
+  // Écouteur recherche
+  document.getElementById('search-input').addEventListener('input', filterUsers);
+
+  // Charger les utilisateurs
+  await loadUsers();
 }
 
-async function handleAddUser(e) {
-  e.preventDefault();
-  const msgDiv = document.getElementById('form-message');
-  const btn = document.getElementById('submit-btn');
-  const supabase = getAdminSupabase();
-
-  if (!supabase) {
-    msgDiv.style.color = '#dc2626';
-    msgDiv.textContent = '❌ Erreur : Impossible de contacter Supabase. Veuillez rafraîchir la page.';
-    return;
-  }
-
-  btn.disabled = true;
-  msgDiv.style.color = '#0d47a1';
-  msgDiv.textContent = '⏳ Envoi de l\'invitation...';
-
-  const firstName = document.getElementById('new-firstname').value.trim();
-  const lastName = document.getElementById('new-lastname').value.trim();
-  const email = document.getElementById('new-email').value.trim();
-  const expiresAt = document.getElementById('new-expires').value + 'T23:59:59Z';
-  const randomPassword = Math.random().toString(36).slice(-10) + 'A1!' + Math.random().toString(36).slice(-10);
-
-  try {
-    const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: randomPassword
-    });
-
-    if (error) {
-      msgDiv.style.color = '#dc2626';
-      msgDiv.textContent = '❌ Erreur : ' + error.message;
-      btn.disabled = false;
-      return;
-    }
-
-    if (data.user) {
-      await supabase.from('profiles').update({
-        first_name: firstName,
-        last_name: lastName,
-        expires_at: expiresAt,
-        is_active: true
-      }).eq('id', data.user.id);
-
-      const basePath = window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '';
-      const redirectUrl = window.location.origin + basePath + '/reinitialisation/';
-      
-      await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: redirectUrl
-      });
-
-      msgDiv.style.color = '#15803d';
-      msgDiv.textContent = '✅ Compte créé ! Un e-mail a été envoyé à l\'utilisateur.';
-      document.getElementById('add-user-form').reset();
-      
-      const nextYear = new Date();
-      nextYear.setFullYear(nextYear.getFullYear() + 1);
-      document.getElementById('new-expires').value = nextYear.toISOString().split('T')[0];
-
-      await fetchUsersList(supabase);
-    }
-  } catch (err) {
-    msgDiv.style.color = '#dc2626';
-    msgDiv.textContent = '❌ Erreur inattendue : ' + err.message;
-  } finally {
-    btn.disabled = false;
-  }
-}
-
-async function fetchUsersList(supabase) {
-  const tbody = document.getElementById('users-table-body');
-  if (!tbody) return;
-  
-  const { data: profiles, error } = await supabase
+async function loadUsers() {
+  const supabase = window.supabaseClient;
+  const { data, error } = await supabase
     .from('profiles')
-    .select('*')
-    .order('created_at', { ascending: false });
+    .select('*');
 
   if (error) {
-    tbody.innerHTML = `<tr><td colspan="7" style="color:#dc2626; font-weight:700;">Erreur : ${error.message}</td></tr>`;
+    console.error("Erreur de chargement des utilisateurs :", error);
+    alert("Erreur lors de la récupération des données.");
     return;
   }
 
-  currentProfilesList = profiles || [];
+  allUsers = data || [];
+  filterUsers();
+}
 
-  const userCount = document.getElementById('user-count');
-  if (userCount) userCount.textContent = profiles.length;
+function filterUsers() {
+  const query = document.getElementById('search-input').value.toLowerCase().trim();
+  
+  filteredUsers = allUsers.filter(user => {
+    const lastName = (user.last_name || '').toLowerCase();
+    const firstName = (user.first_name || '').toLowerCase();
+    const email = (user.email || '').toLowerCase();
+    return lastName.includes(query) || firstName.includes(query) || email.includes(query);
+  });
+
+  applySortAndRender();
+}
+
+function sortUsers(column) {
+  if (currentSortColumn === column) {
+    currentSortAsc = !currentSortAsc;
+  } else {
+    currentSortColumn = column;
+    currentSortAsc = true;
+  }
+  applySortAndRender();
+}
+
+function applySortAndRender() {
+  filteredUsers.sort((a, b) => {
+    let valA = a[currentSortColumn] ?? '';
+    let valB = b[currentSortColumn] ?? '';
+
+    if (currentSortColumn === 'total_time_seconds') {
+      valA = Number(valA) || 0;
+      valB = Number(valB) || 0;
+    } else if (typeof valA === 'string') {
+      valA = valA.toLowerCase();
+      valB = valB.toLowerCase();
+    }
+
+    if (valA < valB) return currentSortAsc ? -1 : 1;
+    if (valA > valB) return currentSortAsc ? 1 : -1;
+    return 0;
+  });
+
+  renderTable(filteredUsers);
+}
+
+function renderTable(users) {
+  // Mise à jour des flèches d'en-tête
+  const columns = ['last_name', 'first_name', 'email', 'role', 'is_active', 'expires_at', 'total_time_seconds'];
+  columns.forEach(col => {
+    const el = document.getElementById(`sort-${col}`);
+    if (el) {
+      if (col === currentSortColumn) {
+        el.textContent = currentSortAsc ? '▲' : '▼';
+      } else {
+        el.textContent = '↕';
+      }
+    }
+  });
+
+  const tbody = document.getElementById('users-table-body');
   tbody.innerHTML = '';
 
-  const now = new Date();
+  if (users.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 20px;">Aucun utilisateur trouvé.</td></tr>';
+    return;
+  }
 
-  profiles.forEach(p => {
-    const expDate = new Date(p.expires_at);
-    const isExpired = expDate < now;
-    const isAdmin = p.role === 'admin';
-    
-    let statusBadge = '<span class="wiki-badge success">Actif</span>';
-    if (!p.is_active) {
-      statusBadge = '<span class="wiki-badge danger">Inactif</span>';
-    } else if (isExpired && !isAdmin) {
-      statusBadge = '<span class="wiki-badge warning">Expiré</span>';
-    }
-
-    let expirationCell = `<input type="date" class="admin-input" style="padding: 4px 8px !important;" value="${p.expires_at ? p.expires_at.split('T')[0] : ''}" onchange="updateExpiration('${p.id}', this.value)">`;
-    
-    if (isAdmin) {
-      expirationCell = '<span style="font-weight: 700; color: #60a5fa;">Illimité ♾️ (Admin)</span>';
-    }
-
+  users.forEach(user => {
     const tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid #ddd';
+
+    const formattedTime = formatTime(user.total_time_seconds || 0);
+    const formattedDate = user.expires_at ? new Date(user.expires_at).toLocaleDateString('fr-FR') : 'Permanente';
+    const statusBadge = user.is_active 
+      ? '<span style="color: #27ae60; font-weight: bold;">Actif</span>' 
+      : '<span style="color: #e74c3c; font-weight: bold;">Inactif</span>';
+
     tr.innerHTML = `
-      <td><strong>${p.last_name || '-'}</strong></td>
-      <td><strong>${p.first_name || '-'}</strong></td>
-      <td>${p.email || 'N/A'} ${isAdmin ? '👑' : ''}</td>
-      <td>${statusBadge}</td>
-      <td>${expirationCell}</td>
-      <td>${formatSeconds(p.total_time_seconds)}</td>
-      <td>
-        ${isAdmin ? '<em>Aucune action</em>' : `
-          <button type="button" class="wiki-button" style="padding: 4px 12px; min-height: 36px; font-size: 0.82rem;" onclick="toggleActive('${p.id}', ${p.is_active})">
-            ${p.is_active ? 'Désactiver' : 'Activer'}
-          </button>
-        `}
+      <td style="padding: 10px;">${escapeHtml(user.last_name || '-')}</td>
+      <td style="padding: 10px;">${escapeHtml(user.first_name || '-')}</td>
+      <td style="padding: 10px;">${escapeHtml(user.email || '-')}</td>
+      <td style="padding: 10px;"><span style="text-transform: capitalize;">${escapeHtml(user.role || 'user')}</span></td>
+      <td style="padding: 10px;">${statusBadge}</td>
+      <td style="padding: 10px;">${formattedDate}</td>
+      <td style="padding: 10px; font-weight: 600;">⏱️ ${formattedTime}</td>
+      <td style="padding: 10px; white-space: nowrap;">
+        <button onclick="openEditModal('${user.id}')" style="padding: 4px 8px; margin-right: 4px; background: #f39c12; color: white; border: none; border-radius: 4px; cursor: pointer;">✏️</button>
+        <button onclick="deleteUser('${user.id}')" style="padding: 4px 8px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer;">🗑️</button>
       </td>
     `;
     tbody.appendChild(tr);
   });
 }
 
-async function toggleActive(userId, currentStatus) {
-  const supabase = getAdminSupabase();
-  if (!supabase) return;
-  await supabase.from('profiles').update({ is_active: !currentStatus }).eq('id', userId);
-  fetchUsersList(supabase);
+function formatTime(seconds) {
+  const hrs = Math.floor(seconds / 3600);
+  const mins = Math.floor((seconds % 3600) / 60);
+  if (hrs > 0) return `${hrs}h ${String(mins).padStart(2, '0')}m`;
+  return `${mins} min`;
 }
 
-async function updateExpiration(userId, newDate) {
-  if (!newDate) return;
-  const supabase = getAdminSupabase();
-  if (!supabase) return;
-  await supabase.from('profiles').update({ expires_at: newDate + 'T23:59:59Z' }).eq('id', userId);
-  alert('Date d\'expiration mise à jour !');
-  fetchUsersList(supabase);
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 }
 
-function exportUsersToCSV() {
-  if (!currentProfilesList || currentProfilesList.length === 0) {
-    alert("Aucun utilisateur à exporter.");
+// MODAL CONTROLS
+function openCreateModal() {
+  document.getElementById('modal-title').textContent = "Ajouter un utilisateur";
+  document.getElementById('form-user-id').value = "";
+  document.getElementById('form-last-name').value = "";
+  document.getElementById('form-first-name').value = "";
+  document.getElementById('form-email').value = "";
+  document.getElementById('form-email').disabled = false;
+  document.getElementById('form-password').value = "";
+  document.getElementById('form-password').required = true;
+  document.getElementById('password-group').style.display = "block";
+  document.getElementById('form-role').value = "user";
+  document.getElementById('form-expires-at').value = "";
+  document.getElementById('form-is-active').checked = true;
+
+  document.getElementById('user-modal').style.display = 'flex';
+}
+
+function openEditModal(userId) {
+  const user = allUsers.find(u => u.id === userId);
+  if (!user) return;
+
+  document.getElementById('modal-title').textContent = "Modifier l'utilisateur";
+  document.getElementById('form-user-id').value = user.id;
+  document.getElementById('form-last-name').value = user.last_name || "";
+  document.getElementById('form-first-name').value = user.first_name || "";
+  document.getElementById('form-email').value = user.email || "";
+  document.getElementById('form-email').disabled = true; // Empêcher la modification d'email direct
+  document.getElementById('password-group').style.display = "none";
+  document.getElementById('form-password').required = false;
+  document.getElementById('form-role').value = user.role || "user";
+  
+  if (user.expires_at) {
+    document.getElementById('form-expires-at').value = new Date(user.expires_at).toISOString().split('T')[0];
+  } else {
+    document.getElementById('form-expires-at').value = "";
+  }
+
+  document.getElementById('form-is-active').checked = user.is_active;
+
+  document.getElementById('user-modal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('user-modal').style.display = 'none';
+}
+
+async function handleFormSubmit(event) {
+  event.preventDefault();
+  const supabase = window.supabaseClient;
+
+  const userId = document.getElementById('form-user-id').value;
+  const lastName = document.getElementById('form-last-name').value;
+  const firstName = document.getElementById('form-first-name').value;
+  const email = document.getElementById('form-email').value;
+  const password = document.getElementById('form-password').value;
+  const role = document.getElementById('form-role').value;
+  const expiresAtVal = document.getElementById('form-expires-at').value;
+  const isActive = document.getElementById('form-is-active').checked;
+
+  const expiresAt = expiresAtVal ? new Date(expiresAtVal).toISOString() : null;
+
+  if (userId) {
+    // MODIFICATION
+    const { error } = await supabase
+      .from('profiles')
+      .update({
+        last_name: lastName,
+        first_name: firstName,
+        role: role,
+        expires_at: expiresAt,
+        is_active: isActive
+      })
+      .eq('id', userId);
+
+    if (error) {
+      alert("Erreur lors de la mise à jour : " + error.message);
+    } else {
+      closeModal();
+      await loadUsers();
+    }
+  } else {
+    // CRÉATION
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName
+        }
+      }
+    });
+
+    if (error) {
+      alert("Erreur lors de la création du compte : " + error.message);
+      return;
+    }
+
+    if (data.user) {
+      // Mettre à jour le profil créé
+      await supabase
+        .from('profiles')
+        .update({
+          last_name: lastName,
+          first_name: firstName,
+          role: role,
+          expires_at: expiresAt,
+          is_active: isActive
+        })
+        .eq('id', data.user.id);
+
+      closeModal();
+      await loadUsers();
+    }
+  }
+}
+
+async function deleteUser(userId) {
+  if (!confirm("Voulez-vous vraiment désactiver/supprimer cet utilisateur ?")) return;
+
+  const supabase = window.supabaseClient;
+  const { error } = await supabase
+    .from('profiles')
+    .delete()
+    .eq('id', userId);
+
+  if (error) {
+    alert("Erreur lors de la suppression : " + error.message);
+  } else {
+    await loadUsers();
+  }
+}
+
+// EXPORT CSV
+function exportCSV() {
+  if (!filteredUsers || filteredUsers.length === 0) {
+    alert("Aucune donnée à exporter.");
     return;
   }
 
-  const headers = ["Nom", "Prénom", "E-mail", "Temps de connexion"];
-  const rows = [headers];
-
-  currentProfilesList.forEach(p => {
-    let email = p.email || "";
-    let firstName = p.first_name || p.prenom || "";
-    let lastName = p.last_name || p.nom || "";
-
-    // Sécurité au cas où la BDD n'a pas encore de prénom/nom renseignés pour les anciens comptes
-    if (!firstName && !lastName && email.includes('@')) {
-      const parts = email.split('@')[0].split('.');
-      if (parts.length >= 2) {
-        firstName = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
-        lastName = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
-      } else {
-        firstName = parts[0];
-      }
-    }
-
-    const formattedTime = formatSeconds(p.total_time_seconds);
-
-    const cleanLastName = `"${lastName.replace(/"/g, '""')}"`;
-    const cleanFirstName = `"${firstName.replace(/"/g, '""')}"`;
-    const cleanEmail = `"${email.replace(/"/g, '""')}"`;
-    const cleanTime = `"${formattedTime.replace(/"/g, '""')}"`;
-
-    rows.push([cleanLastName, cleanFirstName, cleanEmail, cleanTime]);
-  });
-
-  const csvContent = rows.map(r => r.join(",")).join("\n");
-  const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+  const headers = ["Nom", "Prénom", "Email", "Rôle", "Statut", "Date Expiration", "Temps Total (Secondes)", "Temps Formaté"];
   
+  const rows = filteredUsers.map(user => [
+    `"${(user.last_name || '').replace(/"/g, '""')}"`,
+    `"${(user.first_name || '').replace(/"/g, '""')}"`,
+    `"${(user.email || '').replace(/"/g, '""')}"`,
+    `"${user.role || 'user'}"`,
+    user.is_active ? "Actif" : "Inactif",
+    user.expires_at ? new Date(user.expires_at).toLocaleDateString('fr-FR') : "Permanente",
+    user.total_time_seconds || 0,
+    `"${formatTime(user.total_time_seconds || 0)}"`
+  ]);
+
+  const csvContent = "data:text/csv;charset=utf-8,\uFEFF" 
+    + [headers.join(";"), ...rows.map(r => r.join(";"))].join("\n");
+
+  const encodedUri = encodeURI(csvContent);
   const link = document.createElement("a");
-  const url = URL.createObjectURL(blob);
-  
-  const dateStr = new Date().toISOString().split('T')[0];
-  link.setAttribute("href", url);
-  link.setAttribute("download", `compteurs_connexion_${dateStr}.csv`);
-  link.style.visibility = 'hidden';
-  
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", `export_utilisateurs_${new Date().toISOString().split('T')[0]}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
