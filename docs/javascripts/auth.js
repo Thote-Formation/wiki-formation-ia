@@ -134,7 +134,10 @@ function injectHeaderButtons(supabase, getUrl, isAdmin, firstName) {
 // ==========================================
 // GESTION DU CHRONOMÈTRE
 // ==========================================
-function initTimeTracker(supabase, userId, initialTotalSeconds) {
+// ==========================================
+// GESTION DU CHRONOMÈTRE ET MESSAGE BIENVENUE
+// ==========================================
+function initTimeTracker(supabase, userId, initialTotalSeconds, firstName) {
   const sessionStartTime = Date.now();
   const baseTotalSeconds = initialTotalSeconds;
 
@@ -155,21 +158,38 @@ function initTimeTracker(supabase, userId, initialTotalSeconds) {
   }
 
   function updateHeaderBadge(totalSec) {
-    let badge = document.getElementById('time-spent-display');
+    let container = document.getElementById('user-info-container');
     
-    if (!badge) {
+    if (!container) {
       const searchBox = document.querySelector('.md-search');
       if (searchBox && searchBox.parentNode) {
-        badge = document.createElement('div');
-        badge.id = 'time-spent-display';
-        badge.className = 'header-time-badge';
-        // Ajustement taille badge chrono
-        badge.style.cssText = 'margin-left: 14px; padding: 7px 16px; background: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 20px; font-size: 0.9em; font-weight: 600; display: inline-flex; align-items: center; white-space: nowrap;';
+        // Conteneur principal
+        container = document.createElement('div');
+        container.id = 'user-info-container';
+        container.style.cssText = 'display: inline-flex; flex-direction: column; align-items: center; justify-content: center; margin-left: 14px; vertical-align: middle;';
         
-        searchBox.parentNode.appendChild(badge);
+        // 1. Text "Bonjour Prénom" au-dessus, sans bordure
+        if (firstName) {
+          const welcomeLabel = document.createElement('span');
+          welcomeLabel.id = 'welcome-text-label';
+          welcomeLabel.style.cssText = 'color: rgba(255, 255, 255, 0.95); font-size: 0.78em; font-weight: 600; margin-bottom: 2px; white-space: nowrap; line-height: 1;';
+          welcomeLabel.innerHTML = `👋 Bonjour <strong style="color: #ffffff;">${firstName}</strong>`;
+          container.appendChild(welcomeLabel);
+        }
+
+        // 2. Badge Chronomètre
+        const badge = document.createElement('div');
+        badge.id = 'time-spent-display';
+        badge.style.cssText = 'padding: 4px 14px; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 20px; font-size: 0.85em; font-weight: 700; display: inline-flex; align-items: center; white-space: nowrap;';
+        
+        container.appendChild(badge);
+
+        // Insertion après la barre de recherche
+        searchBox.parentNode.insertBefore(container, searchBox.nextSibling);
       }
     }
 
+    const badge = document.getElementById('time-spent-display');
     if (badge) {
       badge.textContent = formatTime(totalSec);
     }
