@@ -87,10 +87,10 @@ async function initAuthCheck() {
     firstName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
   }
 
-  // 📌 4. MISE À JOUR DU TITRE PRINCIPAL ("Bonjour [PRENOM], bienvenue sur ta formation IA générative")
+  // 📌 4. TITRE AVEC PRÉNOM + BIENVENUE EN SOUS-TITRE
   updateHeaderTitle(firstName);
 
-  // 5. Suivi du temps (Chrono seul à droite)
+  // 5. Suivi du temps (Chrono à droite)
   const initialSeconds = (profile && profile.total_time_seconds) ? profile.total_time_seconds : 0;
   initTimeTracker(supabase, session.user.id, initialSeconds);
 
@@ -99,18 +99,21 @@ async function initAuthCheck() {
 }
 
 // ==========================================
-// PERSONNALISATION DU TITRE DU HEADER
+// PERSONNALISATION DU TITRE DU HEADER (SUR 2 LIGNES)
 // ==========================================
 function updateHeaderTitle(firstName) {
   function applyTitle() {
-    // Cibler l'élément du titre dans MkDocs / Material
     const titleElement = document.querySelector('.md-header__title .md-ellipsis') || document.querySelector('.md-header__title');
     if (titleElement) {
-      if (firstName) {
-        titleElement.innerHTML = `Bonjour <strong>${firstName}</strong>, bienvenue sur ta formation IA générative`;
-      } else {
-        titleElement.textContent = `Bienvenue sur ta formation IA générative`;
-      }
+      // Forcer un conteneur en flex column pour aligner le message et le sous-titre
+      titleElement.style.cssText = "display: inline-flex !important; flex-direction: column !important; justify-content: center !important; line-height: 1.25 !important; vertical-align: middle;";
+      
+      const nameText = firstName ? `Bonjour ${firstName}` : "Bonjour";
+      
+      titleElement.innerHTML = `
+        <span style="font-size: 1.15em; font-weight: 700; color: #ffffff;">👋 ${nameText}</span>
+        <span style="font-size: 0.78em; font-weight: 400; color: rgba(255, 255, 255, 0.85); margin-top: 1px;">Bienvenue sur ta formation IA générative</span>
+      `;
     }
   }
 
@@ -190,7 +193,6 @@ function initTimeTracker(supabase, userId, initialTotalSeconds) {
       if (searchBox && searchBox.parentNode) {
         badge = document.createElement('div');
         badge.id = 'time-spent-display';
-        // Texte seul grand, net, bien espacé
         badge.style.cssText = 'color: #ffffff; font-size: 1.05em; font-weight: 600; white-space: nowrap; margin-left: 14px; margin-right: 6px; display: inline-flex; align-items: center; vertical-align: middle; text-shadow: 0 1px 2px rgba(0,0,0,0.25);';
         
         searchBox.parentNode.appendChild(badge);
