@@ -92,8 +92,7 @@ nav:
       - Calculateur de Tokens: outils-interactifs/calculateur-tokens.md
       - Audit Biais & Inclusivité: outils-interactifs/audit-biais.md
       - Formateur JSON/CSV/MD: outils-interactifs/formateur-donnees.md
-      
-
+       
   - Ressources:
       - Cas pratiques:
           - Vue d'ensemble: cas-pratiques/index.md
@@ -127,6 +126,7 @@ nav:
           - Les Agents IA: articles/agents-rag.md
 
   - Glossaire: glossaire.md
+  - Mini-jeux: mini-jeux.md
 
 plugins:
   - search:
