@@ -119,7 +119,10 @@ nav:
           - Les Agents IA: articles/agents-rag.md
 
   - Glossaire: glossaire.md
-  - Mini-jeux: mini-jeux.md
+  - Mini-jeux: 
+      - Escape Room: mini-jeux.md
+      - Le détective des hallucinations: mini-jeux2.md
+      - Le Chef Prompteur: mini jeux3.md
 
 plugins:
   - search:
