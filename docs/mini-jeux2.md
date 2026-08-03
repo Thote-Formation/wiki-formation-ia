@@ -6,54 +6,107 @@ Votre mission : passer en revue 8 réponses données par une IA fictive, et dét
 
 ---
 
-<div id="detective-container" style="background: #1e1e2e; color: #cdd6f4; border-radius: 12px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); font-family: system-ui, -apple-system, sans-serif;">
+<style>
+  /* Extensions CSS légères dédiées aux composants dynamiques du jeu */
+  .detective-claim-card {
+    background: var(--md-code-bg-color, #f8fafc);
+    border: 1px solid var(--md-default-fg-color--lightest, #cbd5e1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    min-height: 100px;
+  }
 
-  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #313244; padding-bottom:12px; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-    <span id="case-indicator" style="background:#89b4fa; color:#11111b; font-weight:bold; padding:4px 12px; border-radius:12px; font-size:0.85em;">DOSSIER 1 / 8</span>
-    <div style="text-align:right;">
-      <span style="font-size:0.8em; color:#a6adc8;">Bonnes déductions</span>
-      <div id="score-display" style="font-weight:bold; font-size:1.1em; color:#f9e2af;">0 / 8</div>
+  [data-md-color-scheme="slate"] .detective-claim-card {
+    background: #1e293b;
+    border-color: #475569;
+  }
+
+  .detective-btn-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .detective-btn-group .wiki-button {
+    flex: 1;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .btn-success-style {
+    background: #16a34a !important;
+    color: #ffffff !important;
+    border-color: #16a34a !important;
+  }
+
+  .btn-danger-style {
+    background: #dc2626 !important;
+    color: #ffffff !important;
+    border-color: #dc2626 !important;
+  }
+</style>
+
+<!-- INTERFACE DU JEU -->
+<div id="detective-container" class="prompt-generator">
+
+  <!-- En-tête -->
+  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--md-default-fg-color--lightest, #cbd5e1); padding-bottom: 16px; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+    <span id="case-indicator" class="wiki-badge primary">DOSSIER 1 / 8</span>
+    <div style="text-align: right;">
+      <span style="font-size: 0.8rem; font-weight: 600; opacity: 0.8;">Bonnes déductions</span>
+      <div id="score-display" style="font-weight: 700; font-size: 1.15rem; color: var(--md-primary-fg-color);">0 / 8</div>
     </div>
   </div>
 
-  <div id="claim-card" style="background:#181825; border-radius:8px; padding:20px; margin-bottom:20px; min-height:100px;">
-    <div style="font-size:0.8em; color:#a6adc8; margin-bottom:8px;">🤖 RÉPONSE DE L'IA :</div>
-    <div id="claim-text" style="font-size:1.05em; line-height:1.5;"></div>
+  <!-- Carte d'affirmation -->
+  <div id="claim-card" class="detective-claim-card">
+    <div style="font-size: 0.8rem; font-weight: 700; opacity: 0.8; margin-bottom: 8px;">🤖 RÉPONSE DE L'IA :</div>
+    <div id="claim-text" style="font-size: 1.05rem; line-height: 1.5; font-weight: 500;"></div>
   </div>
 
-  <div id="choices-container" style="display:flex; gap:12px; margin-bottom:16px;">
-    <button id="btn-fiable" style="flex:1; background:#a6e3a1; color:#11111b; border:none; padding:14px; border-radius:8px; font-weight:bold; cursor:pointer; font-size:1em;">✅ Fiable</button>
-    <button id="btn-halluc" style="flex:1; background:#f38ba8; color:#11111b; border:none; padding:14px; border-radius:8px; font-weight:bold; cursor:pointer; font-size:1em;">⚠️ Hallucinée</button>
+  <!-- Choix -->
+  <div id="choices-container" class="detective-btn-group">
+    <button id="btn-fiable" class="wiki-button btn-success-style">✅ Fiable</button>
+    <button id="btn-halluc" class="wiki-button btn-danger-style">⚠️ Hallucinée</button>
   </div>
 
-  <div id="feedback-box" style="display:none; border-radius:8px; padding:14px; margin-bottom:16px; font-size:0.95em;"></div>
+  <!-- Feedback après réponse -->
+  <div id="feedback-box" class="real-life-box" style="display: none; margin-top: 0; margin-bottom: 16px;"></div>
 
-  <button id="next-btn" style="display:none; background:#cba6f7; color:#11111b; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer;">Dossier suivant →</button>
+  <!-- Bouton suivant -->
+  <button id="next-btn" class="wiki-button primary" style="display: none; margin-bottom: 16px; cursor: pointer;">
+    Dossier suivant →
+  </button>
 
-  <div id="debrief-box" style="display:none; background:#232634; border:2px solid #a6e3a1; border-radius:8px; padding:20px; margin-top:10px;">
-    <h3 style="color:#a6e3a1; margin-top:0;">🕵️ ENQUÊTE TERMINÉE</h3>
-    <p id="debrief-score" style="font-weight:bold;"></p>
+  <!-- Bilan final -->
+  <div id="debrief-box" class="good-reflex-box" style="display: none; margin-top: 10px;">
+    <h3 style="margin-top: 0;">🕵️ ENQUÊTE TERMINÉE</h3>
+    <p id="debrief-score" style="font-weight: 700; font-size: 1.1rem;"></p>
     <p>Pourquoi une IA hallucine-t-elle ?</p>
-    <div style="display:flex; flex-direction:column; gap:12px; margin:16px 0;">
-      <div style="background:#181825; padding:12px; border-radius:6px;">
+    
+    <div style="display: flex; flex-direction: column; gap: 12px; margin: 16px 0;">
+      <div class="wiki-card">
         📊 <strong>1. L'IA prédit du texte, elle ne consulte pas une base de faits :</strong><br>
-        <small style="color:#a6adc8;">Un modèle de langage génère le mot le plus probable suivant, sans vérifier automatiquement l'exactitude de ce qu'il écrit.</small>
+        <small style="opacity: 0.8;">Un modèle de langage génère le mot le plus probable suivant, sans vérifier automatiquement l'exactitude de ce qu'il écrit.</small>
       </div>
-      <div style="background:#181825; padding:12px; border-radius:6px;">
+      <div class="wiki-card">
         🎯 <strong>2. Plus le sujet est précis ou rare, plus le risque augmente :</strong><br>
-        <small style="color:#a6adc8;">Dates exactes, chiffres précis, références juridiques, citations d'articles : ce sont les zones à haut risque d'invention.</small>
+        <small style="opacity: 0.8;">Dates exactes, chiffres précis, références juridiques, citations d'articles : ce sont les zones à haut risque d'invention.</small>
       </div>
-      <div style="background:#181825; padding:12px; border-radius:6px;">
+      <div class="wiki-card">
         😎 <strong>3. Le ton confiant ne prouve rien :</strong><br>
-        <small style="color:#a6adc8;">Une IA formule ses inventions avec la même assurance que ses réponses correctes. La confiance affichée n'est pas un indicateur de fiabilité.</small>
+        <small style="opacity: 0.8;">Une IA formule ses inventions avec la même assurance que ses réponses correctes. La confiance affichée n'est pas un indicateur de fiabilité.</small>
       </div>
-      <div style="background:#181825; padding:12px; border-radius:6px;">
+      <div class="wiki-card">
         🛠️ <strong>4. Comment se protéger :</strong><br>
-        <small style="color:#a6adc8;">Toujours vérifier les chiffres, dates, citations et sources auprès d'une référence fiable. Demander à l'IA ses sources et croiser avec une recherche indépendante.</small>
+        <small style="opacity: 0.8;">Toujours vérifier les chiffres, dates, citations et sources auprès d'une référence fiable. Demander à l'IA ses sources et croiser avec une recherche indépendante.</small>
       </div>
     </div>
-    <button onclick="restartGame()" style="background:#a6e3a1; color:#11111b; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer;">🔄 Rouvrir l'enquête</button>
+
+    <button onclick="restartGame()" class="wiki-button primary">🔄 Rouvrir l'enquête</button>
   </div>
+
 </div>
 
 <script>
@@ -96,12 +149,18 @@ function answer(userSaysHalluc) {
 
   const fb = document.getElementById('feedback-box');
   fb.style.display = 'block';
-  fb.style.background = correct ? 'rgba(166,227,161,0.15)' : 'rgba(243,139,168,0.15)';
-  fb.style.border = correct ? '1px solid #a6e3a1' : '1px solid #f38ba8';
-  fb.innerHTML = (correct ? '<strong>Bonne déduction !</strong><br>' : '<strong>Raté !</strong><br>') + c.explain;
+  
+  // Bascule dynamique selon la réponse
+  if (correct) {
+    fb.className = "good-reflex-box";
+    fb.innerHTML = `<strong>Bonne déduction !</strong><br>${c.explain}`;
+  } else {
+    fb.className = "warning-practice-box";
+    fb.innerHTML = `<strong>Raté !</strong><br>${c.explain}`;
+  }
 
   document.getElementById('choices-container').style.display = 'none';
-  document.getElementById('next-btn').style.display = 'inline-block';
+  document.getElementById('next-btn').style.display = 'inline-flex';
 }
 
 function nextCase() {
