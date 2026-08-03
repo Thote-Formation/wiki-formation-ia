@@ -111,7 +111,7 @@ function updateHeaderTitle(firstName) {
       const nameText = firstName ? `Bonjour ${firstName}` : "Bonjour";
       
       titleElement.innerHTML = `
-        <span style="font-size: 1.15em; font-weight: 700; color: #ffffff;">${nameText}$👋</span>
+        <span style="font-size: 1.15em; font-weight: 700; color: #ffffff;">${nameText}👋</span>
         <span style="font-size: 0.78em; font-weight: 400; color: rgba(255, 255, 255, 0.85); margin-top: 1px;">Bienvenue sur ta formation IA générative</span>
       `;
     }
