@@ -100,13 +100,6 @@ nav:
           - Communication: cas-pratiques/communication.md
           - Ressources humaines: cas-pratiques/rh.md
 
-      - Templates et méthodes:
-          - Anonymisation: anonymisation.md
-          - Prompt CROFT: prompt-croft.md
-          - Prompt visuel: prompt-visuel.md
-          - Audit de biais: audit-biais.md
-          - Checklist accessibilité: checklist-accessibilite.md
-
       - Comparatifs IA:
           - Comparatif LLM: outils/comparatif.md
           - ChatGPT: outils/chatgpt.md
