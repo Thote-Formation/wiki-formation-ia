@@ -54,7 +54,7 @@ async function initAuthCheck() {
   // 3. SI CONNECTÉ : VÉRIFICATION DU PROFIL ET DU RÔLE
   const { data: profile, error } = await supabase
     .from('profiles')
-    .select('expires_at, is_active, total_time_seconds, role')
+    .select('expires_at, is_active, total_time_seconds, role, first_name, email')
     .eq('id', session.user.id)
     .maybeSingle();
 
@@ -80,23 +80,40 @@ async function initAuthCheck() {
     return;
   }
 
+  // Déterminer le prénom (avec fallback sur le début de l'e-mail si non renseigné)
+  let firstName = profile.first_name;
+  if (!firstName && profile.email) {
+    const rawName = profile.email.split('@')[0].split('.')[0];
+    firstName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
+  }
+
   // 4. Suivi du temps dans le header
   const initialSeconds = (profile && profile.total_time_seconds) ? profile.total_time_seconds : 0;
   initTimeTracker(supabase, session.user.id, initialSeconds);
 
-  // 5. Injections dans le header (Bouton Admin si autorisé + Déconnexion)
-  injectHeaderButtons(supabase, getUrl, isAdmin);
+  // 5. Injections dans le header (Bonjour Prénom + Bouton Admin si autorisé + Déconnexion)
+  injectHeaderButtons(supabase, getUrl, isAdmin, firstName);
 }
 
 // ==========================================
-// GESTION DES BOUTONS DU HEADER (ADMIN + DECONNEXION)
+// GESTION DES BOUTONS ET INFORMATIONS DU HEADER
 // ==========================================
-function injectHeaderButtons(supabase, getUrl, isAdmin) {
+function injectHeaderButtons(supabase, getUrl, isAdmin, firstName) {
   const searchBox = document.querySelector('.md-search');
   if (!searchBox || !searchBox.parentNode) return;
 
   // Style agrandi & équilibré
   const styleCommon = 'text-decoration: none; padding: 7px 16px; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 20px; font-size: 0.9em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap;';
+
+  // Badge Bonjour Prénom
+  if (firstName && !document.getElementById('welcome-user-badge')) {
+    const welcomeBadge = document.createElement('span');
+    welcomeBadge.id = 'welcome-user-badge';
+    welcomeBadge.style.cssText = 'color: #ffffff; font-size: 0.9em; font-weight: 600; margin-left: 12px; white-space: nowrap; display: inline-flex; align-items: center;';
+    welcomeBadge.innerHTML = `👋 Bonjour <strong style="color: #93c5fd; margin-left: 4px;">${firstName}</strong>`;
+    
+    searchBox.parentNode.appendChild(welcomeBadge);
+  }
 
   // Bouton Admin
   if (isAdmin && !document.getElementById('admin-btn')) {
@@ -253,4 +270,3 @@ document.addEventListener("DOMContentLoaded", function () {
     resetInactivityTimer();
   }
 })();
-
