@@ -122,7 +122,7 @@ nav:
   - Mini-jeux: 
       - Escape Room: mini-jeux.md
       - Le détective des hallucinations: mini-jeux2.md
-      - Le Chef Prompteur: mini jeux3.md
+      - Le Chef Prompteur: mini-jeux3.md
 
 plugins:
   - search:
