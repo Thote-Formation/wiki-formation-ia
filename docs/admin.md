@@ -3,7 +3,7 @@
 <div id="admin-container" style="display:none;">
 
   <!-- BARRE D'ACTIONS : RECHERCHE + BOUTONS -->
-  <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+  <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
     <input type="text" id="search-input" placeholder="🔍 Rechercher par nom, prénom ou email..." style="padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; flex: 1; min-width: 250px;">
     
     <div style="display: flex; gap: 10px;">
@@ -16,11 +16,11 @@
     </div>
   </div>
 
-  <!-- TABLEAU DES UTILISATEURS AVEC TRI SUR LES EN-TÊTES -->
-  <div style="overflow-x: auto;">
-    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+  <!-- TABLEAU COMPACT AVEC DÉFILEMENT INTERNE ET EN-TÊTE FIXE -->
+  <div style="max-height: 65vh; overflow-y: auto; overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
       <thead>
-        <tr style="background-color: #1e293b; color: white; text-align: left;">
+        <tr style="background-color: #1e293b; color: white; text-align: left; position: sticky; top: 0; z-index: 10;">
           <th onclick="sortUsers('last_name')" style="padding: 10px; cursor: pointer; user-select: none;">
             Nom <span id="sort-last_name">↕</span>
           </th>
@@ -42,7 +42,7 @@
           <th onclick="sortUsers('total_time_seconds')" style="padding: 10px; cursor: pointer; user-select: none;">
             Temps passé <span id="sort-total_time_seconds">↕</span>
           </th>
-          <th style="padding: 10px;">Actions</th>
+          <th style="padding: 10px; text-align: center;">Actions</th>
         </tr>
       </thead>
       <tbody id="users-table-body">
@@ -116,7 +116,6 @@ let currentSortColumn = 'last_name';
 let currentSortAsc = true;
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // Attendre l'initialisation de Supabase
   const checkSupabase = setInterval(async () => {
     if (window.supabaseClient) {
       clearInterval(checkSupabase);
@@ -131,13 +130,9 @@ async function initAdminPage() {
 
   if (!session) return;
 
-  // Affichage de la page si autorisé
   document.getElementById('admin-container').style.display = 'block';
-
-  // Écouteur recherche
   document.getElementById('search-input').addEventListener('input', filterUsers);
 
-  // Charger les utilisateurs
   await loadUsers();
 }
 
@@ -185,6 +180,12 @@ function applySortAndRender() {
     let valA = a[currentSortColumn] ?? '';
     let valB = b[currentSortColumn] ?? '';
 
+    // Gestion du tri spécifique pour les admins en illimité
+    if (currentSortColumn === 'expires_at') {
+      if (a.role === 'admin') valA = '9999-12-31';
+      if (b.role === 'admin') valB = '9999-12-31';
+    }
+
     if (currentSortColumn === 'total_time_seconds') {
       valA = Number(valA) || 0;
       valB = Number(valB) || 0;
@@ -202,7 +203,6 @@ function applySortAndRender() {
 }
 
 function renderTable(users) {
-  // Mise à jour des flèches d'en-tête
   const columns = ['last_name', 'first_name', 'email', 'role', 'is_active', 'expires_at', 'total_time_seconds'];
   columns.forEach(col => {
     const el = document.getElementById(`sort-${col}`);
@@ -225,25 +225,31 @@ function renderTable(users) {
 
   users.forEach(user => {
     const tr = document.createElement('tr');
-    tr.style.borderBottom = '1px solid #ddd';
+    tr.style.borderBottom = '1px solid #eee';
 
     const formattedTime = formatTime(user.total_time_seconds || 0);
-    const formattedDate = user.expires_at ? new Date(user.expires_at).toLocaleDateString('fr-FR') : 'Permanente';
+
+    // GESTION ILLIMITÉE POUR LES ADMINS
+    const isAdmin = user.role === 'admin';
+    const formattedDate = isAdmin 
+      ? '<span style="color: #27ae60; font-weight: bold;">∞ Illimitée</span>' 
+      : (user.expires_at ? new Date(user.expires_at).toLocaleDateString('fr-FR') : 'Permanente');
+
     const statusBadge = user.is_active 
       ? '<span style="color: #27ae60; font-weight: bold;">Actif</span>' 
       : '<span style="color: #e74c3c; font-weight: bold;">Inactif</span>';
 
     tr.innerHTML = `
-      <td style="padding: 10px;">${escapeHtml(user.last_name || '-')}</td>
-      <td style="padding: 10px;">${escapeHtml(user.first_name || '-')}</td>
-      <td style="padding: 10px;">${escapeHtml(user.email || '-')}</td>
-      <td style="padding: 10px;"><span style="text-transform: capitalize;">${escapeHtml(user.role || 'user')}</span></td>
-      <td style="padding: 10px;">${statusBadge}</td>
-      <td style="padding: 10px;">${formattedDate}</td>
-      <td style="padding: 10px; font-weight: 600;">⏱️ ${formattedTime}</td>
-      <td style="padding: 10px; white-space: nowrap;">
-        <button onclick="openEditModal('${user.id}')" style="padding: 4px 8px; margin-right: 4px; background: #f39c12; color: white; border: none; border-radius: 4px; cursor: pointer;">✏️</button>
-        <button onclick="deleteUser('${user.id}')" style="padding: 4px 8px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer;">🗑️</button>
+      <td style="padding: 8px 10px;">${escapeHtml(user.last_name || '-')}</td>
+      <td style="padding: 8px 10px;">${escapeHtml(user.first_name || '-')}</td>
+      <td style="padding: 8px 10px;">${escapeHtml(user.email || '-')}</td>
+      <td style="padding: 8px 10px;"><span style="text-transform: capitalize; font-weight: ${isAdmin ? 'bold' : 'normal'}; color: ${isAdmin ? '#2980b9' : 'inherit'}">${escapeHtml(user.role || 'user')}</span></td>
+      <td style="padding: 8px 10px;">${statusBadge}</td>
+      <td style="padding: 8px 10px;">${formattedDate}</td>
+      <td style="padding: 8px 10px; font-weight: 600;">⏱️ ${formattedTime}</td>
+      <td style="padding: 8px 10px; text-align: center; white-space: nowrap;">
+        <button onclick="openEditModal('${user.id}')" style="padding: 4px 8px; margin-right: 4px; background: #f39c12; color: white; border: none; border-radius: 4px; cursor: pointer;" title="Modifier">✏️</button>
+        <button onclick="deleteUser('${user.id}')" style="padding: 4px 8px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer;" title="Supprimer">🗑️</button>
       </td>
     `;
     tbody.appendChild(tr);
@@ -288,7 +294,7 @@ function openEditModal(userId) {
   document.getElementById('form-last-name').value = user.last_name || "";
   document.getElementById('form-first-name').value = user.first_name || "";
   document.getElementById('form-email').value = user.email || "";
-  document.getElementById('form-email').disabled = true; // Empêcher la modification d'email direct
+  document.getElementById('form-email').disabled = true;
   document.getElementById('password-group').style.display = "none";
   document.getElementById('form-password').required = false;
   document.getElementById('form-role').value = user.role || "user";
@@ -324,7 +330,6 @@ async function handleFormSubmit(event) {
   const expiresAt = expiresAtVal ? new Date(expiresAtVal).toISOString() : null;
 
   if (userId) {
-    // MODIFICATION
     const { error } = await supabase
       .from('profiles')
       .update({
@@ -343,7 +348,6 @@ async function handleFormSubmit(event) {
       await loadUsers();
     }
   } else {
-    // CRÉATION
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
@@ -361,7 +365,6 @@ async function handleFormSubmit(event) {
     }
 
     if (data.user) {
-      // Mettre à jour le profil créé
       await supabase
         .from('profiles')
         .update({
@@ -410,7 +413,7 @@ function exportCSV() {
     `"${(user.email || '').replace(/"/g, '""')}"`,
     `"${user.role || 'user'}"`,
     user.is_active ? "Actif" : "Inactif",
-    user.expires_at ? new Date(user.expires_at).toLocaleDateString('fr-FR') : "Permanente",
+    user.role === 'admin' ? "Illimitée" : (user.expires_at ? new Date(user.expires_at).toLocaleDateString('fr-FR') : "Permanente"),
     user.total_time_seconds || 0,
     `"${formatTime(user.total_time_seconds || 0)}"`
   ]);
