@@ -96,25 +96,13 @@ async function initAuthCheck() {
 }
 
 // ==========================================
-// GESTION DES BOUTONS ET INFORMATIONS DU HEADER
+// GESTION DES BOUTONS DU HEADER (ADMIN + DECONNEXION)
 // ==========================================
 function injectHeaderButtons(supabase, getUrl, isAdmin, firstName) {
   const searchBox = document.querySelector('.md-search');
   if (!searchBox || !searchBox.parentNode) return;
 
-  // Style commun harmonisé pour TOUS les éléments du header
-  const styleCommon = 'text-decoration: none; padding: 7px 16px; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 20px; font-size: 0.9em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; cursor: default; white-space: nowrap;';
-
-  // Badge Bonjour Prénom (Même forme pilule que le chronomètre)
-  if (firstName && !document.getElementById('welcome-user-badge')) {
-    const welcomeBadge = document.createElement('div');
-    welcomeBadge.id = 'welcome-user-badge';
-    welcomeBadge.className = 'header-welcome-badge';
-    welcomeBadge.style.cssText = styleCommon + ' margin-left: 10px;';
-    welcomeBadge.innerHTML = `👋 Bonjour <strong style="color: #ffffff; margin-left: 2px;">${firstName}</strong>`;
-    
-    searchBox.parentNode.appendChild(welcomeBadge);
-  }
+  const styleCommon = 'text-decoration: none; padding: 7px 16px; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 20px; font-size: 0.9em; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap;';
 
   // Bouton Admin
   if (isAdmin && !document.getElementById('admin-btn')) {
@@ -123,7 +111,7 @@ function injectHeaderButtons(supabase, getUrl, isAdmin, firstName) {
     adminBtn.className = 'header-admin-btn';
     adminBtn.href = getUrl('/admin/');
     adminBtn.textContent = '⚙️';
-    adminBtn.style.cssText = styleCommon + ' margin-left: 8px; cursor: pointer;';
+    adminBtn.style.cssText = styleCommon + ' margin-left: 10px;';
     
     searchBox.parentNode.appendChild(adminBtn);
   }
@@ -134,7 +122,7 @@ function injectHeaderButtons(supabase, getUrl, isAdmin, firstName) {
     logoutBtn.id = 'logout-btn';
     logoutBtn.className = 'header-logout-btn';
     logoutBtn.textContent = 'Déconnexion';
-    logoutBtn.style.cssText = styleCommon + ' margin-left: 8px; cursor: pointer;';
+    logoutBtn.style.cssText = styleCommon + ' margin-left: 8px;';
     logoutBtn.onclick = async () => {
       await supabase.auth.signOut();
       window.location.href = getUrl('/connexion/');
