@@ -161,24 +161,24 @@ function initTimeTracker(supabase, userId, initialTotalSeconds, firstName) {
     if (!container) {
       const searchBox = document.querySelector('.md-search');
       if (searchBox && searchBox.parentNode) {
-        // Conteneur principal forcé en bloc vertical
+        // Conteneur principal vertical et bien espacé
         container = document.createElement('div');
         container.id = 'user-info-container';
-        container.style.cssText = 'display: inline-flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; margin-left: 14px; vertical-align: middle; line-height: 1.1;';
+        container.style.cssText = 'display: inline-flex !important; flex-direction: column !important; align-items: flex-start !important; justify-content: center !important; margin-left: 14px; margin-right: 6px; vertical-align: middle; line-height: 1.25;';
         
-        // 1. Text "Bonjour Prénom" sans bordure au-dessus
+        // 1. "👋 Bonjour Pierre" (plus grand, net, sans bordure)
         if (firstName) {
           const welcomeLabel = document.createElement('span');
           welcomeLabel.id = 'welcome-text-label';
-          welcomeLabel.style.cssText = 'color: #ffffff; font-size: 0.75em; font-weight: 600; margin-bottom: 3px; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.3);';
-          welcomeLabel.innerHTML = `👋 Bonjour <strong style="color: #93c5fd;">${firstName}</strong>`;
+          welcomeLabel.style.cssText = 'color: #ffffff; font-size: 0.9em; font-weight: 600; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.2);';
+          welcomeLabel.innerHTML = `👋 Bonjour <strong style="color: #ffffff;">${firstName}</strong>`;
           container.appendChild(welcomeLabel);
         }
 
-        // 2. Badge Chronomètre
+        // 2. Chronomètre (Sans pilule/fond/bordure, plus lisible)
         const badge = document.createElement('div');
         badge.id = 'time-spent-display';
-        badge.style.cssText = 'padding: 5px 14px; background: rgba(255, 255, 255, 0.18); color: white; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 20px; font-size: 0.85em; font-weight: 700; display: inline-flex; align-items: center; white-space: nowrap;';
+        badge.style.cssText = 'color: rgba(255, 255, 255, 0.9); font-size: 0.88em; font-weight: 600; white-space: nowrap; margin-top: 1px;';
         
         container.appendChild(badge);
 
@@ -217,7 +217,6 @@ function initTimeTracker(supabase, userId, initialTotalSeconds, firstName) {
     document$.subscribe(() => updateHeaderBadge(getUpdatedTotalSeconds()));
   }
 }
-
 document.addEventListener("DOMContentLoaded", function () {
   const headerTopic = document.querySelector(".md-header__title");
   
