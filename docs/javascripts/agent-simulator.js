@@ -1,74 +1,85 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const startBtn = document.getElementById('start-agent-btn');
+const scenarios = {
+  travel: [
+    { type: 'thought', text: "💭 **Pensée :** L'utilisateur veut aller à Lyon. Je dois trouver un billet de train pour demain matin." },
+    { type: 'action', text: "🛠️ **Action :** Ouverture de l'outil *API SNCF Connect*..." },
+    { type: 'observation', text: "👁️ **Observation :** Train de 08h02 trouvé à 45 €. Siège disponible." },
+    { type: 'thought', text: "💭 **Pensée :** Le trajet est trouvé. Je demande la validation humaine avant de payer avec la carte de l'entreprise." },
+    { type: 'human-in-the-loop', text: "⚠️ **PAUSE DE SÉCURITÉ :** L'Agent souhaite réserver le billet de train (45 €) pour Lyon demain à 08h02.", actionName: "Réserver et payer le billet" }
+  ],
+  invoice: [
+    { type: 'thought', text: "💭 **Pensée :** L'utilisateur veut vérifier la facture #8892. Je vais utiliser la base RAG des factures." },
+    { type: 'action', text: "🛠️ **Action :** Recherche RAG du fichier *Facture_8892.pdf* dans les archives..." },
+    { type: 'observation', text: "👁️ **Observation :** Le montant est de 1 200 €, mais le RIB du fournisseur ne correspond pas à la fiche officielle." },
+    { type: 'thought', text: "💭 **Pensée :** Risque de fraude détecté. Il faut bloquer le paiement et prévenir le service comptable." },
+    { type: 'human-in-the-loop', text: "⚠️ **PAUSE DE SÉCURITÉ :** L'Agent recommande de bloquer le paiement de 1 200 € et d'envoyer une alerte sécurité.", actionName: "Bloquer le paiement et alerter" }
+  ],
+  summary: [
+    { type: 'thought', text: "💭 **Pensée :** Je dois résumer les notes brutes de la réunion RH de ce matin." },
+    { type: 'action', text: "🛠️ **Action :** Lecture du fichier *CR_RH_ProjetX.docx* via l'outil de traitement de texte..." },
+    { type: 'observation', text: "👁️ **Observation :** 5 points clés identifiés : budget validé, recrutement de 2 profils, report du projet." },
+    { type: 'thought', text: "💭 **Pensée :** La synthèse est rédigée. Je dois demander confirmation avant d'envoyer l'e-mail à toute l'équipe." },
+    { type: 'human-in-the-loop', text: "⚠️ **PAUSE DE SÉCURITÉ :** L'Agent souhaite diffuser cette synthèse par e-mail aux 12 membres du projet RH.", actionName: "Envoyer l'e-mail collectif" }
+  ]
+};
+
+let currentStep = 0;
+let selectedScenario = [];
+
+function runSimulation() {
+  const task = document.getElementById('agent-task-select').value;
+  selectedScenario = scenarios[task];
+  currentStep = 0;
+  
   const container = document.getElementById('agent-simulation-container');
-  const taskSelect = document.getElementById('agent-task-select');
+  container.innerHTML = '';
+  
+  document.getElementById('start-agent-btn').disabled = true;
+  executeNextStep();
+}
 
-  if (!startBtn || !container) return;
+function executeNextStep() {
+  if (currentStep >= selectedScenario.length) {
+    document.getElementById('start-agent-btn').disabled = false;
+    return;
+  }
 
-  const scenarios = {
-    travel: [
-      { type: 'thought', text: '🧠 **Pensée :** L\'utilisateur veut aller à Lyon. Je dois chercher un billet de train et un hôtel disponible.' },
-      { type: 'action', text: '🛠️ **Action :** Interrogation de l\'API SNCF pour un trajet Paris-Lyon demain à 08h00.' },
-      { type: 'observation', text: '👁️ **Observation :** TGV n°6601 disponible à 45 €.' },
-      { type: 'thought', text: '🧠 **Pensée :** Le train est trouvé. Je vais maintenant chercher un hôtel proche de la gare Part-Dieu.' },
-      { type: 'action', text: '🛠️ **Action :** Recherche RAG dans la base des hôtels partenaires d\'entreprise.' },
-      { type: 'observation', text: '👁️ **Observation :** Hôtel Novotel Part-Dieu disponible à 90 €/nuit.' },
-      { type: 'final', text: '✅ **Réponse Finale :** Billet de TGV réservable à 45 € (8h00) et chambre disponible au Novotel Part-Dieu (90 €). Voulez-vous valider le paiement ?' }
-    ],
-    invoice: [
-      { type: 'thought', text: '🧠 **Pensée :** Je dois vérifier la facture n°402. Je vais d\'abord la lire dans la base documentaire.' },
-      { type: 'action', text: '🛠️ **Action (RAG) :** Extraction du texte de la Facture_402.pdf.' },
-      { type: 'observation', text: '👁️ **Observation :** Montant = 4 500 € HT. Fournisseur = TechCorp.' },
-      { type: 'thought', text: '🧠 **Pensée :** Je dois comparer ce montant avec le bon de commande signé.' },
-      { type: 'action', text: '🛠️ **Action :** Reconstitution et recherche du Bon_de_Commande_BC88.pdf.' },
-      { type: 'observation', text: '👁️ **Observation :** Le bon de commande était de 3 500 € HT.' },
-      { type: 'final', text: '⚠️ **Alerte Finale :** Anomalie détectée ! La facture est supérieure de 1 000 € au bon de commande initial. Validation bloquée.' }
-    ],
-    summary: [
-      { type: 'thought', text: '🧠 **Pensée :** Je dois résumer les décisions de la réunion RH de ce matin.' },
-      { type: 'action', text: '🛠️ **Action (RAG) :** Lecture du fichier de transcription automatique Reag_RH_12.txt.' },
-      { type: 'observation', text: '👁️ **Observation :** 3 sujets abordés : Télétravail, Prime transport, Formations IA.' },
-      { type: 'thought', text: '🧠 **Pensée :** Je vais synthétiser chaque point sous forme de tableau Markdown.' },
-      { type: 'final', text: '✅ **Synthèse prête :** 1. Télétravail : 2j/semaine validés. 2. Prime transport : Hausse de 10%. 3. Formations IA : Lancement prévu le mois prochain.' }
-    ]
-  };
+  const step = selectedScenario[currentStep];
+  const container = document.getElementById('agent-simulation-container');
+  const stepDiv = document.createElement('div');
+  stepDiv.className = 'summary-box';
+  stepDiv.style.margin = '0';
+  stepDiv.style.animation = 'fadeIn 0.4s ease-in-out';
 
-  startBtn.addEventListener('click', () => {
-    const selectedTask = taskSelect.value;
-    const steps = scenarios[selectedTask];
-    container.innerHTML = '';
-    startBtn.disabled = true;
-    startBtn.style.opacity = '0.6';
+  if (step.type === 'human-in-the-loop') {
+    stepDiv.className = 'warning-practice-box';
+    stepDiv.innerHTML = `
+      <p style="margin-bottom: 10px;">${step.text}</p>
+      <div class="wiki-actions" style="margin-top: 8px;">
+        <button onclick="userDecision(true, '${step.actionName}')" class="wiki-button primary" style="background: #16a34a; border-color: #16a34a;">✅ Approuver : ${step.actionName}</button>
+        <button onclick="userDecision(false, '${step.actionName}')" class="wiki-button" style="background: #dc2626; color: white; border-color: #dc2626;">❌ Bloquer l'action</button>
+      </div>
+    `;
+    container.appendChild(stepDiv);
+  } else {
+    stepDiv.innerHTML = step.text;
+    container.appendChild(stepDiv);
+    currentStep++;
+    setTimeout(executeNextStep, 1400);
+  }
+}
 
-    steps.forEach((step, index) => {
-      setTimeout(() => {
-        const stepDiv = document.createElement('div');
-        stepDiv.style.padding = '10px 14px';
-        stepDiv.style.borderRadius = '6px';
-        stepDiv.style.fontSize = '13px';
-        stepDiv.style.lineHeight = '1.4';
-        stepDiv.style.borderLeft = '4px solid #1a5fb4';
-        stepDiv.style.background = 'var(--md-default-bg-color, #fff)';
-
-        if (step.type === 'thought') {
-          stepDiv.style.borderLeftColor = '#e5a50a'; // Jaune/Orange
-        } else if (step.type === 'action') {
-          stepDiv.style.borderLeftColor = '#1a5fb4'; // Bleu
-        } else if (step.type === 'observation') {
-          stepDiv.style.borderLeftColor = '#613583'; // Violet
-        } else if (step.type === 'final') {
-          stepDiv.style.borderLeftColor = '#2ec4b6'; // Vert
-          stepDiv.style.fontWeight = 'bold';
-        }
-
-        stepDiv.innerHTML = step.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        container.appendChild(stepDiv);
-
-        if (index === steps.length - 1) {
-          startBtn.disabled = false;
-          startBtn.style.opacity = '1';
-        }
-      }, index * 1000); // Défilement progressif toutes les secondes
-    });
-  });
-});
+function userDecision(approved, actionName) {
+  const container = document.getElementById('agent-simulation-container');
+  const finalDiv = document.createElement('div');
+  
+  if (approved) {
+    finalDiv.className = 'good-reflex-box';
+    finalDiv.innerHTML = `✅ **Action validée par l'humain :** "${actionName}" exécuté avec succès par l'Agent IA.`;
+  } else {
+    finalDiv.className = 'warning-practice-box';
+    finalDiv.innerHTML = `🛑 **Action annulée par l'humain :** L'Agent IA a interrompu la procédure en toute sécurité.`;
+  }
+  
+  container.appendChild(finalDiv);
+  document.getElementById('start-agent-btn').disabled = false;
+}
