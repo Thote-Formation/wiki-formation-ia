@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <!-- TABLEAU AJUSTÉ SANS DÉBORDEMENT -->
+  <!-- TABLEAU AJUSTÉ -->
   <div style="max-height: 70vh; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); width: 100%;">
     <table style="width: 100%; border-collapse: collapse; font-size: 0.88em; table-layout: auto;">
       <thead>
@@ -177,8 +177,8 @@ function applySortAndRender() {
     let valB = b[currentSortColumn] ?? '';
 
     if (currentSortColumn === 'expires_at') {
-      if (a.role === 'admin') valA = '9999-12-31';
-      if (b.role === 'admin') valB = '9999-12-31';
+      if (a.role === 'admin' || valA.startsWith('2099')) valA = '9999-12-31';
+      if (b.role === 'admin' || valB.startsWith('2099')) valB = '9999-12-31';
     }
 
     if (currentSortColumn === 'total_time_seconds') {
@@ -225,7 +225,9 @@ function renderTable(users) {
     const formattedTime = formatTime(user.total_time_seconds || 0);
 
     const isAdmin = user.role === 'admin';
-    const formattedDate = isAdmin 
+    const isFarFuture = user.expires_at && user.expires_at.startsWith('2099');
+    
+    const formattedDate = (isAdmin || isFarFuture) 
       ? '<span style="color: #27ae60; font-weight: bold;">∞ Illimitée</span>' 
       : (user.expires_at ? new Date(user.expires_at).toLocaleDateString('fr-FR') : 'Permanente');
 
@@ -261,7 +263,6 @@ function escapeHtml(str) {
   return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 }
 
-// GESTION DU RÔLE ET DATE D'EXPIRATION PAR DÉFAUT
 function getDefaultOneYearDate() {
   const nextYear = new Date();
   nextYear.setFullYear(nextYear.getFullYear() + 1);
@@ -274,12 +275,12 @@ function handleRoleChange() {
   const hint = document.getElementById('role-hint');
 
   if (roleSelect.value === 'admin') {
-    expiresInput.value = "";
+    expiresInput.value = "2099-12-31";
     expiresInput.disabled = true;
-    hint.textContent = "Accès illimité pour les administrateurs.";
+    hint.textContent = "Accès illimité (défini au 31/12/2099).";
   } else {
     expiresInput.disabled = false;
-    if (!expiresInput.value) {
+    if (!expiresInput.value || expiresInput.value === "2099-12-31") {
       expiresInput.value = getDefaultOneYearDate();
     }
     hint.textContent = "Par défaut : 1 an à partir d'aujourd'hui.";
@@ -317,7 +318,7 @@ function openEditModal(userId) {
   if (user.expires_at) {
     document.getElementById('form-expires-at').value = new Date(user.expires_at).toISOString().split('T')[0];
   } else {
-    document.getElementById('form-expires-at').value = "";
+    document.getElementById('form-expires-at').value = user.role === 'admin' ? "2099-12-31" : "";
   }
 
   document.getElementById('form-is-active').checked = user.is_active;
@@ -332,7 +333,7 @@ function closeModal() {
 
 async function handleFormSubmit(event) {
   event.preventDefault();
-  const supabase = window.supabaseClient;
+  const mainSupabase = window.supabaseClient;
 
   const userId = document.getElementById('form-user-id').value;
   const lastName = document.getElementById('form-last-name').value;
@@ -342,11 +343,13 @@ async function handleFormSubmit(event) {
   const expiresAtVal = document.getElementById('form-expires-at').value;
   const isActive = document.getElementById('form-is-active').checked;
 
-  const expiresAt = (role === 'admin' || !expiresAtVal) ? null : new Date(expiresAtVal).toISOString();
+  // Si admin ou pas de valeur, on met par défaut le 31/12/2099
+  const dateToUse = (role === 'admin' || !expiresAtVal) ? "2099-12-31" : expiresAtVal;
+  const expiresAt = new Date(dateToUse).toISOString();
 
   if (userId) {
-    // 1. DANS LE CAS D'UNE MODIFICATION (L'utilisateur existe déjà)
-    const { error } = await supabase
+    // 1. MODIFICATION
+    const { error } = await mainSupabase
       .from('profiles')
       .update({
         last_name: lastName,
@@ -364,11 +367,17 @@ async function handleFormSubmit(event) {
       await loadUsers();
     }
   } else {
-    // 2. DANS LE CAS D'UNE CRÉATION (Comme dans ton ancien code avec signUp !)
-    // On génère un mot de passe temporaire pour satisfaire la création de compte Supabase Auth
+    // 2. CRÉATION
+    // Pour ne pas déconnecter l'admin courant, on crée un client Supabase temporaire sans persistance de session !
+    const tempSupabase = supabase.createClient(
+      mainSupabase.supabaseUrl,
+      mainSupabase.supabaseKey,
+      { auth: { persistSession: false } }
+    );
+
     const tempPassword = "Temp#" + Math.random().toString(36).substring(2, 10) + "!2026";
 
-    const { data, error } = await supabase.auth.signUp({
+    const { data: signUpData, error: signUpError } = await tempSupabase.auth.signUp({
       email: email,
       password: tempPassword,
       options: {
@@ -379,14 +388,14 @@ async function handleFormSubmit(event) {
       }
     });
 
-    if (error) {
-      alert("Erreur lors de la création du compte : " + error.message);
+    if (signUpError) {
+      alert("Erreur lors de la création du compte : " + signUpError.message);
       return;
     }
 
-    if (data.user) {
-      // Met à jour la table profiles avec le rôle et les infos
-      await supabase
+    if (signUpData.user) {
+      // On met à jour le profil avec l'instance principale d'admin (pour garder les droits de mise à jour)
+      await mainSupabase
         .from('profiles')
         .update({
           last_name: lastName,
@@ -395,19 +404,19 @@ async function handleFormSubmit(event) {
           expires_at: expiresAt,
           is_active: isActive
         })
-        .eq('id', data.user.id);
+        .eq('id', signUpData.user.id);
 
-      // Déclenche immédiatement l'envoi du mail de définition de mot de passe
+      // Envoi du mail de réinitialisation via l'instance principale
       const redirectToUrl = window.location.origin + (window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '') + '/reinitialisation/';
       
-      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+      const { error: resetError } = await mainSupabase.auth.resetPasswordForEmail(email, {
         redirectTo: redirectToUrl,
       });
 
       if (resetError) {
         alert("Utilisateur créé, mais erreur lors de l'envoi du mail : " + resetError.message);
       } else {
-        alert(`Utilisateur créé avec succès ! Un e-mail d'activation a été envoyé à : ${email}`);
+        alert(`Utilisateur créé avec succès ! Un mail d'activation a été envoyé à : ${email}`);
       }
 
       closeModal();
@@ -415,6 +424,7 @@ async function handleFormSubmit(event) {
     }
   }
 }
+
 async function deleteUser(userId) {
   if (!confirm("Voulez-vous vraiment désactiver/supprimer cet utilisateur ?")) return;
 
@@ -446,7 +456,7 @@ function exportCSV() {
     `"${(user.email || '').replace(/"/g, '""')}"`,
     `"${user.role || 'user'}"`,
     user.is_active ? "Actif" : "Inactif",
-    user.role === 'admin' ? "Illimitée" : (user.expires_at ? new Date(user.expires_at).toLocaleDateString('fr-FR') : "Permanente"),
+    (user.role === 'admin' || (user.expires_at && user.expires_at.startsWith('2099'))) ? "Illimitée" : (user.expires_at ? new Date(user.expires_at).toLocaleDateString('fr-FR') : "Permanente"),
     user.total_time_seconds || 0,
     `"${formatTime(user.total_time_seconds || 0)}"`
   ]);
