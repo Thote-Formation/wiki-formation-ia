@@ -1,17 +1,17 @@
 # 🔤 Mots mêlés : le vocabulaire de l'IA
 
-Retrouvez les **8 mots liés à l'IA** cachés dans la grille — une nouvelle grille est générée à chaque partie ! Cliquez sur la première lettre du mot, puis sur sa dernière lettre (le mot peut être horizontal, vertical ou en diagonale, dans les deux sens).
+Retrouvez les **10 mots liés à l'IA** cachés dans la grille — à chaque partie, les mots tirés au sort ET leur disposition changent ! Cliquez sur la première lettre du mot, puis sur sa dernière lettre (le mot peut être horizontal, vertical ou en diagonale, dans les deux sens).
 
 ---
 
-<div class="wiki-card" style="max-width: 760px; margin: 0 auto;">
+<div class="wiki-card" style="max-width: 820px; margin: 0 auto;">
 
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
-    <span class="wiki-badge">Mots trouvés : <span id="ws-found">0</span> / 8</span>
+    <span class="wiki-badge">Mots trouvés : <span id="ws-found">0</span> / <span id="ws-total">10</span></span>
   </div>
 
   <div style="display:flex; gap:24px; flex-wrap:wrap;">
-    <div id="ws-grid" style="display:grid; grid-template-columns: repeat(12, minmax(24px, 1fr)); gap:3px; max-width:420px;"></div>
+    <div id="ws-grid" style="display:grid; grid-template-columns: repeat(14, minmax(20px, 1fr)); gap:2px; max-width:480px;"></div>
 
     <div style="flex:1; min-width:180px;">
       <h4 style="margin-top:0;">À trouver :</h4>
@@ -22,7 +22,7 @@ Retrouvez les **8 mots liés à l'IA** cachés dans la grille — une nouvelle g
   <div id="ws-debrief" style="display:none; margin-top:20px;">
     <div class="summary-box">
       <h3>🎉 Grille terminée !</h3>
-      <p>Vous avez retrouvé les 8 mots. Un bon réflexe : reformuler chacun d'eux dans vos propres mots pour vérifier que vous les maîtrisez.</p>
+      <p>Vous avez retrouvé tous les mots. Un bon réflexe : reformuler chacun d'eux dans vos propres mots pour vérifier que vous les maîtrisez.</p>
     </div>
     <div class="wiki-actions">
       <button class="wiki-button primary" onclick="restartWordSearch()">🔄 Nouvelle grille</button>
@@ -37,7 +37,7 @@ Retrouvez les **8 mots liés à l'IA** cachés dans la grille — une nouvelle g
   display:flex; align-items:center; justify-content:center;
   font-family: 'Roboto Mono', monospace;
   font-weight:700;
-  font-size:0.78rem;
+  font-size:0.68rem;
   border-radius:4px;
   border: 1px solid var(--md-default-fg-color--lightest, #cbd5e1);
   background: var(--md-default-bg-color, #ffffff);
@@ -64,16 +64,27 @@ Retrouvez les **8 mots liés à l'IA** cachés dans la grille — une nouvelle g
 </style>
 
 <script>
-const WS_SIZE = 12;
-const wsWordDefs = {
-  "PROMPT": "L'instruction donnée à l'IA",
-  "TOKEN":  "Unité de texte traitée par le modèle",
-  "BIAIS":  "Déséquilibre involontaire dans les réponses",
-  "AGENT":  "IA capable d'agir de façon autonome",
-  "RGPD":   "Règlement européen sur les données",
-  "LLM":    "Grand modèle de langage",
-  "IA":     "Intelligence artificielle",
-  "RAG":    "Recherche augmentée par récupération"
+const WS_SIZE = 14;
+const WORDS_PER_GAME = 10;
+
+// Pool complet : on en tire WORDS_PER_GAME au hasard à chaque partie
+const wsWordPool = {
+  "PROMPT":      "L'instruction donnée à l'IA",
+  "TOKEN":       "Unité de texte traitée par le modèle",
+  "BIAIS":       "Déséquilibre involontaire dans les réponses",
+  "AGENT":       "IA capable d'agir de façon autonome",
+  "RGPD":        "Règlement européen sur les données",
+  "LLM":         "Grand modèle de langage",
+  "IA":          "Intelligence artificielle",
+  "RAG":         "Recherche augmentée par récupération",
+  "DATA":        "Données utilisées pour entraîner un modèle",
+  "CHATBOT":     "Agent conversationnel automatisé",
+  "ALGORITHME":  "Suite d'instructions logiques",
+  "NEURONE":     "Unité de base d'un réseau neuronal",
+  "ETHIQUE":     "Principes moraux appliqués à l'IA",
+  "DEEPFAKE":    "Contenu vidéo ou audio truqué par IA",
+  "ROBOT":       "Machine programmable, parfois dotée d'IA",
+  "VECTEUR":     "Représentation numérique d'une donnée"
 };
 
 // 8 directions possibles : [dr, dc]
@@ -87,14 +98,26 @@ let wsWords = {}; // { WORD: { def, coords: [[r,c], ...] } }
 let selection = [];
 let foundWords = new Set();
 
-function tryGenerateGrid() {
+function pickRandomWords() {
+  const keys = Object.keys(wsWordPool);
+  for (let i = keys.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [keys[i], keys[j]] = [keys[j], keys[i]];
+  }
+  const chosen = keys.slice(0, WORDS_PER_GAME);
+  const defs = {};
+  chosen.forEach(w => defs[w] = wsWordPool[w]);
+  return defs;
+}
+
+function tryGenerateGrid(wordDefs) {
   const grid = Array.from({ length: WS_SIZE }, () => Array(WS_SIZE).fill(null));
   const words = {};
-  const wordList = Object.keys(wsWordDefs).sort((a, b) => b.length - a.length);
+  const wordList = Object.keys(wordDefs).sort((a, b) => b.length - a.length);
 
   for (const word of wordList) {
     let placed = false;
-    for (let attempt = 0; attempt < 200 && !placed; attempt++) {
+    for (let attempt = 0; attempt < 300 && !placed; attempt++) {
       const [dr, dc] = DIRECTIONS[Math.floor(Math.random() * DIRECTIONS.length)];
       const maxR = dr === 1 ? WS_SIZE - word.length : (dr === -1 ? word.length - 1 : WS_SIZE - 1);
       const minR = dr === 1 ? 0 : (dr === -1 ? word.length - 1 : 0);
@@ -118,7 +141,7 @@ function tryGenerateGrid() {
       if (!ok) continue;
 
       coords.forEach(([r, c], i) => { grid[r][c] = word[i]; });
-      words[word] = { def: wsWordDefs[word], coords };
+      words[word] = { def: wordDefs[word], coords };
       placed = true;
     }
     if (!placed) return null; // échec : on relance une génération complète
@@ -135,9 +158,10 @@ function tryGenerateGrid() {
 }
 
 function generatePuzzle() {
+  const wordDefs = pickRandomWords();
   let result = null;
-  for (let i = 0; i < 10 && !result; i++) result = tryGenerateGrid();
-  if (!result) result = tryGenerateGrid(); // dernier essai, cas extrêmement rare
+  for (let i = 0; i < 15 && !result; i++) result = tryGenerateGrid(wordDefs);
+  if (!result) result = tryGenerateGrid(wordDefs); // dernier essai, cas extrêmement rare
   wsGridLetters = result.grid;
   wsWords = result.words;
 }
@@ -145,6 +169,7 @@ function generatePuzzle() {
 function renderWordList() {
   const ul = document.getElementById('ws-wordlist');
   ul.innerHTML = '';
+  document.getElementById('ws-total').textContent = Object.keys(wsWords).length;
   Object.keys(wsWords).forEach(w => {
     const li = document.createElement('li');
     li.className = 'ws-word-item';
