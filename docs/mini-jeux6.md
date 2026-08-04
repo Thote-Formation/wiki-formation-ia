@@ -1,13 +1,13 @@
 # ❓ Qui suis-je ?
 
-Un concept ou un outil de l'IA se cache derrière des indices révélés un par un. Plus vous devinez tôt, plus vous marquez de points — mais attention à ne pas répondre trop vite !
+Un concept ou un outil de l'IA se cache derrière des indices révélés un par un. Plus vous devinez tôt, plus vous marquez de points — mais attention à ne pas répondre trop vite ! Les 5 manches sont tirées au hasard parmi un plus grand nombre à chaque partie.
 
 ---
 
 <div class="wiki-card" style="max-width: 700px; margin: 0 auto;">
 
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
-    <span class="wiki-badge">Manche <span id="qsj-round">1</span> / 5</span>
+    <span class="wiki-badge">Manche <span id="qsj-round">1</span> / <span id="qsj-total">5</span></span>
     <span class="wiki-badge">Score : <span id="qsj-score">0</span> pts</span>
   </div>
 
@@ -50,7 +50,10 @@ Un concept ou un outil de l'IA se cache derrière des indices révélés un par 
 </style>
 
 <script>
-const qsjRounds = [
+const ROUNDS_PER_GAME = 5;
+
+// Pool complet de manches : ROUNDS_PER_GAME sont tirées au hasard à chaque partie
+const qsjPool = [
   {
     answer: "ChatGPT",
     options: ["ChatGPT", "Claude", "Gemini", "Copilot"],
@@ -58,6 +61,15 @@ const qsjRounds = [
       "Je suis un chatbot conversationnel très connu du grand public.",
       "J'ai été lancé par OpenAI fin 2022.",
       "Mon nom évoque une discussion informelle, en anglais."
+    ]
+  },
+  {
+    answer: "Claude",
+    options: ["Claude", "ChatGPT", "Gemini", "Mistral"],
+    clues: [
+      "Je suis un assistant IA conversationnel.",
+      "Je suis développé par l'entreprise Anthropic.",
+      "Mon nom rend hommage à Claude Shannon, pionnier de la théorie de l'information."
     ]
   },
   {
@@ -82,9 +94,18 @@ const qsjRounds = [
     answer: "RGPD",
     options: ["RGPD", "IA Act", "CNIL", "RAG"],
     clues: [
-      "Je suis un texte de loi européen.",
       "Je protège les données personnelles des citoyens.",
-      "Mon sigle commence par 'Règlement Général sur...'."
+      "Je suis un texte de loi européen entré en application en 2018.",
+      "Mon sigle signifie Règlement Général sur la Protection des Données."
+    ]
+  },
+  {
+    answer: "IA Act",
+    options: ["IA Act", "RGPD", "CNIL", "RAG"],
+    clues: [
+      "Je suis aussi un texte de loi européen.",
+      "J'encadre les risques liés aux systèmes d'intelligence artificielle, pas les données personnelles en général.",
+      "Je suis entré en vigueur en 2024."
     ]
   },
   {
@@ -95,9 +116,46 @@ const qsjRounds = [
       "Un modèle de langage me découpe pour me traiter.",
       "Un seul mot peut être composé de plusieurs comme moi."
     ]
+  },
+  {
+    answer: "Deepfake",
+    options: ["Deepfake", "Hallucination", "Biais", "Prompt"],
+    clues: [
+      "Je suis un contenu vidéo ou audio manipulé.",
+      "Je peux faire dire ou faire à quelqu'un des choses qu'il n'a jamais dites ou faites.",
+      "Mon nom mélange 'apprentissage profond' et 'faux', en anglais."
+    ]
+  },
+  {
+    answer: "Chatbot",
+    options: ["Chatbot", "Agent", "LLM", "Token"],
+    clues: [
+      "Je discute avec vous par messages.",
+      "Je peux être basé sur un modèle de langage.",
+      "Mon nom vient de la contraction de 'chat' et 'robot', en anglais."
+    ]
+  },
+  {
+    answer: "Prompt Engineering",
+    options: ["Prompt Engineering", "Fine-tuning", "RAG", "Token"],
+    clues: [
+      "Je suis une compétence, pas un outil.",
+      "Je consiste à bien formuler une demande à une IA.",
+      "La méthode CROFT peut m'aider à être plus efficace."
+    ]
   }
 ];
 
+function pickRounds() {
+  const pool = [...qsjPool];
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, ROUNDS_PER_GAME);
+}
+
+let qsjRounds = [];
 let round = 0;
 let score = 0;
 let clueIndex = 0;
@@ -189,6 +247,8 @@ function nextRound() {
 }
 
 function restartQSJ() {
+  qsjRounds = pickRounds();
+  document.getElementById('qsj-total').textContent = qsjRounds.length;
   round = 0;
   score = 0;
   document.getElementById('qsj-score').textContent = '0';
