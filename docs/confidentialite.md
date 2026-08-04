@@ -12,7 +12,7 @@ Dans le cadre de l'utilisation du **Wiki Formation IA Générative** (certificat
 * **Durée de conservation :** Vos données sont conservées pendant toute la durée d'activation de votre compte de formation, puis archivées ou supprimées en cas d'inactivité prolongée.
 * **Vos droits :** Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, de suppression et de portabilité de vos données.
 
-> Pour exercer vos droits ou pour toute question relative au traitement de vos données, vous pouvez contacter l'administrateur de la plateforme à : `contact@ton-domaine.fr`.
+> Pour exercer vos droits ou pour toute question relative au traitement de vos données, vous pouvez contacter l'administrateur de la plateforme à : `pierre-l@thote-academie.fr`.
 
 ---
 
