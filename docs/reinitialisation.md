@@ -52,6 +52,13 @@
 
 </form>
 
+<!-- MENTION INFORMATION RGPD -->
+<div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.08); font-size: 0.75rem; color: var(--md-default-fg-color--light); text-align: center; line-height: 1.4;">
+  🔒 <strong>Protection des données :</strong> Les données collectées (adresse email, informations de connexion) sont hébergées dans l'Union Européenne (Suède) via Supabase et sont uniquement utilisées pour l'authentification et le suivi de formation conformément au RGPD.
+</div>
+
+</div>
+
 <!-- SDK Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
