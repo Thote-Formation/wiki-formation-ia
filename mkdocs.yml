@@ -123,6 +123,10 @@ nav:
       - Escape Room: mini-jeux.md
       - Le détective des hallucinations: mini-jeux2.md
       - Le Chef Prompteur: mini-jeux3.md
+      - Memory: mini-jeux4.md
+      - Mots mêlés: mini-jeux5.md
+      - Qui suis-je ?: mini-jeux6.md
+      - Bon prompt / à améliorer: mini-jeux7.md
 
 plugins:
   - search:
@@ -147,4 +151,4 @@ markdown_extensions:
   - md_in_html
 
 copyright: >
-  Conforme à l'IA Act Européen (Risque Limité) : ce site intègre des outils d'assistance et de génération basés sur l'intelligence artificielle.
+  Assistance IA (IA Act) & Données hébergées en UE (RGPD). <a href="/wiki-formation-ia/confidentialite/" style="color: var(--md-typeset-a-color); text-decoration: underline;">Mentions légales & Confidentialité</a>
