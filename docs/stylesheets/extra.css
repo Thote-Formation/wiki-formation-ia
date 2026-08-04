@@ -635,3 +635,13 @@ th span[id^="sort-"] {
   opacity: 0.7;
   margin-left: 4px;
 }
+/* Réduction de la hauteur du footer MkDocs */
+.md-footer-meta {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.md-copyright {
+  font-size: 0.75rem !important;
+  line-height: 1.3 !important;
+}
