@@ -345,6 +345,7 @@ async function handleFormSubmit(event) {
   const expiresAt = (role === 'admin' || !expiresAtVal) ? null : new Date(expiresAtVal).toISOString();
 
   if (userId) {
+    // 1. DANS LE CAS D'UNE MODIFICATION (L'utilisateur existe déjà)
     const { error } = await supabase
       .from('profiles')
       .update({
@@ -363,24 +364,28 @@ async function handleFormSubmit(event) {
       await loadUsers();
     }
   } else {
-    const redirectToUrl = window.location.origin + (window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '') + '/reinitialisation/';
+    // 2. DANS LE CAS D'UNE CRÉATION (Comme dans ton ancien code avec signUp !)
+    // On génère un mot de passe temporaire pour satisfaire la création de compte Supabase Auth
+    const tempPassword = "Temp#" + Math.random().toString(36).substring(2, 10) + "!2026";
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: redirectToUrl,
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: tempPassword,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName
+        }
+      }
     });
 
     if (error) {
-      alert("Erreur lors de l'envoi de l'invitation par mail : " + error.message);
+      alert("Erreur lors de la création du compte : " + error.message);
       return;
     }
 
-    const { data: existingProfile } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('email', email)
-      .maybeSingle();
-
-    if (existingProfile) {
+    if (data.user) {
+      // Met à jour la table profiles avec le rôle et les infos
       await supabase
         .from('profiles')
         .update({
@@ -390,15 +395,26 @@ async function handleFormSubmit(event) {
           expires_at: expiresAt,
           is_active: isActive
         })
-        .eq('id', existingProfile.id);
-    }
+        .eq('id', data.user.id);
 
-    alert(`Un e-mail d'invitation avec instructions pour créer un mot de passe a été envoyé à : ${email}`);
-    closeModal();
-    await loadUsers();
+      // Déclenche immédiatement l'envoi du mail de définition de mot de passe
+      const redirectToUrl = window.location.origin + (window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '') + '/reinitialisation/';
+      
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: redirectToUrl,
+      });
+
+      if (resetError) {
+        alert("Utilisateur créé, mais erreur lors de l'envoi du mail : " + resetError.message);
+      } else {
+        alert(`Utilisateur créé avec succès ! Un e-mail d'activation a été envoyé à : ${email}`);
+      }
+
+      closeModal();
+      await loadUsers();
+    }
   }
 }
-
 async function deleteUser(userId) {
   if (!confirm("Voulez-vous vraiment désactiver/supprimer cet utilisateur ?")) return;
 
