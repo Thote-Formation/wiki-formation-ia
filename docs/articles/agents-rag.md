@@ -45,13 +45,13 @@ Même si l'Agent IA est très pratique, il faut rester vigilant :
 
 * **Les erreurs (Hallucinations)** : Une IA peut se tromper si l'outil utilisé donne une mauvaise information.
 * **Le manque de contrôle** : Si vous donnez trop de pouvoirs à une IA (comme envoyer des e-mails seule), elle peut commettre une erreur.
-* **Le réflexe de sécurité** : Un humain doit toujours valider les actions importantes (payer une facture, supprimer un fichier, envoyer un message officiel).
+* **Le réflexe de sécurité (Human-in-the-loop)** : Un humain doit toujours valider les actions importantes (payer une facture, supprimer un fichier, envoyer un message officiel).
 
 ---
 
 ## 🎮 Simulateur d'Agent IA en Action
 
-Testez ce simulateur pour voir comment un Agent IA découpe une tâche complexe étape par étape :
+Testez ce simulateur pour voir comment un Agent IA découpe une tâche complexe étape par étape — et validez son action finale !
 
 <div id="agent-game-container" class="wiki-card">
   <div class="summary-box" style="margin-top: 0;">
@@ -73,17 +73,3 @@ Testez ce simulateur pour voir comment un Agent IA découpe une tâche complexe 
 </div>
 
 <script src="../../javascripts/agent-simulator.js"></script>
-
----
-
-## 💡 Idées d'interactivités supplémentaires possibles
-
-Si tu souhaites aller plus loin et rendre cet article encore plus ludique et pédagogique, voici **3 modules interactifs** très faciles à ajouter :
-
-1. **Le Comparateur "Chatbot vs Agent IA" (Glisser-Déposer ou QCM)**
-   * *Le concept :* Tu donnes 4 situations (ex: *"Répondre à un e-mail avec les chiffres de vente du mois"*, *"Définir ce qu'est la photosynthèse"*). L'utilisateur doit cliquer pour indiquer si c'est le rôle d'un simple Chatbot ou d'un Agent IA.
-2. **Le Générateur de Pipeline RAG (Visuel pas-à-pas)**
-   * *Le concept :* Un petit schéma interactif où l'utilisateur clique sur 1, 2, 3 pour voir le chemin d'une question RAG :  
-     `Question de l'utilisateur` ➔ `Découpage du document` ➔ `Recherche de la bonne phrase` ➔ `Génération de la réponse finale par l'IA`.
-3. **Le Bouton de Validation Humaine ("Human-in-the-loop") dans le simulateur**
-   * *Le concept :* Dans ton simulateur actuel, à l'étape finale (ex: *"Envoyer la réservation"* ou *"Valider le paiement de la facture"*), le jeu fait une pause et demande à l'utilisateur d'appuyer sur **"✅ Approuver l'action"** ou **"❌ Interrompre l'IA"**. Cela montre concrètement qu'un humain doit garder le contrôle !
