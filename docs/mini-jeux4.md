@@ -26,15 +26,22 @@ Un classique revisité : retrouvez les paires **terme ↔ définition**. Un bon 
 </div>
 
 <style>
+#memory-grid {
+  grid-auto-rows: 130px;
+}
 .memory-card {
-  min-height: 100px;
+  height: 100%;
+  width: 100%;
   border-radius: 12px;
   display:flex; align-items:center; justify-content:center;
   text-align:center;
-  padding:10px;
-  font-size:0.82rem;
+  padding:8px;
+  box-sizing: border-box;
+  font-size:0.8rem;
+  line-height:1.25;
   font-weight:600;
   cursor:pointer;
+  overflow:hidden;
   border: 2px solid var(--md-default-fg-color--lightest, #cbd5e1);
   transition: transform 0.15s ease, background 0.15s ease;
   user-select:none;
@@ -58,7 +65,7 @@ Un classique revisité : retrouvez les paires **terme ↔ définition**. Un bon 
   background:#142e1b; color:#86efac; border-color:#4ade80;
 }
 @media (max-width: 640px) {
-  #memory-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  #memory-grid { grid-template-columns: repeat(3, 1fr) !important; grid-auto-rows: 120px; }
 }
 </style>
 
@@ -117,6 +124,7 @@ function flipCard(idx) {
   el.classList.remove('hidden-face');
   el.classList.add('revealed');
   el.textContent = card.label;
+  el.style.fontSize = card.label.length > 55 ? '0.68rem' : (card.label.length > 35 ? '0.74rem' : (card.label.length > 18 ? '0.82rem' : '0.95rem'));
   flipped.push(idx);
 
   if (flipped.length === 2) {
@@ -146,6 +154,7 @@ function flipCard(idx) {
           e.classList.remove('revealed');
           e.classList.add('hidden-face');
           e.textContent = '?';
+          e.style.fontSize = '';
         });
         flipped = [];
         lock = false;
