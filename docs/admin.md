@@ -1,6 +1,6 @@
 # Panneau d'Administration - Gestion des Utilisateurs
 
-<div id="admin-container" style="display:none;">
+<div id="admin-container" style="display:none; width: 100%;">
 
   <!-- BARRE D'ACTIONS : RECHERCHE + BOUTONS -->
   <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
@@ -16,33 +16,33 @@
     </div>
   </div>
 
-  <!-- TABLEAU COMPACT AVEC DÉFILEMENT INTERNE ET EN-TÊTE FIXE -->
-  <div style="max-height: 65vh; overflow-y: auto; overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+  <!-- TABLEAU AJUSTÉ SANS DÉBORDEMENT -->
+  <div style="max-height: 70vh; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); width: 100%;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.88em; table-layout: auto;">
       <thead>
         <tr style="background-color: #1e293b; color: white; text-align: left; position: sticky; top: 0; z-index: 10;">
-          <th onclick="sortUsers('last_name')" style="padding: 10px; cursor: pointer; user-select: none;">
+          <th onclick="sortUsers('last_name')" style="padding: 10px 8px; cursor: pointer; user-select: none;">
             Nom <span id="sort-last_name">↕</span>
           </th>
-          <th onclick="sortUsers('first_name')" style="padding: 10px; cursor: pointer; user-select: none;">
+          <th onclick="sortUsers('first_name')" style="padding: 10px 8px; cursor: pointer; user-select: none;">
             Prénom <span id="sort-first_name">↕</span>
           </th>
-          <th onclick="sortUsers('email')" style="padding: 10px; cursor: pointer; user-select: none;">
+          <th onclick="sortUsers('email')" style="padding: 10px 8px; cursor: pointer; user-select: none;">
             Email <span id="sort-email">↕</span>
           </th>
-          <th onclick="sortUsers('role')" style="padding: 10px; cursor: pointer; user-select: none;">
+          <th onclick="sortUsers('role')" style="padding: 10px 8px; cursor: pointer; user-select: none;">
             Rôle <span id="sort-role">↕</span>
           </th>
-          <th onclick="sortUsers('is_active')" style="padding: 10px; cursor: pointer; user-select: none;">
+          <th onclick="sortUsers('is_active')" style="padding: 10px 8px; cursor: pointer; user-select: none;">
             Statut <span id="sort-is_active">↕</span>
           </th>
-          <th onclick="sortUsers('expires_at')" style="padding: 10px; cursor: pointer; user-select: none;">
+          <th onclick="sortUsers('expires_at')" style="padding: 10px 8px; cursor: pointer; user-select: none;">
             Expiration <span id="sort-expires_at">↕</span>
           </th>
-          <th onclick="sortUsers('total_time_seconds')" style="padding: 10px; cursor: pointer; user-select: none;">
+          <th onclick="sortUsers('total_time_seconds')" style="padding: 10px 8px; cursor: pointer; user-select: none;">
             Temps passé <span id="sort-total_time_seconds">↕</span>
           </th>
-          <th style="padding: 10px; text-align: center;">Actions</th>
+          <th style="padding: 10px 8px; text-align: center; min-width: 80px;">Actions</th>
         </tr>
       </thead>
       <tbody id="users-table-body">
@@ -77,14 +77,9 @@
         <input type="email" id="form-email" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
       </div>
 
-      <div id="password-group" style="margin-bottom: 12px;">
-        <label style="display: block; font-weight: bold; margin-bottom: 4px;">Mot de passe *</label>
-        <input type="password" id="form-password" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-      </div>
-
       <div style="margin-bottom: 12px;">
         <label style="display: block; font-weight: bold; margin-bottom: 4px;">Rôle</label>
-        <select id="form-role" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+        <select id="form-role" onchange="handleRoleChange()" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
           <option value="user">Utilisateur</option>
           <option value="admin">Administrateur</option>
         </select>
@@ -93,6 +88,7 @@
       <div style="margin-bottom: 12px;">
         <label style="display: block; font-weight: bold; margin-bottom: 4px;">Date d'expiration</label>
         <input type="date" id="form-expires-at" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+        <small id="role-hint" style="color: #666; font-size: 0.8em;"></small>
       </div>
 
       <div style="margin-bottom: 16px;">
@@ -180,7 +176,6 @@ function applySortAndRender() {
     let valA = a[currentSortColumn] ?? '';
     let valB = b[currentSortColumn] ?? '';
 
-    // Gestion du tri spécifique pour les admins en illimité
     if (currentSortColumn === 'expires_at') {
       if (a.role === 'admin') valA = '9999-12-31';
       if (b.role === 'admin') valB = '9999-12-31';
@@ -229,7 +224,6 @@ function renderTable(users) {
 
     const formattedTime = formatTime(user.total_time_seconds || 0);
 
-    // GESTION ILLIMITÉE POUR LES ADMINS
     const isAdmin = user.role === 'admin';
     const formattedDate = isAdmin 
       ? '<span style="color: #27ae60; font-weight: bold;">∞ Illimitée</span>' 
@@ -240,14 +234,14 @@ function renderTable(users) {
       : '<span style="color: #e74c3c; font-weight: bold;">Inactif</span>';
 
     tr.innerHTML = `
-      <td style="padding: 8px 10px;">${escapeHtml(user.last_name || '-')}</td>
-      <td style="padding: 8px 10px;">${escapeHtml(user.first_name || '-')}</td>
-      <td style="padding: 8px 10px;">${escapeHtml(user.email || '-')}</td>
-      <td style="padding: 8px 10px;"><span style="text-transform: capitalize; font-weight: ${isAdmin ? 'bold' : 'normal'}; color: ${isAdmin ? '#2980b9' : 'inherit'}">${escapeHtml(user.role || 'user')}</span></td>
-      <td style="padding: 8px 10px;">${statusBadge}</td>
-      <td style="padding: 8px 10px;">${formattedDate}</td>
-      <td style="padding: 8px 10px; font-weight: 600;">⏱️ ${formattedTime}</td>
-      <td style="padding: 8px 10px; text-align: center; white-space: nowrap;">
+      <td style="padding: 6px 8px; word-break: break-word;">${escapeHtml(user.last_name || '-')}</td>
+      <td style="padding: 6px 8px; word-break: break-word;">${escapeHtml(user.first_name || '-')}</td>
+      <td style="padding: 6px 8px; word-break: break-all;">${escapeHtml(user.email || '-')}</td>
+      <td style="padding: 6px 8px;"><span style="text-transform: capitalize; font-weight: ${isAdmin ? 'bold' : 'normal'}; color: ${isAdmin ? '#2980b9' : 'inherit'}">${escapeHtml(user.role || 'user')}</span></td>
+      <td style="padding: 6px 8px;">${statusBadge}</td>
+      <td style="padding: 6px 8px;">${formattedDate}</td>
+      <td style="padding: 6px 8px; font-weight: 600; white-space: nowrap;">⏱️ ${formattedTime}</td>
+      <td style="padding: 6px 8px; text-align: center; white-space: nowrap;">
         <button onclick="openEditModal('${user.id}')" style="padding: 4px 8px; margin-right: 4px; background: #f39c12; color: white; border: none; border-radius: 4px; cursor: pointer;" title="Modifier">✏️</button>
         <button onclick="deleteUser('${user.id}')" style="padding: 4px 8px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer;" title="Supprimer">🗑️</button>
       </td>
@@ -267,6 +261,31 @@ function escapeHtml(str) {
   return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 }
 
+// GESTION DU RÔLE ET DATE D'EXPIRATION PAR DÉFAUT
+function getDefaultOneYearDate() {
+  const nextYear = new Date();
+  nextYear.setFullYear(nextYear.getFullYear() + 1);
+  return nextYear.toISOString().split('T')[0];
+}
+
+function handleRoleChange() {
+  const roleSelect = document.getElementById('form-role');
+  const expiresInput = document.getElementById('form-expires-at');
+  const hint = document.getElementById('role-hint');
+
+  if (roleSelect.value === 'admin') {
+    expiresInput.value = "";
+    expiresInput.disabled = true;
+    hint.textContent = "Accès illimité pour les administrateurs.";
+  } else {
+    expiresInput.disabled = false;
+    if (!expiresInput.value) {
+      expiresInput.value = getDefaultOneYearDate();
+    }
+    hint.textContent = "Par défaut : 1 an à partir d'aujourd'hui.";
+  }
+}
+
 // MODAL CONTROLS
 function openCreateModal() {
   document.getElementById('modal-title').textContent = "Ajouter un utilisateur";
@@ -275,13 +294,11 @@ function openCreateModal() {
   document.getElementById('form-first-name').value = "";
   document.getElementById('form-email').value = "";
   document.getElementById('form-email').disabled = false;
-  document.getElementById('form-password').value = "";
-  document.getElementById('form-password').required = true;
-  document.getElementById('password-group').style.display = "block";
   document.getElementById('form-role').value = "user";
-  document.getElementById('form-expires-at').value = "";
+  document.getElementById('form-expires-at').value = getDefaultOneYearDate();
   document.getElementById('form-is-active').checked = true;
 
+  handleRoleChange();
   document.getElementById('user-modal').style.display = 'flex';
 }
 
@@ -295,8 +312,6 @@ function openEditModal(userId) {
   document.getElementById('form-first-name').value = user.first_name || "";
   document.getElementById('form-email').value = user.email || "";
   document.getElementById('form-email').disabled = true;
-  document.getElementById('password-group').style.display = "none";
-  document.getElementById('form-password').required = false;
   document.getElementById('form-role').value = user.role || "user";
   
   if (user.expires_at) {
@@ -307,6 +322,7 @@ function openEditModal(userId) {
 
   document.getElementById('form-is-active').checked = user.is_active;
 
+  handleRoleChange();
   document.getElementById('user-modal').style.display = 'flex';
 }
 
@@ -322,12 +338,11 @@ async function handleFormSubmit(event) {
   const lastName = document.getElementById('form-last-name').value;
   const firstName = document.getElementById('form-first-name').value;
   const email = document.getElementById('form-email').value;
-  const password = document.getElementById('form-password').value;
   const role = document.getElementById('form-role').value;
   const expiresAtVal = document.getElementById('form-expires-at').value;
   const isActive = document.getElementById('form-is-active').checked;
 
-  const expiresAt = expiresAtVal ? new Date(expiresAtVal).toISOString() : null;
+  const expiresAt = (role === 'admin' || !expiresAtVal) ? null : new Date(expiresAtVal).toISOString();
 
   if (userId) {
     const { error } = await supabase
@@ -348,23 +363,24 @@ async function handleFormSubmit(event) {
       await loadUsers();
     }
   } else {
-    const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      options: {
-        data: {
-          first_name: firstName,
-          last_name: lastName
-        }
-      }
+    const redirectToUrl = window.location.origin + (window.location.hostname.includes('github.io') ? '/wiki-formation-ia' : '') + '/reinitialisation/';
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectToUrl,
     });
 
     if (error) {
-      alert("Erreur lors de la création du compte : " + error.message);
+      alert("Erreur lors de l'envoi de l'invitation par mail : " + error.message);
       return;
     }
 
-    if (data.user) {
+    const { data: existingProfile } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('email', email)
+      .maybeSingle();
+
+    if (existingProfile) {
       await supabase
         .from('profiles')
         .update({
@@ -374,11 +390,12 @@ async function handleFormSubmit(event) {
           expires_at: expiresAt,
           is_active: isActive
         })
-        .eq('id', data.user.id);
-
-      closeModal();
-      await loadUsers();
+        .eq('id', existingProfile.id);
     }
+
+    alert(`Un e-mail d'invitation avec instructions pour créer un mot de passe a été envoyé à : ${email}`);
+    closeModal();
+    await loadUsers();
   }
 }
 
