@@ -1,168 +1,89 @@
-# Google Labs : comprendre les laboratoires d’IA de Google
+<div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
+  <!-- CONTENEUR LOGO -->
+  <div style="width: 80px; height: 80px; min-width: 80px; max-height: 80px; border-radius: 16px; border: 1px solid #e0e0e0; box-shadow: 0 4px 10px rgba(0,0,0,0.06); background: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8px;">
+    <img src="/wiki-formation-ia/assets/google-labs-logo.png" alt="Logo Google Labs" width="80" height="80" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+  </div>
 
-Google Labs permet de découvrir des expériences d’IA en cours de développement chez Google. Pour un apprenant, c’est un bon moyen de voir comment une grande entreprise teste de nouveaux usages avant de les intégrer, ou non, dans ses produits.
-
-<div class="summary-box" markdown="block">
-<h3>🎯 Ce que cet article apporte</h3>
-
-- Comprendre ce qu’est Google Labs.
-- Identifier son intérêt dans l’écosystème IA.
-- Distinguer expérimentation, prototype et produit final.
-- Repérer ce qu’un formateur peut en retenir.
+  <!-- TITRE ET LIEN OFFICIEL -->
+  <div>
+    <h1 style="margin: 0 0 8px 0; border: none; padding: 0;">Google Labs</h1>
+    <a href="https://labs.google/" target="_blank" rel="noopener" class="md-button md-button--primary" style="font-size: 12px; padding: 4px 12px; font-weight: 600;">
+      🌐 Accéder à l'outil (labs.google/) ↗
+    </a>
+  </div>
 </div>
+
+## 🎯 À quoi sert Google Labs ?
+
+- **Découvrir** des expériences IA en cours de test chez Google.
+- **Tester** des outils avant leur diffusion plus large.
+- **Observer** comment une idée devient un produit.
+- **Suivre** les tendances IA du moment.
+- **Comprendre** les nouveaux usages avant qu’ils ne soient intégrés dans les outils du quotidien.
 
 ---
 
-## 1. C’est quoi Google Labs ?
+## 🔄 Comment l’utiliser efficacement ? (méthode pas à pas)
 
-### Une vitrine d’expérimentation
+1. **Regarder le statut de l’outil**  
+   Google Labs présente des expériences. Certaines sont très avancées, d’autres sont encore en phase de test.
 
-Google Labs est l’espace de Google consacré aux **expériences IA**. On y trouve des projets, outils ou démonstrations qui ne sont pas forcément des produits stabilisés, mais qui permettent de tester des idées, des interfaces et de nouveaux usages.
+2. **Lire ce que l’outil cherche à faire**  
+   Avant d’essayer, demandez-vous :  
+   *« Quel problème cet outil veut-il résoudre ? »*
 
-L’intérêt pédagogique est simple : Google Labs montre que l’IA n’est pas seulement une liste d’outils “finis”. C’est aussi un ensemble de prototypes, d’essais et d’itérations.
+3. **Tester avec un cas simple**  
+   Essayez une demande courte et concrète.  
+   Le but n’est pas de tout explorer d’un coup, mais de comprendre l’intérêt réel de l’outil.
 
-### Pourquoi c’est intéressant pour un apprenant ?
+4. **Comparer avec un outil déjà connu**  
+   Cela permet de voir ce qui change : vitesse, qualité, simplicité, limites, public visé.
 
-- Pour comprendre comment naissent certains usages IA.
-- Pour voir la différence entre une idée de recherche et un outil prêt à l’emploi.
-- Pour observer les tendances concrètes du marché de l’IA.
-- Pour développer une lecture critique des nouveautés.
-
-<div class="good-reflex-box" markdown="block">
-<h3>✅ Bon réflexe</h3>
-
-Quand vous découvrez un outil IA dans un laboratoire d’innovation, posez-vous toujours 3 questions :
-
-- Est-ce un prototype ou un produit stable ?
-- À quoi sert-il concrètement ?
-- Quel problème utilisateur essaie-t-il de résoudre ?
-</div>
+5. **Faire le lien avec un usage pédagogique**  
+   Un outil de Google Labs peut servir à illustrer un point comme la recherche augmentée, l’organisation d’idées, la génération de contenu ou les agents.
 
 ---
 
-## 2. Pourquoi en parler dans une formation IA ?
+## 🧭 Bien utiliser Google Labs selon le besoin
 
-### Un bon support de veille pédagogique
-
-Pour un site de formation IA, un article sur Google Labs est pertinent car il permet de relier la théorie à la pratique. Vous pouvez y montrer que l’IA évolue par expérimentations successives, et pas seulement par grands lancements officiels.
-
-Cela en fait un bon contenu “hors formation” : utile, contextualisé, accessible et facilement relié à d’autres articles comme les agents, le RAG ou le prompting.
-
-### Ce que cela apprend aux apprenants
-
-- Tous les outils IA ne sont pas au même niveau de maturité.
-- Une nouveauté peut être très intéressante sans être encore prête pour un usage professionnel.
-- La veille IA doit intégrer une lecture critique des annonces.
-
-<div class="warning-practice-box" markdown="block">
-<h3>🛑 Point de vigilance</h3>
-
-Un laboratoire d’IA n’est pas une preuve de fiabilité.
-
-Un outil expérimental peut être impressionnant, mais il peut aussi être limité, incomplet ou changer rapidement. Il faut donc éviter de le présenter comme une solution “clé en main”.
-</div>
+| Objectif | Fonctionnalité | Comment procéder ? |
+| :--- | :--- | :--- |
+| Comprendre l’innovation | Catalogue d’expériences IA | Parcourir les outils pour voir les idées testées par Google. |
+| Tester une nouveauté | Expériences en avant-première | Ouvrir un outil, essayer une tâche simple, puis comparer avec un outil stable. |
+| Faire de la veille | News et nouvelles expériences | Revenir régulièrement pour repérer les nouveautés utiles. |
 
 ---
 
-## 3. Quels exemples regarder ?
+## 💬 5 exemples de prompts utiles
 
-### Des expériences pour comprendre les usages
+!!! example "1. Comprendre l’intérêt d’un outil"
+    > « Explique-moi simplement à quoi sert cet outil et dans quel cas il peut être utile. »
 
-Selon les périodes, Google Labs propose différents projets ou expériences IA. L’intérêt n’est pas seulement de lister les outils, mais de regarder ce qu’ils illustrent :
+!!! example "2. Repérer les limites"
+    > « Donne-moi les limites de cet outil pour un usage professionnel ou pédagogique. »
 
-- la génération de contenu ;
-- l’assistance à la recherche d’information ;
-- l’organisation de connaissances ;
-- l’automatisation de tâches ;
-- l’aide à la création visuelle ou textuelle.
+!!! example "3. Comparer deux solutions"
+    > « Compare cet outil à [outil connu] en termes de simplicité, qualité et maturité. »
 
-L’idée pédagogique est de faire le lien entre un outil et une compétence IA sous-jacente.
+!!! example "4. Relier à un concept IA"
+    > « Quel concept d’intelligence artificielle est surtout mobilisé ici : génération, recherche, agent, organisation, ou synthèse ? »
 
-### Exemple de lecture pédagogique
-
-Si un outil sert à résumer ou structurer l’information, on peut le relier à :
-- la synthèse ;
-- la recherche augmentée ;
-- la réduction du bruit informationnel ;
-- les usages proches du RAG.
-
-Si un outil aide à planifier, générer ou orchestrer des tâches, on peut le relier à :
-- la logique d’agent ;
-- la décomposition de tâche ;
-- l’enchaînement d’actions.
-
-<div class="summary-box" markdown="block">
-<h3>💡 Idée pédagogique</h3>
-
-Ne présentez pas seulement l’outil.
-
-Présentez aussi :
-- le besoin auquel il répond ;
-- le principe IA mobilisé ;
-- les limites ou les risques ;
-- le lien avec un concept déjà étudié.
-</div>
+!!! example "5. Préparer une activité"
+    > « Propose une activité simple pour analyser cet outil en formation. »
 
 ---
 
-## 4. Ce qu’un formateur peut en retenir
+## ⚠️ Limites et points d’attention
 
-### Un excellent support d’exemple
-
-Google Labs peut servir de base à plusieurs formats pédagogiques :
-
-- une veille courte en début de séance ;
-- un cas pratique d’analyse d’outil ;
-- une activité de comparaison entre prototype et produit ;
-- un exercice de lecture critique d’annonce IA.
-
-### Une grille simple d’analyse
-
-Vous pouvez proposer aux apprenants cette grille :
-
-| Question | À quoi elle sert |
-| :--- | :--- |
-| Quel besoin l’outil adresse-t-il ? | Comprendre le cas d’usage. |
-| Quel concept IA est mobilisé ? | Relier l’outil à la théorie. |
-| L’outil est-il stable ou expérimental ? | Évaluer le niveau de maturité. |
-| Quelles limites faut-il signaler ? | Développer l’esprit critique. |
-| Qui peut l’utiliser utilement ? | Identifier le public cible. |
-
-<div class="good-reflex-box" markdown="block">
-<h3>✅ Bon réflexe</h3>
-
-Pour un public en formation, le plus utile n’est pas de connaître tous les outils.
-
-Le plus utile, c’est d’apprendre à :
-- lire une annonce IA ;
-- comprendre le problème résolu ;
-- identifier les limites ;
-- faire le lien avec des usages professionnels.
-</div>
+- **Expérimental par nature** : les outils peuvent changer, disparaître ou évoluer rapidement.
+- **Disponibilité variable** : certains outils ne sont pas accessibles partout.
+- **Niveau de maturité inégal** : un outil peut être intéressant sans être prêt pour un usage régulier.
+- **Pas toujours adapté au grand public** : certains outils demandent déjà une bonne culture numérique.
+- **Utilité pédagogique à vérifier** : tout outil IA nouveau n’est pas forcément utile en formation.
 
 ---
 
-## 5. Faut-il en faire un article ?
-
-### Ma recommandation
-
-Oui, si votre onglet Articles a pour objectif d’enrichir la culture IA des apprenants. Google Labs est un bon sujet parce qu’il est à la fois :
-- actuel ;
-- concret ;
-- facile à relier à des notions de formation ;
-- utile pour la veille IA.
-
-### Le bon angle
-
-Je vous conseille de traiter Google Labs comme :
-- un **laboratoire d’innovation IA** ;
-- un **outil de veille pour formateurs** ;
-- un **cas d’étude sur la maturité des outils IA**.
-
-<div class="summary-box" markdown="block">
-<h3>🎓 À retenir</h3>
-
-Google Labs n’est pas seulement un catalogue d’outils.
-
-C’est surtout un bon point d’entrée pour comprendre comment l’IA évolue, comment les usages émergent, et comment un formateur peut aider ses apprenants à garder un regard critique et structuré sur les nouveautés.
-</div>
+!!! tip "La règle d’or d’utilisation"
+    Commencer par comprendre le besoin réel de l’outil.  
+    Puis tester une tâche simple.  
+    Enfin, vérifier si cela apporte quelque chose de concret à votre pratique.
