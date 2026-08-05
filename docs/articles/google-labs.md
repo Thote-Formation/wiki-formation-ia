@@ -1,13 +1,13 @@
 <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
   <!-- CONTENEUR LOGO -->
-  <div style="width: 80px; height: 80px; min-width: 80px; max-height: 80px; border-radius: 16px; border: 1px solid #e0e0e0; box-shadow: 0 4px 10px rgba(0,0,0,0.06); background: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8px;">
+  <div style="width: 80px; height: 80px; min-width: 80px; max-height: 80px; border-radius: 16px; border: 1px solid #cbd5e1; box-shadow: 0 4px 10px rgba(0,0,0,0.06); background: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8px;">
     <img src="/wiki-formation-ia/assets/google-labs-logo.png" alt="Logo Google Labs" width="80" height="80" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
   </div>
 
   <!-- TITRE ET LIEN OFFICIEL -->
   <div>
     <h1 style="margin: 0 0 8px 0; border: none; padding: 0;">Google Labs</h1>
-    <a href="https://labs.google/" target="_blank" rel="noopener" class="md-button md-button--primary" style="font-size: 12px; padding: 4px 12px; font-weight: 600;">
+    <a href="https://labs.google/" target="_blank" rel="noopener" class="wiki-button primary" style="font-size: 0.85rem; padding: 6px 14px; min-height: auto;">
       🌐 Accéder à l'outil (labs.google/) ↗
     </a>
   </div>
@@ -56,34 +56,51 @@
 
 ## 💬 5 exemples de prompts utiles
 
-!!! example "1. Comprendre l’intérêt d’un outil"
-    > « Explique-moi simplement à quoi sert cet outil et dans quel cas il peut être utile. »
+<div class="wiki-grid">
+  <div class="wiki-card">
+    <h3>1. Comprendre l’intérêt d’un outil</h3>
+    <p>« Explique-moi simplement à quoi sert cet outil et dans quel cas il peut être utile. »</p>
+  </div>
 
-!!! example "2. Repérer les limites"
-    > « Donne-moi les limites de cet outil pour un usage professionnel ou pédagogique. »
+  <div class="wiki-card">
+    <h3>2. Repérer les limites</h3>
+    <p>« Donne-moi les limites de cet outil pour un usage professionnel ou pédagogique. »</p>
+  </div>
 
-!!! example "3. Comparer deux solutions"
-    > « Compare cet outil à [outil connu] en termes de simplicité, qualité et maturité. »
+  <div class="wiki-card">
+    <h3>3. Comparer deux solutions</h3>
+    <p>« Compare cet outil à [outil connu] en termes de simplicité, qualité et maturité. »</p>
+  </div>
 
-!!! example "4. Relier à un concept IA"
-    > « Quel concept d’intelligence artificielle est surtout mobilisé ici : génération, recherche, agent, organisation, ou synthèse ? »
+  <div class="wiki-card">
+    <h3>4. Relier à un concept IA</h3>
+    <p>« Quel concept d’intelligence artificielle est surtout mobilisé ici : génération, recherche, agent, organisation, ou synthèse ? »</p>
+  </div>
 
-!!! example "5. Préparer une activité"
-    > « Propose une activité simple pour analyser cet outil en formation. »
+  <div class="wiki-card">
+    <h3>5. Préparer une activité</h3>
+    <p>« Propose une activité simple pour analyser cet outil en formation. »</p>
+  </div>
+</div>
 
 ---
 
 ## ⚠️ Limites et points d’attention
 
-- **Expérimental par nature** : les outils peuvent changer, disparaître ou évoluer rapidement.
-- **Disponibilité variable** : certains outils ne sont pas accessibles partout.
-- **Niveau de maturité inégal** : un outil peut être intéressant sans être prêt pour un usage régulier.
-- **Pas toujours adapté au grand public** : certains outils demandent déjà une bonne culture numérique.
-- **Utilité pédagogique à vérifier** : tout outil IA nouveau n’est pas forcément utile en formation.
+<div class="warning-practice-box">
+  <h3>Points de vigilance</h3>
+  <ul>
+    <li><strong>Expérimental par nature</strong> : les outils peuvent changer, disparaître ou évoluer rapidement.</li>
+    <li><strong>Disponibilité variable</strong> : certains outils ne sont pas accessibles partout.</li>
+    <li><strong>Niveau de maturité inégal</strong> : un outil peut être intéressant sans être prêt pour un usage régulier.</li>
+    <li><strong>Pas toujours adapté au grand public</strong> : certains outils demandent déjà une bonne culture numérique.</li>
+    <li><strong>Utilité pédagogique à vérifier</strong> : tout outil IA nouveau n’est pas forcément utile en formation.</li>
+  </ul>
+</div>
 
----
-
-!!! tip "La règle d’or d’utilisation"
-    Commencer par comprendre le besoin réel de l’outil.  
-    Puis tester une tâche simple.  
-    Enfin, vérifier si cela apporte quelque chose de concret à votre pratique.
+<div class="good-reflex-box">
+  <h3>💡 La règle d’or d’utilisation</h3>
+  <p>Commencer par comprendre le besoin réel de l’outil.<br>
+  Puis tester une tâche simple.<br>
+  Enfin, vérifier si cela apporte quelque chose de concret à votre pratique.</p>
+</div>
