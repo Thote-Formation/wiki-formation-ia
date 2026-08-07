@@ -1,149 +1,64 @@
-/* Thotie Quest V2 — thème partagé (mêmes tokens que docs/jeux/assets/style.css) */
-
-body {
-  background: radial-gradient(circle at 50% 0%, #222a3d, #0b1326);
+/* --- RESET & LAYOUT GLOBAL --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-#tq-nav {
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #0b1326;
+  color: #dae2fd;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+/* --- SIDEBAR CORRIGÉE --- */
+#site-sidebar {
+  width: 280px !important;
+  min-width: 280px !important;
+  max-width: 280px !important;
+  flex-shrink: 0 !important; /* Empêche la sidebar de s'écraser */
+  height: 100vh;
   position: sticky;
   top: 0;
-  z-index: 50;
-  background: rgba(23, 31, 51, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* --- réutilisés tels quels depuis docs/jeux/assets/style.css, pour rester cohérent --- */
-.glass-panel {
-  background: rgba(23, 31, 51, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-.neo-bevel {
-  border-bottom: 3px solid rgba(0, 0, 0, 0.4);
-  box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.5);
-  transition: all 0.2s ease;
-}
-.neo-bevel:hover {
-  transform: translateY(-2px);
-  border-bottom-width: 5px;
-}
-.neo-bevel:active {
-  transform: translateY(2px);
-  border-bottom-width: 1px;
-  box-shadow: none;
-}
-.glow-shadow-primary {
-  box-shadow: 0 0 20px -5px #d0bcff;
-}
-.locked-card {
-  opacity: 0.75;
-  filter: grayscale(50%);
-}
-.avatar-emoji {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-  background: linear-gradient(135deg, #5516be, #03c6b2);
-}
-
-/* --- Nouveau : typographie pour le contenu long (pages de formation, articles) --- */
-.tq-prose {
-  max-width: 760px;
-  margin: 0 auto;
-  line-height: 1.75;
-  color: #dae2fd;
-}
-.tq-prose h1 {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 2rem;
-  font-weight: 800;
-  color: #d0bcff;
-  margin-bottom: 0.5rem;
-}
-.tq-prose h2 {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #44e2cd;
-  margin-top: 2.5rem;
-  margin-bottom: 0.75rem;
-}
-.tq-prose h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #dae2fd;
-  margin-top: 1.75rem;
-  margin-bottom: 0.5rem;
-}
-.tq-prose p,
-.tq-prose li {
-  color: #cbc3d7;
-}
-.tq-prose a {
-  color: #44e2cd;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-.tq-prose code {
   background: #171f33;
-  border-radius: 0.35rem;
-  padding: 0.15rem 0.4rem;
-  font-family: "Roboto Mono", monospace;
-  font-size: 0.9em;
-}
-.tq-prose pre {
-  background: #0b1326;
-  border: 1px solid #2d3449;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  overflow-x: auto;
-}
-.tq-prose blockquote,
-.tq-callout {
-  border-left: 4px solid #44e2cd;
-  background: #171f33;
-  border-radius: 0.5rem;
-  padding: 0.9rem 1.2rem;
-  margin: 1.25rem 0;
-}
-/* Layout Global Dashboard avec Sidebar */
-body {
-  display: flex;
-  min-height: 100vh;
-  background: radial-gradient(circle at top center, var(--surface-mid) 0%, var(--bg-main) 70%);
-  background-attachment: fixed;
-  color: var(--text-main);
-  font-family: var(--font-body);
-  margin: 0;
-}
-
-#site-sidebar {
-  width: 280px;
-  min-width: 280px;
-  background: var(--surface-low);
-  border-right: 1px solid var(--border-subtle);
+  border-right: 1px solid rgba(218, 226, 253, 0.12);
   display: flex;
   flex-direction: column;
   padding: 1.25rem 1rem;
-  position: sticky;
-  top: 0;
-  height: 100vh;
   overflow-y: auto;
-  box-sizing: border-box;
+  z-index: 100;
 }
 
+/* Style de la scrollbar personnalisée pour la sidebar (évite la barre blanche) */
+#site-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+#site-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+#site-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+/* --- MAIN CONTENT CORRIGÉ --- */
 #site-main {
   flex: 1;
+  min-width: 0; /* Empêche le contenu de déborder à droite */
   padding: 2.5rem 3rem;
-  max-width: 1100px;
-  box-sizing: border-box;
+  overflow-y: auto;
 }
 
-/* Sidebar Brand */
+/* --- SIDEBAR COMPONENTS --- */
 .sidebar-brand {
   display: flex;
   align-items: center;
@@ -152,67 +67,88 @@ body {
 }
 
 .brand-logo {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #d0bcff, #44e2cd);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--bg-main);
+  color: #0b1326;
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
 .brand-title {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1rem;
   font-weight: 800;
-  color: #fff;
+  color: #ffffff;
   display: block;
+  line-height: 1.2;
 }
 
 .brand-sub {
-  font-size: 0.75rem;
-  color: var(--secondary);
-  font-family: var(--font-label);
+  font-size: 0.7rem;
+  color: #44e2cd;
+  font-family: 'Space Grotesk', monospace;
+  display: block;
 }
 
-/* Profil Widget Lateral */
 .profile-card {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
+  gap: 10px;
+  padding: 10px 12px;
   margin-bottom: 1.5rem;
   border-radius: 12px;
-  background: var(--surface-mid);
+  background: #222a3d;
+  border: 1px solid rgba(218, 226, 253, 0.12);
 }
 
 .avatar-box {
-  font-size: 1.8rem;
-  background: rgba(255,255,255,0.05);
-  padding: 6px;
-  border-radius: 10px;
+  font-size: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 8px;
+  border-radius: 8px;
+  flex-shrink: 0;
 }
 
 .profile-details {
   flex: 1;
+  min-width: 0;
 }
 
 .profile-level {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  color: #fff;
+  color: #ffffff;
 }
 
 .xp-text {
-  font-size: 0.75rem;
-  color: var(--primary);
-  font-family: var(--font-label);
+  font-size: 0.7rem;
+  color: #d0bcff;
+  font-family: 'Space Grotesk', monospace;
 }
 
-/* Sidebar Nav Links */
+.xp-bar-container {
+  width: 100%;
+  height: 5px;
+  background: #2d3449;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #d0bcff, #44e2cd);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* NAVIGATION */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -224,22 +160,22 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--text-main);
+  color: #dae2fd;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   padding: 8px 10px;
   border-radius: 8px;
   transition: background 0.2s;
 }
 
 .nav-header-link:hover, .nav-section.active > .nav-header-link {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--primary);
+  background: rgba(255, 255, 255, 0.06);
+  color: #d0bcff;
 }
 
 .highlight-link {
-  color: var(--tertiary) !important;
+  color: #e2c62d !important;
   border: 1px solid rgba(226, 198, 45, 0.3);
   background: rgba(226, 198, 45, 0.05);
 }
@@ -248,7 +184,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding-left: 1.25rem;
+  padding-left: 1rem;
   margin-top: 4px;
 }
 
@@ -256,27 +192,27 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: var(--text-muted);
+  color: #8d95b0;
   text-decoration: none;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   padding: 5px 8px;
   border-radius: 6px;
   transition: all 0.15s;
 }
 
 .nav-child-link:hover, .nav-child-link.child-active {
-  color: #fff;
-  background: var(--surface-high);
+  color: #ffffff;
+  background: #2d3449;
 }
 
 .nav-child-link.child-active {
-  color: var(--secondary);
+  color: #44e2cd;
   font-weight: 600;
 }
 
 .sidebar-footer {
   padding-top: 1rem;
-  border-top: 1px solid var(--border-subtle);
+  border-top: 1px solid rgba(218, 226, 253, 0.12);
   margin-top: auto;
 }
 
@@ -284,9 +220,9 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--text-muted);
+  color: #8d95b0;
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
-.v1-link:hover { color: #fff; }
+.v1-link:hover { color: #ffffff; }
