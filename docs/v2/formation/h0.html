@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>H0 — Lancement & Atelier des Neurones | Thote IA</title>
+  <title>H0 — Lancement Formation IA & RS6776 | Thote IA</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,7 @@
       display: flex;
     }
 
-    /* SIDEBAR NAV FIXE (250px) */
+    /* 1. SIDEBAR NAV FIXE (250px) */
     .app-sidebar {
       width: 250px;
       min-width: 250px;
@@ -82,7 +82,7 @@
     }
     .nav-item.active { background: #8b5cf6; color: #fff; }
 
-    /* MAIN CONTENT */
+    /* 2. ZONE CENTRALE CONTENT H0 */
     .app-main {
       flex: 1;
       padding: 2.5rem 3rem;
@@ -100,9 +100,7 @@
     }
     .breadcrumb a { color: #a855f7; text-decoration: none; }
 
-    .module-header {
-      margin-bottom: 2rem;
-    }
+    .module-header { margin-bottom: 2rem; }
     .module-tag {
       display: inline-flex;
       align-items: center;
@@ -123,7 +121,7 @@
       line-height: 1.2;
     }
 
-    /* CONTENU PEDAGOGIQUE */
+    /* CARTE PEDAGOGIQUE */
     .content-card {
       background: #161f36;
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -137,30 +135,113 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.3rem;
       color: #4fe1c2;
-      margin: 1.5rem 0 1rem;
+      margin: 2rem 0 1rem;
     }
     .content-card h2:first-child { margin-top: 0; }
+    .content-card p { color: #cbd5e1; margin-bottom: 1rem; }
 
-    .content-card p {
-      color: #cbd5e1;
-      margin-bottom: 1rem;
+    /* SUMMARY BOX */
+    .summary-box {
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
     }
+    .summary-box h3 { color: #c084fc; font-size: 1.05rem; margin-bottom: 8px; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .summary-box ul { padding-left: 1.2rem; color: #cbd5e1; font-size: 0.92rem; }
+    .summary-box li { margin-bottom: 4px; }
 
-    .concept-box {
-      background: #0b132a;
-      border-left: 4px solid #a855f7;
+    /* REFLEX & WARNING BOXES */
+    .reflex-box {
+      background: rgba(6, 182, 212, 0.08);
+      border-left: 4px solid #06b6d4;
       padding: 1.25rem;
       border-radius: 0 12px 12px 0;
       margin: 1.5rem 0;
     }
-    .concept-box h3 {
-      color: #fff;
-      font-size: 1rem;
+    .reflex-box h3 { color: #38bdf8; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+
+    .warning-box {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 4px solid #f59e0b;
+      padding: 1.25rem;
+      border-radius: 0 12px 12px 0;
+      margin: 1.5rem 0;
+    }
+    .warning-box h3 { color: #fbbf24; font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .warning-box ul { padding-left: 1.2rem; color: #cbd5e1; font-size: 0.9rem; }
+
+    /* WORKFLOW STEPS */
+    .workflow-steps {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .step-card {
+      flex: 1;
+      min-width: 160px;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      background: #0b132a;
+      text-align: center;
+    }
+    .step-num { font-weight: 700; color: #06b6d4; font-size: 0.9rem; margin-bottom: 4px; }
+    .step-desc { font-size: 0.8rem; color: #94a3b8; }
+    .step-arrow { font-size: 1.2rem; color: #06b6d4; font-weight: bold; }
+
+    /* TABLEAUX */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.88rem;
+    }
+    .custom-table th, .custom-table td {
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: left;
+    }
+    .custom-table th { background: #0b132a; color: #4fe1c2; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .custom-table tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
+
+    /* TABS DÉROULÉ ET EXERCICES */
+    .tabs-container { margin: 1.5rem 0; }
+    .tab-buttons { display: flex; gap: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); overflow-x: auto; }
+    .tab-btn {
+      padding: 8px 16px;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
       font-weight: 700;
-      margin-bottom: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.85rem;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .tab-btn.active { color: #a855f7; border-bottom-color: #a855f7; }
+    .tab-content { display: none; padding-top: 1rem; }
+    .tab-content.active { display: block; }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #a855f7, #06b6d4);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-top: 1rem;
     }
 
-    /* CARTE DE VALIDATION DU MODULE (GAMIFICATION) */
+    /* CARTE DE VALIDATION GAMIFIÉE */
     .validation-card {
       background: linear-gradient(135deg, #1e1b4b, #0f172a);
       border: 1px solid #6366f1;
@@ -170,19 +251,10 @@
       align-items: center;
       justify-content: space-between;
       gap: 1.5rem;
-      margin-top: 3rem;
+      margin-top: 2rem;
     }
-
-    .val-info h3 {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      color: #fff;
-      font-size: 1.1rem;
-      margin-bottom: 4px;
-    }
-    .val-info p {
-      font-size: 0.85rem;
-      color: #94a3b8;
-    }
+    .val-info h3 { font-family: 'Plus Jakarta Sans', sans-serif; color: #fff; font-size: 1.1rem; margin-bottom: 4px; }
+    .val-info p { font-size: 0.85rem; color: #94a3b8; }
 
     .btn-validate {
       background: linear-gradient(135deg, #a855f7, #06b6d4);
@@ -198,20 +270,12 @@
       align-items: center;
       gap: 8px;
       white-space: nowrap;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s;
     }
-    .btn-validate:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(168, 85, 247, 0.3);
-    }
-    .btn-validate.completed {
-      background: #10b981;
-      cursor: default;
-      transform: none;
-      box-shadow: none;
-    }
+    .btn-validate:hover { transform: translateY(-2px); }
+    .btn-validate.completed { background: #10b981; cursor: default; transform: none; }
 
-    /* COLONNE DROITE WIDGETS */
+    /* 3. COLONNE DROITE GAMIFICATION (320px) */
     .app-widgets {
       width: 320px;
       min-width: 320px;
@@ -220,14 +284,12 @@
       flex-direction: column;
       gap: 1.5rem;
     }
-
     .widget-box {
       background: #161f36;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 20px;
       padding: 1.25rem;
     }
-
     .profile-widget { display: flex; align-items: center; gap: 14px; }
     .profile-avatar { font-size: 2.2rem; background: #1e293b; padding: 8px; border-radius: 14px; }
     .profile-info { flex: 1; }
@@ -254,7 +316,7 @@
         <span class="material-symbols-outlined">map</span> Hub
       </a>
       <a href="h0.html" class="nav-item active">
-        <span class="material-symbols-outlined">grain</span> Parcours H0
+        <span class="material-symbols-outlined">grain</span> Parcours H0-H7
       </a>
       <a href="../outils/index.html" class="nav-item">
         <span class="material-symbols-outlined">terminal</span> Outils & CROFT
@@ -270,34 +332,181 @@
     <div class="breadcrumb">
       <a href="../index.html">Hub</a>
       <span class="material-symbols-outlined" style="font-size: 14px;">chevron_right</span>
-      <span>Parcours H0</span>
+      <span>Module H0</span>
     </div>
 
     <header class="module-header">
       <span class="module-tag">
-        <span class="material-symbols-outlined" style="font-size: 16px;">play_circle</span> MODULE H0
+        <span class="material-symbols-outlined" style="font-size: 16px;">flag</span> MODULE H0
       </span>
-      <h1>Lancement & Atelier des Neurones</h1>
+      <h1>Lancement Formation IA & Certification RS6776</h1>
     </header>
 
     <div class="content-card">
-      <h2>1. Bienvenue dans l'Écosystème Thote IA</h2>
-      <p>Ce module d'introduction pose les fondations de votre parcours certifiant RS6776. Vous allez comprendre l'architecture globale des modèles de langage (LLM) et le fonctionnement intuitif des réseaux de neurones.</p>
-      
-      <div class="concept-box">
-        <h3>💡 Concept clé : Le Modèle Predictif</h3>
-        <p>Un LLM ne "pense" pas comme un humain. C'est un puissant moteur statistique entraîné pour prédire la suite de texte la plus plausible selon un contexte donné.</p>
+      <div class="summary-box">
+        <h3>🎯 Objectifs de la séance</h3>
+        <ul>
+          <li>Présenter le parcours de formation et la certification RS6776</li>
+          <li>Comprendre en quoi cette certification vous sera utile au quotidien</li>
+          <li>Visualiser les 6 exercices pratiques que vous allez préparer</li>
+          <li>Clarifier votre situation actuelle et vos attentes professionnelles</li>
+          <li>Présenter les ressources complémentaires et le cadre de formation</li>
+          <li>Déterminer ensemble votre objectif personnel pour la fin du parcours</li>
+        </ul>
       </div>
 
-      <h2>2. L'Atelier des Neurones</h2>
-      <p>Pour maîtriser le prompting, il faut comprendre ce qui se passe "sous le capot". Lorsqu'un utilisateur envoie un prompt, celui-ci est découpé en jetons (tokens), transformé en vecteurs numériques, puis traité par des couches d'attention multi-têtes.</p>
+      <div class="reflex-box">
+        <h3>💡 Question de départ</h3>
+        <p><em>« Dans 3 mois, en quoi aimeriez-vous que votre usage de l'IA générative ait changé dans votre poste au quotidien ? »</em></p>
+      </div>
+
+      <h2>1. Déroulé de la séance</h2>
+      <div class="tabs-container">
+        <div class="tab-buttons">
+          <button class="tab-btn active" onclick="switchTab('deroule', 0)">1. Accueil (10 min)</button>
+          <button class="tab-btn" onclick="switchTab('deroule', 1)">2. Évaluation (20 min)</button>
+          <button class="tab-btn" onclick="switchTab('deroule', 2)">3. Workinlive (10 min)</button>
+          <button class="tab-btn" onclick="switchTab('deroule', 3)">4. Certification (20 min)</button>
+        </div>
+
+        <div id="deroule-0" class="tab-content deroule-tab active">
+          <p><strong>Accueil & attentes :</strong> Présentation mutuelle des participants, expression des besoins métier et aperçu général de la formation.</p>
+        </div>
+        <div id="deroule-1" class="tab-content deroule-tab">
+          <p><strong>Évaluation initiale :</strong> Réalisation du questionnaire d'entrée en autonomie (sans IA), suivie d'une analyse collective des principaux résultats.</p>
+        </div>
+        <div id="deroule-2" class="tab-content deroule-tab">
+          <p><strong>Plateforme Workinlive :</strong> Présentation des 4 formations complémentaires disponibles (Canva, Prompting IA, Google, Cybersécurité).</p>
+        </div>
+        <div id="deroule-3" class="tab-content deroule-tab">
+          <p><strong>Certification RS6776 :</strong> Présentation détaillée de la certification, explication des 6 exercices de l'examen et définition de votre objectif personnel.</p>
+        </div>
+      </div>
+
+      <h2>2. Évaluation initiale</h2>
+      <p>L'évaluation d'entrée permet de dresser un bilan de vos connaissances avant de démarrer les modules techniques.</p>
+      
+      <div class="warning-box">
+        <h3>📋 Consignes de l'évaluation</h3>
+        <ul>
+          <li><strong>Objectif :</strong> Diagnostic précis de vos connaissances pour adapter les exemples pratiques des séances H1 à H7 à votre contexte.</li>
+          <li><strong>Durée :</strong> Environ 15 à 20 minutes.</li>
+          <li><strong>Format :</strong> Questionnaire interactif (Fondamentaux, Prompting, Outils, RGPD, Accessibilité, Éthique).</li>
+          <li><strong>Règle d'or :</strong> Répondez individuellement <strong>sans utiliser d'IA</strong> pour une photographie fidèle de votre niveau.</li>
+        </ul>
+      </div>
+
+      <a href="../evaluation-entree/index.html" class="action-btn">
+        <span class="material-symbols-outlined">assignment</span> Accéder à l'évaluation d'entrée
+      </a>
+
+      <h2>3. La plateforme Workinlive</h2>
+      <p>En complément des séances synchrones H0 à H7, la plateforme Workinlive vous donne accès à des modules d'auto-formation :</p>
+      
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Formation complémentaire</th>
+            <th>Lien avec le parcours H1-H7</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Canva</strong> <em>(visuels pro)</em></td>
+            <td>Aide à mettre en forme et valoriser ce que vous produisez avec l'IA.</td>
+          </tr>
+          <tr>
+            <td><strong>Bases IA & Prompting</strong></td>
+            <td>Renforce les concepts abordés de H1 à H4.</td>
+          </tr>
+          <tr>
+            <td><strong>Outils Google</strong> <em>(Workspace)</em></td>
+            <td>Aide à organiser, structurer et diffuser vos productions IA.</td>
+          </tr>
+          <tr>
+            <td><strong>Cybersécurité</strong></td>
+            <td>Complète le module H5 sur la confidentialité et la protection des données.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>4. Certification RS6776 — Déroulement de l'examen</h2>
+      <p>La certification <strong>RS6776</strong> valide vos compétences pratiques dans l'usage professionnel et responsable des outils d'IA générative.</p>
+
+      <div class="workflow-steps">
+        <div class="step-card">
+          <div class="step-num">1. Fin du parcours</div>
+          <div class="step-desc">Remise du sujet d'examen</div>
+        </div>
+        <div class="step-arrow">➔</div>
+        <div class="step-card">
+          <div class="step-num">2. Rendu de l'écrit</div>
+          <div class="step-desc">Sous 10 jours maximum</div>
+        </div>
+        <div class="step-arrow">➔</div>
+        <div class="step-card">
+          <div class="step-num">3. Soutenance orale</div>
+          <div class="step-desc">20 min en visio (J+5 max)</div>
+        </div>
+      </div>
+
+      <h2>5. Articulation Parcours → Certification</h2>
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Séance</th>
+            <th>Contenu principal</th>
+            <th>Exercice(s) préparé(s) RS6776</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>H1</strong></td><td>Fondamentaux IA + Méthode ROFT</td><td>Socle méthodologique global</td></tr>
+          <tr><td><strong>H2</strong></td><td>Stratégie IA au poste de travail</td><td><strong>Exercice 1</strong> — Stratégie d'implémentation</td></tr>
+          <tr><td><strong>H3</strong></td><td>Prompting rédactionnel + visuel (CROFT/FAI)</td><td><strong>Exercice 2</strong> — Prompting structuré</td></tr>
+          <tr><td><strong>H4</strong></td><td>Création de visuels attractifs</td><td><strong>Exercice 2</strong> — Déclinaison visuelle</td></tr>
+          <tr><td><strong>H5</strong></td><td>Confidentialité, RGPD et sécurité</td><td><strong>Exercice 3</strong> — Sécurité et RGPD</td></tr>
+          <tr><td><strong>H6</strong></td><td>Accessibilité & simplification</td><td><strong>Exercices 4 & 5</strong> — Accessibilité & Vulgarisation</td></tr>
+          <tr><td><strong>H7</strong></td><td>Éthique, IA Act & Biais</td><td><strong>Exercice 6</strong> — Éthique et biais</td></tr>
+        </tbody>
+      </table>
+
+      <h2>6. Les 6 exercices de la certification RS6776</h2>
+      <div class="tabs-container">
+        <div class="tab-buttons">
+          <button class="tab-btn active" onclick="switchTab('ex', 1)">Ex 1. Stratégie</button>
+          <button class="tab-btn" onclick="switchTab('ex', 2)">Ex 2. Prompting</button>
+          <button class="tab-btn" onclick="switchTab('ex', 3)">Ex 3. Confidentialité</button>
+          <button class="tab-btn" onclick="switchTab('ex', 4)">Ex 4. Accessibilité</button>
+          <button class="tab-btn" onclick="switchTab('ex', 5)">Ex 5. Simplification</button>
+          <button class="tab-btn" onclick="switchTab('ex', 6)">Ex 6. Éthique</button>
+        </div>
+
+        <div id="ex-1" class="tab-content ex-tab active">
+          <p><strong>Stratégie d'implémentation IA :</strong> Analyser un ensemble de tâches métier au sein d'une organisation et proposer une sélection d'outils IA pertinents, adaptés et sécurisés.</p>
+        </div>
+        <div id="ex-2" class="tab-content ex-tab">
+          <p><strong>Prompting rédactionnel + visuel :</strong> Rédiger la structure complète d'un article de blog ainsi qu'un visuel d'accompagnement en utilisant des techniques de prompting avancées (CROFT / FAI).</p>
+        </div>
+        <div id="ex-3" class="tab-content ex-tab">
+          <p><strong>Confidentialité et données sensibles :</strong> Identifier les risques de fuite de données (RGPD / secrets d'affaires) et réécrire/anonymiser un prompt contenant des informations confidentielles.</p>
+        </div>
+        <div id="ex-4" class="tab-content ex-tab">
+          <p><strong>Accessibilité et inclusion :</strong> Rédiger ou adapter une note interne pour la rendre parfaitement accessible à une personne en situation de handicap cognitif (ex. FALC, structure simplifiée).</p>
+        </div>
+        <div id="ex-5" class="tab-content ex-tab">
+          <p><strong>Simplification de contenus :</strong> Prendre un document technique ou juridique complexe et le transformer en une synthèse claire, intelligible et vulgarisée pour un public non-expert.</p>
+        </div>
+        <div id="ex-6" class="tab-content ex-tab">
+          <p><strong>Éthique et biais :</strong> Détecter les stéréotypes, discriminations ou hallucinations dans un contenu produit par une IA et appliquer des prompts correctifs pour le neutraliser.</p>
+        </div>
+      </div>
     </div>
 
     <!-- Carte de Validation Gamifiée -->
     <div class="validation-card">
       <div class="val-info">
         <h3>Terminer le Module H0</h3>
-        <p>Validez votre lecture pour débloquer +20 XP et progresser vers le niveau 2.</p>
+        <p>Validez votre lecture pour débloquer +20 XP et démarrer le parcours.</p>
       </div>
       <button class="btn-validate" id="btn-val-h0" onclick="completeH0()">
         <span class="material-symbols-outlined">check_circle</span>
@@ -306,7 +515,7 @@
     </div>
   </main>
 
-  <!-- COLONNE 3 : WIDGETS DE GAMIFICATION -->
+  <!-- COLONNE 3 : WIDGETS GAMIFICATION -->
   <aside class="app-widgets">
     <div class="widget-box">
       <div class="profile-widget">
@@ -323,16 +532,26 @@
   </aside>
 
   <script>
-    // Validation du module
+    // ONGLET
+    function switchTab(group, index) {
+      const btns = event.target.parentElement.querySelectorAll('.tab-btn');
+      btns.forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const contents = document.querySelectorAll('.' + group + '-tab');
+      contents.forEach(c => c.classList.remove('active'));
+      document.getElementById(group + '-' + index).classList.add('active');
+    }
+
+    // VALIDATION MODULE
     function completeH0() {
       const btn = document.getElementById('btn-val-h0');
       btn.classList.add('completed');
       btn.innerHTML = '<span class="material-symbols-outlined">task_alt</span> Module Validé !';
       btn.disabled = true;
 
-      // Mise à jour de la carte profil
-      document.getElementById('widget-xp-text').textContent = '40 XP enregistrés';
-      document.getElementById('widget-xp-bar').style.width = '40%';
+      document.getElementById('widget-xp-text').textContent = '20 XP enregistrés';
+      document.getElementById('widget-xp-bar').style.width = '20%';
     }
   </script>
 
