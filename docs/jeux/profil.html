@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>IA Academy - Profil</title>
+<title>Thotie Quest - Profil</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
@@ -88,7 +88,6 @@
   document.getElementById("save-btn").addEventListener("click", () => {
     const pseudo = document.getElementById("pseudo-input").value.trim() || "Toi";
     A.setProfile(pseudo, selectedAvatar);
-    if (!A.state.quests.profil) A.toggleQuest("profil");
     A.renderSidebar("profil");
     const c = document.getElementById("save-confirm");
     c.classList.remove("hidden");
