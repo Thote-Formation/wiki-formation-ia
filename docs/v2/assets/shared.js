@@ -7,57 +7,69 @@ const STORAGE_KEY_QUEST = 'thotie_quest_state';
 const STORAGE_KEY_PROGRESS = 'wiki_progress_v1';
 
 // Navigation structurelle synchronisée avec mkdocs.yml
+// Remplacez NAV_STRUCTURE dans docs/v2/assets/shared.js par des liens relatifs dynamiques :
+
+// Helper pour calculer le préfixe relatif selon la profondeur de la page actuelle
+const getBasePath = () => {
+  const path = window.location.pathname;
+  if (path.includes('/formation/') || path.includes('/certification/') || path.includes('/outils/') || path.includes('/ressources/')) {
+    return '../';
+  }
+  return './';
+};
+
+const BASE = getBasePath();
+
 const NAV_STRUCTURE = [
-  { label: 'Accueil', url: '/v2/index.html', icon: 'home' },
+  { label: 'Accueil', url: BASE + 'index.html', icon: 'home' },
   { 
     label: 'Certification RS6776', 
     icon: 'verified',
     children: [
-      { label: 'Présentation RS6776', url: '/v2/certification/index.html' },
-      { label: 'Évaluation d\'entrée', url: '/v2/certification/evaluation.html' }
+      { label: 'Présentation RS6776', url: BASE + 'certification/index.html' },
+      { label: 'Évaluation d\'entrée', url: BASE + 'certification/evaluation.html' }
     ]
   },
   { 
     label: 'Parcours', 
     icon: 'auto_stories',
     children: [
-      { label: 'H0 — Lancement', url: '/v2/formation/h0.html' },
-      { label: 'H1 — Fondamentaux & ROFT', url: '/v2/formation/h1.html' },
-      { label: 'H2 — Stratégie d\'implémentation', url: '/v2/formation/h2.html' },
-      { label: 'H3 — Structurer un prompt', url: '/v2/formation/h3.html' },
-      { label: 'H4 — Créer des visuels', url: '/v2/formation/h4.html' },
-      { label: 'H5 — Confidentialité & Sécurité', url: '/v2/formation/h5.html' },
-      { label: 'H6 — Accessibilité & Inclusivité', url: '/v2/formation/h6.html' },
-      { label: 'H7 — Éthique, IA Act, Biais', url: '/v2/formation/h7.html' },
-      { label: 'Quiz Final Certifiant', url: '/v2/formation/quiz-final.html' }
+      { label: 'H0 — Lancement', url: BASE + 'formation/h0.html' },
+      { label: 'H1 — Fondamentaux & ROFT', url: BASE + 'formation/h1.html' },
+      { label: 'H2 — Stratégie d\'implémentation', url: BASE + 'formation/h2.html' },
+      { label: 'H3 — Structurer un prompt', url: BASE + 'formation/h3.html' },
+      { label: 'H4 — Créer des visuels', url: BASE + 'formation/h4.html' },
+      { label: 'H5 — Confidentialité & Sécurité', url: BASE + 'formation/h5.html' },
+      { label: 'H6 — Accessibilité & Inclusivité', url: BASE + 'formation/h6.html' },
+      { label: 'H7 — Éthique, IA Act, Biais', url: BASE + 'formation/h7.html' },
+      { label: 'Quiz Final Certifiant', url: BASE + 'formation/quiz-final.html' }
     ]
   },
   { 
     label: 'Outils Interactifs', 
     icon: 'build',
     children: [
-      { label: 'Vue d\'ensemble', url: '/v2/outils/index.html' },
-      { label: 'Générateur CROFT', url: '/v2/outils/croft.html' },
-      { label: 'Masqueur RGPD', url: '/v2/outils/anonymiseur.html' },
-      { label: 'Prompt Visuel', url: '/v2/outils/visuel.html' },
-      { label: 'Anti-Hallucinations', url: '/v2/outils/anti-hallucinations.html' },
-      { label: 'Calculateur de Tokens', url: '/v2/outils/tokens.html' },
-      { label: 'Audit Biais & Inclusivité', url: '/v2/outils/audit-biais.html' }
+      { label: 'Vue d\'ensemble', url: BASE + 'outils/index.html' },
+      { label: 'Générateur CROFT', url: BASE + 'outils/croft.html' },
+      { label: 'Masqueur RGPD', url: BASE + 'outils/anonymiseur.html' },
+      { label: 'Prompt Visuel', url: BASE + 'outils/visuel.html' },
+      { label: 'Anti-Hallucinations', url: BASE + 'outils/anti-hallucinations.html' },
+      { label: 'Calculateur de Tokens', url: BASE + 'outils/tokens.html' },
+      { label: 'Audit Biais & Inclusivité', url: BASE + 'outils/audit-biais.html' }
     ]
   },
   { 
     label: 'Ressources', 
     icon: 'folder_open',
     children: [
-      { label: 'Cas Pratiques Métiers', url: '/v2/ressources/cas-pratiques.html' },
-      { label: 'Comparatif LLM', url: '/v2/ressources/comparatif.html' },
-      { label: 'Veille & Articles', url: '/v2/ressources/articles.html' },
-      { label: 'Glossaire IA', url: '/v2/ressources/glossaire.html' }
+      { label: 'Cas Pratiques Métiers', url: BASE + 'ressources/cas-pratiques.html' },
+      { label: 'Comparatif LLM', url: BASE + 'ressources/comparatif.html' },
+      { label: 'Veille & Articles', url: BASE + 'ressources/articles.html' },
+      { label: 'Glossaire IA', url: BASE + 'ressources/glossaire.html' }
     ]
   },
-  { label: 'Thotie Quest', url: '/jeux/index.html', icon: 'sports_esports', highlight: true }
+  { label: 'Thotie Quest', url: BASE + '../jeux/index.html', icon: 'sports_esports', highlight: true }
 ];
-
 class V2App {
   constructor() {
     this.state = this.loadQuestState();
