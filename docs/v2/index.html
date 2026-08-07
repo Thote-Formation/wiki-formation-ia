@@ -1,115 +1,325 @@
 <!DOCTYPE html>
-<html class="dark" lang="fr">
+<html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Thote Formation - Accueil</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<link href="assets/theme.css" rel="stylesheet">
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: { extend: {
-      colors: {
-        "surface": "#0b1326", "background": "#0b1326", "surface-dim": "#0b1326",
-        "surface-bright": "#31394d", "surface-container-lowest": "#060e20",
-        "surface-container-low": "#131b2e", "surface-container": "#171f33",
-        "surface-container-high": "#222a3d", "surface-container-highest": "#2d3449",
-        "on-surface": "#dae2fd", "on-surface-variant": "#cbc3d7",
-        "outline": "#958ea0", "outline-variant": "#494454",
-        "primary": "#d0bcff", "on-primary": "#3c0091", "primary-container": "#a078ff", "on-primary-container": "#340080",
-        "secondary": "#44e2cd", "on-secondary": "#003731", "secondary-container": "#03c6b2", "on-secondary-container": "#004d44",
-        "tertiary": "#e2c62d", "on-tertiary": "#393000", "tertiary-container": "#c4ab01", "on-tertiary-container": "#4a3f00",
-        "error": "#ffb4ab", "error-container": "#93000a"
-      },
-      borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
-      spacing: { gutter: "24px", "container-max": "1280px" },
-      fontFamily: {
-        "label-caps": ["Space Grotesk"], "body-md": ["Be Vietnam Pro"],
-        "display-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"]
-      }
-    }}
-  }
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thote Formation IA — V2</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0b132a;
+      color: #e2e8f0;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* 1. SIDEBAR DROITE FIXE (250px) */
+    .app-sidebar {
+      width: 250px;
+      min-width: 250px;
+      background: #111827;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+    .brand-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #a855f7, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .brand-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #fff;
+    }
+    .brand-sub {
+      font-size: 0.7rem;
+      color: #a855f7;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-menu { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .nav-item:hover, .nav-item.active {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+    }
+    .nav-item.active { background: #8b5cf6; color: #fff; }
+
+    /* 2. ZONE CENTRALE MAIN CONTENT */
+    .app-main {
+      flex: 1;
+      padding: 2.5rem 2rem;
+      overflow-y: auto;
+      max-width: 900px;
+    }
+
+    .welcome-header h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .welcome-header h1 span { color: #a855f7; }
+    .welcome-header p { color: #94a3b8; margin-top: 4px; font-size: 0.95rem; }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 2rem 0 1.2rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.2rem;
+      color: #4fe1c2;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .module-card {
+      background: #10b981;
+      border-radius: 20px;
+      padding: 1.5rem;
+      color: #064e3b;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 160px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .module-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2); }
+    .module-card.locked { background: #1e293b; color: #64748b; }
+    
+    .card-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.15);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+    .card-desc { font-size: 0.82rem; line-height: 1.4; opacity: 0.9; }
+
+    /* 3. COLONNE DROITE GAMIFICATION (320px) */
+    .app-widgets {
+      width: 320px;
+      min-width: 320px;
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .widget-box {
+      background: #161f36;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 1.25rem;
+    }
+
+    /* Profil Widget */
+    .profile-widget { display: flex; align-items: center; gap: 14px; }
+    .profile-avatar { font-size: 2.2rem; background: #1e293b; padding: 8px; border-radius: 14px; }
+    .profile-info { flex: 1; }
+    .profile-level { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.1rem; color: #fff; }
+    .profile-xp-sub { font-size: 0.78rem; color: #94a3b8; margin-top: 2px; }
+    .progress-bar-bg { width: 100%; height: 8px; background: #0b132a; border-radius: 10px; margin-top: 10px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; width: 20%; background: linear-gradient(90deg, #a855f7, #06b6d4); }
+
+    /* Quêtes Widget */
+    .quest-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #facc15; display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; }
+    .quest-item {
+      background: #0b132a;
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .quest-checkbox { width: 20px; height: 20px; border-radius: 6px; border: 2px solid #475569; display: flex; align-items: center; justify-content: center; }
+    .quest-checkbox.done { background: #10b981; border-color: #10b981; color: #fff; }
+    .quest-label { font-size: 0.85rem; font-weight: 700; color: #e2e8f0; }
+    .quest-xp { font-size: 0.72rem; color: #facc15; font-weight: 700; }
+
+    .device-note { font-size: 0.75rem; color: #64748b; text-align: center; margin-top: 1rem; line-height: 1.4; }
+  </style>
 </head>
-<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden">
+<body>
 
-<div id="tq-nav"></div>
-
-<main class="max-w-[1280px] mx-auto px-4 md:px-8 py-12">
-
-  <!-- Hero -->
-  <section class="text-center max-w-2xl mx-auto mb-16">
-    <h1 class="font-headline-md text-3xl md:text-4xl font-extrabold mb-4">
-      Bienvenue sur <span class="text-primary">Thotie Formation</span>
-    </h1>
-    <p class="text-on-surface-variant text-lg">
-      Ressources de la formation IA générative — Certification RS6776.
-    </p>
-  </section>
-
-  <!-- Bandeau vers le jeu -->
-  <a href="../jeux/index.html" class="flex flex-col md:flex-row items-center justify-between gap-4 bg-secondary-container text-on-secondary-container rounded-3xl p-6 md:p-8 neo-bevel mb-16">
-    <div class="flex items-center gap-4">
-      <span class="material-symbols-outlined text-4xl">stadia_controller</span>
+  <!-- COLONNE 1 : SIDEBAR NAV -->
+  <aside class="app-sidebar">
+    <div class="brand">
+      <div class="brand-avatar">🦊</div>
       <div>
-        <h2 class="font-headline-md text-xl mb-1">Thotie Quest</h2>
-        <p class="text-sm text-on-secondary-container/80">Apprends en jouant : modules, XP, niveaux et défis.</p>
+        <div class="brand-name">Thotie Quest</div>
+        <div class="brand-sub">NIVEAU 1 — TRUC</div>
       </div>
     </div>
-    <span class="bg-surface/20 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap">Jouer →</span>
-  </a>
 
-  <!-- Accès rapide aux sections -->
-  <section>
-    <h2 class="font-headline-md text-xl mb-6 flex items-center gap-2 text-secondary">
-      <span class="material-symbols-outlined">explore</span> Explorer
-    </h2>
-    <div id="sections-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-  </section>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-item active">
+        <span class="material-symbols-outlined">map</span> Hub
+      </a>
+      <a href="formation/h0.html" class="nav-item">
+        <span class="material-symbols-outlined">grain</span> Parcours H0-H7
+      </a>
+      <a href="outils/index.html" class="nav-item">
+        <span class="material-symbols-outlined">terminal</span> Outils & CROFT
+      </a>
+      <a href="certification/index.html" class="nav-item">
+        <span class="material-symbols-outlined">verified</span> RS6776
+      </a>
+    </nav>
+  </aside>
 
-</main>
+  <!-- COLONNE 2 : MAIN CONTENT -->
+  <main class="app-main">
+    <header class="welcome-header">
+      <h1>Bienvenue <span>truc</span> 👋</h1>
+      <p>Continue ton parcours dans l'IA générative et la certification RS6776.</p>
+    </header>
 
-<div id="tq-footer"></div>
+    <div class="section-title">
+      <span class="material-symbols-outlined">explore</span> Modules & Parcours
+    </div>
 
-<script src="assets/shared.js"></script>
-<script>
-  TQ.init("accueil");
-
-  // Grille construite à partir de la même config que la nav (TQ.NAV), pour rester synchronisée
-  // automatiquement : dès qu'une section passe "built: true" dans shared.js, sa carte devient cliquable.
-  const icons = {
-    certification: "military_tech",
-    formation: "school",
-    outils: "construction",
-    ressources: "library_books",
-    glossaire: "menu_book",
-  };
-  const grid = document.getElementById("sections-grid");
-  grid.innerHTML = TQ.NAV.filter((s) => s.id !== "accueil").map((s) => {
-    const icon = icons[s.id] || "folder";
-    if (!s.built) {
-      return `<div class="locked-card bg-surface-container-high rounded-2xl p-5 neo-bevel">
-        <div class="flex justify-between items-start mb-3">
-          <div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-outline">
-            <span class="material-symbols-outlined">${icon}</span>
-          </div>
-          <span class="text-[10px] uppercase text-outline">Bientôt</span>
+    <div class="cards-grid">
+      <!-- Card 1 -->
+      <a href="formation/h0.html" class="module-card">
+        <span class="card-badge">À FAIRE</span>
+        <div>
+          <div class="card-icon"><span class="material-symbols-outlined">grain</span></div>
+          <div class="card-title">Atelier des neurones</div>
+          <div class="card-desc">Les bases du fonctionnement d'un réseau de neurones et ROFT.</div>
         </div>
-        <h3 class="font-headline-md text-[16px] text-outline-variant">${s.label}</h3>
-      </div>`;
-    }
-    return `<a href="${s.href}" class="bg-surface-container rounded-2xl p-5 neo-bevel block group">
-      <div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container mb-3 group-hover:rotate-12 transition-transform">
-        <span class="material-symbols-outlined">${icon}</span>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="formation/h1.html" class="module-card">
+        <span class="card-badge">À FAIRE</span>
+        <div>
+          <div class="card-icon"><span class="material-symbols-outlined">terminal</span></div>
+          <div class="card-title">Laboratoire du prompt</div>
+          <div class="card-desc">Construire et tester un prompt efficace avec la méthode CROFT.</div>
+        </div>
+      </a>
+
+      <!-- Card 3 Locked -->
+      <div class="module-card locked">
+        <span class="card-badge">🔒 Bloqué</span>
+        <div>
+          <div class="card-icon"><span class="material-symbols-outlined">sports_esports</span></div>
+          <div class="card-title">Duel de l'IA</div>
+          <div class="card-desc">Débloqué au niveau 2 de votre progression.</div>
+        </div>
       </div>
-      <h3 class="font-headline-md text-[16px]">${s.label}</h3>
-    </a>`;
-  }).join("");
-</script>
+    </div>
+  </main>
+
+  <!-- COLONNE 3 : WIDGETS DE GAMIFICATION -->
+  <aside class="app-widgets">
+    <!-- Card Profil -->
+    <div class="widget-box">
+      <div class="profile-widget">
+        <div class="profile-avatar">🦊</div>
+        <div class="profile-info">
+          <div class="profile-level">Niveau 1</div>
+          <div class="profile-xp-sub">280 XP avant le niveau 2</div>
+        </div>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Card Quêtes -->
+    <div class="widget-box">
+      <div class="quest-title">
+        <span class="material-symbols-outlined">check_circle</span> Quêtes
+      </div>
+
+      <div class="quest-item">
+        <div class="quest-checkbox"></div>
+        <div>
+          <div class="quest-label">Terminer 1 module</div>
+          <div class="quest-xp">+50 XP</div>
+        </div>
+      </div>
+
+      <div class="quest-item">
+        <div class="quest-checkbox"></div>
+        <div>
+          <div class="quest-label">Gagner un duel</div>
+          <div class="quest-xp">+100 XP</div>
+        </div>
+      </div>
+
+      <div class="quest-item">
+        <div class="quest-checkbox done">✓</div>
+        <div>
+          <div class="quest-label">Personnaliser mon profil</div>
+          <div class="quest-xp">+20 XP</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="device-note">Ta progression est enregistrée uniquement sur cet appareil (pas de compte).</p>
+  </aside>
+
 </body>
 </html>
