@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="dark" lang="fr">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>IA Academy - Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link href="assets/style.css" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: { extend: {
+      colors: {
+        "surface": "#0b1326", "background": "#0b1326", "surface-dim": "#0b1326",
+        "surface-bright": "#31394d", "surface-container-lowest": "#060e20",
+        "surface-container-low": "#131b2e", "surface-container": "#171f33",
+        "surface-container-high": "#222a3d", "surface-container-highest": "#2d3449",
+        "on-surface": "#dae2fd", "on-surface-variant": "#cbc3d7",
+        "outline": "#958ea0", "outline-variant": "#494454",
+        "primary": "#d0bcff", "on-primary": "#3c0091", "primary-container": "#a078ff", "on-primary-container": "#340080",
+        "secondary": "#44e2cd", "on-secondary": "#003731", "secondary-container": "#03c6b2", "on-secondary-container": "#004d44",
+        "tertiary": "#e2c62d", "on-tertiary": "#393000", "tertiary-container": "#c4ab01", "on-tertiary-container": "#4a3f00",
+        "error": "#ffb4ab", "error-container": "#93000a"
+      },
+      borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+      spacing: { gutter: "24px", "container-max": "1280px" },
+      fontFamily: {
+        "label-caps": ["Space Grotesk"], "body-md": ["Be Vietnam Pro"],
+        "display-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"]
+      }
+    }}
+  }
+</script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex font-body-md overflow-x-hidden">
+<nav id="academy-sidebar" class="hidden md:flex flex-col gap-2 p-4 h-screen w-64 fixed left-0 top-0 bg-surface-container border-r-4 border-surface-container-highest shadow-2xl z-50"></nav>
+
+<main class="flex-1 md:ml-64 p-6 md:p-10 max-w-[1280px] mx-auto">
+  <header class="flex justify-between items-center mb-8">
+    <div>
+      <h2 class="font-headline-md text-2xl">Bienvenue <span id="hub-pseudo" class="text-primary"></span> 👋</h2>
+      <p class="text-on-surface-variant text-sm">Continue ton parcours dans l'IA générative.</p>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+    <section class="md:col-span-8 flex flex-col gap-gutter">
+      <h3 class="font-headline-md text-xl flex items-center gap-2 text-secondary">
+        <span class="material-symbols-outlined">explore</span> Modules
+      </h3>
+      <div id="modules-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+    </section>
+
+    <aside class="md:col-span-4 flex flex-col gap-gutter">
+      <div class="glass-panel rounded-3xl p-6 neo-bevel">
+        <div class="flex items-center gap-4 mb-6">
+          <div id="hub-avatar" class="w-16 h-16 rounded-full avatar-emoji text-white border-2 border-secondary"></div>
+          <div>
+            <h3 class="font-headline-md text-xl" id="hub-level-title"></h3>
+            <p class="text-sm text-on-surface-variant" id="hub-xp-sub"></p>
+          </div>
+        </div>
+        <div class="bg-surface-container-highest rounded-full h-3 w-full overflow-hidden mb-2 shadow-inner border border-black/50">
+          <div id="hub-progress-bar" class="h-full bg-gradient-to-r from-secondary to-primary relative" style="width:0%">
+            <div class="absolute inset-0 bg-white/20 w-1/2 -skew-x-12 translate-x-full shimmer"></div>
+          </div>
+        </div>
+        <div class="flex justify-between text-[11px] uppercase tracking-wide text-on-surface-variant">
+          <span id="hub-level-a"></span>
+          <span id="hub-level-b"></span>
+        </div>
+      </div>
+
+      <div class="bg-surface-container rounded-3xl p-6 neo-bevel border-t border-white/5">
+        <h3 class="font-headline-md text-lg mb-4 flex items-center gap-2 text-tertiary">
+          <span class="material-symbols-outlined">task_alt</span> Quêtes
+        </h3>
+        <ul id="quests-list" class="space-y-3"></ul>
+      </div>
+
+      <div class="bg-surface-container rounded-3xl p-4 text-xs text-on-surface-variant border-t border-white/5">
+        Ta progression est enregistrée uniquement sur cet appareil (pas de compte).
+      </div>
+    </aside>
+  </div>
+</main>
+
+<script src="assets/state.js"></script>
+<script>
+  function render() {
+    const A = window.Academy;
+    const s = A.state;
+    const info = A.levelInfo(s.xp);
+
+    A.renderSidebar("hub");
+    document.getElementById("hub-pseudo").textContent = s.pseudo;
+    document.getElementById("hub-avatar").textContent = A.AVATARS[s.avatar].emoji;
+    document.getElementById("hub-level-title").textContent = `Niveau ${info.level}`;
+    document.getElementById("hub-xp-sub").textContent = `${info.xpToNext} XP avant le niveau ${info.level + 1}`;
+    document.getElementById("hub-progress-bar").style.width = info.pct + "%";
+    document.getElementById("hub-level-a").textContent = `Niv. ${info.level}`;
+    document.getElementById("hub-level-b").textContent = `Niv. ${info.level + 1}`;
+
+    const grid = document.getElementById("modules-grid");
+    grid.innerHTML = A.MODULES.map((m) => {
+      const locked = info.level < m.unlockLevel;
+      const done = s.completedModules.includes(m.id);
+      if (locked) {
+        return `<div class="locked-card bg-surface-container-high rounded-2xl p-5 neo-bevel">
+          <div class="flex justify-between items-start mb-3">
+            <div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-outline">
+              <span class="material-symbols-outlined">${m.icon}</span>
+            </div>
+            <span class="material-symbols-outlined text-outline">lock</span>
+          </div>
+          <h3 class="font-headline-md text-[18px] text-outline-variant mb-1">${m.name}</h3>
+          <p class="text-sm text-outline-variant/60">Débloqué au niveau ${m.unlockLevel}</p>
+        </div>`;
+      }
+      return `<a href="${m.href}" class="bg-secondary-container rounded-2xl p-5 neo-bevel cursor-pointer group block">
+        <div class="flex justify-between items-start mb-3">
+          <div class="w-12 h-12 rounded-lg bg-surface/30 flex items-center justify-center text-on-secondary-container group-hover:rotate-12 transition-transform">
+            <span class="material-symbols-outlined">${m.icon}</span>
+          </div>
+          <span class="bg-surface/20 text-on-secondary-container px-2 py-1 rounded text-[10px] uppercase flex items-center gap-1">
+            <span class="material-symbols-outlined text-[12px]">${done ? "check_circle" : "play_circle"}</span> ${done ? "Terminé" : "À faire"}
+          </span>
+        </div>
+        <h3 class="font-headline-md text-[18px] text-on-secondary-container mb-1">${m.name}</h3>
+        <p class="text-sm text-on-secondary-container/80">${m.desc}</p>
+      </a>`;
+    }).join("");
+
+    const questsList = document.getElementById("quests-list");
+    questsList.innerHTML = A.QUESTS.map((q) => {
+      const done = !!s.quests[q.id];
+      return `<li class="flex items-center gap-3 bg-surface-container-high p-3 rounded-xl cursor-pointer quest-item" data-id="${q.id}">
+        <div class="w-6 h-6 rounded-md flex items-center justify-center ${done ? "bg-secondary/20 text-secondary" : "border-2 border-outline-variant"}">
+          ${done ? '<span class="material-symbols-outlined text-[16px]">check</span>' : ""}
+        </div>
+        <div class="flex-1">
+          <p class="text-sm ${done ? "font-medium" : "text-on-surface-variant"}">${q.label}</p>
+          <p class="text-[10px] text-tertiary uppercase">+${q.xp} XP</p>
+        </div>
+      </li>`;
+    }).join("");
+
+    document.querySelectorAll(".quest-item").forEach((el) => {
+      el.addEventListener("click", () => {
+        A.toggleQuest(el.dataset.id);
+        render();
+      });
+    });
+  }
+  render();
+</script>
+</body>
+</html>
