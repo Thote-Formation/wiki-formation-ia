@@ -1,11 +1,13 @@
-/* IA Academy — état partagé entre toutes les pages.
+/* Thotie Quest — état partagé entre toutes les pages.
    Stockage: localStorage, propre à chaque navigateur/appareil (pas de compte, pas de serveur).
    Pour un classement réel partagé entre utilisateurs, il faudrait brancher ceci sur un backend
    (par ex. le Worker Cloudflare déjà utilisé pour le chatbot Thotie, + Cloudflare KV). */
 
 (function () {
-  const STORAGE_KEY = "ia_academy_state";
+  const GAME_NAME = "Thotie Quest";
+  const STORAGE_KEY = "thotie_quest_state";
   const XP_PER_LEVEL = 300; // palier arbitraire, à ajuster librement
+  const SITE_HOME = "../"; // racine du site depuis docs/jeux/
 
   const AVATARS = {
     robot: { emoji: "🤖", label: "Robot" },
@@ -47,6 +49,7 @@
     },
   ];
 
+  // Quêtes : validées automatiquement par une action du joueur, jamais cochables à la main.
   const QUESTS = [
     { id: "module", label: "Terminer 1 module", xp: 50 },
     { id: "duel", label: "Gagner un duel", xp: 100 },
@@ -97,12 +100,13 @@
     persist();
   }
 
-  function toggleQuest(id) {
+  // Validation automatique d'une quête — jamais appelée par un clic direct de l'utilisateur,
+  // uniquement en conséquence d'une vraie action (module terminé, profil enregistré, duel gagné...).
+  function markQuestDone(id) {
     const q = QUESTS.find((x) => x.id === id);
-    if (!q) return;
-    const done = !!state.quests[id];
-    state.quests[id] = !done;
-    addXp(done ? -q.xp : q.xp);
+    if (!q || state.quests[id]) return;
+    state.quests[id] = true;
+    addXp(q.xp);
     persist();
   }
 
@@ -111,10 +115,8 @@
     if (!m || state.completedModules.includes(id)) return;
     state.completedModules.push(id);
     addXp(m.xpReward);
-    if (!state.quests.module) {
-      state.quests.module = true;
-      addXp(QUESTS.find((q) => q.id === "module").xp);
-    }
+    markQuestDone("module");
+    if (id === "duel") markQuestDone("duel"); // à affiner : ne récompenser que si le duel est vraiment gagné, une fois la vraie mécanique branchée
     persist();
   }
 
@@ -127,6 +129,7 @@
   function setProfile(pseudo, avatar) {
     state.pseudo = pseudo || state.pseudo;
     state.avatar = avatar || state.avatar;
+    markQuestDone("profil");
     persist();
   }
 
@@ -150,9 +153,12 @@
     ];
 
     mount.innerHTML = `
+      <a href="${SITE_HOME}" class="flex items-center gap-2 text-xs text-on-surface-variant hover:text-secondary px-2 mb-4">
+        <span class="material-symbols-outlined text-[16px]">arrow_back</span> Retour au site
+      </a>
       <div class="mb-8 flex flex-col items-center p-4">
         <div class="w-20 h-20 rounded-xl mb-3 overflow-hidden neo-bevel avatar-emoji text-white">${avatar.emoji}</div>
-        <h1 class="font-headline-md text-lg text-primary text-center">IA Academy</h1>
+        <h1 class="font-headline-md text-lg text-primary text-center">${GAME_NAME}</h1>
         <p class="text-xs text-on-surface-variant uppercase tracking-wide">Niveau ${info.level} — ${state.pseudo}</p>
       </div>
       <div class="flex flex-col gap-2 px-2">
@@ -191,6 +197,7 @@
   }
 
   window.Academy = {
+    GAME_NAME,
     AVATARS,
     MODULES,
     QUESTS,
@@ -199,7 +206,6 @@
     },
     levelInfo,
     addXp,
-    toggleQuest,
     completeModule,
     resetState,
     setProfile,
