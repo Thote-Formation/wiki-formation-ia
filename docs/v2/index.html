@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thote Formation IA V2 — Certification RS6776</title>
+
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="/v2/assets/theme.css">
+
+  <style>
+    /* Hero Section Specifics */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      align-items: center;
+      padding: 3rem 0;
+    }
+
+    .hero-title {
+      font-size: 2.75rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-variant);
+      margin-bottom: 2rem;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-family: var(--font-label);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #b39ddb);
+      color: var(--bg-main);
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px var(--primary-glow);
+    }
+
+    .btn-secondary {
+      background: var(--surface-high);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--secondary);
+      color: #fff;
+    }
+
+    .grid-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      padding: 1.75rem;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(208, 188, 255, 0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .cta-group { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header injecté via JS -->
+  <header id="site-header"></header>
+
+  <!-- Contenu Principal -->
+  <main id="site-main">
+    
+    <!-- Hero Section -->
+    <section class="hero">
+      <div>
+        <div class="badge badge-secondary" style="margin-bottom: 1rem;">
+          <span class="material-symbols-outlined" style="font-size:16px;">verified</span>
+          Certification RS6776
+        </div>
+        <h1 class="hero-title">Maîtrisez l'<span>IA Générative</span> dans votre pratique professionnelle.</h1>
+        <p class="hero-subtitle">
+          Un parcours complet de H0 à H7 combinant rigueur méthodologique (ROFT, CROFT), cas pratiques métiers, outils interactifs et ludification avec Thotie Quest.
+        </p>
+        <div class="cta-group">
+          <a href="/v2/formation/h0.html" class="btn btn-primary">
+            <span class="material-symbols-outlined">play_arrow</span>
+            Commencer H0 — Lancement
+          </a>
+          <a href="/v2/certification/index.html" class="btn btn-secondary">
+            En savoir plus sur la RS6776
+          </a>
+        </div>
+      </div>
+
+      <div class="glass-panel neo-bevel" style="padding: 2rem; border-radius: 20px;">
+        <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color:var(--tertiary);">workspace_premium</span>
+          Votre Progression V2
+        </h3>
+        <p style="font-size:0.9rem; color:var(--text-variant); margin-bottom: 1.5rem;">
+          Suivez l'avancement de votre apprentissage et débloquez les récompenses dans l'écosystème.
+        </p>
+        
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div>
+            <div style="display:flex; justify-style:space-between; justify-content: space-between; font-size:0.85rem; margin-bottom:4px;">
+              <span>Parcours de Formation (8 modules)</span>
+              <strong id="progression-formation-text">0 / 8</strong>
+            </div>
+            <div class="xp-bar-container" style="width:100%; height:8px;">
+              <div id="progression-formation-bar" class="xp-bar-fill" style="width:0%;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:4px;">
+              <span>Outils Pratiques Utilisés</span>
+              <strong id="progression-outils-text">0 / 7</strong>
+            </div>
+            <div class="xp-bar-container" style="width:100%; height:8px;">
+              <div id="progression-outils-bar" class="xp-bar-fill" style="width:0%; background:var(--secondary);"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); text-align: center;">
+          <a href="/jeux/index.html" style="color:var(--primary); text-decoration:none; font-size:0.9rem; font-family:var(--font-label); font-weight:700; display:inline-flex; align-items:center; gap:6px;">
+            <span class="material-symbols-outlined">sports_esports</span>
+            Ouvrir Thotie Quest Hub &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grille des piliers de la formation -->
+    <section>
+      <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem;">Explorez le contenu V2</h2>
+      <p style="color:var(--text-variant); margin-bottom: 1.5rem;">Accédez directement aux ressources et modules clés.</p>
+
+      <div class="grid-features">
+        <div class="glass-card feature-card">
+          <div class="feature-icon">
+            <span class="material-symbols-outlined">school</span>
+          </div>
+          <h3>Parcours H0 - H7</h3>
+          <p style="font-size: 0.9rem; color: var(--text-variant); margin: 0.5rem 0 1rem 0;">
+            De la prise en main rapide aux enjeux stratégiques, éthiques, RGPD et IA Act.
+          </p>
+          <a href="/v2/formation/h0.html" style="color:var(--primary); text-decoration:none; font-weight:600; font-size:0.9rem;">Découvrir les modules &rarr;</a>
+        </div>
+
+        <div class="glass-card feature-card">
+          <div class="feature-icon" style="color:var(--secondary); background:rgba(68, 226, 205, 0.1);">
+            <span class="material-symbols-outlined">construction</span>
+          </div>
+          <h3>Outils & Générateurs</h3>
+          <p style="font-size: 0.9rem; color: var(--text-variant); margin: 0.5rem 0 1rem 0;">
+            Générateur CROFT, anonymiseur RGPD, détecteur d'hallucinations et plus.
+          </p>
+          <a href="/v2/outils/index.html" style="color:var(--secondary); text-decoration:none; font-weight:600; font-size:0.9rem;">Tester les outils &rarr;</a>
+        </div>
+
+        <div class="glass-card feature-card">
+          <div class="feature-icon" style="color:var(--tertiary); background:rgba(226, 198, 45, 0.1);">
+            <span class="material-symbols-outlined">menu_book</span>
+          </div>
+          <h3>Cas Pratiques & LLM</h3>
+          <p style="font-size: 0.9rem; color: var(--text-variant); margin: 0.5rem 0 1rem 0;">
+            Mises en situation RH, admin, comm et fiches comparatives (Claude, GPT-4, Gemini, Mistral).
+          </p>
+          <a href="/v2/ressources/cas-pratiques.html" style="color:var(--tertiary); text-decoration:none; font-weight:600; font-size:0.9rem;">Consulter les cas &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer injecté via JS -->
+  <footer id="site-footer"></footer>
+
+  <script src="/v2/assets/shared.js"></script>
+</body>
+</html>
