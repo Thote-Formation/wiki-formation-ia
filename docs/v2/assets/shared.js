@@ -1,194 +1,183 @@
 /**
- * Shared V2 Engine — Thote Formation IA (Sidebar & Gamification Pattern)
+ * Thote IA V2 - State Manager & Shared Shell Injector
  */
 
-const STORAGE_KEY_QUEST = 'thotie_quest_state';
-const STORAGE_KEY_PROGRESS = 'wiki_progress_v1';
+const STATE_KEY = 'thotie_quest_state';
 
-const getBasePath = () => {
-  const path = window.location.pathname;
-  if (path.includes('/formation/') || path.includes('/certification/') || path.includes('/outils/') || path.includes('/ressources/')) {
-    return '../';
-  }
-  return './';
+const defaultState = {
+  xp: 0,
+  level: 1,
+  completedModules: [],
+  validatedQuests: [],
+  unlockedBadges: ['novice']
 };
 
-const BASE = getBasePath();
-
-const NAV_STRUCTURE = [
-  { label: 'Accueil', url: BASE + 'index.html', icon: 'home' },
-  { 
-    label: 'Certification RS6776', 
-    icon: 'verified',
-    children: [
-      { label: 'Présentation RS6776', url: BASE + 'certification/index.html' },
-      { label: 'Évaluation d\'entrée', url: BASE + 'certification/evaluation.html' }
-    ]
-  },
-  { 
-    label: 'Parcours de Formation', 
-    icon: 'auto_stories',
-    children: [
-      { label: 'H0 — Lancement', url: BASE + 'formation/h0.html' },
-      { label: 'H1 — Fondamentaux & ROFT', url: BASE + 'formation/h1.html' },
-      { label: 'H2 — Stratégie d\'implémentation', url: BASE + 'formation/h2.html' },
-      { label: 'H3 — Structurer un prompt', url: BASE + 'formation/h3.html' },
-      { label: 'H4 — Créer des visuels', url: BASE + 'formation/h4.html' },
-      { label: 'H5 — Confidentialité & Sécurité', url: BASE + 'formation/h5.html' },
-      { label: 'H6 — Accessibilité & Inclusivité', url: BASE + 'formation/h6.html' },
-      { label: 'H7 — Éthique, IA Act, Biais', url: BASE + 'formation/h7.html' },
-      { label: 'Quiz Final Certifiant', url: BASE + 'formation/quiz-final.html' }
-    ]
-  },
-  { 
-    label: 'Outils Interactifs', 
-    icon: 'build',
-    children: [
-      { label: 'Vue d\'ensemble', url: BASE + 'outils/index.html' },
-      { label: 'Générateur CROFT', url: BASE + 'outils/croft.html' },
-      { label: 'Masqueur RGPD', url: BASE + 'outils/anonymiseur.html' },
-      { label: 'Prompt Visuel', url: BASE + 'outils/visuel.html' },
-      { label: 'Anti-Hallucinations', url: BASE + 'outils/anti-hallucinations.html' },
-      { label: 'Calculateur de Tokens', url: BASE + 'outils/tokens.html' },
-      { label: 'Audit Biais', url: BASE + 'outils/audit-biais.html' }
-    ]
-  },
-  { 
-    label: 'Ressources', 
-    icon: 'folder_open',
-    children: [
-      { label: 'Cas Pratiques Métiers', url: BASE + 'ressources/cas-pratiques.html' },
-      { label: 'Comparatif LLM', url: BASE + 'ressources/comparatif.html' },
-      { label: 'Veille & Articles', url: BASE + 'ressources/articles.html' },
-      { label: 'Glossaire IA', url: BASE + 'ressources/glossaire.html' }
-    ]
-  },
-  { label: 'Thotie Quest Hub', url: BASE + '../jeux/index.html', icon: 'sports_esports', highlight: true }
-];
-
-class V2App {
-  constructor() {
-    this.state = this.loadQuestState();
-    this.progress = this.loadProgressState();
-    this.initShell();
-  }
-
-  loadQuestState() {
-    const defaultState = { xp: 0, level: 1, avatar: '🤖', modulesCompleted: [] };
+export class ThoteStore {
+  static getState() {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY_QUEST);
+      const saved = localStorage.getItem(STATE_KEY);
       return saved ? { ...defaultState, ...JSON.parse(saved) } : defaultState;
-    } catch (e) { return defaultState; }
-  }
-
-  loadProgressState() {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_PROGRESS);
-      return saved ? JSON.parse(saved) : {};
-    } catch (e) { return {}; }
-  }
-
-  saveQuestState() {
-    localStorage.setItem(STORAGE_KEY_QUEST, JSON.stringify(this.state));
-    this.updateUserWidget();
-  }
-
-  addXP(amount) {
-    this.state.xp += amount;
-    this.state.level = Math.floor(this.state.xp / 100) + 1;
-    this.saveQuestState();
-  }
-
-  initShell() {
-    document.addEventListener('DOMContentLoaded', () => {
-      this.injectSidebar();
-      this.updateUserWidget();
-    });
-  }
-
-  injectSidebar() {
-    // Si la page a un conteneur d'accueil header, on s'assure de cibler la sidebar
-    let sidebar = document.getElementById('site-sidebar');
-    if (!sidebar) {
-      sidebar = document.createElement('aside');
-      sidebar.id = 'site-sidebar';
-      document.body.prepend(sidebar);
+    } catch (e) {
+      return defaultState;
     }
-
-    const currentPath = window.location.pathname;
-
-    let navHTML = '<nav class="sidebar-nav">';
-    NAV_STRUCTURE.forEach(item => {
-      const hasChildren = item.children && item.children.length > 0;
-      const isActive = currentPath.includes(item.url) || (hasChildren && item.children.some(c => currentPath.includes(c.url)));
-
-      navHTML += `
-        <div class="nav-section ${isActive ? 'active' : ''}">
-          <a href="${item.url || '#'}" class="nav-header-link ${item.highlight ? 'highlight-link' : ''}">
-            <span class="material-symbols-outlined">${item.icon}</span>
-            <span class="nav-label">${item.label}</span>
-          </a>
-          ${hasChildren ? `
-            <div class="nav-children">
-              ${item.children.map(child => {
-                const isChildActive = currentPath.includes(child.url);
-                return `
-                  <a href="${child.url}" class="nav-child-link ${isChildActive ? 'child-active' : ''}">
-                    <span class="material-symbols-outlined" style="font-size:14px;">chevron_right</span>
-                    ${child.label}
-                  </a>
-                `;
-              }).join('')}
-            </div>
-          ` : ''}
-        </div>
-      `;
-    });
-    navHTML += '</nav>';
-
-    sidebar.innerHTML = `
-      <div class="sidebar-brand">
-        <div class="brand-logo">T</div>
-        <div class="brand-info">
-          <span class="brand-title">THOTE IA</span>
-          <span class="brand-sub">Académie V2</span>
-        </div>
-      </div>
-
-      <!-- Widget Profil Gamifié Lateral -->
-      <div class="profile-card glass-panel">
-        <div class="avatar-box">${this.state.avatar}</div>
-        <div class="profile-details">
-          <div class="profile-level">Niveau <span id="sidebar-level">${this.state.level}</span></div>
-          <div class="xp-text"><span id="sidebar-xp">${this.state.xp}</span> XP</div>
-          <div class="xp-bar-container">
-            <div id="sidebar-xp-bar" class="xp-bar-fill"></div>
-          </div>
-        </div>
-      </div>
-
-      ${navHTML}
-
-      <div class="sidebar-footer">
-        <a href="/" class="v1-link">
-          <span class="material-symbols-outlined">arrow_back</span>
-          Retour Site Original V1
-        </a>
-      </div>
-    `;
   }
 
-  updateUserWidget() {
-    const levelEl = document.getElementById('sidebar-level');
-    const xpEl = document.getElementById('sidebar-xp');
-    const barEl = document.getElementById('sidebar-xp-bar');
-    if (levelEl && xpEl && barEl) {
-      levelEl.textContent = this.state.level;
-      xpEl.textContent = this.state.xp;
-      const progressInLevel = this.state.xp % 100;
-      barEl.style.width = `${progressInLevel}%`;
+  static saveState(state) {
+    localStorage.setItem(STATE_KEY, JSON.stringify(state));
+    window.dispatchEvent(new CustomEvent('thote-state-changed', { detail: state }));
+  }
+
+  static addXP(amount) {
+    const state = this.getState();
+    state.xp += amount;
+    // Calcul simple de niveau : +1 niveau tous les 100 XP
+    const newLevel = Math.floor(state.xp / 100) + 1;
+    if (newLevel > state.level) {
+      state.level = newLevel;
+      alert(`🎉 Félicitations ! Vous avez atteint le niveau ${newLevel} !`);
+    }
+    this.saveState(state);
+  }
+
+  static completeQuest(questId, xpReward = 25) {
+    const state = this.getState();
+    if (!state.validatedQuests.includes(questId)) {
+      state.validatedQuests.push(questId);
+      this.saveState(state);
+      this.addXP(xpReward);
     }
   }
 }
 
-window.v2App = new V2App();
+export function initV2Shell(activePageId = 'home') {
+  injectHeader();
+  injectLeftSidebar(activePageId);
+  injectRightSidebar();
+  injectFooter();
+
+  // Re-render automatique au changement d'état
+  window.addEventListener('thote-state-changed', () => {
+    updateRightSidebar();
+  });
+}
+
+function injectHeader() {
+  const el = document.getElementById('v2-header-target');
+  if (!el) return;
+  el.innerHTML = `
+    <header class="v2-header glass-panel">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span class="material-symbols-outlined" style="color:var(--primary); font-size:32px;">psychology</span>
+        <div>
+          <h2 style="font-size:1.1rem; margin:0;">Thote IA <span style="color:var(--secondary); font-size:0.8rem;">V2</span></h2>
+          <span class="label-tech" style="color:var(--text-muted);">Certification RS6776</span>
+        </div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <a href="../" class="wiki-btn wiki-btn-secondary" style="font-size:0.8rem;">
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
+          Retour site V1
+        </a>
+      </div>
+    </header>
+  `;
+}
+
+function injectLeftSidebar(activeId) {
+  const el = document.getElementById('v2-left-sidebar-target');
+  if (!el) return;
+
+  const links = [
+    { section: "GÉNÉRAL" },
+    { id: "home", label: "Accueil", icon: "grid_view", href: "./index.html" },
+    { id: "rs6776", label: "Certification RS6776", icon: "school", href: "./certification.html" },
+    
+    { section: "PARCOURS H0 - H7" },
+    { id: "h0", label: "H0 — Lancement", icon: "rocket_launch", href: "./formation/h0.html" },
+    { id: "h1", label: "H1 — Fondamentaux & ROFT", icon: "menu_book", href: "./formation/h1.html" },
+    { id: "h2", label: "H2 — Stratégie IA", icon: "strategy", href: "./formation/h2.html" },
+    { id: "h3", label: "H3 — Prompting CROFT", icon: "terminal", href: "./formation/h3.html" },
+    { id: "h4", label: "H4 — Visuels & Médias", icon: "image", href: "./formation/h4.html" },
+    { id: "h5", label: "H5 — Sécurité & RGPD", icon: "security", href: "./formation/h5.html" },
+    { id: "h6", label: "H6 — Inclusivité", icon: "accessibility", href: "./formation/h6.html" },
+    { id: "h7", label: "H7 — Éthique & IA Act", icon: "gavel", href: "./formation/h7.html" },
+    
+    { section: "OUTILS & JEUX" },
+    { id: "outils", label: "Outils Interactifs", icon: "build", href: "./outils/index.html" },
+    { id: "jeux", label: "Thotie Quest Hub", icon: "sports_esports", href: "../jeux/index.html" }
+  ];
+
+  let html = `<nav class="glass-panel neo-bevel" style="padding: 16px; height: 100%;">`;
+  links.forEach(item => {
+    if (item.section) {
+      html += `<div class="nav-section-title label-tech">${item.section}</div>`;
+    } else {
+      const activeClass = item.id === activeId ? 'active' : '';
+      html += `
+        <a href="${item.href}" class="nav-link ${activeClass}">
+          <span class="material-symbols-outlined">${item.icon}</span>
+          <span>${item.label}</span>
+        </a>
+      `;
+    }
+  });
+  html += `</nav>`;
+  el.innerHTML = html;
+}
+
+function injectRightSidebar() {
+  const el = document.getElementById('v2-right-sidebar-target');
+  if (!el) return;
+  el.innerHTML = `<aside id="right-sidebar-content" class="glass-panel neo-bevel" style="padding:20px; height:100%;"></aside>`;
+  updateRightSidebar();
+}
+
+function updateRightSidebar() {
+  const el = document.getElementById('right-sidebar-content');
+  if (!el) return;
+
+  const state = ThoteStore.getState();
+  const xpNext = state.level * 100;
+  const progressPercent = Math.min(100, Math.floor(((state.xp % 100) / 100) * 100));
+
+  el.innerHTML = `
+    <h3 style="font-size:1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+      <span class="material-symbols-outlined" style="color:var(--tertiary);">analytics</span>
+      Progression V2
+    </h3>
+
+    <div class="widget-stat glass-panel" style="background:var(--surface-low);">
+      <div style="display:flex; justify-content:space-between; font-size:0.85rem;">
+        <span>Niveau <strong>${state.level}</strong></span>
+        <span style="color:var(--primary);">${state.xp} XP</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" style="width: ${progressPercent}%;"></div>
+      </div>
+    </div>
+
+    <div class="widget-stat glass-panel" style="background:var(--surface-low);">
+      <div class="label-tech" style="margin-bottom:8px; color:var(--text-muted);">Quêtes validées</div>
+      <div style="font-size:1.4rem; font-weight:700; color:var(--secondary);">
+        ${state.validatedQuests.length} <span style="font-size:0.8rem; color:var(--text-muted);">accomplies</span>
+      </div>
+    </div>
+
+    <div class="widget-stat glass-panel" style="background:var(--surface-low);">
+      <div class="label-tech" style="margin-bottom:8px; color:var(--text-muted);">Badges obtenus</div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        ${state.unlockedBadges.map(b => `<span class="glass-panel" style="padding:4px 8px; font-size:0.75rem; color:var(--tertiary); border-color:var(--tertiary);">🛡️ ${b}</span>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function injectFooter() {
+  const el = document.getElementById('v2-footer-target');
+  if (!el) return;
+  el.innerHTML = `
+    <footer class="v2-footer">
+      Assistance IA (IA Act) & Données hébergées en UE (RGPD) — Thote IA V2
+    </footer>
+  `;
+}
