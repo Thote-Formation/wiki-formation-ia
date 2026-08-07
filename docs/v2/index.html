@@ -1,133 +1,115 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html class="dark" lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thote Formation IA V2 — Certification RS6776</title>
-
-  <!-- Material Symbols -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  
-  <!-- Chemin relatif vers assets/theme.css -->
-  <link rel="stylesheet" href="assets/theme.css">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Thotie Formation - Accueil</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link href="assets/theme.css" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: { extend: {
+      colors: {
+        "surface": "#0b1326", "background": "#0b1326", "surface-dim": "#0b1326",
+        "surface-bright": "#31394d", "surface-container-lowest": "#060e20",
+        "surface-container-low": "#131b2e", "surface-container": "#171f33",
+        "surface-container-high": "#222a3d", "surface-container-highest": "#2d3449",
+        "on-surface": "#dae2fd", "on-surface-variant": "#cbc3d7",
+        "outline": "#958ea0", "outline-variant": "#494454",
+        "primary": "#d0bcff", "on-primary": "#3c0091", "primary-container": "#a078ff", "on-primary-container": "#340080",
+        "secondary": "#44e2cd", "on-secondary": "#003731", "secondary-container": "#03c6b2", "on-secondary-container": "#004d44",
+        "tertiary": "#e2c62d", "on-tertiary": "#393000", "tertiary-container": "#c4ab01", "on-tertiary-container": "#4a3f00",
+        "error": "#ffb4ab", "error-container": "#93000a"
+      },
+      borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+      spacing: { gutter: "24px", "container-max": "1280px" },
+      fontFamily: {
+        "label-caps": ["Space Grotesk"], "body-md": ["Be Vietnam Pro"],
+        "display-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"]
+      }
+    }}
+  }
+</script>
 </head>
-<body>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden">
 
-  <!-- Header injecté via JS -->
-  <header id="site-header"></header>
+<div id="tq-nav"></div>
 
-  <!-- Contenu Principal -->
-  <main id="site-main">
-    
-    <!-- Hero Section -->
-    <section class="hero">
+<main class="max-w-[1280px] mx-auto px-4 md:px-8 py-12">
+
+  <!-- Hero -->
+  <section class="text-center max-w-2xl mx-auto mb-16">
+    <h1 class="font-headline-md text-3xl md:text-4xl font-extrabold mb-4">
+      Bienvenue sur <span class="text-primary">Thotie Formation</span>
+    </h1>
+    <p class="text-on-surface-variant text-lg">
+      Ressources de la formation IA générative — Certification RS6776.
+    </p>
+  </section>
+
+  <!-- Bandeau vers le jeu -->
+  <a href="../jeux/index.html" class="flex flex-col md:flex-row items-center justify-between gap-4 bg-secondary-container text-on-secondary-container rounded-3xl p-6 md:p-8 neo-bevel mb-16">
+    <div class="flex items-center gap-4">
+      <span class="material-symbols-outlined text-4xl">stadia_controller</span>
       <div>
-        <div class="badge badge-secondary" style="margin-bottom: 1rem;">
-          <span class="material-symbols-outlined" style="font-size:16px;">verified</span>
-          Certification RS6776
-        </div>
-        <h1 class="hero-title">Maîtrisez l'<span>IA Générative</span> dans votre pratique professionnelle.</h1>
-        <p class="hero-subtitle">
-          Un parcours complet de H0 à H7 combinant rigueur méthodologique (ROFT, CROFT), cas pratiques métiers, outils interactifs et ludification avec Thotie Quest.
-        </p>
-        <div class="cta-group">
-          <a href="/v2/formation/h0.html" class="btn btn-primary">
-            <span class="material-symbols-outlined">play_arrow</span>
-            Commencer H0 — Lancement
-          </a>
-          <a href="/v2/certification/index.html" class="btn btn-secondary">
-            En savoir plus sur la RS6776
-          </a>
-        </div>
+        <h2 class="font-headline-md text-xl mb-1">Thotie Quest</h2>
+        <p class="text-sm text-on-secondary-container/80">Apprends en jouant : modules, XP, niveaux et défis.</p>
       </div>
+    </div>
+    <span class="bg-surface/20 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap">Jouer →</span>
+  </a>
 
-      <div class="glass-panel neo-bevel" style="padding: 2rem; border-radius: 20px;">
-        <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined" style="color:var(--tertiary);">workspace_premium</span>
-          Votre Progression V2
-        </h3>
-        <p style="font-size:0.9rem; color:var(--text-variant); margin-bottom: 1.5rem;">
-          Suivez l'avancement de votre apprentissage et débloquez les récompenses dans l'écosystème.
-        </p>
-        
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div>
-            <div style="display:flex; justify-style:space-between; justify-content: space-between; font-size:0.85rem; margin-bottom:4px;">
-              <span>Parcours de Formation (8 modules)</span>
-              <strong id="progression-formation-text">0 / 8</strong>
-            </div>
-            <div class="xp-bar-container" style="width:100%; height:8px;">
-              <div id="progression-formation-bar" class="xp-bar-fill" style="width:0%;"></div>
-            </div>
+  <!-- Accès rapide aux sections -->
+  <section>
+    <h2 class="font-headline-md text-xl mb-6 flex items-center gap-2 text-secondary">
+      <span class="material-symbols-outlined">explore</span> Explorer
+    </h2>
+    <div id="sections-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </section>
+
+</main>
+
+<div id="tq-footer"></div>
+
+<script src="assets/shared.js"></script>
+<script>
+  TQ.init("accueil");
+
+  // Grille construite à partir de la même config que la nav (TQ.NAV), pour rester synchronisée
+  // automatiquement : dès qu'une section passe "built: true" dans shared.js, sa carte devient cliquable.
+  const icons = {
+    certification: "military_tech",
+    formation: "school",
+    outils: "construction",
+    ressources: "library_books",
+    glossaire: "menu_book",
+  };
+  const grid = document.getElementById("sections-grid");
+  grid.innerHTML = TQ.NAV.filter((s) => s.id !== "accueil").map((s) => {
+    const icon = icons[s.id] || "folder";
+    if (!s.built) {
+      return `<div class="locked-card bg-surface-container-high rounded-2xl p-5 neo-bevel">
+        <div class="flex justify-between items-start mb-3">
+          <div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-outline">
+            <span class="material-symbols-outlined">${icon}</span>
           </div>
-
-          <div>
-            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:4px;">
-              <span>Outils Pratiques Utilisés</span>
-              <strong id="progression-outils-text">0 / 7</strong>
-            </div>
-            <div class="xp-bar-container" style="width:100%; height:8px;">
-              <div id="progression-outils-bar" class="xp-bar-fill" style="width:0%; background:var(--secondary);"></div>
-            </div>
-          </div>
+          <span class="text-[10px] uppercase text-outline">Bientôt</span>
         </div>
-
-        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); text-align: center;">
-          <a href="/jeux/index.html" style="color:var(--primary); text-decoration:none; font-size:0.9rem; font-family:var(--font-label); font-weight:700; display:inline-flex; align-items:center; gap:6px;">
-            <span class="material-symbols-outlined">sports_esports</span>
-            Ouvrir Thotie Quest Hub &rarr;
-          </a>
-        </div>
+        <h3 class="font-headline-md text-[16px] text-outline-variant">${s.label}</h3>
+      </div>`;
+    }
+    return `<a href="${s.href}" class="bg-surface-container rounded-2xl p-5 neo-bevel block group">
+      <div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container mb-3 group-hover:rotate-12 transition-transform">
+        <span class="material-symbols-outlined">${icon}</span>
       </div>
-    </section>
-
-    <!-- Grille des piliers de la formation -->
-    <section>
-      <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem;">Explorez le contenu V2</h2>
-      <p style="color:var(--text-variant); margin-bottom: 1.5rem;">Accédez directement aux ressources et modules clés.</p>
-
-      <div class="grid-features">
-        <div class="glass-card feature-card">
-          <div class="feature-icon">
-            <span class="material-symbols-outlined">school</span>
-          </div>
-          <h3>Parcours H0 - H7</h3>
-          <p style="font-size: 0.9rem; color: var(--text-variant); margin: 0.5rem 0 1rem 0;">
-            De la prise en main rapide aux enjeux stratégiques, éthiques, RGPD et IA Act.
-          </p>
-          <a href="/v2/formation/h0.html" style="color:var(--primary); text-decoration:none; font-weight:600; font-size:0.9rem;">Découvrir les modules &rarr;</a>
-        </div>
-
-        <div class="glass-card feature-card">
-          <div class="feature-icon" style="color:var(--secondary); background:rgba(68, 226, 205, 0.1);">
-            <span class="material-symbols-outlined">construction</span>
-          </div>
-          <h3>Outils & Générateurs</h3>
-          <p style="font-size: 0.9rem; color: var(--text-variant); margin: 0.5rem 0 1rem 0;">
-            Générateur CROFT, anonymiseur RGPD, détecteur d'hallucinations et plus.
-          </p>
-          <a href="/v2/outils/index.html" style="color:var(--secondary); text-decoration:none; font-weight:600; font-size:0.9rem;">Tester les outils &rarr;</a>
-        </div>
-
-        <div class="glass-card feature-card">
-          <div class="feature-icon" style="color:var(--tertiary); background:rgba(226, 198, 45, 0.1);">
-            <span class="material-symbols-outlined">menu_book</span>
-          </div>
-          <h3>Cas Pratiques & LLM</h3>
-          <p style="font-size: 0.9rem; color: var(--text-variant); margin: 0.5rem 0 1rem 0;">
-            Mises en situation RH, admin, comm et fiches comparatives (Claude, GPT-4, Gemini, Mistral).
-          </p>
-          <a href="/v2/ressources/cas-pratiques.html" style="color:var(--tertiary); text-decoration:none; font-weight:600; font-size:0.9rem;">Consulter les cas &rarr;</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer injecté via JS -->
-  <footer id="site-footer"></footer>
-
-<!-- Chemin relatif vers assets/shared.js -->
-  <script src="assets/shared.js"></script>
+      <h3 class="font-headline-md text-[16px]">${s.label}</h3>
+    </a>`;
+  }).join("");
+</script>
 </body>
 </html>
