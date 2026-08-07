@@ -1,0 +1,45 @@
+/* IA Academy — thème partagé "Electric Intelligence" (extrait des maquettes Stitch) */
+
+.glass-panel {
+  background: rgba(23, 31, 51, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.neo-bevel {
+  border-bottom: 3px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+}
+.neo-bevel:hover {
+  transform: translateY(-2px);
+  border-bottom-width: 5px;
+}
+.neo-bevel:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+  box-shadow: none;
+}
+.glow-shadow-primary {
+  box-shadow: 0 0 20px -5px #d0bcff;
+}
+.bg-deep-space {
+  background: radial-gradient(circle at 50% 0%, #222a3d, #0b1326);
+}
+.locked-card {
+  opacity: 0.75;
+  filter: grayscale(50%);
+}
+@keyframes shimmer {
+  100% { transform: translateX(200%); }
+}
+.shimmer {
+  animation: shimmer 2s infinite;
+}
+.avatar-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  background: linear-gradient(135deg, #5516be, #03c6b2);
+}

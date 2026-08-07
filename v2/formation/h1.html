@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H1 — Fondamentaux & ROFT | Thote V2</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body class="bg-deep-space text-on-surface">
+  <div id="v2-app-layout" class="layout-3-cols">
+    <aside id="v2-sidebar-left" class="sidebar-left"></aside>
+
+    <main class="main-content">
+      <header class="module-header glass-panel">
+        <span class="badge-tag">Module H1</span>
+        <h1>Fondamentaux IA & Méthode ROFT</h1>
+        <p class="subtitle">Comprendre le fonctionnement des LLM et cadrer ses requêtes de premier niveau.</p>
+      </header>
+
+      <!-- Mini-Jeu Interactif T9 (Branché sur h1-interactivity.js) -->
+      <section class="glass-panel content-box">
+        <h3>🎮 Expérience interactive : Prédiction du mot (LLM T9)</h3>
+        <p>Mettez-vous dans la peau d'un modèle de langage. Choisissez le mot le plus probable :</p>
+        
+        <div class="interactive-container">
+          <div id="sentence" class="sentence-display"></div>
+          <div id="choices" class="choices-stack"></div>
+          <div id="done" class="alert-success" style="display:none;"></div>
+          <button type="button" id="reset" class="btn-secondary-v2" style="display:none;">🔄 Recommencer</button>
+        </div>
+      </section>
+
+      <!-- Cadre ROFT -->
+      <section class="glass-panel content-box">
+        <h3>📐 La Méthode ROFT</h3>
+        <div class="grid-4x1">
+          <div class="roft-card"><strong>R — Rôle</strong><p>Poste / Expertise incarnée</p></div>
+          <div class="roft-card"><strong>O — Objectif</strong><p>Tâche exacte à accomplir</p></div>
+          <div class="roft-card"><strong>F — Format</strong><p>Structure & organisation</p></div>
+          <div class="roft-card"><strong>T — Ton</strong><p>Style & registre de langue</p></div>
+        </div>
+      </section>
+
+      <!-- Card de Validation -->
+      <section class="glass-panel validate-card">
+        <h3>🎉 Valider le Module H1</h3>
+        <button class="btn-cyan" onclick="ThoteQuest.completeQuest('h1_complete')">Valider le module (+100 XP)</button>
+      </section>
+    </main>
+
+    <aside id="v2-sidebar-right" class="sidebar-right"></aside>
+  </div>
+
+  <script src="../assets/shared.js"></script>
+  <script src="../assets/h1-interactivity.js"></script>
+</body>
+</html>

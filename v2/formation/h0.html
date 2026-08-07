@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H0 — Lancement formation IA | Thote V2</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body class="bg-deep-space text-on-surface">
+  <div id="v2-app-layout" class="layout-3-cols">
+    <!-- Sidebar Gauche : Nav (Injectée par shared.js) -->
+    <aside id="v2-sidebar-left" class="sidebar-left"></aside>
+
+    <!-- Zone Centrale : Contenu Module H0 -->
+    <main class="main-content">
+      <header class="module-header glass-panel">
+        <span class="badge-tag">Module H0</span>
+        <h1>Lancement & Cadrage du Parcours IA</h1>
+        <p class="subtitle">Présentation de la certification RS6776, du déroulé pédagogique et de votre objectif personnel.</p>
+      </header>
+
+      <!-- Objectifs -->
+      <section class="glass-panel content-box">
+        <h3>🎯 Objectifs de la séance</h3>
+        <ul class="styled-list">
+          <li>Présenter le parcours de formation et la certification RS6776.</li>
+          <li>Comprendre l'utilité concrète du parcours au quotidien.</li>
+          <li>Visualiser les 6 exercices pratiques de l'examen.</li>
+          <li>Clarifier votre situation initiale et fixer votre objectif personnel.</li>
+        </ul>
+      </section>
+
+      <!-- Reflex Box -->
+      <section class="reflex-box">
+        <div class="box-icon"><span class="material-symbols-outlined">psychology</span></div>
+        <div class="box-body">
+          <h4>Question de départ</h4>
+          <p><em>« Dans 3 mois, en quoi aimeriez-vous que votre usage de l'IA générative ait changé dans votre poste au quotidien ? »</em></p>
+        </div>
+      </section>
+
+      <!-- Déroulé -->
+      <section class="glass-panel content-box">
+        <h3>📋 Déroulé de la séance</h3>
+        <div class="grid-2x2">
+          <div class="step-card">
+            <span class="step-num">1</span>
+            <div><strong>Accueil & Attentes (10 min)</strong><br><small>Présentation mutuelle et besoins métier.</small></div>
+          </div>
+          <div class="step-card">
+            <span class="step-num">2</span>
+            <div><strong>Évaluation initiale (20 min)</strong><br><small>Questionnaire d'entrée individuel sans IA.</small></div>
+          </div>
+          <div class="step-card">
+            <span class="step-num">3</span>
+            <div><strong>Plateforme Workinlive (10 min)</strong><br><small>Formations complémentaires (Canva, Google, Cybersécurité).</small></div>
+          </div>
+          <div class="step-card">
+            <span class="step-num">4</span>
+            <div><strong>Certification RS6776 (20 min)</strong><br><small>Présentation des 6 exercices et oral visio.</small></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Évaluation Entrée Callout -->
+      <section class="practice-box">
+        <h4>📝 Évaluation initiale d'entrée</h4>
+        <p>Réalisez l'évaluation sans l'aide d'un LLM afin de mesurer votre niveau de départ réel.</p>
+        <a href="../../evaluation-entree/" class="btn-primary-v2">Accéder à l'évaluation d'entrée</a>
+      </section>
+
+      <!-- Certification Flow -->
+      <section class="glass-panel content-box">
+        <h3>🎓 Examen RS6776 : Les 3 étapes</h3>
+        <div class="workflow-steps">
+          <div class="step-box"><strong>1. Fin du parcours</strong><p>Remise du sujet</p></div>
+          <div class="arrow">➔</div>
+          <div class="step-box"><strong>2. Rendu écrit</strong><p>Sous 10 jours max</p></div>
+          <div class="arrow">➔</div>
+          <div class="step-box"><strong>3. Oral visio</strong><p>20 min de soutenance</p></div>
+        </div>
+      </section>
+
+      <!-- Card de Validation Gamifiée -->
+      <section class="glass-panel validate-card" id="module-validation-card">
+        <h3>🎉 Valider le Module H0</h3>
+        <p>Avez-vous complété la lecture et votre évaluation d'entrée ?</p>
+        <button class="btn-cyan" onclick="ThoteQuest.completeQuest('h0_complete')">Valider le module (+50 XP)</button>
+      </section>
+    </main>
+
+    <!-- Sidebar Droite : Progression (Injectée par shared.js) -->
+    <aside id="v2-sidebar-right" class="sidebar-right"></aside>
+  </div>
+
+  <script src="../assets/shared.js"></script>
+</body>
+</html>

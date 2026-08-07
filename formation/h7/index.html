@@ -1,0 +1,2723 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Ressources de la formation IA générative — Certification RS6776">
+      
+      
+      
+        <link rel="canonical" href="https://thote-formation.github.io/wiki-formation-ia/formation/h7/">
+      
+      
+        <link rel="prev" href="../h6/">
+      
+      
+        <link rel="next" href="../quiz-final/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>H7 — Éthique, IA Act, biais - Wiki Formation IA générative</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#h7-ethique-ia-act-biais-prompts-correctifs" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Wiki Formation IA générative" class="md-header__button md-logo" aria-label="Wiki Formation IA générative" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Wiki Formation IA générative
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              H7 — Éthique, IA Act, biais
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="Passer en mode sombre"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="Passer en mode clair"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../certification-rs6776/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Certification RS6776
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../h0/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Parcours de formation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../outils-interactifs/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Outils
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cas-pratiques/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Ressources
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../glossaire/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Glossaire
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../mini-jeux/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mini-jeux
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Wiki Formation IA générative" class="md-nav__button md-logo" aria-label="Wiki Formation IA générative" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Wiki Formation IA générative
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Certification RS6776
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Certification RS6776
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../certification-rs6776/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Présentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evaluation-entree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évaluation d'entrée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parcours de formation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parcours de formation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H0 — Lancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H1 — Fondamentaux IA + ROFT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H2 — Stratégie d'implémentation IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H3 — Structurer un prompt efficace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H4 — Créer des visuels attractifs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H5 — Confidentialité et sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H6 — Accessibilité et inclusivité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H7 — Éthique, IA Act, biais
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H7 — Éthique, IA Act, biais
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dou-vient-la-necessite-de-lethique-dans-lia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D'où vient la nécessité de l'éthique dans l'IA ?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-5-piliers-dune-ia-responsable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏛️ Les 5 Piliers d'une IA Responsable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#le-cadre-legal-lia-act-europeen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚖️ Le cadre légal : L'IA Act européen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚖️ Le cadre légal : L&#39;IA Act européen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-4-niveaux-de-risque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les 4 niveaux de risque
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercice-classez-le-niveau-de-risque-ai-act" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎮 Exercice : Classez le niveau de risque AI Act !
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generateur-de-mention-de-transparence-art-50-ai-act" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 Générateur de Mention de Transparence (Art. 50 AI Act)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#focus-haut-risque-les-7-obligations-cles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Focus « Haut Risque » : Les 7 obligations clés
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technique-des-prompts-correctifs-audit-de-biais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Technique des Prompts Correctifs (Audit de Biais)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion-du-parcours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion du parcours
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quiz-final/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quiz final
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../outils-interactifs/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outils
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Outils
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/generateur-croft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Générateur CROFT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/anonymiseur/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Masqueur RGPD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/generateur-visuel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompt Visuel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/anti-hallucinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anti-Hallucinations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/calculateur-tokens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculateur de Tokens
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/audit-biais/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit Biais & Inclusivité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/formateur-donnees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formateur JSON/CSV/MD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ressources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ressources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cas-pratiques/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cas pratiques
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cas pratiques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cas-pratiques/assistant-administratif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assistant administratif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cas-pratiques/communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cas-pratiques/rh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ressources humaines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparatifs IA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparatifs IA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/comparatif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparatif LLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/chatgpt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ChatGPT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/claude/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/gemini/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gemini
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/mistral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mistral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/copilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copilot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/perplexity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perplexity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/4d-fluency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4D Fluency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../articles/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Veille et approfondissement
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Veille et approfondissement
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sources-officielles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources officielles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/prompting-avance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompting avancé (Few-shot & CoT)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/contexte-memoire/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion du contexte & mémoire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/reduction-hallucinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Réduire les hallucinations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/agents-rag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les Agents IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/google-labs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Google Labs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossaire/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-jeux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mini-jeux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escape Room
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le détective des hallucinations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le Chef Prompteur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mots mêlés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Qui suis-je ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bon prompt / à améliorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="h7-ethique-ia-act-biais-prompts-correctifs">H7 — Éthique, IA Act, biais &amp; prompts correctifs</h1>
+<p>Cette septième séance vous permet de comprendre les risques éthiques, de classifier les systèmes selon l'IA Act et d'appliquer les règles d'une IA responsable au quotidien.</p>
+<div class="warning-practice-box">
+  <h3>Mise à jour réglementaire (Juin 2026)</h3>
+  <p>Le calendrier de l'IA Act a été ajusté par le <strong>Digital Omnibus</strong> (voté par le Parlement européen le 16 juin 2026 et validé le 29 juin 2026) :</p>
+  <ul>
+    <li><strong>Obligations « Haut Risque » (Annexe III) :</strong> le délai d'application est reporté du 2 août 2026 au <strong>2 décembre 2027</strong>.</li>
+    <li><strong>Obligations de Transparence (Art. 50) & Sanctions :</strong> restent pleinement applicables au <strong>2 août 2026</strong>.</li>
+  </ul>
+</div>
+
+<div class="summary-box">
+  <h3>Dernière vérification réglementaire</h3>
+  <p>Dernière vérification : <strong>juillet 2026</strong>.<br>
+  Les règles liées à l’IA Act peuvent évoluer. Pour une information officielle, consultez toujours les textes européens et les ressources de la Commission européenne.</p>
+  <p>Sources utiles :</p>
+  <ul>
+    <li><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/fra" target="_blank" rel="noopener">EUR-Lex — Règlement européen 2024/1689</a></li>
+    <li><a href="https://digital-strategy.ec.europa.eu/fr/policies/regulatory-framework-ai" target="_blank" rel="noopener">Commission européenne — Cadre réglementaire sur l’IA</a></li>
+  </ul>
+</div>
+
+<div class="summary-box">
+  <h3>Objectifs de la séance</h3>
+  <ul>
+    <li><strong>Identifier les 5 grands risques éthiques :</strong> comprendre les dangers liés à l'usage des algorithmes et des LLM.</li>
+    <li><strong>Masteriser la grille de lecture de l'IA Act :</strong> classifier les 4 niveaux de risque et connaître les obligations légales.</li>
+    <li><strong>Détecter et corriger les biais :</strong> éliminer les stéréotypes dans les sorties d'IA avec des prompts d'audit dédiés.</li>
+    <li><strong>Appliquer les 5 piliers de l'IA responsable :</strong> ancrer la sobriété et l'éthique dans les pratiques de l'organisation.</li>
+  </ul>
+</div>
+
+<hr />
+<h2 id="dou-vient-la-necessite-de-lethique-dans-lia">D'où vient la nécessité de l'éthique dans l'IA ?</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Problème identifié</th>
+<th style="text-align: left;">Contexte &amp; Risques</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Collecte massive de données</strong></td>
+<td style="text-align: left;">Traitement massif d'informations personnelles à l'insu des utilisateurs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Biais algorithmiques</strong></td>
+<td style="text-align: left;">Les modèles entraînés sur le web reproduisent et amplifient les discriminations sociétales.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Désinformation &amp; Deepfakes</strong></td>
+<td style="text-align: left;">Génération industrielle de contenus trompeurs altérant la confiance numérique.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Opacité des algorithmes</strong></td>
+<td style="text-align: left;">Effet « boîte noire » rendant l'explication d'un refus (crédit, embauche) difficile.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Inégalités d'accès</strong></td>
+<td style="text-align: left;">Risque de rupture d'égalité face aux services publics, au logement ou à l'emploi.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="les-5-piliers-dune-ia-responsable">🏛️ Les 5 Piliers d'une IA Responsable</h2>
+<ol>
+<li><strong>Transparence :</strong> L'utilisateur doit toujours savoir si un contenu a été généré par une IA.</li>
+<li><strong>Équité :</strong> Les algorithmes ne doivent favoriser ou pénaliser aucun groupe d'individus.</li>
+<li><strong>Confidentialité :</strong> Les données sensibles ne doivent jamais servir à l'entraînement public.</li>
+<li><strong>Responsabilité :</strong> L'humain garde le contrôle final sur la prise de décision.</li>
+<li><strong>Sobriété :</strong> Optimisation des requêtes (ex. 1 requête texte ≈ 0,03 g CO₂ vs 1 image ≈ 20 g CO₂).</li>
+</ol>
+<hr />
+<h2 id="le-cadre-legal-lia-act-europeen">⚖️ Le cadre légal : L'IA Act européen</h2>
+<h3 id="les-4-niveaux-de-risque">Les 4 niveaux de risque</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Niveau de risque</th>
+<th style="text-align: left;">Exemples de systèmes</th>
+<th style="text-align: left;">Sanctions maximales</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">🔴 <strong>Inacceptable</strong> <em>(Interdit)</em></td>
+<td style="text-align: left;">Notation sociale, reconnaissance faciale à distance en temps réel, manipulation comportementale.</td>
+<td style="text-align: left;"><strong>35 M€</strong> ou 7% du CA mondial</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟠 <strong>Haut Risque</strong> <em>(Réglementé)</em></td>
+<td style="text-align: left;">Tri automatique de CV, scoring de crédit, justice, accès au logement, diagnostic médical.</td>
+<td style="text-align: left;"><strong>15 M€</strong> ou 3% du CA mondial</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟡 <strong>Risque Limité</strong> <em>(Transparence)</em></td>
+<td style="text-align: left;">IA génératives (ChatGPT, Claude, Gemini, Midjourney) et chatbots d'assistance client.</td>
+<td style="text-align: left;"><strong>7,5 M€</strong> ou 1,5% du CA mondial</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟢 <strong>Risque Minimal</strong> <em>(Libre)</em></td>
+<td style="text-align: left;">Correcteurs orthographiques, filtres anti-spam, jeux vidéo, compression d'images.</td>
+<td style="text-align: left;">Droit commun (RGPD)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="exercice-classez-le-niveau-de-risque-ai-act">🎮 Exercice : Classez le niveau de risque AI Act !</h2>
+<p>Testez vos connaissances sur la qualification des usages selon la réglementation européenne.</p>
+<div class="risk-ia-widget" style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0); margin: 24px 0; color: var(--md-typeset-color, #1a1a1a);">
+
+  <div id="risk-ia-progress" style="font-size: 13px; font-weight: 600; color: var(--md-typeset-color, #666); margin-bottom: 8px;"></div>
+
+  <div id="risk-ia-situation" style="font-size: 15px; font-weight: 600; min-height: 50px; padding: 14px 16px; background: var(--md-default-bg-color, #fff); border: 1px solid var(--md-default-fg-color--lightest, #d5d9de); border-radius: 8px; margin-bottom: 18px; line-height: 1.5; display: flex; align-items: center;"></div>
+
+  <div id="risk-ia-choices" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;"></div>
+
+  <div id="risk-ia-feedback" style="display: none; margin-top: 16px; padding: 14px 16px; border-radius: 8px; font-size: 14px; line-height: 1.5;"></div>
+
+  <div style="display: flex; gap: 10px; margin-top: 16px;">
+    <button type="button" id="risk-ia-next" style="display: none; padding: 8px 16px; border: 1px solid var(--md-default-fg-color--light, #999); border-radius: 6px; background: var(--md-default-bg-color, #fff); cursor: pointer; font-size: 13px; color: var(--md-typeset-color, #1a1a1a);">Question suivante</button>
+    <button type="button" id="risk-ia-restart" style="display: none; padding: 8px 16px; border: none; border-radius: 6px; background: #1a5fb4; color: #ffffff; cursor: pointer; font-size: 13px; font-weight: 600;">Recommencer le jeu</button>
+  </div>
+
+  <div id="risk-ia-score" style="display: none; margin-top: 18px; padding: 16px; background: rgba(26, 95, 180, 0.1); border: 1px solid #1a5fb4; border-radius: 8px; font-size: 16px; font-weight: 700; text-align: center; color: var(--md-typeset-color, #1a5fb4);"></div>
+</div>
+
+<hr />
+<h2 id="generateur-de-mention-de-transparence-art-50-ai-act">📄 Générateur de Mention de Transparence (Art. 50 AI Act)</h2>
+<p>Générez la mention de transparence obligatoire adaptée à vos contenus ou services générés par IA :</p>
+<div style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0); margin: 24px 0;">
+  <label for="transparency-type" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px;">Type de contenu généré :</label>
+  <select id="transparency-type" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--md-default-fg-color--light, #ccc); background: var(--md-default-bg-color, #fff); font-size: 14px; margin-bottom: 14px;">
+    <option value="text">Article de blog / Texte éditorial</option>
+    <option value="image">Illustration / Image générée</option>
+    <option value="bot">Chatbot / Agent conversationnel</option>
+  </select>
+
+  <div id="transparency-result" style="font-style: italic; font-size: 13px; padding: 12px; background: var(--md-default-bg-color, #fff); border: 1px solid #d5d9de; border-radius: 6px; border-left: 4px solid #1a5fb4; margin-bottom: 12px;"></div>
+
+  <button type="button" id="transparency-copy-btn" style="padding: 8px 14px; font-size: 13px; font-weight: 600; border: 1px solid #1a5fb4; border-radius: 6px; background: #1a5fb4; color: #fff; cursor: pointer;">
+    📋 Copier la mention légale
+  </button>
+</div>
+
+<hr />
+<h2 id="focus-haut-risque-les-7-obligations-cles">🔍 Focus « Haut Risque » : Les 7 obligations clés</h2>
+<p>Lorsqu'un usage est qualifié de <strong>Haut Risque</strong> (notamment en Ressources Humaines), l'organisation doit respecter 7 règles strictes :</p>
+<ol>
+<li><strong>Information préalable :</strong> Informer les personnes que leurs données sont analysées par une IA.</li>
+<li><strong>Qualité des données :</strong> Garantir l'absence de biais discriminatoires dans les données d'entraînement.</li>
+<li><strong>Supervision humaine :</strong> Garantir qu'aucun choix (ex. rejet d'une candidature) ne soit 100% automatisé.</li>
+<li><strong>Explicabilité &amp; Transparence :</strong> Être capable d'expliquer la logique du score attribué.</li>
+<li><strong>Traçabilité (Logs) :</strong> Conserver l'historique des requêtes et des décisions prises.</li>
+<li><strong>Audit régulier :</strong> Évaluer en continu l'impact et la neutralité de l'outil.</li>
+<li><strong>Droit de recours :</strong> Offrir aux usagers un moyen de contester une décision automatique auprès d'un humain.</li>
+</ol>
+<hr />
+<h2 id="technique-des-prompts-correctifs-audit-de-biais">🛠️ Technique des Prompts Correctifs (Audit de Biais)</h2>
+<p>Si vous suspectez qu'une réponse générée par une IA contient des stéréotypes, des généralisations abusives ou des omissions discriminatoires, utilisez la technique de <strong>l'audit réflexif</strong>.</p>
+<div class="good-reflex-box">
+  <h3>Prompt correctif d'audit de biais</h3>
+  <p><em>« Analyse le texte ci-dessus avec un œil critique d'expert en éthique et conformité IA Act.<br><br>
+  1. Identifie d'éventuels biais discriminatoires (genre, âge, origine, handicap, situation sociale).<br>
+  2. Reformule le contenu pour garantir un ton parfaitement neutre, équitable et inclusif. »</em></p>
+</div>
+
+<hr />
+<div class="good-reflex-box">
+  <h3>Bon réflexe avant publication</h3>
+  <p>Avant de publier un contenu généré par IA, posez-vous 3 questions clés :</p>
+  <ol>
+    <li>Est-ce que ce contenu peut exclure ou stéréotyper un groupe de personnes ?</li>
+    <li>Est-ce que l’information est vérifiée ?</li>
+    <li>Est-ce qu’un humain a relu et validé le résultat ?</li>
+  </ol>
+  <p><em>Si la réponse est non à l’une de ces questions, il faut retravailler le contenu.</em></p>
+</div>
+
+<hr />
+<div class="summary-box">
+  <h3>Bilan de la séance H7</h3>
+  <ul>
+    <li><strong>Le réflexe de classification :</strong> Savoir situer un usage IA dans la grille des risques de l'IA Act.</li>
+    <li><strong>La primauté de l'humain :</strong> L'IA propose, l'humain valide, décide et assume la responsabilité légale.</li>
+    <li><strong>L'audit systématique :</strong> Tester la neutralité de ses prompts avant d'exploiter un résultat en entreprise.</li>
+  </ul>
+</div>
+
+<hr />
+<h2 id="conclusion-du-parcours">Conclusion du parcours</h2>
+<div class="summary-box">
+  <h3>🎉 Félicitations !</h3>
+  <p>Vous avez terminé l'ensemble des modules théoriques et pratiques du bloc <strong>H5-H7</strong>. Vous disposez désormais de toutes les clés pour utiliser l'IA générative de façon sécurisée, éthique, accessible et conforme au cadre européen.</p>
+</div>
+
+<div class="wiki-actions">
+  <a class="wiki-button primary" href="../">Retour au sommaire de la formation</a>
+  <a class="wiki-button" href="../h6/">Revoir la séance H6 — Accessibilité & inclusivité</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Assistance IA (IA Act) & Données hébergées en UE (RGPD). <a href="/wiki-formation-ia/confidentialite/" style="color: var(--md-typeset-a-color); text-decoration: underline;">Mentions légales & Confidentialité</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.integrate", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/index.js"></script>
+      
+        <script src="../../javascripts/certification-rs6776.js"></script>
+      
+        <script src="../../javascripts/h1-interactivity.js"></script>
+      
+        <script src="../../javascripts/h2-interactivity.js"></script>
+      
+        <script src="../../javascripts/h3-interactivity.js"></script>
+      
+        <script src="../../javascripts/h4-interactivity.js"></script>
+      
+        <script src="../../javascripts/h5-interactivity.js"></script>
+      
+        <script src="../../javascripts/h6-interactivity.js"></script>
+      
+        <script src="../../javascripts/h7-interactivity.js"></script>
+      
+        <script src="../../javascripts/cas-pratiques.js"></script>
+      
+        <script src="../../javascripts/auth.js"></script>
+      
+        <script src="../../javascripts/progress.js"></script>
+      
+        <script src="../../javascripts/prompt-generator.js"></script>
+      
+        <script src="../../javascripts/prompting-avance.js"></script>
+      
+        <script src="../../javascripts/contexte-memoire.js"></script>
+      
+        <script src="../../javascripts/reduction-hallucinations.js"></script>
+      
+        <script src="../../javascripts/quiz-final.js"></script>
+      
+        <script src="../../javascripts/evaluation-entree.js"></script>
+      
+        <script src="../../javascripts/agent-simulator.js"></script>
+      
+        <script src="../../javascripts/chatbot.js"></script>
+      
+    
+  </body>
+</html>

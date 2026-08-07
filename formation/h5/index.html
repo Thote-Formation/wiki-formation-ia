@@ -1,0 +1,2687 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Ressources de la formation IA générative — Certification RS6776">
+      
+      
+      
+        <link rel="canonical" href="https://thote-formation.github.io/wiki-formation-ia/formation/h5/">
+      
+      
+        <link rel="prev" href="../h4/">
+      
+      
+        <link rel="next" href="../h6/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>H5 — Confidentialité et sécurité - Wiki Formation IA générative</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#h5-confidentialite-securite-et-sobriete" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Wiki Formation IA générative" class="md-header__button md-logo" aria-label="Wiki Formation IA générative" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Wiki Formation IA générative
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              H5 — Confidentialité et sécurité
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="Passer en mode sombre"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="Passer en mode clair"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../certification-rs6776/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Certification RS6776
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../h0/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Parcours de formation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../outils-interactifs/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Outils
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cas-pratiques/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Ressources
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../glossaire/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Glossaire
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../mini-jeux/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mini-jeux
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Wiki Formation IA générative" class="md-nav__button md-logo" aria-label="Wiki Formation IA générative" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Wiki Formation IA générative
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Certification RS6776
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Certification RS6776
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../certification-rs6776/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Présentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evaluation-entree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évaluation d'entrée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parcours de formation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parcours de formation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H0 — Lancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H1 — Fondamentaux IA + ROFT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H2 — Stratégie d'implémentation IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H3 — Structurer un prompt efficace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H4 — Créer des visuels attractifs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H5 — Confidentialité et sécurité
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H5 — Confidentialité et sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objectifs-de-la-seance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectifs de la séance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quest-ce-quune-donnee-sensible-dans-un-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qu'est-ce qu'une donnée sensible dans un prompt ?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercice-interactif-traque-aux-donnees-sensibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎮 Exercice interactif : Traque aux données sensibles !
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#niveaux-de-risque-et-categories-doutils" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Niveaux de risque et catégories d'outils
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sobriete-numerique-calculateur-dempreinte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌱 Sobriété numérique &amp; Calculateur d'Empreinte
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pret-pour-la-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prêt pour la suite ?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H6 — Accessibilité et inclusivité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H7 — Éthique, IA Act, biais
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quiz-final/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quiz final
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../outils-interactifs/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outils
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Outils
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/generateur-croft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Générateur CROFT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/anonymiseur/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Masqueur RGPD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/generateur-visuel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompt Visuel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/anti-hallucinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anti-Hallucinations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/calculateur-tokens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculateur de Tokens
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/audit-biais/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit Biais & Inclusivité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils-interactifs/formateur-donnees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formateur JSON/CSV/MD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ressources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ressources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cas-pratiques/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cas pratiques
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cas pratiques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cas-pratiques/assistant-administratif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assistant administratif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cas-pratiques/communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cas-pratiques/rh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ressources humaines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparatifs IA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparatifs IA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/comparatif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparatif LLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/chatgpt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ChatGPT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/claude/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/gemini/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gemini
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/mistral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mistral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/copilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copilot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/perplexity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perplexity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../outils/4d-fluency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4D Fluency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../articles/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Veille et approfondissement
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Veille et approfondissement
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sources-officielles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources officielles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/prompting-avance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompting avancé (Few-shot & CoT)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/contexte-memoire/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion du contexte & mémoire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/reduction-hallucinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Réduire les hallucinations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/agents-rag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les Agents IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/google-labs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Google Labs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossaire/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-jeux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mini-jeux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escape Room
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le détective des hallucinations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le Chef Prompteur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mots mêlés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Qui suis-je ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mini-jeux7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bon prompt / à améliorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="h5-confidentialite-securite-et-sobriete">H5 — Confidentialité, sécurité et sobriété</h1>
+<p>Cette cinquième séance vous guide pour identifier les risques de fuite de données, protéger les informations sensibles et adopter une pratique responsable et éco-conçue de l'IA.</p>
+<div class="summary-box">
+  <h3>Dernière vérification</h3>
+  <p>Dernière vérification : <strong>juillet 2026</strong>.<br>
+  Les politiques de confidentialité des outils d'IA évoluent rapidement. Avant d’utiliser un outil avec des données professionnelles, vérifiez systématiquement ses conditions d’utilisation et sa politique de confidentialité.</p>
+  <p><strong>Source utile :</strong> <a href="https://www.cnil.fr/fr/technologies/intelligence-artificielle-ia" target="_blank" rel="noopener">CNIL — Intelligence artificielle</a></p>
+</div>
+
+<hr />
+<h2 id="objectifs-de-la-seance">Objectifs de la séance</h2>
+<div class="summary-box">
+  <h3>Compétences visées</h3>
+  <ul>
+    <li><strong>Identifier les données sensibles :</strong> repérer les données personnelles (RGPD), financières, RH et confidentielles à bannir des prompts.</li>
+    <li><strong>Distinguer les niveaux de risque :</strong> évaluer la sécurité selon les outils et leur hébergement (Cloud vs IA locale).</li>
+    <li><strong>Adopter les réflexes de protection :</strong> maîtriser l'anonymisation et le pseudonymat au quotidien.</li>
+    <li><strong>Mesurer l'impact environnemental :</strong> calculer et réduire l'empreinte carbone et hydrique de vos requêtes.</li>
+  </ul>
+</div>
+
+<hr />
+<h2 id="quest-ce-quune-donnee-sensible-dans-un-prompt">Qu'est-ce qu'une donnée sensible dans un prompt ?</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Type de donnée</th>
+<th style="text-align: left;">Exemples concrets</th>
+<th style="text-align: left;">Risque principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Données personnelles (RGPD)</strong></td>
+<td style="text-align: left;">Noms, prénoms, emails, téléphones, adresses, NIR</td>
+<td style="text-align: left;">Atteinte à la vie privée, sanctions RGPD</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Infos RH &amp; internes</strong></td>
+<td style="text-align: left;">Salaires, évaluations annuelles, motifs d'absence</td>
+<td style="text-align: left;">Fuite de données confidentielles</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Données financières &amp; B2B</strong></td>
+<td style="text-align: left;">Montants de marchés, marges, prix négociés, SIRET</td>
+<td style="text-align: left;">Perte d'avantage concurrentiel</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Secrets d'entreprise</strong></td>
+<td style="text-align: left;">Clés API, jetons d'accès, code source propriétaire</td>
+<td style="text-align: left;">Risque majeur de cybersécurité</td>
+</tr>
+</tbody>
+</table>
+<div class="warning-practice-box">
+  <h3>La règle d'or de la confidentialité</h3>
+  <p>Si vous ne publieriez pas cette information sur un panneau d'affichage public, <strong>ne la collez pas dans une IA générative grand public</strong>.</p>
+</div>
+
+<div class="warning-practice-box">
+  <h3>À éviter absolument</h3>
+  <p>Ne copiez-collez jamais dans une IA grand public :</p>
+  <ul>
+    <li>un nom de client ou de prospect ;</li>
+    <li>une adresse email nominative ;</li>
+    <li>un contrat ou une clause commerciale non publique ;</li>
+    <li>une grille de salaires ou une fiche de paie ;</li>
+    <li>une donnée de santé ou un motif d'arrêt ;</li>
+    <li>un fichier ou document interne confidentiel.</li>
+  </ul>
+  <p>Remplacez toujours ces informations par des exemples anonymisés ou des placeholders (ex: <code>[Nom_Client]</code>, <code>[Entreprise_X]</code>).</p>
+</div>
+
+<div class="good-reflex-box">
+  <h3>Le réflexe « Réunion publique »</h3>
+  <p>Avant d’envoyer un prompt, relisez-le comme si vous alliez l’afficher en grand écran lors d'une réunion publique. Si une information ne devrait pas être visible par tout le monde, retirez-la immédiatement de votre prompt.</p>
+</div>
+
+<hr />
+<h2 id="exercice-interactif-traque-aux-donnees-sensibles">🎮 Exercice interactif : Traque aux données sensibles !</h2>
+<div class="sensitive-game" style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0); margin: 24px 0;">
+
+  <p style="font-size: 14px; margin-top: 0; margin-bottom: 14px; font-weight: 500;">
+    🎯 <strong>Consigne :</strong> Cliquez sur les éléments du texte qui contiennent des <strong>données sensibles</strong> à ne jamais coller dans un outil grand public, puis validez votre analyse.
+  </p>
+
+  <!-- SELECTEUR DE SCENARIO -->
+  <label for="sensitive-scenario" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Sélectionnez un cas pratique :</label>
+  <select id="sensitive-scenario" style="width: 100%; padding: 8px 10px; border: 1px solid var(--md-default-fg-color--light, #ccc); border-radius: 6px; font-size: 14px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000); margin-bottom: 16px; cursor: pointer;">
+    <option value="0">Cas 1 : Commercial & Secteur Public (Mairie)</option>
+    <option value="1">Cas 2 : Ressources Humaines & Recrutement</option>
+    <option value="2">Cas 3 : Santé & Recherche R&D</option>
+  </select>
+
+  <!-- ZONE DE TEXTE INTERACTIVE -->
+  <div id="sensitive-text-box" style="font-size: 15px; line-height: 2.2; padding: 16px; background: var(--md-default-bg-color, #fff); border: 1px solid var(--md-default-fg-color--lightest, #d5d9de); border-radius: 8px; margin-bottom: 18px; color: var(--md-typeset-color, #1a1a1a);"></div>
+
+  <!-- BOUTONS D'ACTION -->
+  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <button type="button" id="sensitive-verify" style="padding: 10px 20px; border: none; border-radius: 6px; background: #1a5fb4; color: #ffffff; cursor: pointer; font-size: 14px; font-weight: 600;">Vérifier mes choix</button>
+    <button type="button" id="sensitive-reset" style="display: none; padding: 10px 20px; border: 1px solid var(--md-default-fg-color--light, #999); border-radius: 6px; background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #1a1a1a); cursor: pointer; font-size: 14px;">Recommencer</button>
+  </div>
+
+  <!-- RESULTATS ET EXPLICATIONS -->
+  <div id="sensitive-summary" style="display: none; margin-top: 18px; padding: 14px 16px; border-radius: 8px; font-size: 15px; font-weight: 600; background: rgba(26, 95, 180, 0.1); border: 1px solid #1a5fb4; color: var(--md-typeset-color, #000);"></div>
+  <div id="sensitive-results" style="display: none; margin-top: 12px;"></div>
+</div>
+
+<hr />
+<h2 id="niveaux-de-risque-et-categories-doutils">Niveaux de risque et catégories d'outils</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Niveau de risque</th>
+<th style="text-align: left;">Famille d'outils</th>
+<th style="text-align: left;">Utilisation des données</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">🔴 <strong>Élevé</strong></td>
+<td style="text-align: left;">ChatGPT Gratuit, Gemini Gratuit</td>
+<td style="text-align: left;">Risque plus élevé selon les paramètres du compte, l’offre utilisée et la politique de confidentialité de l’outil.</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟠 <strong>Moyen</strong></td>
+<td style="text-align: left;">ChatGPT Team / Enterprise, Claude Pro</td>
+<td style="text-align: left;">Risque réduit selon le contrat, les paramètres d’administration et les garanties fournisseur.</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟢 <strong>Faible</strong></td>
+<td style="text-align: left;">IA Locales (<em>Ollama, LM Studio, GPT4All</em>)</td>
+<td style="text-align: left;"><strong>0% d'envoi réseau</strong>. Traitement 100% local sur la machine physique.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sobriete-numerique-calculateur-dempreinte">🌱 Sobriété numérique &amp; Calculateur d'Empreinte</h2>
+<p>Chaque requête envoyée à un grand modèle de langage nécessite des ressources énergétiques et de l'eau pour le refroidissement des serveurs dans les datacenters.</p>
+<div class="eco-calculator" style="background: var(--md-code-bg-color, #f8f9fa); padding: 20px; border-radius: 8px; border: 1px solid var(--md-default-fg-color--lightest, #e0e0e0); margin: 24px 0; color: var(--md-typeset-color, #1a1a1a);">
+
+  <p style="font-size: 14px; margin-top: 0; margin-bottom: 16px;">
+    📊 <strong>Simulateur :</strong> Évaluez l'impact environnemental de vos requêtes IA sur une année.
+  </p>
+
+  <!-- CONTROLES -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px;">
+    <div>
+      <label for="eco-length" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Longueur moyenne du prompt : <span id="eco-length-val">200</span> caractères </label>
+      <input type="range" id="eco-length" min="50" max="2000" step="50" value="200" style="width: 100%; cursor: pointer;">
+    </div>
+
+    <div>
+      <label for="eco-count" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Prompts par jour : <span id="eco-count-val">5</span></label>
+      <input type="range" id="eco-count" min="1" max="50" step="1" value="5" style="width: 100%; cursor: pointer;">
+    </div>
+
+    <div>
+      <label for="eco-model" style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Type de modèle :</label>
+      <select id="eco-model" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--md-default-fg-color--light, #ccc); background: var(--md-default-bg-color, #fff); color: var(--md-typeset-color, #000); font-size: 13px; cursor: pointer;">
+        <option value="0.2">IA Locale (Ollama / Small LLM)</option>
+        <option value="1.0" selected>Modèle Cloud Standard (ChatGPT / Claude)</option>
+        <option value="3.5">Modèle Multimodal / Lourd (GPT-4o / Gemini Ultra)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- CARTES DE RESULTATS (ANNUELS) -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; text-align: center;">
+    <div style="padding: 12px; background: var(--md-default-bg-color, #fff); border: 1px solid var(--md-default-fg-color--lightest, #d5d9de); border-radius: 8px;">
+      <div style="font-size: 20px; font-weight: 800; color: #1a5fb4;" id="res-water">--</div>
+      <div style="font-size: 12px; font-weight: 600; color: var(--md-typeset-color, #555); margin-top: 4px;">💧 Eau consommée (an)</div>
+    </div>
+
+    <div style="padding: 12px; background: var(--md-default-bg-color, #fff); border: 1px solid var(--md-default-fg-color--lightest, #d5d9de); border-radius: 8px;">
+      <div style="font-size: 20px; font-weight: 800; color: #d9a441;" id="res-elec">--</div>
+      <div style="font-size: 12px; font-weight: 600; color: var(--md-typeset-color, #555); margin-top: 4px;">⚡ Électricité (an)</div>
+    </div>
+
+    <div style="padding: 12px; background: var(--md-default-bg-color, #fff); border: 1px solid var(--md-default-fg-color--lightest, #d5d9de); border-radius: 8px;">
+      <div style="font-size: 20px; font-weight: 800; color: #c9564a;" id="res-co2">--</div>
+      <div style="font-size: 12px; font-weight: 600; color: var(--md-typeset-color, #555); margin-top: 4px;">🌱 Équivalent CO₂ (an)</div>
+    </div>
+  </div>
+
+  <div id="eco-tip" style="margin-top: 16px; padding: 10px 14px; background: rgba(74, 155, 94, 0.15); border: 1px solid #4a9b5e; border-radius: 6px; font-size: 13px;"></div>
+</div>
+
+<hr />
+<div class="summary-box">
+  <h3>Bilan de la séance H5</h3>
+  <ul>
+    <li><strong>Vigilance absolue :</strong> Toujours anonymiser vos prompts avant envoi.</li>
+    <li><strong>Sécurité adaptée :</strong> Choisir des offres professionnelles ou des modèles locaux pour les données sensibles.</li>
+    <li><strong>Sobriété numérique :</strong> Adopter le réflexe de requêtes ciblées et condensées.</li>
+  </ul>
+</div>
+
+<hr />
+<h2 id="pret-pour-la-suite">Prêt pour la suite ?</h2>
+<div class="wiki-actions">
+  <a class="wiki-button primary" href="../h6/">Passer à la séance H6 — Accessibilité et inclusivité</a>
+  <a class="wiki-button" href="../h4/">Revoir la séance H4 — Créer des visuels attractifs</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Assistance IA (IA Act) & Données hébergées en UE (RGPD). <a href="/wiki-formation-ia/confidentialite/" style="color: var(--md-typeset-a-color); text-decoration: underline;">Mentions légales & Confidentialité</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.integrate", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/index.js"></script>
+      
+        <script src="../../javascripts/certification-rs6776.js"></script>
+      
+        <script src="../../javascripts/h1-interactivity.js"></script>
+      
+        <script src="../../javascripts/h2-interactivity.js"></script>
+      
+        <script src="../../javascripts/h3-interactivity.js"></script>
+      
+        <script src="../../javascripts/h4-interactivity.js"></script>
+      
+        <script src="../../javascripts/h5-interactivity.js"></script>
+      
+        <script src="../../javascripts/h6-interactivity.js"></script>
+      
+        <script src="../../javascripts/h7-interactivity.js"></script>
+      
+        <script src="../../javascripts/cas-pratiques.js"></script>
+      
+        <script src="../../javascripts/auth.js"></script>
+      
+        <script src="../../javascripts/progress.js"></script>
+      
+        <script src="../../javascripts/prompt-generator.js"></script>
+      
+        <script src="../../javascripts/prompting-avance.js"></script>
+      
+        <script src="../../javascripts/contexte-memoire.js"></script>
+      
+        <script src="../../javascripts/reduction-hallucinations.js"></script>
+      
+        <script src="../../javascripts/quiz-final.js"></script>
+      
+        <script src="../../javascripts/evaluation-entree.js"></script>
+      
+        <script src="../../javascripts/agent-simulator.js"></script>
+      
+        <script src="../../javascripts/chatbot.js"></script>
+      
+    
+  </body>
+</html>

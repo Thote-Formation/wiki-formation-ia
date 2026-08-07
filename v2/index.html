@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil V2 — Wiki Formation IA</title>
+  <link rel="stylesheet" href="./assets/theme.css">
+</head>
+<body>
+
+  <!-- Header JS Target -->
+  <div id="v2-header-target"></div>
+
+  <!-- App Dashboard 3-Columns -->
+  <div class="v2-app-container">
+    
+    <!-- Left Navigation Target -->
+    <div id="v2-left-sidebar-target" class="left-sidebar"></div>
+
+    <!-- Main Central Content -->
+    <main class="main-content">
+      
+      <!-- Hero Banner -->
+      <section class="glass-panel neo-bevel glow-primary" style="padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden;">
+        <div class="label-tech" style="color: var(--secondary); margin-bottom: 8px;">Plateforme de Formation V2</div>
+        <h1 style="font-size: 2rem; margin-bottom: 12px;">Wiki Formation IA Générative</h1>
+        <p style="color: var(--text-muted); max-width: 650px; line-height: 1.6;">
+          Bienvenue dans votre espace de ressources interactif dédié à l’IA générative et à la préparation de la certification <strong>RS6776</strong>.
+        </p>
+        <div style="margin-top: 20px; display: flex; gap: 12px;">
+          <a href="./formation/h0.html" class="wiki-btn wiki-btn-primary">
+            <span class="material-symbols-outlined">rocket_launch</span> Démarrer H0
+          </a>
+          <a href="./certification.html" class="wiki-btn wiki-btn-secondary">
+            <span class="material-symbols-outlined">school</span> Référentiel RS6776
+          </a>
+        </div>
+      </section>
+
+      <!-- 4 Piliers Cards Grid -->
+      <h2 style="font-size: 1.2rem; margin-bottom: 16px;">Les 4 Piliers de la Formation</h2>
+      <div class="cards-grid">
+        <div class="glass-panel interactive-card">
+          <div style="font-size: 2rem; margin-bottom: 8px;">🧠</div>
+          <h3>1. Prompting Structuré</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Méthode CROFT, Few-Shot et Chain-of-Thought.</p>
+        </div>
+        <div class="glass-panel interactive-card">
+          <div style="font-size: 2rem; margin-bottom: 8px;">🛡️</div>
+          <h3>2. Sécurité & RGPD</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Anonymisation systématique et protection des données.</p>
+        </div>
+        <div class="glass-panel interactive-card">
+          <div style="font-size: 2rem; margin-bottom: 8px;">⚖️</div>
+          <h3>3. Éthique & IA Act</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Gestion des biais et conformité européenne.</p>
+        </div>
+        <div class="glass-panel interactive-card">
+          <div style="font-size: 2rem; margin-bottom: 8px;">🔍</div>
+          <h3>4. Contrôle Humain</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Détection des hallucinations et validation des livrables.</p>
+        </div>
+      </div>
+
+      <!-- Bon Réflexe Box -->
+      <div class="real-life-box">
+        <h3 style="color: var(--secondary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined">lightbulb</span> Le Bon Réflexe
+        </h3>
+        <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-main);">
+          L’IA générative est un copilote, pas un pilote automatique. Appliquez systématiquement la règle des 5 piliers : 
+          <strong>Cadrer</strong>, <strong>Protéger</strong>, <strong>Vérifier</strong>, <strong>Adapter</strong> et <strong>Valider</strong>.
+        </p>
+      </div>
+
+      <!-- Quiz Échauffement Express -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-top: 24px; border: 1px solid var(--primary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">bolt</span>
+          <h3 style="margin: 0;">Échauffement Express</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          <strong>Mise en situation :</strong> Vous devez rédiger un compte-rendu à partir d'un document interne contenant des données confidentielles. Quelle est la meilleure approche ?
+        </p>
+
+        <div id="quiz-options" style="display: flex; flex-direction: column; gap: 10px;">
+          <button onclick="handleHeroQuiz(1)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
+            A. Copier-coller le document brut dans l'outil d'IA pour aller plus vite.
+          </button>
+          <button onclick="handleHeroQuiz(2)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
+            B. Anonymiser les données sensibles avant d'envoyer la demande à l'IA.
+          </button>
+          <button onclick="handleHeroQuiz(3)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
+            C. Demander à l'IA dans le prompt de promettre de ne pas enregistrer les données.
+          </button>
+        </div>
+
+        <div id="quiz-hero-feedback" class="glass-panel" style="margin-top: 16px; padding: 16px; display: none;"></div>
+      </section>
+
+    </main>
+
+    <!-- Right Progression Sidebar Target -->
+    <div id="v2-right-sidebar-target" class="right-sidebar"></div>
+
+  </div>
+
+  <!-- Footer Target -->
+  <div id="v2-footer-target"></div>
+
+  <!-- Scripts Logic -->
+  <script type="module">
+    import { initV2Shell, ThoteStore } from './assets/shared.js';
+
+    // Initialisation du Shell partagé (Active tab = 'home')
+    document.addEventListener('DOMContentLoaded', () => {
+      initV2Shell('home');
+    });
+
+    // Logique JS locale pour le Quiz Hero + Gain d'XP
+    window.handleHeroQuiz = function(option) {
+      const feedback = document.getElementById('quiz-hero-feedback');
+      if (!feedback) return;
+
+      feedback.style.display = 'block';
+
+      if (option === 2) {
+        feedback.style.borderColor = 'var(--secondary)';
+        feedback.style.background = 'rgba(68, 226, 205, 0.1)';
+        feedback.innerHTML = `
+          <div style="color: var(--secondary); font-weight:700; margin-bottom:4px;">✅ Exact ! (+25 XP)</div>
+          <div style="font-size:0.85rem;">L’anonymisation préalable est indispensable avant d’injecter tout contenu confidentiel dans un LLM (Compétence RS6776).</div>
+        `;
+        // Validation dynamique de quête & ajout XP
+        ThoteStore.completeQuest('quest_hero_quiz', 25);
+      } else if (option === 1) {
+        feedback.style.borderColor = '#f87171';
+        feedback.style.background = 'rgba(248, 113, 113, 0.1)';
+        feedback.innerHTML = `
+          <div style="color: #f87171; font-weight:700; margin-bottom:4px;">⚠️ Attention</div>
+          <div style="font-size:0.85rem;">Copier des données brutes peut entraîner une fuite d’informations confidentielles et violer le RGPD.</div>
+        `;
+      } else {
+        feedback.style.borderColor = '#f87171';
+        feedback.style.background = 'rgba(248, 113, 113, 0.1)';
+        feedback.innerHTML = `
+          <div style="color: #f87171; font-weight:700; margin-bottom:4px;">⚠️ Attention</div>
+          <div style="font-size:0.85rem;">Une consigne donnée dans un prompt ne garantit pas la confidentialité technique ni le non-entraînement des modèles.</div>
+        `;
+      }
+    };
+  </script>
+</body>
+</html>

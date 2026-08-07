@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H3 — Prompting Rédactionnel | Thote V2</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body class="bg-deep-space text-on-surface">
+  <div id="v2-app-layout" class="layout-3-cols">
+    <aside id="v2-sidebar-left" class="sidebar-left"></aside>
+
+    <main class="main-content">
+      <header class="module-header glass-panel">
+        <span class="badge-tag">Module H3</span>
+        <h1>Prompting Rédactionnel Avancé</h1>
+        <p class="subtitle">Méthodes ROFT, CROFT, FAI, SOCRATE et Reverse Prompting.</p>
+      </header>
+
+      <!-- Atelier Constructeur (h3-interactivity.js) -->
+      <section class="glass-panel content-box">
+        <h3>🛠️ Atelier : Constructeur de Prompt Structuré</h3>
+        <div class="form-group">
+          <label for="builder-method-select">Choisir la méthode :</label>
+          <select id="builder-method-select" class="v2-input">
+            <option value="ROFT">ROFT</option>
+            <option value="CROFT" selected>CROFT (Contexte + ROFT)</option>
+            <option value="FAI">FAI (Express)</option>
+            <option value="SOCRATE">SOCRATE (Cas complexes)</option>
+          </select>
+        </div>
+
+        <div id="builder-inputs" class="inputs-grid"></div>
+
+        <h4>📋 Prompt généré :</h4>
+        <textarea id="builder-output" class="v2-textarea" readonly rows="5"></textarea>
+        <div class="action-row">
+          <button type="button" id="builder-copy-btn" class="btn-primary-v2">📋 Copier le prompt</button>
+          <span id="builder-copy-feedback" class="text-success" style="display:none;">✅ Copié !</span>
+        </div>
+      </section>
+
+      <!-- Quiz H3 -->
+      <section class="glass-panel content-box">
+        <h3>🎯 Quiz : Méthodes de structuration</h3>
+        <div id="quiz-progress-h3" class="quiz-badge"></div>
+        <div id="quiz-task-h3" class="quiz-question"></div>
+        <div id="quiz-choices-h3" class="quiz-choices-list"></div>
+        <div id="quiz-feedback-h3" class="quiz-feedback-box" style="display:none;"></div>
+        <div class="quiz-controls">
+          <button type="button" id="quiz-next-h3" class="btn-primary-v2" style="display:none;">Suivant ➔</button>
+          <button type="button" id="quiz-reset-h3" class="btn-secondary-v2" style="display:none;">🔄 Recommencer</button>
+        </div>
+        <div id="quiz-score-h3" class="quiz-score-box" style="display:none;"></div>
+      </section>
+
+      <!-- Validation -->
+      <section class="glass-panel validate-card">
+        <h3>🎉 Valider le Module H3</h3>
+        <button class="btn-cyan" onclick="ThoteQuest.completeQuest('h3_complete')">Valider le module (+100 XP)</button>
+      </section>
+    </main>
+
+    <aside id="v2-sidebar-right" class="sidebar-right"></aside>
+  </div>
+
+  <script src="../assets/shared.js"></script>
+  <script src="../assets/h3-interactivity.js"></script>
+</body>
+</html>

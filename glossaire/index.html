@@ -1,0 +1,2844 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Ressources de la formation IA générative — Certification RS6776">
+      
+      
+      
+        <link rel="canonical" href="https://thote-formation.github.io/wiki-formation-ia/glossaire/">
+      
+      
+        <link rel="prev" href="../articles/google-labs/">
+      
+      
+        <link rel="next" href="../mini-jeux/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Glossaire - Wiki Formation IA générative</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#glossaire-des-termes-a-inserer-dans-les-prompts" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href=".." title="Wiki Formation IA générative" class="md-header__button md-logo" aria-label="Wiki Formation IA générative" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Wiki Formation IA générative
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Glossaire
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="Passer en mode sombre"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-orange"  aria-label="Passer en mode clair"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../certification-rs6776/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Certification RS6776
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../formation/h0/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Parcours de formation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../outils-interactifs/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Outils
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cas-pratiques/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Ressources
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Glossaire
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../mini-jeux/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mini-jeux
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Wiki Formation IA générative" class="md-nav__button md-logo" aria-label="Wiki Formation IA générative" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    Wiki Formation IA générative
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Certification RS6776
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Certification RS6776
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../certification-rs6776/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Présentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation-entree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évaluation d'entrée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parcours de formation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parcours de formation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formation/h0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H0 — Lancement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formation/h1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H1 — Fondamentaux IA + ROFT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formation/h2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H2 — Stratégie d'implémentation IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formation/h3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H3 — Structurer un prompt efficace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formation/h4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H4 — Créer des visuels attractifs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formation/h5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H5 — Confidentialité et sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formation/h6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H6 — Accessibilité et inclusivité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formation/h7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H7 — Éthique, IA Act, biais
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formation/quiz-final/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quiz final
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../outils-interactifs/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outils
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Outils
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils-interactifs/generateur-croft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Générateur CROFT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils-interactifs/anonymiseur/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Masqueur RGPD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils-interactifs/generateur-visuel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompt Visuel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils-interactifs/anti-hallucinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anti-Hallucinations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils-interactifs/calculateur-tokens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculateur de Tokens
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils-interactifs/audit-biais/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit Biais & Inclusivité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils-interactifs/formateur-donnees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formateur JSON/CSV/MD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ressources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ressources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../cas-pratiques/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cas pratiques
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cas pratiques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cas-pratiques/assistant-administratif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assistant administratif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cas-pratiques/communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cas-pratiques/rh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ressources humaines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparatifs IA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Comparatifs IA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils/comparatif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparatif LLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils/chatgpt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ChatGPT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils/claude/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils/gemini/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gemini
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils/mistral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mistral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils/copilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copilot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils/perplexity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perplexity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outils/4d-fluency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4D Fluency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../articles/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Veille et approfondissement
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Veille et approfondissement
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sources-officielles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources officielles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../articles/prompting-avance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompting avancé (Few-shot & CoT)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../articles/contexte-memoire/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion du contexte & mémoire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../articles/reduction-hallucinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Réduire les hallucinations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../articles/agents-rag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les Agents IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../articles/google-labs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Google Labs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objectif-du-glossaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Objectif du glossaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-codes-de-structuration-du-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Codes de structuration du prompt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-codes-de-simplification-vulgarisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Codes de simplification / vulgarisation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Codes de simplification / vulgarisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bon-reflexe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Bon réflexe
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-codes-de-ton-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Codes de ton / style
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-codes-de-format-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Codes de format / structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Codes de format / structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#astuce-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Astuce format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-codes-pedagogiques-danalyse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Codes pédagogiques / d’analyse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-codes-de-verification-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Codes de vérification / audit
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Codes de vérification / audit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comment-utiliser-ce-glossaire-en-pratique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Comment utiliser ce glossaire en pratique
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-jeux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mini-jeux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mini-jeux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escape Room
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mini-jeux2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le détective des hallucinations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mini-jeux3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le Chef Prompteur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mini-jeux4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mini-jeux5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mots mêlés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mini-jeux6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Qui suis-je ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mini-jeux7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bon prompt / à améliorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="glossaire-des-termes-a-inserer-dans-les-prompts">Glossaire des termes à insérer dans les prompts</h1>
+<div class="summary-box">
+<h3 id="objectif-du-glossaire">🎯 Objectif du glossaire</h3>
+<p>Ces codes sont des raccourcis à insérer dans les prompts pour améliorer la qualité des réponses produites par l’IA.</p>
+<p>Ils servent notamment à :</p>
+<ul>
+<li>cadrer plus vite les demandes ;</li>
+<li>adapter le niveau de langage ;</li>
+<li>contrôler le ton, le format et la pédagogie ;</li>
+<li>améliorer la fiabilité des réponses IA.</li>
+</ul>
+</div>
+<hr />
+<h2 id="1-codes-de-structuration-du-prompt">1. Codes de structuration du prompt</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Effet attendu</th>
+<th>Exemple de prompt</th>
+<th>Quand l’utiliser</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ROFT</strong></td>
+<td>Cadre rapide : Rôle, Objectif, Format, Ton</td>
+<td>« Tu es [rôle]. [Objectif]. Format : […]. Ton : […]. »</td>
+<td>Demande simple et directe (H1)</td>
+</tr>
+<tr>
+<td><strong>CROFT</strong></td>
+<td>ROFT + contexte pour personnaliser</td>
+<td>« Contexte : […]. Tu es [rôle]. […] »</td>
+<td>Mail important, compte rendu (H3)</td>
+</tr>
+<tr>
+<td><strong>SOCRATE</strong></td>
+<td>Cadrage complet pour situation complexe</td>
+<td>« Situation : […]. Objectif : […]. Contexte : […]. Rôle : […]. Attentes : […]. Ton : […]. Exemples : […]. »</td>
+<td>Blocage, situation délicate (H3)</td>
+</tr>
+<tr>
+<td><strong>FAI</strong></td>
+<td>Aller vite sur une demande simple</td>
+<td>« Formule : […]. Action : […]. Intention : […]. »</td>
+<td>Brainstorm, email rapide (H3)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-codes-de-simplification-vulgarisation">2. Codes de simplification / vulgarisation</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Effet attendu</th>
+<th>Exemple de prompt</th>
+<th>Quand l’utiliser</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FALC</strong> (Facile à Lire et à Comprendre)</td>
+<td>Texte accessible, phrases courtes, vocabulaire simple</td>
+<td>« Réécrire ce texte en FALC, phrases courtes et mots simples : … »</td>
+<td>Documents pour public en insertion, supports inclusifs</td>
+</tr>
+<tr>
+<td><strong>ELI5</strong> (Explain Like I'm 5)</td>
+<td>Vulgariser fortement, métaphores simples</td>
+<td>« ELI5 : expliquer la blockchain »</td>
+<td>Casser le jargon</td>
+</tr>
+<tr>
+<td><strong>ELI15 / ELI Student</strong></td>
+<td>Niveau ado/étudiant, sans jargon pro</td>
+<td>« Explique le machine learning niveau lycée (ELI15) »</td>
+<td>Formation niveau bac / débutant motivé</td>
+</tr>
+<tr>
+<td><strong>TLDR</strong></td>
+<td>Résumé très court (3–5 lignes)</td>
+<td>« TLDR : coller ici un mail ou un article »</td>
+<td>Texte trop long, aller à l’essentiel</td>
+</tr>
+<tr>
+<td><strong>TLDR + ELI5</strong></td>
+<td>Résumé + simplification</td>
+<td>« TLDR + ELI5 ce texte de contrat : … »</td>
+<td>Résumé simple, compréhensible par tous</td>
+</tr>
+<tr>
+<td><strong>Niveau B1</strong></td>
+<td>Réécriture au niveau de langue B1</td>
+<td>« Réécris ce texte au niveau B1, phrases courtes, un mot difficile expliqué entre parenthèses »</td>
+<td>Exercice 5 de la certification</td>
+</tr>
+</tbody>
+</table>
+<div class="good-reflex-box">
+<h3 id="bon-reflexe">✅ Bon réflexe</h3>
+<p>Pour des publics variés, il est souvent utile de combiner :</p>
+<ul>
+<li>un code de niveau, comme <strong>FALC</strong>, <strong>ELI5</strong> ou <strong>B1</strong> ;</li>
+<li>un code de format, comme <strong>TLDR</strong> ou <strong>bullet points</strong>.</li>
+</ul>
+<p>Cette combinaison permet d’obtenir un texte à la fois plus accessible et plus directement exploitable.</p>
+</div>
+<hr />
+<h2 id="3-codes-de-ton-style">3. Codes de ton / style</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Effet attendu</th>
+<th>Exemple de prompt</th>
+<th>Quand l’utiliser</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Humanize</strong></td>
+<td>Texte plus naturel, moins « robotique »</td>
+<td>« Réécrire ce texte en français naturel, ton humain, plus simple. Humanize : »</td>
+<td>Texte IA trop froid ou rigide</td>
+</tr>
+<tr>
+<td><strong>Jargonize</strong></td>
+<td>Ajouter du vocabulaire technique/spécialisé</td>
+<td>« Jargonize : reformuler ce texte pour un public d’experts en cybersécurité »</td>
+<td>Supports pour experts</td>
+</tr>
+<tr>
+<td><strong>Ton professionnel</strong></td>
+<td>Texte formel, corporate</td>
+<td>« Réécrire ce mail en ton professionnel, poli et concis »</td>
+<td>Mails, comptes rendus</td>
+</tr>
+<tr>
+<td><strong>Ton convivial / pédagogique</strong></td>
+<td>Style proche de l’oral, rassurant</td>
+<td>« Réécrire ce texte en ton convivial et pédagogique, phrases courtes »</td>
+<td>Ateliers, FAQ, onboarding</td>
+</tr>
+<tr>
+<td><strong>Ton commercial</strong></td>
+<td>Style orienté vente</td>
+<td>« Réécrire ce paragraphe en ton commercial, orienté bénéfices client »</td>
+<td>Pages de vente</td>
+</tr>
+<tr>
+<td><strong>Ton inclusif / neutre</strong></td>
+<td>Retirer les stéréotypes, ton bienveillant</td>
+<td>« Réécris ce texte en langage neutre, sans stéréotype de genre ou d’âge, ton bienveillant et inclusif »</td>
+<td>Notes internes, offres d’emploi (H6)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-codes-de-format-structure">4. Codes de format / structure</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Effet attendu</th>
+<th>Exemple de prompt</th>
+<th>Quand l’utiliser</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TLDR en bullet points</strong></td>
+<td>Résumé en liste à puces</td>
+<td>« Résumer ce texte en 5 bullet points clairs (format TLDR) »</td>
+<td>Synthèses, slides, briefs</td>
+</tr>
+<tr>
+<td><strong>Format tableau</strong></td>
+<td>Forcer un tableau</td>
+<td>« Présenter le résultat dans un tableau avec colonnes : Étape, Description, Durée »</td>
+<td>Comparatifs, supports de formation</td>
+</tr>
+<tr>
+<td><strong>Format checklist</strong></td>
+<td>Liste avec cases à cocher</td>
+<td>« Donner une checklist des étapes à suivre, chaque étape sur une ligne »</td>
+<td>Guides pas à pas</td>
+</tr>
+<tr>
+<td><strong>Longueur max (X mots)</strong></td>
+<td>Contrôler la taille</td>
+<td>« Répondre en maximum 150 mots, pas plus »</td>
+<td>Espace de copie limité</td>
+</tr>
+<tr>
+<td><strong>Format JSON / code</strong></td>
+<td>Sortie structurée pour outils</td>
+<td>« Répondre uniquement en JSON valide avec les clés : titre, étapes, durée »</td>
+<td>Automatisation, cas avancés</td>
+</tr>
+</tbody>
+</table>
+<div class="wiki-card">
+<h3 id="astuce-format">Astuce format</h3>
+<p>Pour un même contenu, spécifier à la fois :</p>
+<ul>
+<li>un <strong>format</strong> attendu, comme tableau, checklist ou JSON ;</li>
+<li>une <strong>longueur maximale</strong> ;</li>
+</ul>
+<p>permet souvent d’obtenir une réponse plus lisible et plus facile à réutiliser.</p>
+</div>
+<hr />
+<h2 id="5-codes-pedagogiques-danalyse">5. Codes pédagogiques / d’analyse</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Effet attendu</th>
+<th>Exemple de prompt</th>
+<th>Quand l’utiliser</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>« Étape par étape »</strong></td>
+<td>Forcer le raisonnement détaillé</td>
+<td>« Résoudre ce problème en expliquant étape par étape avant de donner la réponse finale »</td>
+<td>Calculs, décisions, dossiers complexes</td>
+</tr>
+<tr>
+<td><strong>« Critiquer ta propre réponse »</strong></td>
+<td>Auto-contrôle</td>
+<td>« Analyser ta réponse précédente : quels sont ses points faibles ou risques d’erreur ? »</td>
+<td>Fiabilité, esprit critique</td>
+</tr>
+<tr>
+<td><strong>« Proposer 3 versions »</strong></td>
+<td>Obtenir de la variété</td>
+<td>« Proposer 3 versions de ce mail : formel, neutre, chaleureux »</td>
+<td>Choix de style</td>
+</tr>
+<tr>
+<td><strong>« Niveau 1/2/3 d’explication »</strong></td>
+<td>Progression pédagogique</td>
+<td>« Explique ce concept : d’abord comme à un enfant, puis comme à un lycéen, puis comme à un professionnel »</td>
+<td>Adaptation au public</td>
+</tr>
+<tr>
+<td><strong>« Améliore mon prompt »</strong></td>
+<td>Optimiser un prompt avant usage</td>
+<td>« Je viens de te donner ce prompt : […]. Comment je pourrais l’améliorer ? »</td>
+<td>Boucle d’amélioration continue (H3)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-codes-de-verification-audit">6. Codes de vérification / audit</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Effet attendu</th>
+<th>Exemple de prompt</th>
+<th>Quand l’utiliser</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Audit biais</strong></td>
+<td>Détecter et corriger un biais</td>
+<td>« Analyse cette réponse : contient-elle des généralisations sur le genre, l’âge, l’origine ? Propose une version neutre. »</td>
+<td>Avant diffusion d’un contenu RH ou public (H7)</td>
+</tr>
+<tr>
+<td><strong>Reverse prompting</strong></td>
+<td>Deviner le prompt qui a produit un résultat</td>
+<td>« Quel prompt a probablement généré ce texte/cette image ? »</td>
+<td>Réutiliser une méthode qui a marché (H3, H4)</td>
+</tr>
+<tr>
+<td><strong>Fact-check</strong></td>
+<td>Vérifier une affirmation avant usage</td>
+<td>« Vérifie cette information et indique ton niveau de confiance »</td>
+<td>Avant d’utiliser un chiffre ou une date officielle (H5)</td>
+</tr>
+<tr>
+<td><strong>Anonymiser</strong></td>
+<td>Retirer les données sensibles d’un texte</td>
+<td>« Réécris ce texte en remplaçant noms, montants et lieux par des génériques »</td>
+<td>Avant de coller un texte avec des données clients (H5)</td>
+</tr>
+</tbody>
+</table>
+<div class="summary-box">
+<h3 id="comment-utiliser-ce-glossaire-en-pratique">💡 Comment utiliser ce glossaire en pratique</h3>
+<p>Cette page peut servir de repère pendant une session de prompting.</p>
+<p>Pour l’utiliser efficacement :</p>
+<ul>
+<li>garder le glossaire ouvert pendant l’exercice ;</li>
+<li>combiner 2 à 3 codes au maximum par demande ;</li>
+<li>réutiliser les formulations qui fonctionnent bien dans des modèles de prompt ou des assistants dédiés.</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Assistance IA (IA Act) & Données hébergées en UE (RGPD). <a href="/wiki-formation-ia/confidentialite/" style="color: var(--md-typeset-a-color); text-decoration: underline;">Mentions légales & Confidentialité</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.integrate", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/index.js"></script>
+      
+        <script src="../javascripts/certification-rs6776.js"></script>
+      
+        <script src="../javascripts/h1-interactivity.js"></script>
+      
+        <script src="../javascripts/h2-interactivity.js"></script>
+      
+        <script src="../javascripts/h3-interactivity.js"></script>
+      
+        <script src="../javascripts/h4-interactivity.js"></script>
+      
+        <script src="../javascripts/h5-interactivity.js"></script>
+      
+        <script src="../javascripts/h6-interactivity.js"></script>
+      
+        <script src="../javascripts/h7-interactivity.js"></script>
+      
+        <script src="../javascripts/cas-pratiques.js"></script>
+      
+        <script src="../javascripts/auth.js"></script>
+      
+        <script src="../javascripts/progress.js"></script>
+      
+        <script src="../javascripts/prompt-generator.js"></script>
+      
+        <script src="../javascripts/prompting-avance.js"></script>
+      
+        <script src="../javascripts/contexte-memoire.js"></script>
+      
+        <script src="../javascripts/reduction-hallucinations.js"></script>
+      
+        <script src="../javascripts/quiz-final.js"></script>
+      
+        <script src="../javascripts/evaluation-entree.js"></script>
+      
+        <script src="../javascripts/agent-simulator.js"></script>
+      
+        <script src="../javascripts/chatbot.js"></script>
+      
+    
+  </body>
+</html>
