@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>IA Academy - Hub</title>
+<title>Thotie Quest - Hub</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
@@ -138,7 +138,7 @@
     const questsList = document.getElementById("quests-list");
     questsList.innerHTML = A.QUESTS.map((q) => {
       const done = !!s.quests[q.id];
-      return `<li class="flex items-center gap-3 bg-surface-container-high p-3 rounded-xl cursor-pointer quest-item" data-id="${q.id}">
+      return `<li class="flex items-center gap-3 bg-surface-container-high p-3 rounded-xl">
         <div class="w-6 h-6 rounded-md flex items-center justify-center ${done ? "bg-secondary/20 text-secondary" : "border-2 border-outline-variant"}">
           ${done ? '<span class="material-symbols-outlined text-[16px]">check</span>' : ""}
         </div>
@@ -148,13 +148,8 @@
         </div>
       </li>`;
     }).join("");
-
-    document.querySelectorAll(".quest-item").forEach((el) => {
-      el.addEventListener("click", () => {
-        A.toggleQuest(el.dataset.id);
-        render();
-      });
-    });
+    // Les quêtes se valident automatiquement via de vraies actions (module terminé, profil
+    // enregistré, duel gagné) — voir markQuestDone() dans state.js. Pas de clic manuel possible.
   }
   render();
 </script>
