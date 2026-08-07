@@ -1,211 +1,102 @@
-/**
- * Shared V2 Engine — Thote Formation IA
- * Gère le state local, l'injection dynamique Header/Footer et le suivi de progression.
- */
+/* Thotie Quest V2 — socle partagé (navigation).
+   À inclure sur CHAQUE page, après le script Tailwind CDN + config :
+   <script src="[chemin vers assets]/shared.js"></script>
+   Le chemin exact importe peu : ce script se repère tout seul (voir detectBase ci-dessous),
+   donc il fonctionne autant depuis docs/v2/index.html que depuis docs/v2/formation/h0.html. */
 
-const STORAGE_KEY_QUEST = 'thotie_quest_state';
-const STORAGE_KEY_PROGRESS = 'wiki_progress_v1';
-
-// Navigation structurelle synchronisée avec mkdocs.yml
-// Remplacez NAV_STRUCTURE dans docs/v2/assets/shared.js par des liens relatifs dynamiques :
-
-// Helper pour calculer le préfixe relatif selon la profondeur de la page actuelle
-const getBasePath = () => {
-  const path = window.location.pathname;
-  if (path.includes('/formation/') || path.includes('/certification/') || path.includes('/outils/') || path.includes('/ressources/')) {
-    return '../';
-  }
-  return './';
-};
-
-const BASE = getBasePath();
-
-const NAV_STRUCTURE = [
-  { label: 'Accueil', url: BASE + 'index.html', icon: 'home' },
-  { 
-    label: 'Certification RS6776', 
-    icon: 'verified',
-    children: [
-      { label: 'Présentation RS6776', url: BASE + 'certification/index.html' },
-      { label: 'Évaluation d\'entrée', url: BASE + 'certification/evaluation.html' }
-    ]
-  },
-  { 
-    label: 'Parcours', 
-    icon: 'auto_stories',
-    children: [
-      { label: 'H0 — Lancement', url: BASE + 'formation/h0.html' },
-      { label: 'H1 — Fondamentaux & ROFT', url: BASE + 'formation/h1.html' },
-      { label: 'H2 — Stratégie d\'implémentation', url: BASE + 'formation/h2.html' },
-      { label: 'H3 — Structurer un prompt', url: BASE + 'formation/h3.html' },
-      { label: 'H4 — Créer des visuels', url: BASE + 'formation/h4.html' },
-      { label: 'H5 — Confidentialité & Sécurité', url: BASE + 'formation/h5.html' },
-      { label: 'H6 — Accessibilité & Inclusivité', url: BASE + 'formation/h6.html' },
-      { label: 'H7 — Éthique, IA Act, Biais', url: BASE + 'formation/h7.html' },
-      { label: 'Quiz Final Certifiant', url: BASE + 'formation/quiz-final.html' }
-    ]
-  },
-  { 
-    label: 'Outils Interactifs', 
-    icon: 'build',
-    children: [
-      { label: 'Vue d\'ensemble', url: BASE + 'outils/index.html' },
-      { label: 'Générateur CROFT', url: BASE + 'outils/croft.html' },
-      { label: 'Masqueur RGPD', url: BASE + 'outils/anonymiseur.html' },
-      { label: 'Prompt Visuel', url: BASE + 'outils/visuel.html' },
-      { label: 'Anti-Hallucinations', url: BASE + 'outils/anti-hallucinations.html' },
-      { label: 'Calculateur de Tokens', url: BASE + 'outils/tokens.html' },
-      { label: 'Audit Biais & Inclusivité', url: BASE + 'outils/audit-biais.html' }
-    ]
-  },
-  { 
-    label: 'Ressources', 
-    icon: 'folder_open',
-    children: [
-      { label: 'Cas Pratiques Métiers', url: BASE + 'ressources/cas-pratiques.html' },
-      { label: 'Comparatif LLM', url: BASE + 'ressources/comparatif.html' },
-      { label: 'Veille & Articles', url: BASE + 'ressources/articles.html' },
-      { label: 'Glossaire IA', url: BASE + 'ressources/glossaire.html' }
-    ]
-  },
-  { label: 'Thotie Quest', url: BASE + '../jeux/index.html', icon: 'sports_esports', highlight: true }
-];
-class V2App {
-  constructor() {
-    this.state = this.loadQuestState();
-    this.progress = this.loadProgressState();
-    this.initShell();
-  }
-
-  loadQuestState() {
-    const defaultState = {
-      xp: 0,
-      level: 1,
-      avatar: '🤖',
-      questsCompleted: [],
-      modulesCompleted: []
-    };
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_QUEST);
-      return saved ? { ...defaultState, ...JSON.parse(saved) } : defaultState;
-    } catch (e) {
-      return defaultState;
+(function () {
+  // --- Repérage automatique de la racine docs/v2/, quelle que soit la profondeur de la page ---
+  // On retrouve la balise <script> qui a chargé ce fichier, et on déduit le chemin vers docs/v2/.
+  function detectBase() {
+    const scripts = document.getElementsByTagName("script");
+    for (const s of scripts) {
+      if (s.src && s.src.indexOf("assets/shared.js") !== -1) {
+        return s.src.slice(0, s.src.indexOf("assets/shared.js"));
+      }
     }
+    return "./";
   }
 
-  loadProgressState() {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_PROGRESS);
-      return saved ? JSON.parse(saved) : {};
-    } catch (e) {
-      return {};
-    }
-  }
+  const V2_BASE = detectBase(); // ex: https://.../wiki-formation-ia/v2/  (ou .../v2/formation/../ si sous-dossier)
+  const SITE_ROOT = V2_BASE + "../"; // racine du site mkdocs actuel (docs/)
+  const JEU_URL = V2_BASE + "../jeux/index.html"; // Thotie Quest (docs/jeux/)
 
-  saveQuestState() {
-    localStorage.setItem(STORAGE_KEY_QUEST, JSON.stringify(this.state));
-    this.updateUserWidget();
-  }
+  // Onglets du site, dans l'ordre du mkdocs.yml actuel.
+  // "built: false" = page pas encore portée en V2 → affichée grisée avec "Bientôt" au lieu d'un lien.
+  // Passe à true + ajuste "href" au fur et à mesure que chaque section est construite.
+  const NAV = [
+    { id: "accueil", label: "Accueil", href: "index.html", built: true },
+    { id: "certification", label: "Certification RS6776", href: "certification/index.html", built: false },
+    { id: "formation", label: "Parcours de formation", href: "formation/h0.html", built: false },
+    { id: "outils", label: "Outils", href: "outils/index.html", built: false },
+    { id: "ressources", label: "Ressources", href: "ressources/index.html", built: false },
+    { id: "glossaire", label: "Glossaire", href: "glossaire.html", built: false },
+  ];
 
-  addXP(amount) {
-    this.state.xp += amount;
-    this.state.level = Math.floor(this.state.xp / 100) + 1;
-    this.saveQuestState();
-  }
+  function renderNav(activeId) {
+    const mount = document.getElementById("tq-nav");
+    if (!mount) return;
 
-  initShell() {
-    document.addEventListener('DOMContentLoaded', () => {
-      this.injectHeader();
-      this.injectFooter();
-      this.updateUserWidget();
-    });
-  }
-
-  injectHeader() {
-    const header = document.getElementById('site-header');
-    if (!header) return;
-
-    const currentPath = window.location.pathname;
-
-    let navHTML = '<ul class="main-nav">';
-    NAV_STRUCTURE.forEach(item => {
-      const hasChildren = item.children && item.children.length > 0;
-      const isActive = currentPath.includes(item.url) || (hasChildren && item.children.some(c => currentPath.includes(c.url)));
-
-      navHTML += `
-        <li class="nav-item ${isActive ? 'active' : ''}">
-          <a href="${item.url || '#'}" class="nav-link">
-            <span class="material-symbols-outlined">${item.icon}</span>
-            ${item.label}
-            ${hasChildren ? '<span class="material-symbols-outlined" style="font-size:16px;">expand_more</span>' : ''}
-          </a>
-          ${hasChildren ? `
-            <div class="dropdown-menu">
-              ${item.children.map(child => `
-                <a href="${child.url}" class="dropdown-link">${child.label}</a>
-              `).join('')}
-            </div>
-          ` : ''}
-        </li>
-      `;
-    });
-    navHTML += '</ul>';
-
-    header.innerHTML = `
-      <div class="header-container">
-        <a href="/v2/index.html" class="brand">
-          <div class="brand-logo">T</div>
-          <div class="brand-text">THOTE <span>FORMATION V2</span></div>
+    mount.innerHTML = `
+      <div class="flex items-center justify-between px-4 md:px-8 h-16 max-w-[1400px] mx-auto">
+        <a href="${V2_BASE}index.html" class="flex items-center gap-2 font-headline-md text-lg text-primary shrink-0">
+          <span class="material-symbols-outlined">hub</span> Thotie Formation
         </a>
 
-        ${navHTML}
+        <nav class="hidden lg:flex items-center gap-1 overflow-x-auto">
+          ${NAV.map((item) => {
+            const isActive = item.id === activeId;
+            if (!item.built) {
+              return `<span class="px-3 py-2 rounded-lg text-sm text-outline opacity-50 cursor-not-allowed whitespace-nowrap" title="Bientôt disponible en V2">${item.label}</span>`;
+            }
+            return `<a href="${V2_BASE}${item.href}" class="px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors ${
+              isActive
+                ? "bg-primary-container text-on-primary-container font-semibold"
+                : "text-on-surface-variant hover:bg-surface-container-high"
+            }">${item.label}</a>`;
+          }).join("")}
+        </nav>
 
-        <div class="user-widget">
-          <span style="font-size:1.2rem;">${this.state.avatar}</span>
-          <div>
-            <div style="font-size:0.75rem; font-weight:700; color:var(--text-main);">
-              Niv. <span id="widget-level">${this.state.level}</span>
-            </div>
-            <div class="xp-bar-container">
-              <div id="widget-xp-bar" class="xp-bar-fill"></div>
-            </div>
-          </div>
-          <a href="/v2/index.html" style="color:var(--text-muted); text-decoration:none;" title="Site V1 original">
-            <span class="material-symbols-outlined" style="font-size:18px;">open_in_new</span>
-          </a>
-        </div>
+        <a href="${JEU_URL}" class="flex items-center gap-2 bg-secondary-container text-on-secondary-container text-sm font-semibold px-4 py-2 rounded-xl neo-bevel shrink-0">
+          <span class="material-symbols-outlined text-[18px]">stadia_controller</span>
+          <span class="hidden sm:inline">Thotie Quest</span>
+        </a>
+      </div>
+      <div class="lg:hidden flex gap-1 px-4 pb-3 overflow-x-auto max-w-[1400px] mx-auto">
+        ${NAV.map((item) => {
+          const isActive = item.id === activeId;
+          if (!item.built) {
+            return `<span class="px-3 py-1.5 rounded-lg text-xs text-outline opacity-50 whitespace-nowrap">${item.label}</span>`;
+          }
+          return `<a href="${V2_BASE}${item.href}" class="px-3 py-1.5 rounded-lg text-xs whitespace-nowrap ${
+            isActive ? "bg-primary-container text-on-primary-container font-semibold" : "text-on-surface-variant"
+          }">${item.label}</a>`;
+        }).join("")}
       </div>
     `;
   }
 
-  injectFooter() {
-    const footer = document.getElementById('site-footer');
-    if (!footer) return;
-
-    footer.innerHTML = `
-      <div class="footer-container">
-        <div>
-          <strong>Thote Formation IA</strong> — Certification RS6776 | Assistance IA & Conformité RGPD / IA Act (UE)
-        </div>
-        <div class="footer-links">
-          <a href="/">Retour V1 Originale</a>
-          <a href="/jeux/index.html">Thotie Quest Hub</a>
-          <a href="/v2/ressources/glossaire.html">Glossaire</a>
-        </div>
+  function renderFooter() {
+    const mount = document.getElementById("tq-footer");
+    if (!mount) return;
+    mount.innerHTML = `
+      <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-8 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-on-surface-variant">
+        <p>Assistance IA (IA Act) &amp; données hébergées en UE (RGPD).</p>
+        <a href="${SITE_ROOT}" class="hover:text-secondary flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">history</span> Voir l'ancien site
+        </a>
       </div>
     `;
   }
 
-  updateUserWidget() {
-    const levelEl = document.getElementById('widget-level');
-    const barEl = document.getElementById('widget-xp-bar');
-    if (levelEl && barEl) {
-      levelEl.textContent = this.state.level;
-      const progressInLevel = this.state.xp % 100;
-      barEl.style.width = `${progressInLevel}%`;
-    }
-  }
-}
-
-// Instance globale
-window.v2App = new V2App();
+  window.TQ = {
+    V2_BASE,
+    SITE_ROOT,
+    JEU_URL,
+    NAV,
+    init(activeId) {
+      renderNav(activeId);
+      renderFooter();
+    },
+  };
+})();
