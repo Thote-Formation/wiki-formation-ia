@@ -116,7 +116,7 @@ nav:
           - Prompting avancé (Few-shot & CoT): articles/prompting-avance.md
           - Gestion du contexte & mémoire: articles/contexte-memoire.md
           - Réduire les hallucinations: articles/reduction-hallucinations.md
-          - Les Agents IA: articles/agents-rag.md
+          - Les Agents RAG: articles/agents-rag.md
           - Les Agents Mistral: articles/agents-mistral.md
           - Les Connecteurs Mistral: articles/connecteurs-mistral.md
           - Google Labs: articles/google-labs.md
