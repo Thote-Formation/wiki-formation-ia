@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H7 — Éthique, IA Act, biais & prompts correctifs | Thote V2</title>
+  <link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+  <!-- Header JS Target -->
+  <div id="v2-header-target"></div>
+
+  <!-- App Dashboard 3-Columns -->
+  <div class="v2-app-container">
+    
+    <!-- Left Navigation Target -->
+    <div id="v2-left-sidebar-target" class="left-sidebar"></div>
+
+    <!-- Main Central Content -->
+    <main class="main-content">
+      
+      <!-- Module Hero Banner -->
+      <section class="glass-panel neo-bevel glow-primary" style="padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden;">
+        <div class="label-tech" style="color: var(--secondary); margin-bottom: 8px;">Module H7</div>
+        <h1 style="font-size: 2rem; margin-bottom: 12px;">Éthique, IA Act, biais & prompts correctifs</h1>
+        <p style="color: var(--text-muted); max-width: 650px; line-height: 1.6;">
+          Comprendre les risques éthiques, classifier les systèmes selon l'IA Act et appliquer les règles d'une IA responsable au quotidien.
+        </p>
+      </section>
+
+      <!-- Mise à jour réglementaire -->
+      <div class="real-life-box" style="margin-bottom: 20px;">
+        <h3 style="color: var(--secondary); margin-bottom: 12px;">Mise à jour réglementaire (Juin 2026)</h3>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 8px;">
+          Le calendrier de l'IA Act a été ajusté par le <strong>Digital Omnibus</strong> :
+        </p>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 6px 0; color: var(--text-muted);">Obligations "Haut Risque" (Annexe III) : report au <strong>2 décembre 2027</strong>.</li>
+          <li style="padding: 6px 0; color: var(--text-muted);">Obligations de Transparence (Art. 50) & Sanctions : applicables au <strong>2 août 2026</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="real-life-box" style="margin-bottom: 20px;">
+        <h3 style="color: var(--secondary); margin-bottom: 12px;">Dernière vérification réglementaire</h3>
+        <p style="color: var(--text-muted); line-height: 1.5; margin: 0;">
+          <strong>juillet 2026</strong>.<br>
+          Les règles liées à l'IA Act peuvent évoluer. Pour une information officielle, consultez toujours les textes européens et les ressources de la Commission européenne.
+        </p>
+      </div>
+
+      <!-- Objectifs Section -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">flag</span>
+          Objectifs de la séance
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Identifier les 5 grands risques éthiques</strong> : comprendre les dangers liés à l'usage des algorithmes et des LLM.</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Maîtriser la grille de lecture de l'IA Act</strong> : classifier les 4 niveaux de risque et connaître les obligations légales.</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Détecter et corriger les biais</strong> : éliminer les stéréotypes dans les sorties d'IA avec des prompts d'audit dédiés.</span>
+          </li>
+          <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Appliquer les 5 piliers de l'IA responsable</strong> : ancrer la sobriété et l'éthique dans les pratiques.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Origine des problèmes éthiques -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">help</span>
+          D'où vient la nécessité de l'éthique dans l'IA ?
+        </h2>
+
+        <div class="cards-grid">
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">📊</div>
+            <h4 style="margin-bottom: 4px;">Collecte massive de données</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Traitement massif d'informations personnelles à l'insu des utilisateurs.</p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🎯</div>
+            <h4 style="margin-bottom: 4px;">Biais algorithmiques</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Les modèles entraînés sur le web reproduisent et amplifient les discriminations sociétales.</p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">📢</div>
+            <h4 style="margin-bottom: 4px;">Désinformation & Deepfakes</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Génération industrielle de contenus trompeurs altérant la confiance numérique.</p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">📦</div>
+            <h4 style="margin-bottom: 4px;">Opacité des algorithmes</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Effet "boîte noire" rendant l'explication d'un refus (crédit, embauche) difficile.</p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">⚖️</div>
+            <h4 style="margin-bottom: 4px;">Inégalités d'accès</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Risque de rupture d'égalité face aux services publics, au logement ou à l'emploi.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Les 5 Piliers -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">temple_hindu</span>
+          🏛️ Les 5 Piliers d'une IA Responsable
+        </h2>
+        
+        <div class="cards-grid">
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--primary);">
+            <div style="font-size: 2rem; margin-bottom: 8px;">1</div>
+            <h4 style="margin-bottom: 4px;">Transparence</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">L'utilisateur doit toujours savoir si un contenu a été généré par une IA.</p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--primary);">
+            <div style="font-size: 2rem; margin-bottom: 8px;">2</div>
+            <h4 style="margin-bottom: 4px;">Équité</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Les algorithmes ne doivent favoriser ou pénaliser aucun groupe d'individus.</p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--primary);">
+            <div style="font-size: 2rem; margin-bottom: 8px;">3</div>
+            <h4 style="margin-bottom: 4px;">Confidentialité</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Les données sensibles ne doivent jamais servir à l'entraînement public.</p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--primary);">
+            <div style="font-size: 2rem; margin-bottom: 8px;">4</div>
+            <h4 style="margin-bottom: 4px;">Responsabilité</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">L'humain garde le contrôle final sur la prise de décision.</p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--primary);">
+            <div style="font-size: 2rem; margin-bottom: 8px;">5</div>
+            <h4 style="margin-bottom: 4px;">Sobriété</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Optimisation des requêtes (ex. 1 requête texte ≈ 0,03g CO₂ vs 1 image ≈ 20g CO₂).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Le cadre légal : IA Act -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">balance</span>
+          ⚖️ Le cadre légal : L'IA Act européen
+        </h2>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+          Les 4 niveaux de risque selon la réglementation européenne :
+        </p>
+
+        <div class="cards-grid">
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🚫</div>
+            <h4 style="margin-bottom: 4px;">Inacceptable</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Exemples :</strong> Notation sociale, reconnaissance faciale à distance en temps réel</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Sanctions : 35 M€ ou 7% du CA mondial</em></p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid #fbbf24;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">⚠️</div>
+            <h4 style="margin-bottom: 4px;">Haut Risque</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Exemples :</strong> Tri automatique de CV, scoring de crédit, justice, accès au logement</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Sanctions : 15 M€ ou 3% du CA mondial</em></p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--secondary);">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">ℹ️</div>
+            <h4 style="margin-bottom: 4px;">Risque Limité</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Exemples :</strong> IA génératives (ChatGPT, Claude, Gemini, Midjourney), chatbots d'assistance client</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Sanctions : 7,5 M€ ou 1,5% du CA mondial</em></p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--tertiary);">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">✅</div>
+            <h4 style="margin-bottom: 4px;">Risque Minimal</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Exemples :</strong> Correcteurs orthographiques, filtres anti-spam, jeux vidéo</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Droit commun (RGPD)</em></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quiz : Classez le niveau de risque -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--primary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">quiz</span>
+          <h3 style="margin: 0;">🎯 Quiz : Classez le niveau de risque AI Act !</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Testez vos connaissances sur la qualification des usages selon la réglementation européenne.
+        </p>
+        <div id="h7-situation" style="font-size: 1rem; font-weight: 600; min-height: 40px; padding: 14px 16px; background: var(--surface-low); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 16px; color: var(--text-main); line-height: 1.5;"></div>
+        <div id="h7-choices" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px;"></div>
+        <div id="h7-feedback" class="glass-panel" style="margin-top: 16px; padding: 16px; display: none;"></div>
+        <div style="display: flex; gap: 10px; margin-top: 12px;">
+          <button id="h7-next" class="wiki-btn wiki-btn-primary" style="display: none;">
+            <span class="material-symbols-outlined">arrow_forward</span> Question suivante
+          </button>
+          <button id="h7-restart" class="wiki-btn wiki-btn-secondary" style="display: none;">
+            <span class="material-symbols-outlined">refresh</span> Recommencer
+          </button>
+        </div>
+        <div id="h7-score" style="display: none; margin-top: 16px; padding: 14px; background: rgba(26, 95, 180, 0.1); border: 1px solid var(--primary); border-radius: 6px; font-size: 15px; font-weight: 700; text-align: center; color: var(--text-main);"></div>
+      </section>
+
+      <!-- Générateur de Mention de Transparence -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">description</span>
+          📜 Générateur de Mention de Transparence (Art. 50 AI Act)
+        </h2>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+          Générez la mention de transparence obligatoire adaptée à vos contenus ou services générés par IA :
+        </p>
+
+        <div class="glass-panel" style="padding: 20px; margin-bottom: 20px;">
+          <label for="h7-transparency-type" style="display: block; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px;">Type de contenu généré :</label>
+          <select id="h7-transparency-type" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--surface-low); color: var(--text-main); font-size: 0.9rem; margin-bottom: 14px;">
+            <option value="text">Article de blog / Texte éditorial</option>
+            <option value="image">Illustration / Image générée</option>
+            <option value="bot">Chatbot / Agent conversationnel</option>
+          </select>
+
+          <div id="h7-transparency-result" style="font-size: 0.9rem; font-style: italic; padding: 12px; background: var(--surface-low); border: 1px solid var(--border-color); border-radius: 6px; border-left: 4px solid var(--primary); margin-bottom: 12px; color: var(--text-muted);"></div>
+          
+          <button id="h7-copy-btn" class="wiki-btn wiki-btn-primary">
+            <span class="material-symbols-outlined">content_copy</span> Copier la mention légale
+          </button>
+        </div>
+      </section>
+
+      <!-- Focus Haut Risque -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">priority_high</span>
+          🎯 Focus "Haut Risque" : Les 7 obligations clés
+        </h2>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+          Lorsqu'un usage est qualifié de <strong>Haut Risque</strong> (notamment en Ressources Humaines), l'organisation doit respecter 7 règles strictes :
+        </p>
+
+        <ol style="margin: 0; padding-left: 20px;">
+          <li style="margin-bottom: 8px; color: var(--text-main);">
+            <strong>Information préalable :</strong> Informer les personnes que leurs données sont analysées par une IA.
+          </li>
+          <li style="margin-bottom: 8px; color: var(--text-main);">
+            <strong>Qualité des données :</strong> Garantir l'absence de biais discriminatoires dans les données d'entraînement.
+          </li>
+          <li style="margin-bottom: 8px; color: var(--text-main);">
+            <strong>Supervision humaine :</strong> Garantir qu'aucun choix (ex. rejet d'une candidature) ne soit 100% automatisé.
+          </li>
+          <li style="margin-bottom: 8px; color: var(--text-main);">
+            <strong>Explicabilité & Transparence :</strong> Être capable d'expliquer la logique du score attribué.
+          </li>
+          <li style="margin-bottom: 8px; color: var(--text-main);">
+            <strong>Traçabilité (Logs) :</strong> Conserver l'historique des requêtes et des décisions prises.
+          </li>
+          <li style="margin-bottom: 8px; color: var(--text-main);">
+            <strong>Audit régulier :</strong> Évaluer en continu l'impact et la neutralité de l'outil.
+          </li>
+          <li style="color: var(--text-main);">
+            <strong>Droit de recours :</strong> Offrir aux usagers un moyen de contester une décision automatique auprès d'un humain.
+          </li>
+        </ol>
+      </section>
+
+      <!-- Prompts Correctifs -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">auto_fix_high</span>
+          🔧 Technique des Prompts Correctifs (Audit de Biais)
+        </h2>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+          Si vous suspectez qu'une réponse générée par une IA contient des stéréotypes, des généralisations abusives ou des omissions discriminatoires, utilisez la technique de <strong>l'audit réflexif</strong>.
+        </p>
+
+        <div class="real-life-box">
+          <h3 style="color: var(--secondary); margin-bottom: 12px;">Prompt correctif d'audit de biais</h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-main); margin: 0; font-style: italic;">
+            « Analyse le texte ci-dessus avec un œil critique d'expert en éthique et conformité IA Act.<br><br>
+            1. Identifie d'éventuels biais discriminatoires (genre, âge, origine, handicap, situation sociale).<br>
+            2. Reformule le contenu pour garantir un ton parfaitement neutre, équitable et inclusif. »
+          </p>
+        </div>
+      </section>
+
+      <!-- Bon réflexe -->
+      <div class="real-life-box" style="margin-bottom: 20px;">
+        <h3 style="color: var(--secondary); margin-bottom: 12px;">Bon réflexe avant publication</h3>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 12px;">
+          Avant de publier un contenu généré par IA, posez-vous 3 questions clés :
+        </p>
+        <ol style="margin: 0; padding-left: 20px;">
+          <li style="margin-bottom: 8px; color: var(--text-main);">Est-ce que ce contenu peut exclure ou stéréotyper un groupe de personnes ?</li>
+          <li style="margin-bottom: 8px; color: var(--text-main);">Est-ce que l'information est vérifiée ?</li>
+          <li style="color: var(--text-main);">Est-ce qu'un humain a relu et validé le résultat ?</li>
+        </ol>
+        <p style="color: var(--text-muted); line-height: 1.5; margin-top: 12px; font-style: italic;">
+          Si la réponse est non à l'une de ces questions, il faut retravailler le contenu.
+        </p>
+      </div>
+
+      <!-- Bilan -->
+      <div class="real-life-box" style="margin-bottom: 20px;">
+        <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined">lightbulb</span>
+          Bilan de la séance H7
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>Le réflexe de classification :</strong> Savoir situer un usage IA dans la grille des risques de l'IA Act.
+          </li>
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>La primauté de l'humain :</strong> L'IA propose, l'humain valide, décide et assume la responsabilité légale.
+          </li>
+          <li style="padding: 8px 0; color: var(--text-main);">
+            <strong>L'audit systématique :</strong> Tester la neutralité de ses prompts avant d'exploiter un résultat en entreprise.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Conclusion du parcours -->
+      <section class="glass-panel neo-bevel" style="padding: 32px; margin-bottom: 20px; border: 1px solid var(--secondary);">
+        <h2 style="font-size: 1.5rem; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">celebration</span>
+          🎉 Conclusion du parcours
+        </h2>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 16px;">
+          Vous avez terminé l'ensemble des modules théoriques et pratiques du bloc <strong>H1-H7</strong>. Vous disposez désormais de toutes les clés pour utiliser l'IA générative de façon sécurisée, éthique, accessible et conforme au cadre européen.
+        </p>
+        <p style="color: var(--text-muted); line-height: 1.5; margin: 0; font-style: italic;">
+          Félicitations pour votre parcours !
+        </p>
+      </section>
+
+      <!-- Validation Module -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-top: 24px; border: 1px solid var(--secondary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">military_tech</span>
+          <h3 style="margin: 0;">Valider le Module H7</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Avez-vous compris les enjeux éthiques, l'IA Act et les techniques de correction des biais ?
+        </p>
+        <button onclick="ThoteStore.completeQuest('h7_complete', 175)" class="wiki-btn wiki-btn-primary">
+          <span class="material-symbols-outlined">check</span> Valider le module (+175 XP)
+        </button>
+      </section>
+
+    </main>
+
+    <!-- Right Progression Sidebar Target -->
+    <div id="v2-right-sidebar-target" class="right-sidebar"></div>
+
+  </div>
+
+  <!-- Footer Target -->
+  <div id="v2-footer-target"></div>
+
+  <!-- Scripts Logic -->
+  <script type="module">
+    import { initV2Shell, ThoteStore } from '../assets/shared.js';
+
+    // Initialisation du Shell partagé (Active tab = 'h7')
+    document.addEventListener('DOMContentLoaded', () => {
+      initV2Shell('h7');
+      initRiskQuiz();
+      initTransparencyGenerator();
+    });
+
+    // Quiz : Classez le niveau de risque
+    function initRiskQuiz() {
+      const questions = [
+        {
+          situation: "Utilisation d'un chatbot pour répondre aux questions fréquentes sur un site web",
+          correct: "Risque Limité",
+          options: ["Inacceptable", "Haut Risque", "Risque Limité", "Risque Minimal"],
+          feedback: "Les chatbots d'assistance client sont classés en Risque Limité selon l'IA Act."
+        },
+        {
+          situation: "Système de scoring de crédit automatisé pour accorder des prêts bancaires",
+          correct: "Haut Risque",
+          options: ["Inacceptable", "Haut Risque", "Risque Limité", "Risque Minimal"],
+          feedback: "Le scoring de crédit est explicitement mentionné comme Haut Risque dans l'IA Act (Annexe III)."
+        },
+        {
+          situation: "Outil de reconnaissance faciale en temps réel dans les lieux publics",
+          correct: "Inacceptable",
+          options: ["Inacceptable", "Haut Risque", "Risque Limité", "Risque Minimal"],
+          feedback: "La reconnaissance faciale à distance en temps réel est interdite (Inacceptable) selon l'IA Act."
+        },
+        {
+          situation: "Correcteur orthographique intégré dans un traitement de texte",
+          correct: "Risque Minimal",
+          options: ["Inacceptable", "Haut Risque", "Risque Limité", "Risque Minimal"],
+          feedback: "Les correcteurs orthographiques sont considérés comme Risque Minimal."
+        },
+        {
+          situation: "Système automatisé de tri de CV pour un processus de recrutement",
+          correct: "Haut Risque",
+          options: ["Inacceptable", "Haut Risque", "Risque Limité", "Risque Minimal"],
+          feedback: "Le tri automatique de CV est classé Haut Risque dans l'IA Act."
+        }
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+
+      const situationEl = document.getElementById('h7-situation');
+      const choicesEl = document.getElementById('h7-choices');
+      const feedbackEl = document.getElementById('h7-feedback');
+      const nextBtn = document.getElementById('h7-next');
+      const restartBtn = document.getElementById('h7-restart');
+      const scoreEl = document.getElementById('h7-score');
+
+      function showQuestion(index) {
+        const q = questions[index];
+        situationEl.textContent = q.situation;
+        choicesEl.innerHTML = '';
+        
+        q.options.forEach((opt, i) => {
+          const btn = document.createElement('button');
+          btn.textContent = opt;
+          btn.className = 'wiki-btn wiki-btn-secondary';
+          btn.style.fontSize = '0.8rem';
+          btn.onclick = () => checkAnswer(opt, q.correct, q.feedback);
+          choicesEl.appendChild(btn);
+        });
+
+        feedbackEl.style.display = 'none';
+        nextBtn.style.display = 'none';
+        restartBtn.style.display = 'none';
+        scoreEl.style.display = 'none';
+      }
+
+      function checkAnswer(selected, correct, feedbackText) {
+        feedbackEl.style.display = 'block';
+        
+        if (selected === correct) {
+          score++;
+          feedbackEl.style.borderColor = 'var(--secondary)';
+          feedbackEl.style.background = 'rgba(68, 226, 205, 0.1)';
+          feedbackEl.innerHTML = `
+            <div style="color: var(--secondary); font-weight:700; margin-bottom:4px;">✅ Exact ! (+30 XP)</div>
+            <div style="font-size:0.85rem;">${feedbackText}</div>
+          `;
+          ThoteStore.addXP(30);
+        } else {
+          feedbackEl.style.borderColor = '#f87171';
+          feedbackEl.style.background = 'rgba(248, 113, 113, 0.1)';
+          feedbackEl.innerHTML = `
+            <div style="color: #f87171; font-weight:700; margin-bottom:4px;">⚠️ Non, ce n'est pas la bonne réponse</div>
+            <div style="font-size:0.85rem;">La bonne réponse était <strong>${correct}</strong>. ${feedbackText}</div>
+          `;
+        }
+
+        if (currentQuestion < questions.length - 1) {
+          nextBtn.style.display = 'flex';
+          nextBtn.onclick = () => {
+            currentQuestion++;
+            showQuestion(currentQuestion);
+          };
+        } else {
+          restartBtn.style.display = 'flex';
+          restartBtn.onclick = () => {
+            currentQuestion = 0;
+            score = 0;
+            showQuestion(currentQuestion);
+          };
+          
+          scoreEl.style.display = 'block';
+          scoreEl.textContent = `Score final : ${score}/${questions.length} - ${Math.round((score/questions.length)*100)}%`;
+          
+          if (score === questions.length) {
+            ThoteStore.addXP(75);
+            scoreEl.textContent += " (+75 XP bonus pour un sans-faute !)";
+          }
+        }
+      }
+
+      showQuestion(0);
+    }
+
+    // Générateur de mention de transparence
+    function initTransparencyGenerator() {
+      const typeSelect = document.getElementById('h7-transparency-type');
+      const resultEl = document.getElementById('h7-transparency-result');
+      const copyBtn = document.getElementById('h7-copy-btn');
+
+      const mentions = {
+        text: "Ce contenu a été généré avec l'assistance d'une intelligence artificielle. Il a été relu et validé par un humain avant publication.",
+        image: "Cette image a été générée par une intelligence artificielle. Elle peut contenir des imperfections ou des éléments non réalistes.",
+        bot: "Vous discutez avec un assistant conversationnel basé sur l'intelligence artificielle. Les réponses sont générées automatiquement et peuvent contenir des erreurs."
+      };
+
+      function updateMention() {
+        const type = typeSelect.value;
+        resultEl.textContent = mentions[type];
+      }
+
+      copyBtn.onclick = () => {
+        navigator.clipboard.writeText(resultEl.textContent);
+        copyBtn.innerHTML = '<span class="material-symbols-outlined">check</span> Copié !';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<span class="material-symbols-outlined">content_copy</span> Copier la mention légale';
+        }, 2000);
+        ThoteStore.addXP(10);
+      };
+
+      typeSelect.addEventListener('change', updateMention);
+      updateMention();
+    }
+  </script>
+</body>
+</html>

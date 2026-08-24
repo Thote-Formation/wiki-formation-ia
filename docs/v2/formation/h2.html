@@ -3,78 +3,425 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>H2 — Stratégie d'implémentation | Thote V2</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <title>H2 — Stratégie d'implémentation IA | Thote V2</title>
   <link rel="stylesheet" href="../assets/theme.css">
 </head>
-<body class="bg-deep-space text-on-surface">
-  <div id="v2-app-layout" class="layout-3-cols">
-    <aside id="v2-sidebar-left" class="sidebar-left"></aside>
+<body>
 
+  <!-- Header JS Target -->
+  <div id="v2-header-target"></div>
+
+  <!-- App Dashboard 3-Columns -->
+  <div class="v2-app-container">
+    
+    <!-- Left Navigation Target -->
+    <div id="v2-left-sidebar-target" class="left-sidebar"></div>
+
+    <!-- Main Central Content -->
     <main class="main-content">
-      <header class="module-header glass-panel">
-        <span class="badge-tag">Module H2</span>
-        <h1>Stratégie d'implémentation IA</h1>
-        <p class="subtitle">Auditer un poste, cartographier les besoins et choisir la bonne pile d'outils (Support Ex. 1 RS6776).</p>
-      </header>
+      
+      <!-- Module Hero Banner -->
+      <section class="glass-panel neo-bevel glow-primary" style="padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden;">
+        <div class="label-tech" style="color: var(--secondary); margin-bottom: 8px;">Module H2</div>
+        <h1 style="font-size: 2rem; margin-bottom: 12px;">Stratégie d'implémentation IA</h1>
+        <p style="color: var(--text-muted); max-width: 650px; line-height: 1.6;">
+          Apprendre à analyser un poste de travail, cartographier les besoins récurrents et structurer une feuille de route d'outils IA adaptés et budgétisés.
+        </p>
+      </section>
 
-      <!-- Simulateur ROI (h2-interactivity.js) -->
-      <section class="glass-panel content-box">
-        <h3>📊 Simulateur d'Audit & Gain de Temps</h3>
-        <div class="sim-grid">
-          <div>
-            <label for="sim-task-type">Tâche :</label>
-            <select id="sim-task-type" class="v2-input">
-              <option value="emails">Emails récurrents</option>
-              <option value="pdf">Analyse de PDF/Procédures</option>
-              <option value="schema">Création de schémas (Napkin)</option>
-              <option value="social">Posts réseaux sociaux</option>
-            </select>
+      <!-- Objectifs Section -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">flag</span>
+          Objectifs de la séance
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Construire une stratégie d'implémentation IA</strong> : analyser un poste, identifier les tâches à forte valeur ajoutée et associer les bons outils.</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Découvrir des outils spécialisés essentiels</strong> : NotebookLM, Gems (Custom GPTs), Napkin.ai, Remove.bg et Consensus.</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Modéliser une proposition</strong> : lister les activités, justifier le choix des solutions et estimer le budget.</span>
+          </li>
+          <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span>S'entraîner sur un cas concret : le poste d'assistant administratif et commercial.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- L'épreuve de certification -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">school</span>
+          L'épreuve de certification : Ce qui est attendu
+        </h2>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+          Dans le cadre de l'<strong>exercice 1 de la certification RS6776</strong>, vous devez être capable d'auditer une activité professionnelle et de formaliser un plan d'action d'intégration de l'IA :
+        </p>
+        <ol style="margin: 0; padding-left: 20px;">
+          <li style="margin-bottom: 8px; color: var(--text-main);">Contexte & Enjeux : Présenter brièvement l'entreprise et le poste ciblé.</li>
+          <li style="margin-bottom: 8px; color: var(--text-main);">Cartographie des tâches : Lister les missions récurrentes et chronophages.</li>
+          <li style="margin-bottom: 8px; color: var(--text-main);">Périmètre d'assistance : Identifier la valeur ajoutée de l'IA sur chaque tâche.</li>
+          <li style="margin-bottom: 8px; color: var(--text-main);">Sélection des outils : Proposer l'outil adéquat (généraliste vs spécialisé).</li>
+          <li style="color: var(--text-main);">Analyse coûts / bénéfices : Justifier les choix et établir une estimation budgétaire.</li>
+        </ol>
+      </section>
+
+      <!-- Cas pratique -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">work</span>
+          Cas pratique d'entraînement : L'Assistant Administratif
+        </h2>
+
+        <div class="real-life-box" style="margin-bottom: 20px;">
+          <h3 style="color: var(--secondary); margin-bottom: 12px;">Profil d'étude pour le cas pratique</h3>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); display: flex; align-items: flex-start; gap: 12px;">
+              <span class="material-symbols-outlined" style="color: var(--secondary); margin-top: 2px;">business</span>
+              <div><strong>Entreprise :</strong> PME spécialisée dans l'événementiel B2B (organisation de séminaires).</div>
+            </li>
+            <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); display: flex; align-items: flex-start; gap: 12px;">
+              <span class="material-symbols-outlined" style="color: var(--secondary); margin-top: 2px;">person</span>
+              <div><strong>Poste :</strong> Assistant administratif et commercial.</div>
+            </li>
+            <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); display: flex; align-items: flex-start; gap: 12px;">
+              <span class="material-symbols-outlined" style="color: var(--secondary); margin-top: 2px;">assignment</span>
+              <div><strong>Missions :</strong> Gestion des mails clients, mise en forme de présentations, comptes-rendus de réunion, animation LinkedIn, préparation de la newsletter.</div>
+            </li>
+            <li style="padding: 8px 0; display: flex; align-items: flex-start; gap: 12px;">
+              <span class="material-symbols-outlined" style="color: var(--secondary); margin-top: 2px;">warning</span>
+              <div><strong>Problème :</strong> Surcharge de sollicitations, tâches répétitives à faible valeur ajoutée, manque de régularité dans la communication.</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="real-life-box">
+          <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined">lightbulb</span>
+            Méthode d'analyse : Partir du besoin métier
+          </h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-main); margin-bottom: 12px;">
+            Avant de choisir un outil IA, partez toujours d'une tâche concrète du quotidien :
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 6px 0; color: var(--text-muted); font-style: italic;">« Je passe 2 heures par semaine à reformuler des mails clients. »</li>
+            <li style="padding: 6px 0; color: var(--text-muted); font-style: italic;">« Je dois résumer 10 comptes-rendus par mois. »</li>
+            <li style="padding: 6px 0; color: var(--text-muted); font-style: italic;">« Je dois produire régulièrement des posts LinkedIn. »</li>
+          </ul>
+          <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-main); margin-top: 12px;">
+            Ensuite seulement, sélectionnez l'outil le plus adapté.
+          </p>
+        </div>
+      </section>
+
+      <!-- La boîte à outils -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">toolbox</span>
+          La boîte à outils de la séance
+        </h2>
+
+        <div class="real-life-box" style="margin-bottom: 20px;">
+          <h3 style="color: var(--secondary); margin-bottom: 12px;">La règle d'or d'implémentation</h3>
+          <p style="color: var(--text-main); line-height: 1.6;">
+            Commencez toujours par exploiter les capacités d'un <strong>LLM généraliste</strong> (ChatGPT, Gemini, Claude, Mistral) qui couvre 80 % des besoins. N'ajoutez un outil spécialisé que si la tâche exige une fonctionnalité métier spécifique.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <div class="glass-panel interactive-card" style="padding: 16px;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">📚</div>
+            <h4 style="margin-bottom: 8px;">NotebookLM</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Principe :</strong> Un assistant qui raisonne exclusivement sur vos propres documents.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Usage clé :</strong> Synthèse de gros dossiers, création de FAQ.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Tarif : Gratuit</em></p>
           </div>
-          <div>
-            <label for="sim-hours">Temps hebdo :</label>
-            <select id="sim-hours" class="v2-input">
-              <option value="1">1h / sem</option>
-              <option value="3" selected>3h / sem</option>
-              <option value="5">5h / sem</option>
-            </select>
+          <div class="glass-panel interactive-card" style="padding: 16px;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">💎</div>
+            <h4 style="margin-bottom: 8px;">Gems / GPTs personnalisés</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Principe :</strong> Des assistants IA configurés sur-mesure.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Usage clé :</strong> Automatiser la rédaction de tâches récurrentes.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Tarif : Gratuit (Gems) ou inclus ChatGPT Plus</em></p>
           </div>
-          <div>
-            <label for="sim-plan">Formule :</label>
-            <select id="sim-plan" class="v2-input">
-              <option value="free">Gratuit / Freemium</option>
-              <option value="pro">Abonnement Pro (20€)</option>
-            </select>
+          <div class="glass-panel interactive-card" style="padding: 16px;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🎨</div>
+            <h4 style="margin-bottom: 8px;">Napkin.ai</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Fonction :</strong> Transforme du texte en schémas visuels.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><em>Mindmaps, timelines, processus</em></p>
+          </div>
+          <div class="glass-panel interactive-card" style="padding: 16px;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🖼️</div>
+            <h4 style="margin-bottom: 8px;">Remove.bg</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Fonction :</strong> Détourage instantané d'images.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><em>Photos produits</em></p>
+          </div>
+          <div class="glass-panel interactive-card" style="padding: 16px;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🔬</div>
+            <h4 style="margin-bottom: 8px;">Consensus</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Fonction :</strong> Moteur de recherche scientifique.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><em>Études vérifiées et évaluées par des pairs</em></p>
           </div>
         </div>
-        <div id="sim-result" class="sim-result-box"></div>
       </section>
 
-      <!-- Quiz Outils (h2-interactivity.js) -->
-      <section class="glass-panel content-box">
-        <h3>🎯 Quiz : Quel outil pour quelle tâche ?</h3>
-        <div id="quiz-progress" class="quiz-badge"></div>
-        <div id="quiz-task" class="quiz-question"></div>
-        <div id="quiz-choices" class="quiz-choices-list"></div>
-        <div id="quiz-feedback" class="quiz-feedback-box" style="display:none;"></div>
-        <div class="quiz-controls">
-          <button type="button" id="quiz-next" class="btn-primary-v2" style="display:none;">Suivant ➔</button>
-          <button type="button" id="quiz-reset" class="btn-secondary-v2" style="display:none;">🔄 Recommencer</button>
+      <!-- Quiz interactif : Quel outil pour quelle tâche ? -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--primary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">quiz</span>
+          <h3 style="margin: 0;">Quiz interactif : Quel outil pour quelle tâche ?</h3>
         </div>
-        <div id="quiz-score" class="quiz-score-box" style="display:none;"></div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Testez vos réflexes : Choisissez l'outil le plus judicieux pour chaque besoin métier :
+        </p>
+        <div id="h2-quiz-task" style="font-size: 1.1rem; font-weight: 600; min-height: 40px; margin-bottom: 16px; color: var(--text-main);"></div>
+        <div id="h2-quiz-choices" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;"></div>
+        <div id="h2-quiz-feedback" class="glass-panel" style="margin-top: 16px; padding: 16px; display: none;"></div>
+        <div style="display: flex; gap: 10px; margin-top: 12px;">
+          <button id="h2-quiz-next" class="wiki-btn wiki-btn-primary" style="display: none;">
+            <span class="material-symbols-outlined">arrow_forward</span> Question suivante
+          </button>
+          <button id="h2-quiz-reset" class="wiki-btn wiki-btn-secondary" style="display: none;">
+            <span class="material-symbols-outlined">refresh</span> Recommencer
+          </button>
+        </div>
+        <div id="h2-quiz-score" style="display: none; margin-top: 16px; padding: 14px; background: rgba(26, 95, 180, 0.1); border: 1px solid var(--primary); border-radius: 6px; font-size: 15px; font-weight: 700; text-align: center; color: var(--text-main);"></div>
       </section>
 
-      <!-- Validation -->
-      <section class="glass-panel validate-card">
-        <h3>🎉 Valider le Module H2</h3>
-        <button class="btn-cyan" onclick="ThoteQuest.completeQuest('h2_complete')">Valider le module (+100 XP)</button>
+      <!-- Modèle d'évaluation -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">assessment</span>
+          Modèle d'évaluation : Grille de Stratégie IA
+        </h2>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+          Voici le modèle de rendu type à construire pour la certification (Exercice 1) :
+        </p>
+        
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; background: var(--surface-low); border-radius: 8px; overflow: hidden;">
+            <thead>
+              <tr style="background: var(--surface-highest);">
+                <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); color: var(--text-main);">Tâche identifiée</th>
+                <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); color: var(--text-main);">Fréquence</th>
+                <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); color: var(--text-main);">Outil recommandé</th>
+                <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); color: var(--text-main);">Justification</th>
+                <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); color: var(--text-main);">Budget</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 12px; color: var(--text-muted);">Gestion des emails récurrents</td>
+                <td style="padding: 12px; color: var(--text-muted);">Quotidienne</td>
+                <td style="padding: 12px; color: var(--text-muted);">ChatGPT / Le Chat</td>
+                <td style="padding: 12px; color: var(--text-muted);">Réduction du temps de rédaction de 50%</td>
+                <td style="padding: 12px; color: var(--text-muted);">0 € (Freemium)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 12px; color: var(--text-muted);">Synthèse des comptes-rendus</td>
+                <td style="padding: 12px; color: var(--text-muted);">Hebdomadaire</td>
+                <td style="padding: 12px; color: var(--text-muted);">Gem "Rédacteur CR"</td>
+                <td style="padding: 12px; color: var(--text-muted);">Transformation automatique des notes brutes</td>
+                <td style="padding: 12px; color: var(--text-muted);">0 € (Inclus Gemini)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 12px; color: var(--text-muted);">Analyse des propositions partenaires</td>
+                <td style="padding: 12px; color: var(--text-muted);">Mensuelle</td>
+                <td style="padding: 12px; color: var(--text-muted);">NotebookLM</td>
+                <td style="padding: 12px; color: var(--text-muted);">Extraction ciblée sans risque d'erreur</td>
+                <td style="padding: 12px; color: var(--text-muted);">0 €</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; color: var(--text-muted);">Création de schémas de présentation</td>
+                <td style="padding: 12px; color: var(--text-muted);">Ponctuelle</td>
+                <td style="padding: 12px; color: var(--text-muted);">Napkin.ai</td>
+                <td style="padding: 12px; color: var(--text-muted);">Production rapide de supports visuels</td>
+                <td style="padding: 12px; color: var(--text-muted);">0 € (Gratuit &lt; 500 crédits)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
+
+      <!-- Bilan -->
+      <div class="real-life-box" style="margin-bottom: 20px;">
+        <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined">lightbulb</span>
+          Bilan de la séance H2
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>Capacité d'analyse :</strong> Savoir décomposer un poste en tâches automatisables ou assistables.
+          </li>
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>Palette d'outils :</strong> Associer judicieusement LLM généralistes et outils spécialisés.
+          </li>
+          <li style="padding: 8px 0; color: var(--text-main);">
+            <strong>Livrables :</strong> Produire une grille de préconisations claire, argumentée et budgétisée.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Validation Module -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-top: 24px; border: 1px solid var(--secondary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">military_tech</span>
+          <h3 style="margin: 0;">Valider le Module H2</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Avez-vous compris la stratégie d'implémentation IA et les outils associés ?
+        </p>
+        <button onclick="ThoteStore.completeQuest('h2_complete', 100)" class="wiki-btn wiki-btn-primary">
+          <span class="material-symbols-outlined">check</span> Valider le module (+100 XP)
+        </button>
+      </section>
+
     </main>
 
-    <aside id="v2-sidebar-right" class="sidebar-right"></aside>
+    <!-- Right Progression Sidebar Target -->
+    <div id="v2-right-sidebar-target" class="right-sidebar"></div>
+
   </div>
 
-  <script src="../assets/shared.js"></script>
-  <script src="../assets/h2-interactivity.js"></script>
+  <!-- Footer Target -->
+  <div id="v2-footer-target"></div>
+
+  <!-- Scripts Logic -->
+  <script type="module">
+    import { initV2Shell, ThoteStore } from '../assets/shared.js';
+
+    // Initialisation du Shell partagé (Active tab = 'h2')
+    document.addEventListener('DOMContentLoaded', () => {
+      initV2Shell('h2');
+      initH2Quiz();
+    });
+
+    // Quiz H2 : Quel outil pour quelle tâche ?
+    function initH2Quiz() {
+      const questions = [
+        {
+          task: "Rédaction automatique de comptes-rendus de réunion",
+          choices: [
+            { text: "NotebookLM", correct: false, feedback: "NotebookLM est plutôt pour analyser vos propres documents." },
+            { text: "Gem personnalisé 'Rédacteur CR'", correct: true, feedback: "Parfait ! Un Gem ou GPT personnalisé est idéal pour automatiser des tâches récurrentes comme la rédaction de comptes-rendus." },
+            { text: "Napkin.ai", correct: false, feedback: "Napkin.ai est pour créer des schémas visuels, pas du texte." },
+            { text: "Remove.bg", correct: false, feedback: "Remove.bg est pour détourer des images." }
+          ]
+        },
+        {
+          task: "Analyse d'un contrat PDF confidentiel",
+          choices: [
+            { text: "ChatGPT gratuit", correct: false, feedback: "Risque de fuite de données avec la version gratuite." },
+            { text: "NotebookLM", correct: true, feedback: "Exact ! NotebookLM ne raisonne que sur vos documents, sans risque d'entraînement sur vos données." },
+            { text: "Claude", correct: false, feedback: "Claude pourrait convenir mais NotebookLM est plus adapté pour les documents." },
+            { text: "Gemini", correct: false, feedback: "Gemini gratuit a des risques de confidentialité." }
+          ]
+        },
+        {
+          task: "Création d'un schéma de processus métier",
+          choices: [
+            { text: "ChatGPT", correct: false, feedback: "ChatGPT peut décrire un schéma mais ne le génère pas visuellement." },
+            { text: "Napkin.ai", correct: true, feedback: "Bravo ! Napkin.ai transforme du texte en schémas visuels." },
+            { text: "Consensus", correct: false, feedback: "Consensus est pour la recherche scientifique." },
+            { text: "Remove.bg", correct: false, feedback: "Remove.bg est pour le détourage d'images." }
+          ]
+        },
+        {
+          task: "Détourage d'une photo produit pour un catalogue",
+          choices: [
+            { text: "NotebookLM", correct: false, feedback: "NotebookLM est pour le texte, pas l'image." },
+            { text: "Remove.bg", correct: true, feedback: "Parfait ! Remove.bg est spécialisé dans le détourage instantané." },
+            { text: "Napkin.ai", correct: false, feedback: "Napkin.ai crée des schémas, pas du détourage." },
+            { text: "Consensus", correct: false, feedback: "Consensus est pour la recherche scientifique." }
+          ]
+        }
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+
+      const taskEl = document.getElementById('h2-quiz-task');
+      const choicesEl = document.getElementById('h2-quiz-choices');
+      const feedbackEl = document.getElementById('h2-quiz-feedback');
+      const nextBtn = document.getElementById('h2-quiz-next');
+      const resetBtn = document.getElementById('h2-quiz-reset');
+      const scoreEl = document.getElementById('h2-quiz-score');
+
+      function showQuestion(index) {
+        const q = questions[index];
+        taskEl.textContent = q.task;
+        choicesEl.innerHTML = '';
+        
+        q.choices.forEach((choice, i) => {
+          const btn = document.createElement('button');
+          btn.textContent = choice.text;
+          btn.className = 'wiki-btn wiki-btn-secondary';
+          btn.style.justifyContent = 'flex-start';
+          btn.style.textAlign = 'left';
+          btn.onclick = () => checkAnswer(i, choice.correct, choice.feedback);
+          choicesEl.appendChild(btn);
+        });
+
+        feedbackEl.style.display = 'none';
+        nextBtn.style.display = 'none';
+        resetBtn.style.display = 'none';
+        scoreEl.style.display = 'none';
+      }
+
+      function checkAnswer(selectedIndex, isCorrect, feedbackText) {
+        const q = questions[currentQuestion];
+        feedbackEl.style.display = 'block';
+        
+        if (isCorrect) {
+          score++;
+          feedbackEl.style.borderColor = 'var(--secondary)';
+          feedbackEl.style.background = 'rgba(68, 226, 205, 0.1)';
+          feedbackEl.innerHTML = `
+            <div style="color: var(--secondary); font-weight:700; margin-bottom:4px;">✅ Exact ! (+25 XP)</div>
+            <div style="font-size:0.85rem;">${feedbackText}</div>
+          `;
+          ThoteStore.addXP(25);
+        } else {
+          feedbackEl.style.borderColor = '#f87171';
+          feedbackEl.style.background = 'rgba(248, 113, 113, 0.1)';
+          feedbackEl.innerHTML = `
+            <div style="color: #f87171; font-weight:700; margin-bottom:4px;">⚠️ Presque !</div>
+            <div style="font-size:0.85rem;">${feedbackText}</div>
+          `;
+        }
+
+        if (currentQuestion < questions.length - 1) {
+          nextBtn.style.display = 'flex';
+          nextBtn.onclick = () => {
+            currentQuestion++;
+            showQuestion(currentQuestion);
+          };
+        } else {
+          resetBtn.style.display = 'flex';
+          resetBtn.onclick = () => {
+            currentQuestion = 0;
+            score = 0;
+            showQuestion(currentQuestion);
+          };
+          
+          scoreEl.style.display = 'block';
+          scoreEl.textContent = `Score final : ${score}/${questions.length} - ${Math.round((score/questions.length)*100)}%`;
+          
+          if (score === questions.length) {
+            ThoteStore.addXP(50);
+            scoreEl.textContent += " (+50 XP bonus pour un sans-faute !)";
+          }
+        }
+      }
+
+      showQuestion(0);
+    }
+  </script>
 </body>
 </html>

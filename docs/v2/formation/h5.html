@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H5 — Confidentialité, sécurité et sobriété | Thote V2</title>
+  <link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+  <!-- Header JS Target -->
+  <div id="v2-header-target"></div>
+
+  <!-- App Dashboard 3-Columns -->
+  <div class="v2-app-container">
+    
+    <!-- Left Navigation Target -->
+    <div id="v2-left-sidebar-target" class="left-sidebar"></div>
+
+    <!-- Main Central Content -->
+    <main class="main-content">
+      
+      <!-- Module Hero Banner -->
+      <section class="glass-panel neo-bevel glow-primary" style="padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden;">
+        <div class="label-tech" style="color: var(--secondary); margin-bottom: 8px;">Module H5</div>
+        <h1 style="font-size: 2rem; margin-bottom: 12px;">Confidentialité, sécurité et sobriété</h1>
+        <p style="color: var(--text-muted); max-width: 650px; line-height: 1.6;">
+          Identifier les risques de fuite de données, protéger les informations sensibles et adopter une pratique responsable et éco-conçue de l'IA.
+        </p>
+      </section>
+
+      <!-- Dernière vérification -->
+      <div class="real-life-box" style="margin-bottom: 20px;">
+        <h3 style="color: var(--secondary); margin-bottom: 12px;">Dernière vérification</h3>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 8px;">
+          <strong>juillet 2026</strong>.
+        </p>
+        <p style="color: var(--text-muted); line-height: 1.5; margin: 0;">
+          Les politiques de confidentialité des outils d'IA évoluent rapidement. Avant d'utiliser un outil avec des données professionnelles, vérifiez systématiquement ses conditions d'utilisation et sa politique de confidentialité.
+        </p>
+      </div>
+
+      <!-- Objectifs Section -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">flag</span>
+          Objectifs de la séance
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Identifier les données sensibles</strong> : repérer les données personnelles (RGPD), financières, RH et confidentielles à bannir des prompts.</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Distinguer les niveaux de risque</strong> : évaluer la sécurité selon les outils et leur hébergement.</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Adopter les réflexes de protection</strong> : maîtriser l'anonymisation et le pseudonymat au quotidien.</span>
+          </li>
+          <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Mesurer l'impact environnemental</strong> : calculer et réduire l'empreinte carbone et hydrique de vos requêtes.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Qu'est-ce qu'une donnée sensible ? -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">security</span>
+          Qu'est-ce qu'une donnée sensible dans un prompt ?
+        </h2>
+
+        <div class="cards-grid">
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">👤</div>
+            <h4 style="margin-bottom: 4px;">Données personnelles (RGPD)</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Exemples :</strong> Noms, prénoms, emails, téléphones, adresses, NIR</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Risque : Atteinte à la vie privée, sanctions RGPD</em></p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">💼</div>
+            <h4 style="margin-bottom: 4px;">Infos RH & internes</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Exemples :</strong> Salaires, évaluations, motifs d'absence</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Risque : Fuite de données confidentielles</em></p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">💰</div>
+            <h4 style="margin-bottom: 4px;">Données financières & B2B</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Exemples :</strong> Montants de marchés, marges, prix négociés, SIRET</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Risque : Perte d'avantage concurrentiel</em></p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🔑</div>
+            <h4 style="margin-bottom: 4px;">Secrets d'entreprise</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Exemples :</strong> Clés API, jetons d'accès, code source propriétaire</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Risque : Risque majeur de cybersécurité</em></p>
+          </div>
+        </div>
+
+        <div class="real-life-box" style="margin-top: 20px;">
+          <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined">warning</span>
+            La règle d'or de la confidentialité
+          </h3>
+          <p style="color: var(--text-main); line-height: 1.6;">
+            Si vous ne publieriez pas cette information sur un panneau d'affichage public, <strong>ne la collez pas dans une IA générative grand public</strong>.
+          </p>
+        </div>
+
+        <div class="real-life-box" style="margin-top: 20px;">
+          <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined">block</span>
+            À éviter absolument
+          </h3>
+          <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 12px;">
+            Ne copiez-collez jamais dans une IA grand public :
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 6px 0; color: var(--text-muted);">un nom de client ou de prospect ;</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">une adresse email nominative ;</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">un contrat ou une clause commerciale non publique ;</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">une grille de salaires ou une fiche de paie ;</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">une donnée de santé ou un motif d'arrêt ;</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">un fichier ou document interne confidentiel.</li>
+          </ul>
+          <p style="color: var(--text-muted); line-height: 1.5; margin-top: 12px;">
+            Remplacez toujours ces informations par des exemples anonymisés ou des placeholders (ex: <code style="background: var(--surface-highest); padding: 2px 4px; border-radius: 4px;">[Nom_Client]</code>, <code style="background: var(--surface-highest); padding: 2px 4px; border-radius: 4px;">[Entreprise_X]</code>).
+          </p>
+        </div>
+
+        <div class="real-life-box" style="margin-top: 20px;">
+          <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined">lightbulb</span>
+            Le réflexe "Réunion publique"
+          </h3>
+          <p style="color: var(--text-main); line-height: 1.6;">
+            Avant d'envoyer un prompt, relisez-le comme si vous alliez l'afficher en grand écran lors d'une réunion publique. Si une information ne devrait pas être visible par tout le monde, retirez-la immédiatement de votre prompt.
+          </p>
+        </div>
+      </section>
+
+      <!-- Quiz : Traque aux données sensibles -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--primary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">quiz</span>
+          <h3 style="margin: 0;">Quiz : Traque aux données sensibles !</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Cliquez sur les éléments du texte qui contiennent des <strong>données sensibles</strong> à ne jamais coller dans un outil grand public :
+        </p>
+        <div id="h5-sensitive-text" style="font-size: 1rem; line-height: 2; padding: 16px; background: var(--surface-low); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 16px; color: var(--text-main); min-height: 100px;"></div>
+        <div id="h5-sensitive-choices" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;"></div>
+        <div id="h5-sensitive-feedback" class="glass-panel" style="margin-top: 16px; padding: 16px; display: none;"></div>
+        <div style="display: flex; gap: 10px; margin-top: 12px;">
+          <button id="h5-sensitive-verify" class="wiki-btn wiki-btn-primary" style="display: none;">
+            <span class="material-symbols-outlined">check</span> Vérifier mes choix
+          </button>
+          <button id="h5-sensitive-reset" class="wiki-btn wiki-btn-secondary" style="display: none;">
+            <span class="material-symbols-outlined">refresh</span> Recommencer
+          </button>
+        </div>
+        <div id="h5-sensitive-score" style="display: none; margin-top: 16px; padding: 14px; background: rgba(26, 95, 180, 0.1); border: 1px solid var(--primary); border-radius: 6px; font-size: 15px; font-weight: 700; text-align: center; color: var(--text-main);"></div>
+      </section>
+
+      <!-- Niveaux de risque -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">signal_cellular_alt</span>
+          Niveaux de risque et catégories d'outils
+        </h2>
+
+        <div class="cards-grid">
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🔴</div>
+            <h4 style="margin-bottom: 4px;">Élevé</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Outils :</strong> ChatGPT Gratuit, Gemini Gratuit</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Risque selon paramètres et politique de confidentialité</em></p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid #fbbf24;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🟡</div>
+            <h4 style="margin-bottom: 4px;">Moyen</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Outils :</strong> ChatGPT Team/Enterprise, Claude Pro</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Risque réduit selon contrat et paramètres</em></p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--secondary);">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🟢</div>
+            <h4 style="margin-bottom: 4px;">Faible</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Outils :</strong> IA Locales (Ollama, LM Studio)</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>0% d'envoi réseau. Traitement 100% local</em></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sobriété numérique -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">leaf</span>
+          Sobriété numérique & Calculateur d'Empreinte
+        </h2>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+          Chaque requête envoyée à un grand modèle de langage nécessite des ressources énergétiques et de l'eau pour le refroidissement des serveurs dans les datacenters.
+        </p>
+
+        <div class="glass-panel" style="padding: 20px; margin-bottom: 20px;">
+          <p style="font-size: 0.95rem; margin-bottom: 16px; color: var(--text-main);">
+            <strong>📊 Simulateur :</strong> Évaluez l'impact environnemental de vos requêtes IA sur une année.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px;">
+            <div>
+              <label for="h5-length" style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;">Longueur moyenne du prompt : <span id="h5-length-val">200</span> caractères</label>
+              <input type="range" id="h5-length" min="50" max="2000" step="50" value="200" style="width: 100%; cursor: pointer;">
+            </div>
+            <div>
+              <label for="h5-count" style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;">Prompts par jour : <span id="h5-count-val">5</span></label>
+              <input type="range" id="h5-count" min="1" max="50" step="1" value="5" style="width: 100%; cursor: pointer;">
+            </div>
+            <div>
+              <label for="h5-model" style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px;">Type de modèle :</label>
+              <select id="h5-model" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--surface-low); color: var(--text-main); font-size: 0.85rem; cursor: pointer;">
+                <option value="0.2">IA Locale (Ollama / Small LLM)</option>
+                <option value="1.0" selected>Modèle Cloud Standard (ChatGPT / Claude)</option>
+                <option value="3.5">Modèle Multimodal / Lourd (GPT-4o / Gemini Ultra)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; text-align: center;">
+            <div style="padding: 12px; background: var(--surface-low); border: 1px solid var(--border-color); border-radius: 8px;">
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);" id="h5-water">--</div>
+              <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-top: 4px;">💧 Eau consommée (an)</div>
+            </div>
+            <div style="padding: 12px; background: var(--surface-low); border: 1px solid var(--border-color); border-radius: 8px;">
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--tertiary);" id="h5-elec">--</div>
+              <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-top: 4px;">⚡ Électricité (an)</div>
+            </div>
+            <div style="padding: 12px; background: var(--surface-low); border: 1px solid var(--border-color); border-radius: 8px;">
+              <div style="font-size: 1.5rem; font-weight: 800; color: #f87171;" id="h5-co2">--</div>
+              <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-top: 4px;">🌱 Équivalent CO₂ (an)</div>
+            </div>
+          </div>
+
+          <div id="h5-eco-tip" style="margin-top: 16px; padding: 10px 14px; background: rgba(74, 155, 94, 0.15); border: 1px solid var(--secondary); border-radius: 6px; font-size: 0.85rem; color: var(--text-main);"></div>
+        </div>
+      </section>
+
+      <!-- Bilan -->
+      <div class="real-life-box" style="margin-bottom: 20px;">
+        <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined">lightbulb</span>
+          Bilan de la séance H5
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>Vigilance absolue :</strong> Toujours anonymiser vos prompts avant envoi.
+          </li>
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>Sécurité adaptée :</strong> Choisir des offres professionnelles ou des modèles locaux pour les données sensibles.
+          </li>
+          <li style="padding: 8px 0; color: var(--text-main);">
+            <strong>Sobriété numérique :</strong> Adopter le réflexe de requêtes ciblées et condensées.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Validation Module -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-top: 24px; border: 1px solid var(--secondary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">military_tech</span>
+          <h3 style="margin: 0;">Valider le Module H5</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Avez-vous compris les enjeux de confidentialité, sécurité et sobriété numérique ?
+        </p>
+        <button onclick="ThoteStore.completeQuest('h5_complete', 150)" class="wiki-btn wiki-btn-primary">
+          <span class="material-symbols-outlined">check</span> Valider le module (+150 XP)
+        </button>
+      </section>
+
+    </main>
+
+    <!-- Right Progression Sidebar Target -->
+    <div id="v2-right-sidebar-target" class="right-sidebar"></div>
+
+  </div>
+
+  <!-- Footer Target -->
+  <div id="v2-footer-target"></div>
+
+  <!-- Scripts Logic -->
+  <script type="module">
+    import { initV2Shell, ThoteStore } from '../assets/shared.js';
+
+    // Initialisation du Shell partagé (Active tab = 'h5')
+    document.addEventListener('DOMContentLoaded', () => {
+      initV2Shell('h5');
+      initSensitiveQuiz();
+      initEcoCalculator();
+    });
+
+    // Quiz : Traque aux données sensibles
+    function initSensitiveQuiz() {
+      const scenarios = [
+        {
+          text: "Je dois envoyer un email à M. Martin (martin@entreprise.com) pour lui rappeler notre réunion du 15/08 à 14h30 au 24 rue de Paris.",
+          sensitiveWords: ["M. Martin", "martin@entreprise.com", "15/08", "14h30", "24 rue de Paris"],
+          feedback: "Données personnelles : nom, email, date, heure, adresse. Toutes ces informations doivent être anonymisées."
+        },
+        {
+          text: "Notre client Société XYZ (SIRET 123456789) a un contrat de 50000€ avec nous. Le responsable est Jean Dupont.",
+          sensitiveWords: ["Société XYZ", "SIRET 123456789", "50000€", "Jean Dupont"],
+          feedback: "Données financières et commerciales sensibles : nom d'entreprise, SIRET, montant contractuel, nom du responsable."
+        },
+        {
+          text: "La fiche de paie de Marie montre un salaire de 3500€ brut. Elle travaille dans le service RH.",
+          sensitiveWords: ["Marie", "3500€", "fiche de paie"],
+          feedback: "Données RH confidentielles : nom, salaire, fiche de paie."
+        }
+      ];
+
+      let currentScenario = 0;
+      let selectedWords = new Set();
+
+      const textEl = document.getElementById('h5-sensitive-text');
+      const choicesEl = document.getElementById('h5-sensitive-choices');
+      const feedbackEl = document.getElementById('h5-sensitive-feedback');
+      const verifyBtn = document.getElementById('h5-sensitive-verify');
+      const resetBtn = document.getElementById('h5-sensitive-reset');
+      const scoreEl = document.getElementById('h5-sensitive-score');
+
+      function showScenario(index) {
+        const s = scenarios[index];
+        textEl.innerHTML = s.text;
+        selectedWords.clear();
+        
+        // Highlight clickable words
+        const words = s.text.split(/(\s+)/);
+        textEl.innerHTML = '';
+        words.forEach(word => {
+          if (word.trim() === '') return;
+          const span = document.createElement('span');
+          span.textContent = word;
+          if (s.sensitiveWords.includes(word.trim())) {
+            span.style.cursor = 'pointer';
+            span.style.color = 'var(--primary)';
+            span.style.textDecoration = 'underline';
+            span.style.textDecorationStyle = 'dashed';
+            span.onclick = () => {
+              span.style.backgroundColor = 'rgba(208, 188, 255, 0.3)';
+              span.style.color = 'var(--text-main)';
+              selectedWords.add(word.trim());
+            };
+          }
+          textEl.appendChild(span);
+        });
+
+        feedbackEl.style.display = 'none';
+        verifyBtn.style.display = 'flex';
+        resetBtn.style.display = 'none';
+        scoreEl.style.display = 'none';
+      }
+
+      verifyBtn.onclick = () => {
+        const s = scenarios[currentScenario];
+        const foundAll = s.sensitiveWords.every(w => selectedWords.has(w));
+        
+        feedbackEl.style.display = 'block';
+        verifyBtn.style.display = 'none';
+        resetBtn.style.display = 'flex';
+
+        if (foundAll) {
+          feedbackEl.style.borderColor = 'var(--secondary)';
+          feedbackEl.style.background = 'rgba(68, 226, 205, 0.1)';
+          feedbackEl.innerHTML = `
+            <div style="color: var(--secondary); font-weight:700; margin-bottom:4px;">✅ Parfait ! (+50 XP)</div>
+            <div style="font-size:0.85rem;">${s.feedback}</div>
+          `;
+          ThoteStore.addXP(50);
+        } else {
+          feedbackEl.style.borderColor = '#f87171';
+          feedbackEl.style.background = 'rgba(248, 113, 113, 0.1)';
+          const missed = s.sensitiveWords.filter(w => !selectedWords.has(w));
+          feedbackEl.innerHTML = `
+            <div style="color: #f87171; font-weight:700; margin-bottom:4px;">⚠️ Presque !</div>
+            <div style="font-size:0.85rem;">Vous avez manqué : ${missed.join(', ')}. ${s.feedback}</div>
+          `;
+        }
+
+        resetBtn.onclick = () => {
+          currentScenario = (currentScenario + 1) % scenarios.length;
+          showScenario(currentScenario);
+        };
+      };
+
+      showScenario(0);
+    }
+
+    // Calculateur écologique
+    function initEcoCalculator() {
+      const lengthSlider = document.getElementById('h5-length');
+      const countSlider = document.getElementById('h5-count');
+      const modelSelect = document.getElementById('h5-model');
+      const lengthVal = document.getElementById('h5-length-val');
+      const countVal = document.getElementById('h5-count-val');
+      const waterEl = document.getElementById('h5-water');
+      const elecEl = document.getElementById('h5-elec');
+      const co2El = document.getElementById('h5-co2');
+      const tipEl = document.getElementById('h5-eco-tip');
+
+      function updateCalculator() {
+        const length = parseInt(lengthSlider.value);
+        const count = parseInt(countSlider.value);
+        const modelFactor = parseFloat(modelSelect.value);
+        
+        lengthVal.textContent = length;
+        countVal.textContent = count;
+        
+        // Calculs simplifiés (valeurs indicatives)
+        const requestsPerYear = count * 365;
+        const totalChars = length * requestsPerYear;
+        
+        // Facteurs : eau (ml), électricité (Wh), CO2 (g)
+        const waterPerChar = 0.0001 * modelFactor;
+        const elecPerChar = 0.00005 * modelFactor;
+        const co2PerChar = 0.000002 * modelFactor;
+        
+        const water = Math.round(totalChars * waterPerChar);
+        const elec = Math.round(totalChars * elecPerChar);
+        const co2 = (totalChars * co2PerChar).toFixed(2);
+        
+        waterEl.textContent = water > 1000 ? (water/1000).toFixed(1) + 'L' : water + 'ml';
+        elecEl.textContent = elec > 1000 ? (elec/1000).toFixed(1) + 'kWh' : elec + 'Wh';
+        co2El.textContent = co2 + 'g';
+        
+        // Conseils
+        const tips = [
+          "Pensez à utiliser des IA locales pour les requêtes sensibles et réduire votre empreinte.",
+          "Condensez vos prompts : une requête bien structurée nécessite moins de tokens.",
+          "Privilégiez les modèles légers pour les tâches simples.",
+          "Limitez les requêtes inutiles : chaque prompt compte !"
+        ];
+        tipEl.textContent = tips[Math.floor(Math.random() * tips.length)];
+      }
+
+      lengthSlider.addEventListener('input', updateCalculator);
+      countSlider.addEventListener('input', updateCalculator);
+      modelSelect.addEventListener('change', updateCalculator);
+      
+      updateCalculator();
+    }
+  </script>
+</body>
+</html>

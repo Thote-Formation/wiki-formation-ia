@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H4 — Créer des visuels attractifs | Thote V2</title>
+  <link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+  <!-- Header JS Target -->
+  <div id="v2-header-target"></div>
+
+  <!-- App Dashboard 3-Columns -->
+  <div class="v2-app-container">
+    
+    <!-- Left Navigation Target -->
+    <div id="v2-left-sidebar-target" class="left-sidebar"></div>
+
+    <!-- Main Central Content -->
+    <main class="main-content">
+      
+      <!-- Module Hero Banner -->
+      <section class="glass-panel neo-bevel glow-primary" style="padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden;">
+        <div class="label-tech" style="color: var(--secondary); margin-bottom: 8px;">Module H4</div>
+        <h1 style="font-size: 2rem; margin-bottom: 12px;">Créer des visuels attractifs</h1>
+        <p style="color: var(--text-muted); max-width: 650px; line-height: 1.6;">
+          Maîtriser la grille des 5 éléments, comparer l'impact des prompts et des générateurs, évaluer les outils majeurs pour préparer l'Exercice 2 de la certification.
+        </p>
+      </section>
+
+      <!-- Objectifs Section -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">flag</span>
+          Objectifs de la séance
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Maîtriser la grille des 5 éléments</strong> : rédiger un prompt d'image précis, contrôlé et reproductible.</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Comparer l'impact des prompts et des générateurs</strong> : observer la différence entre un prompt simpliste et un prompt structuré.</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Évaluer les générateurs majeurs</strong> : adapter le choix de l'outil selon l'enjeu juridique et créatif.</span>
+          </li>
+          <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Préparer l'Exercice 2 de la certification</strong> : concevoir le prompt visuel complet pour illustrer un article.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- La grille des 5 éléments -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">grid_view</span>
+          La grille des 5 éléments d'un prompt visuel
+        </h2>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+          Sans consignes précises, une IA générative d'images livre des résultats aléatoires. Pour garder le contrôle, chaque prompt doit comporter ces <strong>5 piliers</strong> :
+        </p>
+
+        <div class="cards-grid">
+          <div class="glass-panel interactive-card" style="padding: 16px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 8px;">🏠</div>
+            <h4 style="margin-bottom: 4px;">Sujet principal</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Ce qui doit être représenté</p>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; font-style: italic;">"Une librairie indépendante..."</p>
+          </div>
+          <div class="glass-panel interactive-card" style="padding: 16px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 8px;">🎨</div>
+            <h4 style="margin-bottom: 4px;">Style artistique</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">L'esthétique générale</p>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; font-style: italic;">"Photo réaliste, aquarelle..."</p>
+          </div>
+          <div class="glass-panel interactive-card" style="padding: 16px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 8px;">💡</div>
+            <h4 style="margin-bottom: 4px;">Ambiance & Lumière</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">L'atmosphère et la qualité de l'éclairage</p>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; font-style: italic;">"Lumineux, golden hour..."</p>
+          </div>
+          <div class="glass-panel interactive-card" style="padding: 16px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 8px;">🎨</div>
+            <h4 style="margin-bottom: 4px;">Palette de couleurs</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Les 3 à 4 teintes dominantes</p>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; font-style: italic;">"Teintes pastel, bleu nuit..."</p>
+          </div>
+          <div class="glass-panel interactive-card" style="padding: 16px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 8px;">📐</div>
+            <h4 style="margin-bottom: 4px;">Composition & Format</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Le cadrage, l'angle de vue et le ratio</p>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; font-style: italic;">"Format 16:9, vue en contre-plongée..."</p>
+          </div>
+        </div>
+
+        <div class="real-life-box" style="margin-top: 20px;">
+          <h3 style="color: var(--secondary); margin-bottom: 12px;">Exemple de prompt visuel structuré</h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-main); margin: 0; font-style: italic;">
+            « Une librairie indépendante chaleureuse avec des étagères en bois remplies de livres. Style illustration vectorielle moderne. Ambiance cozy et baignée par la lumière douce d'un après-midi d'automne. Palette de couleurs : orange cuivré, vert forêt et bois chaud. Format horizontal 16:9, vue d'ensemble centrée. »
+          </p>
+        </div>
+      </section>
+
+      <!-- Quiz : Trouvez l'élément manquant -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--primary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">quiz</span>
+          <h3 style="margin: 0;">Quiz : Trouvez l'élément manquant !</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Chaque prompt ci-dessous a oublié l'un des 5 éléments indispensables. Identifiez le manque :
+        </p>
+        <div id="h4-prompt-text" style="font-size: 1rem; font-style: italic; padding: 14px 16px; background: var(--surface-low); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 16px; color: var(--text-main); line-height: 1.5;"></div>
+        <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 12px;">Quel élément manque à l'appel ?</p>
+        <div id="h4-choices" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 16px;"></div>
+        <div id="h4-feedback" class="glass-panel" style="margin-top: 16px; padding: 16px; display: none;"></div>
+        <div style="display: flex; gap: 10px; margin-top: 12px;">
+          <button id="h4-next" class="wiki-btn wiki-btn-primary" style="display: none;">
+            <span class="material-symbols-outlined">arrow_forward</span> Question suivante
+          </button>
+          <button id="h4-reset" class="wiki-btn wiki-btn-secondary" style="display: none;">
+            <span class="material-symbols-outlined">refresh</span> Recommencer
+          </button>
+        </div>
+        <div id="h4-score" style="display: none; margin-top: 16px; padding: 14px; background: rgba(26, 95, 180, 0.1); border: 1px solid var(--primary); border-radius: 6px; font-size: 15px; font-weight: 700; text-align: center; color: var(--text-main);"></div>
+      </section>
+
+      <!-- Panorama des générateurs -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">grid_view</span>
+          Panorama des générateurs d'images
+        </h2>
+        
+        <div class="cards-grid">
+          <div class="glass-panel interactive-card" style="padding: 16px;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🎨</div>
+            <h4 style="margin-bottom: 8px;">Adobe Firefly</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Points forts :</strong> Respect strict des droits d'auteur</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Usage :</strong> Projets d'entreprise & usage commercial garanti</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Nécéssite des crédits Adobe</em></p>
+          </div>
+          <div class="glass-panel interactive-card" style="padding: 16px;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🔍</div>
+            <h4 style="margin-bottom: 8px;">Google Gemini (Imagen)</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Points forts :</strong> Gratuit, très rapide, comprend le langage naturel</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Usage :</strong> Maquettes & itérations rapides</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Moins de réglages avancés</em></p>
+          </div>
+          <div class="glass-panel interactive-card" style="padding: 16px;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">✨</div>
+            <h4 style="margin-bottom: 8px;">DALL-E 3</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Points forts :</strong> Excellent respect des consignes textuelles</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Usage :</strong> Visuels complexes intégrant du texte</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Crédits limités en version gratuite</em></p>
+          </div>
+          <div class="glass-panel interactive-card" style="padding: 16px;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">📌</div>
+            <h4 style="margin-bottom: 8px;">Canva Magic Media</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Points forts :</strong> Directement intégré à vos designs Canva</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Usage :</strong> Bannières réseaux sociaux & présentations</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Définition parfois limitée</em></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Focus Certification -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">school</span>
+          Focus Certification : L'Exercice 2 (Volet Visuel)
+        </h2>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
+          Dans l'épreuve de certification, vous devrez associer à votre article de blog le <strong>prompt visuel complet</strong> destiné à l'illustrer.
+        </p>
+
+        <div class="real-life-box">
+          <h3 style="color: var(--secondary); margin-bottom: 12px;">Exemple attendu pour l'épreuve</h3>
+          <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 8px;">
+            <strong>Sujet d'article :</strong> <em>« Les coups de cœur littéraires de l'automne dans notre librairie. »</em>
+          </p>
+          <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 8px;">
+            <strong>Prompt d'illustration associé :</strong>
+          </p>
+          <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-muted); margin: 0; font-style: italic;">
+            « Une pile de livres de poche anciens posée sur une table en bois clair, à côté d'une tasse de thé fumante. Style photographie professionnelle avec faible profondeur de champ (flou d'arrière-plan). Ambiance chaleureuse, cocooning et automnale. Couleurs : marron chaud, beige, orange brûlé et touches de vert olive. Format horizontal 16:9, lumière naturelle venant de la droite. »
+          </p>
+        </div>
+      </section>
+
+      <!-- Bilan -->
+      <div class="real-life-box" style="margin-bottom: 20px;">
+        <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined">lightbulb</span>
+          Bilan de la séance H4
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>Rigueur :</strong> Appliquer systématiquement la grille des 5 éléments dans tout prompt visuel.
+          </li>
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>Stratégie :</strong> Sélectionner le bon outil selon l'enjeu juridique ou d'intégration.
+          </li>
+          <li style="padding: 8px 0; color: var(--text-main);">
+            <strong>Livrable :</strong> Être capable de fournir un prompt d'image prêt à l'emploi pour une campagne éditoriale.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Validation Module -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-top: 24px; border: 1px solid var(--secondary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">military_tech</span>
+          <h3 style="margin: 0;">Valider le Module H4</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Avez-vous maîtrisé la création de prompts visuels et le choix des générateurs ?
+        </p>
+        <button onclick="ThoteStore.completeQuest('h4_complete', 125)" class="wiki-btn wiki-btn-primary">
+          <span class="material-symbols-outlined">check</span> Valider le module (+125 XP)
+        </button>
+      </section>
+
+    </main>
+
+    <!-- Right Progression Sidebar Target -->
+    <div id="v2-right-sidebar-target" class="right-sidebar"></div>
+
+  </div>
+
+  <!-- Footer Target -->
+  <div id="v2-footer-target"></div>
+
+  <!-- Scripts Logic -->
+  <script type="module">
+    import { initV2Shell, ThoteStore } from '../assets/shared.js';
+
+    // Initialisation du Shell partagé (Active tab = 'h4')
+    document.addEventListener('DOMContentLoaded', () => {
+      initV2Shell('h4');
+      initFindElementQuiz();
+    });
+
+    // Quiz : Trouvez l'élément manquant
+    function initFindElementQuiz() {
+      const prompts = [
+        {
+          text: "Une maison moderne avec piscine",
+          missing: "Style artistique",
+          options: ["Sujet principal", "Style artistique", "Ambiance & Lumière", "Palette de couleurs", "Composition & Format"],
+          correctIndex: 1,
+          feedback: "Le prompt décrit bien le sujet, mais il manque le style (photo réaliste, illustration, 3D, etc.)"
+        },
+        {
+          text: "Un portrait de femme, style photo réaliste, format carré",
+          missing: "Ambiance & Lumière",
+          options: ["Sujet principal", "Style artistique", "Ambiance & Lumière", "Palette de couleurs", "Composition & Format"],
+          correctIndex: 2,
+          feedback: "Il manque l'ambiance et la lumière (ex: lumière douce du matin, éclairage studio, etc.)"
+        },
+        {
+          text: "Paysage montagneux, style aquarelle, ambiance sereine, format 16:9",
+          missing: "Palette de couleurs",
+          options: ["Sujet principal", "Style artistique", "Ambiance & Lumière", "Palette de couleurs", "Composition & Format"],
+          correctIndex: 3,
+          feedback: "La palette de couleurs n'est pas précisée (ex: bleus pastel, verts émeraude, etc.)"
+        },
+        {
+          text: "Un chat, style illustration manga, ambiance joyeuse, couleurs vives",
+          missing: "Composition & Format",
+          options: ["Sujet principal", "Style artistique", "Ambiance & Lumière", "Palette de couleurs", "Composition & Format"],
+          correctIndex: 4,
+          feedback: "Le format et la composition ne sont pas spécifiés (ex: format 16:9, vue en gros plan, etc.)"
+        }
+      ];
+
+      let currentPrompt = 0;
+      let score = 0;
+
+      const promptEl = document.getElementById('h4-prompt-text');
+      const choicesEl = document.getElementById('h4-choices');
+      const feedbackEl = document.getElementById('h4-feedback');
+      const nextBtn = document.getElementById('h4-next');
+      const resetBtn = document.getElementById('h4-reset');
+      const scoreEl = document.getElementById('h4-score');
+
+      function showPrompt(index) {
+        const p = prompts[index];
+        promptEl.textContent = p.text;
+        choicesEl.innerHTML = '';
+        
+        p.options.forEach((opt, i) => {
+          const btn = document.createElement('button');
+          btn.textContent = opt;
+          btn.className = 'wiki-btn wiki-btn-secondary';
+          btn.style.fontSize = '0.8rem';
+          btn.onclick = () => checkAnswer(i, p.correctIndex, p.feedback);
+          choicesEl.appendChild(btn);
+        });
+
+        feedbackEl.style.display = 'none';
+        nextBtn.style.display = 'none';
+        resetBtn.style.display = 'none';
+        scoreEl.style.display = 'none';
+      }
+
+      function checkAnswer(selected, correct, feedbackText) {
+        feedbackEl.style.display = 'block';
+        
+        if (selected === correct) {
+          score++;
+          feedbackEl.style.borderColor = 'var(--secondary)';
+          feedbackEl.style.background = 'rgba(68, 226, 205, 0.1)';
+          feedbackEl.innerHTML = `
+            <div style="color: var(--secondary); font-weight:700; margin-bottom:4px;">✅ Exact ! (+20 XP)</div>
+            <div style="font-size:0.85rem;">${feedbackText}</div>
+          `;
+          ThoteStore.addXP(20);
+        } else {
+          feedbackEl.style.borderColor = '#f87171';
+          feedbackEl.style.background = 'rgba(248, 113, 113, 0.1)';
+          feedbackEl.innerHTML = `
+            <div style="color: #f87171; font-weight:700; margin-bottom:4px;">⚠️ Presque !</div>
+            <div style="font-size:0.85rem;">${feedbackText}</div>
+          `;
+        }
+
+        if (currentPrompt < prompts.length - 1) {
+          nextBtn.style.display = 'flex';
+          nextBtn.onclick = () => {
+            currentPrompt++;
+            showPrompt(currentPrompt);
+          };
+        } else {
+          resetBtn.style.display = 'flex';
+          resetBtn.onclick = () => {
+            currentPrompt = 0;
+            score = 0;
+            showPrompt(currentPrompt);
+          };
+          
+          scoreEl.style.display = 'block';
+          scoreEl.textContent = `Score final : ${score}/${prompts.length} - ${Math.round((score/prompts.length)*100)}%`;
+          
+          if (score === prompts.length) {
+            ThoteStore.addXP(50);
+            scoreEl.textContent += " (+50 XP bonus pour un sans-faute !)";
+          }
+        }
+      }
+
+      showPrompt(0);
+    }
+  </script>
+</body>
+</html>

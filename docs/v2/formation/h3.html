@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H3 — Structurer un prompt rédactionnel efficace | Thote V2</title>
+  <link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+  <!-- Header JS Target -->
+  <div id="v2-header-target"></div>
+
+  <!-- App Dashboard 3-Columns -->
+  <div class="v2-app-container">
+    
+    <!-- Left Navigation Target -->
+    <div id="v2-left-sidebar-target" class="left-sidebar"></div>
+
+    <!-- Main Central Content -->
+    <main class="main-content">
+      
+      <!-- Module Hero Banner -->
+      <section class="glass-panel neo-bevel glow-primary" style="padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden;">
+        <div class="label-tech" style="color: var(--secondary); margin-bottom: 8px;">Module H3</div>
+        <h1 style="font-size: 2rem; margin-bottom: 12px;">Structurer un prompt rédactionnel efficace</h1>
+        <p style="color: var(--text-muted); max-width: 650px; line-height: 1.6;">
+          Maîtriser les 4 méthodes de structuration (ROFT, CROFT, FAI, SOCRATE), savoir choisir la bonne méthode et optimiser ses prompts grâce à l'IA.
+        </p>
+      </section>
+
+      <!-- Objectifs Section -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">flag</span>
+          Objectifs de la séance
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Maîtriser les 4 méthodes de structuration</strong> : appliquer ROFT, CROFT, FAI et SOCRATE selon le niveau de complexité.</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Savoir choisir la bonne méthode</strong> : adapter sa stratégie d'entrée (aller vite, personnaliser ou résoudre un problème complexe).</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Optimiser ses prompts grâce à l'IA</strong> : solliciter le LLM pour corriger, enrichir ou analyser un prompt.</span>
+          </li>
+          <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Préparer l'Exercice 2 de la certification</strong> : savoir rédiger un prompt clair, complet et argumenté.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Part 1: Les méthodes de structuration -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">menu_book</span>
+          Part 1 : Les méthodes de structuration de prompts
+        </h2>
+
+        <!-- ROFT -->
+        <div style="margin-bottom: 20px;">
+          <h3 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">1. Rappel : La méthode ROFT (Base simple et efficace)</h3>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
+            La méthode <strong>ROFT</strong> constitue le socle fondamental pour éviter les réponses génériques :
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 6px 0; color: var(--text-muted);">R — <strong>Rôle</strong> : Quelle posture ou expertise l'IA doit-elle adopter ?</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">O — <strong>Objectif</strong> : Quelle est la tâche exacte à accomplir ?</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">F — <strong>Format</strong> : Quelle structure, longueur ou organisation visuelle appliquer ?</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">T — <strong>Ton</strong> : Quel style, énergie ou niveau de langage employer ?</li>
+          </ul>
+        </div>
+
+        <!-- CROFT -->
+        <div style="margin-bottom: 20px;">
+          <h3 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">2. CROFT : La version complète avec Contexte</h3>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
+            Ajouter du <strong>Contexte (C)</strong> avant le bloc ROFT permet d'ancrer l'IA dans votre réalité métier.
+          </p>
+          <div class="cards-grid">
+            <div class="glass-panel" style="padding: 16px;">
+              <h4 style="color: var(--primary); margin-bottom: 8px;">ROFT</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">"Agis comme un juriste. Rédige une lettre de résiliation FAI avec éléments juridiques en 2 parties."</p>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>→ Lettre générique adaptable</em></p>
+            </div>
+            <div class="glass-panel" style="padding: 16px; border: 1px solid var(--secondary);">
+              <h4 style="color: var(--secondary); margin-bottom: 8px;">CROFT</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">"Je suis client chez Free. Je souhaite résilier mon abonnement box sans engagement au 1er février... Agis comme un juriste..."</p>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>→ Courrier ultra-ciblé, directement exploitable</em></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAI -->
+        <div style="margin-bottom: 20px;">
+          <h3 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">3. FAI : Quand la rapidité prime (En 2 minutes)</h3>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
+            Pour un besoin express, un brainstorming ou un court message, la méthode <strong>FAI</strong> va droit au but :
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 6px 0; color: var(--text-muted);">F — <strong>Formule</strong> : La phrase simple qui résume la demande</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">A — <strong>Action</strong> : Ce que doit produire l'IA</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">I — <strong>Intention</strong> : L'usage final et le public visé</li>
+          </ul>
+        </div>
+
+        <!-- SOCRATE -->
+        <div style="margin-bottom: 20px;">
+          <h3 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">4. SOCRATE : Pour les situations complexes & blocages</h3>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
+            Lorsque le problème comporte des contraintes lourdes, des tensions ou des paramètres multiples :
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 6px 0; color: var(--text-muted);">S — <strong>Situation</strong> : Quel est le problème initial ?</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">O — <strong>Objectif</strong> : Quel résultat précis est attendu ?</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">C — <strong>Contexte</strong> : Quels sont les détails clés ?</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">R — <strong>Rôle</strong> : Quelle posture adopter ?</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">A — <strong>Attentes</strong> : Structure, longueur, éléments indispensables</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">T — <strong>Ton</strong> : Style et consignes d'attitude</li>
+            <li style="padding: 6px 0; color: var(--text-muted);">E — <strong>Exemples / Variantes</strong> : Exigence d'illustrations ou d'options</li>
+          </ul>
+        </div>
+
+        <!-- Synthèse méthodes -->
+        <div style="margin-bottom: 20px;">
+          <h3 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">Synthèse : Quelle méthode pour quel besoin ?</h3>
+          <div class="cards-grid">
+            <div class="glass-panel interactive-card" style="padding: 16px; text-align: center;">
+              <div style="font-size: 1.5rem; margin-bottom: 8px; color: var(--primary);">FAI</div>
+              <h4 style="margin-bottom: 4px;">FAI</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>(2 min)</em></p>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">Ultra-rapide, brainstorming, message express</p>
+            </div>
+            <div class="glass-panel interactive-card" style="padding: 16px; text-align: center;">
+              <div style="font-size: 1.5rem; margin-bottom: 8px; color: var(--primary);">ROFT</div>
+              <h4 style="margin-bottom: 4px;">ROFT</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>(5 min)</em></p>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">Simple & direct, rédaction classique</p>
+            </div>
+            <div class="glass-panel interactive-card" style="padding: 16px; text-align: center;">
+              <div style="font-size: 1.5rem; margin-bottom: 8px; color: var(--secondary);">CROFT</div>
+              <h4 style="margin-bottom: 4px;">CROFT</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>(10 min)</em></p>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">Personnalisé avec contexte métier réel</p>
+            </div>
+            <div class="glass-panel interactive-card" style="padding: 16px; text-align: center;">
+              <div style="font-size: 1.5rem; margin-bottom: 8px; color: var(--tertiary);">SOCRATE</div>
+              <h4 style="margin-bottom: 4px;">SOCRATE</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>(Cas complexes)</em></p>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">Contraintes lourdes, litiges, blocages</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="real-life-box">
+          <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined">lightbulb</span>
+            Bon réflexe : Combiner les méthodes !
+          </h3>
+          <p style="color: var(--text-main); line-height: 1.6;">
+            Rien ne vous empêche d'associer les méthodes. Vous pouvez utiliser le cadre <strong>ROFT</strong> pour structurer votre demande globale, tout en y intégrant un élément <strong>SOCRATE</strong> (comme l'ajout d'exemples ou la gestion d'une objection spécifique).
+          </p>
+        </div>
+      </section>
+
+      <!-- Quiz Méthodes -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--primary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">quiz</span>
+          <h3 style="margin: 0;">Quiz : Quelle méthode utiliser ?</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Vous devez rédiger un email de relance pour un client en retard de paiement, en tenant compte de son historique de fidélité. Quelle méthode est la plus adaptée ?
+        </p>
+        <div id="h3-method-choices" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+          <button onclick="handleH3MethodQuiz(1)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
+            A. FAI (trop simple)
+          </button>
+          <button onclick="handleH3MethodQuiz(2)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
+            B. ROFT (base)
+          </button>
+          <button onclick="handleH3MethodQuiz(3)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
+            C. CROFT (avec contexte client)
+          </button>
+          <button onclick="handleH3MethodQuiz(4)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
+            D. SOCRATE (trop complexe)
+          </button>
+        </div>
+        <div id="h3-method-feedback" class="glass-panel" style="margin-top: 16px; padding: 16px; display: none;"></div>
+      </section>
+
+      <!-- Part 2: Améliorer ses prompts avec l'IA -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">auto_fix_high</span>
+          Part 2 : Améliorer ses prompts avec l'IA
+        </h2>
+
+        <div style="margin-bottom: 20px;">
+          <h3 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">1. Le méta-prompting</h3>
+          <div class="real-life-box">
+            <h3 style="color: var(--secondary); margin-bottom: 12px;">Script d'optimisation de prompt</h3>
+            <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 12px;">
+              <strong>Étape 1 :</strong> Envoyez votre prompt initial simple.<br>
+              <strong>Étape 2 :</strong> Relancez immédiatement avec la consigne suivante :
+            </p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0; font-style: italic;">
+              « Je viens de te donner ce prompt : [Copier votre prompt initial]. Comment pourrais-je l'améliorer pour obtenir une réponse encore plus précise et professionnelle ? Donne-moi une version améliorée selon la méthode CROFT et explique tes modifications. »
+            </p>
+          </div>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-top: 12px;">
+            Cette approche permet de comprendre les oublis (manque de ton, format flou), de gagner en clarté et d'instaurer une boucle d'amélioration continue.
+          </p>
+        </div>
+
+        <div>
+          <h3 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">2. Le Reverse Prompting</h3>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+            Le <em>Reverse Prompting</em> (ou rétro-ingénierie) consiste à jouer les détectives : vous fournissez à l'IA un texte particulièrement réussi et vous lui demandez de <strong>déduire le prompt exact</strong> qui a permis de le générer.
+          </p>
+          <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(208, 188, 255, 0.1); border: 1px solid rgba(208, 188, 255, 0.3); border-radius: 8px; padding: 12px 16px; margin: 16px 0; gap: 8px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 140px; text-align: center; background: var(--surface-low); padding: 8px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.85rem; font-weight: 600;">
+              📄 Excellent texte
+            </div>
+            <div style="color: var(--primary); font-size: 1.5rem; font-weight: bold;">➡️</div>
+            <div style="flex: 1.2; min-width: 160px; text-align: center; background: var(--surface-low); padding: 8px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.85rem; font-weight: 600;">
+              🤖 L'IA analyse<br><span style="font-size: 0.75rem; font-weight: normal; color: var(--text-muted);">(Rôle, Ton, Format)</span>
+            </div>
+            <div style="color: var(--primary); font-size: 1.5rem; font-weight: bold;">➡️</div>
+            <div style="flex: 1; min-width: 140px; text-align: center; background: var(--surface-low); padding: 8px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.85rem; font-weight: 600;">
+              📝 Prompt déduit
+            </div>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px;">
+            <em>Cas d'usage :</em> Analyser un excellent post de concurrent, une lettre type parfaite ou une note d'analyse pertinente pour en extraire la "recette" sous forme de prompt réutilisable.
+          </p>
+        </div>
+      </section>
+
+      <!-- Quiz Reverse Prompting -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--secondary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">quiz</span>
+          <h3 style="margin: 0;">Quiz : Reverse Prompting</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Quel est l'avantage principal du Reverse Prompting ?
+        </p>
+        <div id="h3-reverse-choices" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+          <button onclick="handleH3ReverseQuiz(1)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
+            A. Gagner du temps
+          </button>
+          <button onclick="handleH3ReverseQuiz(2)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
+            B. Comprendre la structure d'un bon prompt
+          </button>
+          <button onclick="handleH3ReverseQuiz(3)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
+            C. Tester les capacités de l'IA
+          </button>
+          <button onclick="handleH3ReverseQuiz(4)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
+            D. Éviter les erreurs de syntaxe
+          </button>
+        </div>
+        <div id="h3-reverse-feedback" class="glass-panel" style="margin-top: 16px; padding: 16px; display: none;"></div>
+      </section>
+
+      <!-- Cas pratique -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">assignment</span>
+          Cas pratique d'entraînement : Évolution progressive d'un prompt
+        </h2>
+
+        <div class="real-life-box">
+          <h3 style="color: var(--secondary); margin-bottom: 12px;">Mise en situation : Recrutement d'un assistant administratif</h3>
+          <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 12px;">
+            <strong>Objectif :</strong> Expérimenter la montée en puissance de la structuration pour mesurer l'écart de qualité dans les réponses générées.
+          </p>
+          <ol style="margin: 0; padding-left: 20px;">
+            <li style="margin-bottom: 8px; color: var(--text-main);">
+              <strong>Étape 1 — Prompt ROFT :</strong> Rédigez un prompt basique (Rôle, Objectif, Format, Ton) pour générer une offre d'emploi d'assistant administratif.
+            </li>
+            <li style="margin-bottom: 8px; color: var(--text-main);">
+              <strong>Étape 2 — Amélioration CROFT :</strong> Ajoutez du Contexte précis (secteur de la PME, taille de l'équipe, ambiance, valeurs clés).
+            </li>
+            <li style="color: var(--text-main);">
+              <strong>Étape 3 — Gestion du problème complexe avec SOCRATE :</strong> Intégrez une contrainte lourde (ex: le salaire proposé est légèrement sous le marché, il faut compenser par d'autres avantages).
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Bilan -->
+      <div class="real-life-box" style="margin-bottom: 20px;">
+        <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined">lightbulb</span>
+          Bilan de la séance H3
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>Structure systématique :</strong> Choisir la bonne méthode (FAI, ROFT, CROFT, SOCRATE) selon le temps et la complexité du besoin.
+          </li>
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>Assistance par l'IA :</strong> Ne pas hésiter à faire optimiser ses prompts par le LLM ou à utiliser la rétro-ingénierie (reverse prompting).
+          </li>
+          <li style="padding: 8px 0; color: var(--text-main);">
+            <strong>Préparation à l'Examen :</strong> Un bon prompt professionnel doit être explicite, cadré et contextualisé pour garantir un résultat directement exploitable.
+          </li>
+        </ul>
+      </div>
+
+      <!-- Validation Module -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-top: 24px; border: 1px solid var(--secondary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">military_tech</span>
+          <h3 style="margin: 0;">Valider le Module H3</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Avez-vous maîtrisé les méthodes de structuration de prompts et l'optimisation avec l'IA ?
+        </p>
+        <button onclick="ThoteStore.completeQuest('h3_complete', 125)" class="wiki-btn wiki-btn-primary">
+          <span class="material-symbols-outlined">check</span> Valider le module (+125 XP)
+        </button>
+      </section>
+
+    </main>
+
+    <!-- Right Progression Sidebar Target -->
+    <div id="v2-right-sidebar-target" class="right-sidebar"></div>
+
+  </div>
+
+  <!-- Footer Target -->
+  <div id="v2-footer-target"></div>
+
+  <!-- Scripts Logic -->
+  <script type="module">
+    import { initV2Shell, ThoteStore } from '../assets/shared.js';
+
+    // Initialisation du Shell partagé (Active tab = 'h3')
+    document.addEventListener('DOMContentLoaded', () => {
+      initV2Shell('h3');
+    });
+
+    // Quiz Méthode
+    window.handleH3MethodQuiz = function(option) {
+      const feedback = document.getElementById('h3-method-feedback');
+      feedback.style.display = 'block';
+      
+      if (option === 3) { // CROFT
+        feedback.style.borderColor = 'var(--secondary)';
+        feedback.style.background = 'rgba(68, 226, 205, 0.1)';
+        feedback.innerHTML = `
+          <div style="color: var(--secondary); font-weight:700; margin-bottom:4px;">✅ Exact ! (+30 XP)</div>
+          <div style="font-size:0.85rem;">CROFT est parfait car il permet d'ajouter le <strong>Contexte</strong> (historique de fidélité du client) qui est crucial pour personnaliser la relance.</div>
+        `;
+        ThoteStore.addXP(30);
+      } else {
+        feedback.style.borderColor = '#f87171';
+        feedback.style.background = 'rgba(248, 113, 113, 0.1)';
+        feedback.innerHTML = `
+          <div style="color: #f87171; font-weight:700; margin-bottom:4px;">⚠️ Non, ce n'est pas la meilleure réponse</div>
+          <div style="font-size:0.85rem;">CROFT est la méthode la plus adaptée car elle permet d'inclure le contexte du client fidèle, ce qui est essentiel pour une relance personnalisée.</div>
+        `;
+      }
+    };
+
+    // Quiz Reverse Prompting
+    window.handleH3ReverseQuiz = function(option) {
+      const feedback = document.getElementById('h3-reverse-feedback');
+      feedback.style.display = 'block';
+      
+      if (option === 2) { // Comprendre la structure
+        feedback.style.borderColor = 'var(--secondary)';
+        feedback.style.background = 'rgba(68, 226, 205, 0.1)';
+        feedback.innerHTML = `
+          <div style="color: var(--secondary); font-weight:700; margin-bottom:4px;">✅ Exact ! (+30 XP)</div>
+          <div style="font-size:0.85rem;">Le Reverse Prompting permet surtout de <strong>comprendre la structure d'un bon prompt</strong> en analysant un texte de qualité pour en extraire la "recette".</div>
+        `;
+        ThoteStore.addXP(30);
+      } else {
+        feedback.style.borderColor = '#f87171';
+        feedback.style.background = 'rgba(248, 113, 113, 0.1)';
+        feedback.innerHTML = `
+          <div style="color: #f87171; font-weight:700; margin-bottom:4px;">⚠️ Non, ce n'est pas l'avantage principal</div>
+          <div style="font-size:0.85rem;">Le Reverse Prompting permet surtout de comprendre comment structurer un bon prompt en analysant un texte existant de qualité.</div>
+        `;
+      }
+    };
+  </script>
+</body>
+</html>

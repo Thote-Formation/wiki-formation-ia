@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H6 — Accessibilité & Inclusivité | Thote V2</title>
+  <link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+  <!-- Header JS Target -->
+  <div id="v2-header-target"></div>
+
+  <!-- App Dashboard 3-Columns -->
+  <div class="v2-app-container">
+    
+    <!-- Left Navigation Target -->
+    <div id="v2-left-sidebar-target" class="left-sidebar"></div>
+
+    <!-- Main Central Content -->
+    <main class="main-content">
+      
+      <!-- Module Hero Banner -->
+      <section class="glass-panel neo-bevel glow-primary" style="padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden;">
+        <div class="label-tech" style="color: var(--secondary); margin-bottom: 8px;">Module H6</div>
+        <h1 style="font-size: 2rem; margin-bottom: 12px;">Accessibilité & Inclusivité dans l'IA</h1>
+        <p style="color: var(--text-muted); max-width: 650px; line-height: 1.6;">
+          Produire des contenus compréhensibles, accessibles et respectueux pour l'ensemble de vos publics en tirant parti de l'IA générative.
+        </p>
+      </section>
+
+      <!-- Objectifs Section -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">flag</span>
+          Objectifs de la séance
+        </h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Définir accessibilité et inclusivité</strong> : comprendre les enjeux dans le contexte des contenus générés par l'IA.</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Identifier les barrières d'accès</strong> : repérer les obstacles majeurs (vision, audition, compréhension, motricité).</span>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Appliquer les bonnes pratiques</strong> : produire du contenu conforme aux référentiels RGAA / WCAG.</span>
+          </li>
+          <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px;">
+            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
+            <span><strong>Utiliser l'IA comme levier</strong> : transformer l'IA en moteur d'inclusion numérique plutôt qu'en facteur d'exclusion.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Accessibilité vs Inclusivité -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">accessibility</span>
+          Accessibilité vs Inclusivité : de quoi parle-t-on ?
+        </h2>
+
+        <div style="margin-bottom: 20px;">
+          <h3 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">1. Accessibilité (Technique & Ergonomie)</h3>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
+            <strong>Définition :</strong> Rendre les contenus et outils utilisables par le plus grand nombre, y compris les personnes en situation de handicap ou en difficulté d'apprentissage.
+          </p>
+          
+          <div class="cards-grid">
+            <div class="glass-panel" style="padding: 16px; text-align: center;">
+              <div style="font-size: 1.5rem; margin-bottom: 8px;">👁️</div>
+              <h4 style="margin-bottom: 4px;">Vision</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Contraste suffisant, texte redimensionnable</p>
+            </div>
+            <div class="glass-panel" style="padding: 16px; text-align: center;">
+              <div style="font-size: 1.5rem; margin-bottom: 8px;">🔊</div>
+              <h4 style="margin-bottom: 4px;">Audition</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Sous-titres, transcriptions textuelles</p>
+            </div>
+            <div class="glass-panel" style="padding: 16px; text-align: center;">
+              <div style="font-size: 1.5rem; margin-bottom: 8px;">🧠</div>
+              <h4 style="margin-bottom: 4px;">Compréhension</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Phrases courtes, niveau FALC/B1</p>
+            </div>
+            <div class="glass-panel" style="padding: 16px; text-align: center;">
+              <div style="font-size: 1.5rem; margin-bottom: 8px;">⌨️</div>
+              <h4 style="margin-bottom: 4px;">Motricité</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Navigation 100% clavier, zones cliquables larges</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h3 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">2. Inclusivité (Humain & Représentation)</h3>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
+            <strong>Définition :</strong> Créer un environnement où chacun se sent bienvenu, valorisé et représenté, indépendamment de ses caractéristiques (genre, âge, origine, handicap...).
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 6px 0; color: var(--text-muted);"><strong>Langage :</strong> Neutre, non-stigmatisant, respectueux des identités.</li>
+            <li style="padding: 6px 0; color: var(--text-muted);"><strong>Diversité :</strong> Représentation équilibrée dans les exemples, cas d'usage et visuels.</li>
+            <li style="padding: 6px 0; color: var(--text-muted);"><strong>Absence de biais :</strong> Refus des stéréotypes de genre, d'âge ou de rôle social.</li>
+          </ul>
+        </div>
+
+        <!-- Analogie de la maison -->
+        <div class="real-life-box" style="margin-bottom: 20px;">
+          <h3 style="color: var(--secondary); margin-bottom: 12px;">🏠 L'analogie de la maison</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+            <div class="glass-panel" style="padding: 12px; text-align: center;">
+              <h4 style="color: var(--primary); margin-bottom: 8px;">Accessibilité</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">La structure</p>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Une rampe d'accès et des portes larges permettant à tous de rentrer.</em></p>
+            </div>
+            <div class="glass-panel" style="padding: 12px; text-align: center;">
+              <h4 style="color: var(--secondary); margin-bottom: 8px;">Inclusivité</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">L'accueil</p>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Un accueil bienveillant où chacun se sent bien et à sa place.</em></p>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 12px; font-style: italic;">
+            Dans l'IA : Code propre, balises alt, typographie lisible vs. Vocabulaire neutre, données d'entraînement représentatives, absence de biais.
+          </p>
+        </div>
+      </section>
+
+      <!-- Les 3 risques majeurs -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">warning</span>
+          ⚠️ Les 3 risques majeurs avec l'IA générative
+        </h2>
+        
+        <div class="cards-grid">
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">👥</div>
+            <h4 style="margin-bottom: 8px;">Réplication des biais</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Les LLM reproduisent les discriminations sociétales. C'est à l'humain d'orienter le prompt.</p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">💬</div>
+            <h4 style="margin-bottom: 8px;">Langage excluant</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Les modèles peuvent utiliser des tournures dépassées ou stigmatisantes.</p>
+          </div>
+          <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🧠</div>
+            <h4 style="margin-bottom: 8px;">Surcharge cognitive</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Par défaut, une IA produit des pavés de texte denses, illisibles pour les lecteurs d'écran.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quiz Flash -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--primary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">quiz</span>
+          <h3 style="margin: 0;">🎯 Quiz Flash : Détecteur de Biais & Barrières</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Testez vos connaissances sur l'accessibilité et l'inclusivité :
+        </p>
+        <div id="h6-quiz-question" style="font-size: 1rem; font-weight: 600; margin-bottom: 16px; color: var(--text-main);"></div>
+        <div id="h6-quiz-options" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;"></div>
+        <div id="h6-quiz-feedback" class="glass-panel" style="margin-top: 16px; padding: 16px; display: none;"></div>
+        <button id="h6-quiz-next" class="wiki-btn wiki-btn-primary" style="display: none;">
+          <span class="material-symbols-outlined">arrow_forward</span> Question suivante
+        </button>
+        <div id="h6-quiz-score" style="display: none; margin-top: 16px; padding: 14px; background: rgba(26, 95, 180, 0.1); border: 1px solid var(--primary); border-radius: 6px; font-size: 15px; font-weight: 700; text-align: center; color: var(--text-main);"></div>
+      </section>
+
+      <!-- Checklists -->
+      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary);">checklist</span>
+          📋 Les 2 Checklists réflexes
+        </h2>
+
+        <div style="margin-bottom: 20px;">
+          <h3 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">Checklist 1 : Accessibilité du contenu</h3>
+          <div class="cards-grid">
+            <div class="glass-panel" style="padding: 12px;">
+              <h4 style="margin-bottom: 4px; color: var(--primary);">✅ Phrases courtes</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">1 seule idée par phrase (15 à 20 mots max)</p>
+            </div>
+            <div class="glass-panel" style="padding: 12px;">
+              <h4 style="margin-bottom: 4px; color: var(--primary);">✅ Vocabulaire simple</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Niveau FALC / B1</p>
+            </div>
+            <div class="glass-panel" style="padding: 12px;">
+              <h4 style="margin-bottom: 4px; color: var(--primary);">✅ Structure claire</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Titres hiérarchisés, paragraphes aérés, listes à puces</p>
+            </div>
+            <div class="glass-panel" style="padding: 12px;">
+              <h4 style="margin-bottom: 4px; color: var(--primary);">✅ Compatibilité lecteurs</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Balises alt informatives sur toutes les images</p>
+            </div>
+            <div class="glass-panel" style="padding: 12px;">
+              <h4 style="margin-bottom: 4px; color: var(--primary);">✅ Pas de couleur unique</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Une info importante ne doit pas reposer uniquement sur la couleur</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">Checklist 2 : Inclusivité du contenu</h3>
+          <div class="cards-grid">
+            <div class="glass-panel" style="padding: 12px;">
+              <h4 style="margin-bottom: 4px; color: var(--secondary);">✅ Terminologie neutre</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Préférer "personnes en situation de handicap" à "les handicapés"</p>
+            </div>
+            <div class="glass-panel" style="padding: 12px;">
+              <h4 style="margin-bottom: 4px; color: var(--secondary);">✅ Représentation équilibrée</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Alterner les genres, prénoms et rôles dans les exemples</p>
+            </div>
+            <div class="glass-panel" style="padding: 12px;">
+              <h4 style="margin-bottom: 4px; color: var(--secondary);">✅ Absence de jugement</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Éviter le ton infantilisant ou condescendant</p>
+            </div>
+            <div class="glass-panel" style="padding: 12px;">
+              <h4 style="margin-bottom: 4px; color: var(--secondary);">✅ Données anonymisées</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Pas de mention inutile d'âge, d'origine ou d'état de santé</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dans la vraie vie -->
+      <div class="real-life-box" style="margin-bottom: 20px;">
+        <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined">lightbulb</span>
+          Dans la vraie vie
+        </h3>
+        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 12px;">
+          Quand vous demandez à l'IA de simplifier un texte, précisez toujours le public cible :
+        </p>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 6px 0; color: var(--text-muted);">nouveaux salariés ;</li>
+          <li style="padding: 6px 0; color: var(--text-muted);">clients non spécialistes ;</li>
+          <li style="padding: 6px 0; color: var(--text-muted);">personnes peu à l'aise avec le numérique ;</li>
+          <li style="padding: 6px 0; color: var(--text-muted);">personnes avec troubles DYS ;</li>
+          <li style="padding: 6px 0; color: var(--text-muted);">public FLE (Français Langue Étrangère).</li>
+        </ul>
+        <p style="color: var(--text-muted); line-height: 1.5; margin-top: 12px; font-style: italic;">
+          Un texte simple n'est pas un texte pauvre. C'est un texte plus facile à comprendre pour tous.
+        </p>
+      </div>
+
+      <!-- Bilan -->
+      <div class="real-life-box" style="margin-bottom: 20px;">
+        <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined">lightbulb</span>
+          Bilan de la séance H6
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>Le réflexe d'audit :</strong> Utiliser l'IA pour relire et simplifier ses propres écrits.
+          </li>
+          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
+            <strong>La règle du Facile à Lire :</strong> Réduire la complexité pour augmenter l'impact.
+          </li>
+          <li style="padding: 8px 0; color: var(--text-main);">
+            <strong>La question clé :</strong> <em>« Si je recevais ce texte, est-ce que je me sentirais inclus, respecté et capable de le comprendre sans effort ? »</em>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Validation Module -->
+      <section class="glass-panel neo-bevel" style="padding: 24px; margin-top: 24px; border: 1px solid var(--secondary);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">military_tech</span>
+          <h3 style="margin: 0;">Valider le Module H6</h3>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Avez-vous compris les enjeux d'accessibilité et d'inclusivité dans l'IA ?
+        </p>
+        <button onclick="ThoteStore.completeQuest('h6_complete', 125)" class="wiki-btn wiki-btn-primary">
+          <span class="material-symbols-outlined">check</span> Valider le module (+125 XP)
+        </button>
+      </section>
+
+    </main>
+
+    <!-- Right Progression Sidebar Target -->
+    <div id="v2-right-sidebar-target" class="right-sidebar"></div>
+
+  </div>
+
+  <!-- Footer Target -->
+  <div id="v2-footer-target"></div>
+
+  <!-- Scripts Logic -->
+  <script type="module">
+    import { initV2Shell, ThoteStore } from '../assets/shared.js';
+
+    // Initialisation du Shell partagé (Active tab = 'h6')
+    document.addEventListener('DOMContentLoaded', () => {
+      initV2Shell('h6');
+      initH6Quiz();
+    });
+
+    // Quiz H6 : Détecteur de Biais & Barrières
+    function initH6Quiz() {
+      const questions = [
+        {
+          question: "Quel est le principal problème d'accessibilité pour les personnes malvoyantes ?",
+          options: [
+            { text: "Manque de sous-titres", correct: false },
+            { text: "Contraste insuffisant et texte non redimensionnable", correct: true },
+            { text: "Navigation clavier impossible", correct: false },
+            { text: "Langage trop technique", correct: false }
+          ],
+          feedback: "Le contraste insuffisant et l'impossibilité de redimensionner le texte sont les principaux obstacles pour les malvoyants."
+        },
+        {
+          question: "Quelle formulation est la plus inclusive ?",
+          options: [
+            { text: "Les handicapés doivent...", correct: false },
+            { text: "Les personnes en situation de handicap peuvent...", correct: true },
+            { text: "Les invalides sont...", correct: false },
+            { text: "Les gens handicapés doivent...", correct: false }
+          ],
+          feedback: "La formulation 'personnes en situation de handicap' est neutre et respectueuse, contrairement aux autres options qui peuvent être stigmatisantes."
+        },
+        {
+          question: "Quel est l'avantage du FALC (Facile À Lire et à Comprendre) ?",
+          options: [
+            { text: "Rendre le texte plus court", correct: false },
+            { text: "Rendre le texte accessible aux personnes avec troubles cognitifs", correct: true },
+            { text: "Rendre le texte plus technique", correct: false },
+            { text: "Rendre le texte plus esthétique", correct: false }
+          ],
+          feedback: "Le FALC permet de rendre les contenus accessibles aux personnes avec troubles d'apprentissage, troubles cognitifs ou maîtrise limitée de la langue."
+        },
+        {
+          question: "Pourquoi l'IA peut-elle reproduire des biais ?",
+          options: [
+            { text: "Parce que les développeurs sont biaisés", correct: false },
+            { text: "Parce qu'elle apprend sur des données historiques qui contiennent des biais", correct: true },
+            { text: "Parce qu'elle est malveillante", correct: false },
+            { text: "Parce que les utilisateurs le demandent", correct: false }
+          ],
+          feedback: "Les LLM apprennent sur d'immenses corpus de texte qui contiennent des biais sociétaux. C'est à l'humain de corriger ces biais dans ses prompts."
+        }
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+
+      const questionEl = document.getElementById('h6-quiz-question');
+      const optionsEl = document.getElementById('h6-quiz-options');
+      const feedbackEl = document.getElementById('h6-quiz-feedback');
+      const nextBtn = document.getElementById('h6-quiz-next');
+      const scoreEl = document.getElementById('h6-quiz-score');
+
+      function showQuestion(index) {
+        const q = questions[index];
+        questionEl.textContent = q.question;
+        optionsEl.innerHTML = '';
+        
+        q.options.forEach((opt, i) => {
+          const btn = document.createElement('button');
+          btn.textContent = opt.text;
+          btn.className = 'wiki-btn wiki-btn-secondary';
+          btn.style.justifyContent = 'flex-start';
+          btn.style.textAlign = 'left';
+          btn.onclick = () => checkAnswer(i, opt.correct, q.feedback);
+          optionsEl.appendChild(btn);
+        });
+
+        feedbackEl.style.display = 'none';
+        nextBtn.style.display = 'none';
+        scoreEl.style.display = 'none';
+      }
+
+      function checkAnswer(selected, isCorrect, feedbackText) {
+        feedbackEl.style.display = 'block';
+        
+        if (isCorrect) {
+          score++;
+          feedbackEl.style.borderColor = 'var(--secondary)';
+          feedbackEl.style.background = 'rgba(68, 226, 205, 0.1)';
+          feedbackEl.innerHTML = `
+            <div style="color: var(--secondary); font-weight:700; margin-bottom:4px;">✅ Exact ! (+25 XP)</div>
+            <div style="font-size:0.85rem;">${feedbackText}</div>
+          `;
+          ThoteStore.addXP(25);
+        } else {
+          feedbackEl.style.borderColor = '#f87171';
+          feedbackEl.style.background = 'rgba(248, 113, 113, 0.1)';
+          feedbackEl.innerHTML = `
+            <div style="color: #f87171; font-weight:700; margin-bottom:4px;">⚠️ Presque !</div>
+            <div style="font-size:0.85rem;">${feedbackText}</div>
+          `;
+        }
+
+        if (currentQuestion < questions.length - 1) {
+          nextBtn.style.display = 'flex';
+          nextBtn.onclick = () => {
+            currentQuestion++;
+            showQuestion(currentQuestion);
+          };
+        } else {
+          nextBtn.style.display = 'none';
+          scoreEl.style.display = 'block';
+          scoreEl.textContent = `Score final : ${score}/${questions.length} - ${Math.round((score/questions.length)*100)}%`;
+          
+          if (score === questions.length) {
+            ThoteStore.addXP(50);
+            scoreEl.textContent += " (+50 XP bonus pour un sans-faute !)";
+          }
+        }
+      }
+
+      showQuestion(0);
+    }
+  </script>
+</body>
+</html>
