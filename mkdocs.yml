@@ -118,7 +118,7 @@ nav:
           - Réduire les hallucinations: articles/reduction-hallucinations.md
           - Les Agents IA: articles/agents-rag.md
           - Les Agents Mistral: articles/agents-mistral.md
-          - Les Connecteurs Mistral: connecteurs-mistral.md
+          - Les Connecteurs Mistral: articles/connecteurs-mistral.md
           - Google Labs: articles/google-labs.md
 
   - Glossaire: glossaire.md
