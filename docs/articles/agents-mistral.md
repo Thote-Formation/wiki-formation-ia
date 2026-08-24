@@ -209,8 +209,3 @@ Utilisez l'un des exemples ci-dessous dans la zone de chat de votre nouvel agent
 ---
 
 ## Prêt à créer vos propres Agents ?
-
-<div class="wiki-actions">
-  <a class="wiki-button primary" href="../h3/">Passer à la séance H3 — Automatisation & Workflows Multi-Agents</a>
-  <a class="wiki-button" href="../h1/">Revoir la séance H1 — Fondamentaux & Méthode ROFT</a>
-</div>
