@@ -6,17 +6,16 @@
   <title>H0 — Lancement formation IA | Thote V2</title>
   <link rel="stylesheet" href="/wiki-formation-ia/v2/assets/theme.css">
   <style>
-    /* QCM Styles - Adapted from evaluation-entree.md */
+    /* QCM Styles - Adapted for DARK theme */
     .eval-quiz-section {
       margin-bottom: 20px;
     }
     .eval-question-card {
-      background: var(--md-default-bg-color, #fff);
+      background: var(--surface-low, #171f33);
       border-radius: 12px;
       padding: 20px;
       margin-bottom: 16px;
-      border: 1px solid var(--md-default-fg-color--lightest, #ddd);
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+      border: 1px solid var(--border-color);
     }
     .eval-question-header {
       display: flex;
@@ -24,6 +23,7 @@
       justify-content: space-between;
       margin-bottom: 12px;
       font-size: 0.9rem;
+      color: var(--text-muted);
     }
     .eval-theme {
       display: inline-block;
@@ -31,13 +31,13 @@
       font-weight: 700;
       padding: 4px 9px;
       border-radius: 999px;
-      background: rgba(33, 150, 243, 0.12);
-      color: #1a5fb4;
+      background: rgba(208, 188, 255, 0.15);
+      color: var(--primary);
     }
     .eval-question-text {
       font-weight: 600;
       margin-bottom: 16px;
-      color: var(--md-typeset-color, #000);
+      color: var(--text-main);
       line-height: 1.5;
       font-size: 1rem;
     }
@@ -49,38 +49,40 @@
     .eval-option {
       display: block;
       padding: 10px 12px;
-      border: 1px solid var(--md-default-fg-color--lightest, #ddd);
-      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.18s ease;
-      background: var(--md-default-bg-color, #fff);
-      color: var(--md-typeset-color, #000);
+      background: var(--surface-high, #222a3d);
+      color: var(--text-main);
     }
     .eval-option:hover {
-      background: rgba(33, 150, 243, 0.08);
-      border-color: var(--md-primary-fg-color, #1a5fb4);
+      background: rgba(208, 188, 255, 0.1);
+      border-color: var(--primary);
     }
     .eval-option.selected {
-      border-color: var(--secondary, #44e2cd);
+      border-color: var(--secondary);
       background: rgba(68, 226, 205, 0.15);
     }
     .eval-option.correct {
-      border-color: var(--secondary, #44e2cd);
+      border-color: var(--secondary);
       background: rgba(68, 226, 205, 0.25);
     }
     .eval-option.incorrect {
-      border-color: #c62828;
-      background: rgba(198, 40, 40, 0.1);
+      border-color: #ff5252;
+      background: rgba(255, 82, 82, 0.1);
     }
     .eval-option input[type="radio"] {
       margin-right: 8px;
-      accent-color: var(--primary, #1a5fb4);
+      accent-color: var(--primary);
+      filter: brightness(0) invert(1);
     }
     .eval-option label {
       cursor: pointer;
       display: block;
       font-size: 0.95rem;
       line-height: 1.4;
+      color: var(--text-main);
     }
     .eval-actions {
       display: flex;
@@ -88,43 +90,17 @@
       flex-wrap: wrap;
       margin: 16px 0;
     }
-    .eval-actions button {
-      padding: 10px 16px;
-      border: 1px solid var(--md-primary-fg-color, #1a5fb4);
-      border-radius: 999px;
-      background: var(--md-primary-fg-color, #1a5fb4);
-      color: #ffffff;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.18s ease, transform 0.18s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .eval-actions button:hover:not(:disabled) {
-      background: var(--md-primary-fg-color-dark, #154a8f);
-      transform: translateY(-2px);
-    }
-    .eval-actions button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .eval-actions button.eval-reset {
-      background: var(--md-default-bg-color, #fff);
-      color: var(--md-primary-fg-color, #1a5fb4);
-      border-color: var(--md-default-fg-color--light, #aaa);
-    }
     .eval-result {
-      border: 1px solid var(--md-primary-fg-color, #1a5fb4);
-      background: rgba(33, 150, 243, 0.08);
+      border: 1px solid var(--primary);
+      background: rgba(208, 188, 255, 0.08);
       padding: 20px;
       border-radius: 14px;
       margin-top: 20px;
+      color: var(--text-main);
     }
     .eval-result h3 {
       margin: 0 0 12px 0;
-      color: var(--md-typeset-color, #000);
+      color: #fff;
     }
     .eval-progress {
       display: flex;
@@ -138,31 +114,32 @@
       font-weight: 700;
       text-align: center;
       margin: 16px 0;
-      color: var(--primary, #1a5fb4);
+      color: var(--primary);
     }
     .eval-level-badge {
       display: inline-block;
       padding: 8px 16px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.1);
       font-weight: 600;
       margin: 8px 0;
-      color: var(--md-typeset-color, #000);
+      color: #fff;
     }
     .eval-correction {
-      border: 1px solid var(--md-default-fg-color--lightest, #ddd);
-      background: var(--md-code-bg-color, #f8f9fa);
+      border: 1px solid var(--border-color);
+      background: var(--surface-low, #171f33);
       padding: 18px;
       border-radius: 14px;
       margin-top: 20px;
+      color: var(--text-main);
     }
     .eval-correction h3 {
       margin: 0 0 16px 0;
-      color: var(--md-typeset-color, #000);
+      color: #fff;
     }
     .eval-correction-item {
       padding: 12px 0;
-      border-bottom: 1px solid var(--md-default-fg-color--lightest, #ddd);
+      border-bottom: 1px solid var(--border-color);
     }
     .eval-correction-item:last-child {
       border-bottom: none;
@@ -171,14 +148,14 @@
       background: rgba(68, 226, 205, 0.05);
     }
     .eval-correction-item.eval-ko {
-      background: rgba(198, 40, 40, 0.05);
+      background: rgba(255, 82, 82, 0.05);
     }
     .eval-ok {
-      color: #2e7d32;
+      color: var(--secondary);
       font-weight: 700;
     }
     .eval-ko {
-      color: #c62828;
+      color: #ff5252;
       font-weight: 700;
     }
     .eval-nav {
@@ -203,12 +180,12 @@
       cursor: not-allowed;
     }
     #h0-eval-submit-btn {
-      background: var(--primary, #1a5fb4);
-      color: white;
+      background: var(--primary);
+      color: #120038;
     }
     #h0-eval-start-btn {
-      background: var(--primary, #1a5fb4);
-      color: white;
+      background: var(--primary);
+      color: #120038;
     }
   </style>
 </head>
@@ -387,7 +364,7 @@
         <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
           Avez-vous complété la lecture et votre évaluation d'entrée ?
         </p>
-        <button onclick="ThoteStore.completeQuest('h0_complete', 50); ThoteStore.addXP(50);" class="wiki-btn wiki-btn-primary">
+        <button onclick="addXPAndComplete()" class="wiki-btn wiki-btn-primary">
           <span class="material-symbols-outlined">check</span> Valider le module (+50 XP)
         </button>
       </section>
@@ -410,6 +387,15 @@
     document.addEventListener('DOMContentLoaded', () => {
       initV2Shell('h0');
     });
+
+    // Function to force XP addition
+    window.addXPAndComplete = function() {
+      ThoteStore.completeQuest('h0_complete', 50);
+      // Force update by reading and re-saving state
+      const state = ThoteStore.getState();
+      ThoteStore.saveState(state);
+      console.log('XP ajouté:', state.xp, 'Niveau:', state.level);
+    };
 
     // 30 Questions from evaluation-entree.js
     const h0Questions = [
@@ -803,12 +789,12 @@
           <div class="eval-question-text">${q.question}</div>
           <div class="eval-options" id="h0-eval-options">
             ${q.options.map((option, idx) => `
-              <div class="eval-option ${h0Answers[h0CurrentQuestion] === idx ? 'selected' : ''}" 
-                   onclick="h0SelectAnswer(${h0CurrentQuestion}, ${idx})">
+              <label class="eval-option ${h0Answers[h0CurrentQuestion] === idx ? 'selected' : ''}">
                 <input type="radio" name="q${h0CurrentQuestion}" 
-                       ${h0Answers[h0CurrentQuestion] === idx ? 'checked' : ''}>
-                <label>${option}</label>
-              </div>
+                       ${h0Answers[h0CurrentQuestion] === idx ? 'checked' : ''}
+                       onchange="h0SelectAnswer(${h0CurrentQuestion}, ${idx})">
+                ${option}
+              </label>
             `).join('')}
           </div>
         </div>
@@ -904,8 +890,9 @@
           <h4 style="margin: 0 0 8px 0;">Question ${index + 1} — ${q.theme}</h4>
           <p style="margin: 0 0 8px 0; font-weight: 600;">${q.question}</p>
           <p style="margin: 0 0 4px 0;">Votre réponse : <strong>${answerText}</strong></p>
-          <p style="margin: 0 0 4px 0; color: ${isCorrect ? 'var(--secondary)' : '#c62828'};">
-            ${isCorrect ? '✓' : '✗'} Bonne réponse : <strong>${q.options[q.correct]}</strong>
+          <p style="margin: 0 0 4px 0;">
+            <span class="${isCorrect ? 'eval-ok' : 'eval-ko'}">${isCorrect ? '✓' : '✗'}</span> 
+            Bonne réponse : <strong>${q.options[q.correct]}</strong>
           </p>
           <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); font-style: italic;">${q.explain}</p>
         `;
@@ -949,7 +936,7 @@
     document.getElementById('h0-eval-next-btn').addEventListener('click', h0GoToNext);
     document.getElementById('h0-eval-submit-btn').addEventListener('click', h0ShowResult);
 
-    // Expose functions globally for onclick handlers
+    // Expose functions globally
     window.h0SelectAnswer = h0SelectAnswer;
     window.h0ShowCorrection = h0ShowCorrection;
     window.h0ResetQuiz = h0ResetQuiz;
