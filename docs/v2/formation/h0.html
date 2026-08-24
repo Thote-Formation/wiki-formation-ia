@@ -56,7 +56,7 @@
             <li><strong>Règle d'or :</strong> Répondez individuellement <strong>sans utiliser d'IA</strong>, pour avoir une photographie fidèle de votre niveau de départ.</li>
           </ul>
         </div>
-        <a class="wiki-btn wiki-btn-primary" href="/wiki-formation-ia/evaluation-entree/">Accéder à l'évaluation d'entrée</a>
+        <a class="wiki-btn wiki-btn-primary" href="/wiki-formation-ia/v2/evaluation-entree.html">Passer l’évaluation d’entrée · +60 XP</a>
       </section>
 
       <section class="glass-panel" style="padding:24px;margin:20px 0;overflow:auto;">
@@ -109,7 +109,7 @@
         <h2 style="font-size:1.2rem;margin:0 0 8px;">Prêt pour la suite ?</h2>
         <p class="quest-muted">Validez cette étape après avoir découvert l'organisation du parcours et la certification.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
-          <button id="complete-h0" class="wiki-btn wiki-btn-primary">Valider H0 · +40 XP</button>
+          <button id="complete-h0" class="wiki-btn wiki-btn-primary">Valider H0 · +20 XP</button>
           <a class="wiki-btn wiki-btn-secondary" href="/wiki-formation-ia/v2/formation/h1.html">Passer à la séance H1 — Fondamentaux IA & ROFT</a>
           <a class="wiki-btn wiki-btn-secondary" href="/wiki-formation-ia/certification-rs6776/">Consulter le guide RS6776</a>
         </div>
@@ -145,9 +145,15 @@
       const button = document.getElementById("complete-h0");
       if (ThoteStore.getState().completedModules.includes("h0")) { button.disabled = true; button.textContent = "H0 déjà validé ✓"; }
       button.addEventListener("click", () => {
-        ThoteStore.completeModule("h0", 40);
+        const feedback = document.getElementById("complete-feedback");
+        if (!ThoteStore.getState().validatedQuests.includes("evaluation_entree")) {
+          feedback.innerHTML = "Terminez d’abord <a href=\"/wiki-formation-ia/v2/evaluation-entree.html\" style=\"color:var(--secondary)\">l’évaluation d’entrée</a> pour valider H0.";
+          feedback.style.display = "block";
+          return;
+        }
+        ThoteStore.completeModule("h0", 20);
         button.disabled = true; button.textContent = "H0 validé ✓";
-        const feedback = document.getElementById("complete-feedback"); feedback.textContent = "40 XP ajoutés. H1 est maintenant disponible."; feedback.style.display = "block";
+        feedback.textContent = "20 XP ajoutés. H1 est maintenant disponible."; feedback.style.display = "block";
       });
     });
   </script>
