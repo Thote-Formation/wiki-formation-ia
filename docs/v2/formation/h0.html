@@ -6,129 +6,186 @@
   <title>H0 — Lancement formation IA | Thote V2</title>
   <link rel="stylesheet" href="/wiki-formation-ia/v2/assets/theme.css">
   <style>
+    /* QCM Styles - Adapted from evaluation-entree.md */
     .eval-quiz-section {
       margin-bottom: 20px;
     }
     .eval-question-card {
-      background: var(--surface-low, #f8f9fa);
+      background: var(--md-default-bg-color, #fff);
       border-radius: 12px;
       padding: 20px;
       margin-bottom: 16px;
-      border: 1px solid var(--border-color, #ddd);
+      border: 1px solid var(--md-default-fg-color--lightest, #ddd);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
     }
     .eval-question-header {
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
       margin-bottom: 12px;
       font-size: 0.9rem;
-      color: var(--text-muted);
+    }
+    .eval-theme {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(33, 150, 243, 0.12);
+      color: #1a5fb4;
     }
     .eval-question-text {
       font-weight: 600;
       margin-bottom: 16px;
-      color: var(--text-main);
+      color: var(--md-typeset-color, #000);
       line-height: 1.5;
+      font-size: 1rem;
     }
     .eval-options {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
     .eval-option {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 12px;
-      background: var(--md-default-bg-color, #fff);
-      border: 2px solid var(--border-color, #ddd);
-      border-radius: 8px;
+      display: block;
+      padding: 10px 12px;
+      border: 1px solid var(--md-default-fg-color--lightest, #ddd);
+      border-radius: 6px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.18s ease;
+      background: var(--md-default-bg-color, #fff);
+      color: var(--md-typeset-color, #000);
     }
     .eval-option:hover {
-      border-color: var(--primary, #1a5fb4);
-      background: rgba(26, 95, 180, 0.05);
+      background: rgba(33, 150, 243, 0.08);
+      border-color: var(--md-primary-fg-color, #1a5fb4);
     }
     .eval-option.selected {
       border-color: var(--secondary, #44e2cd);
-      background: rgba(68, 226, 205, 0.1);
+      background: rgba(68, 226, 205, 0.15);
     }
     .eval-option.correct {
       border-color: var(--secondary, #44e2cd);
-      background: rgba(68, 226, 205, 0.15);
+      background: rgba(68, 226, 205, 0.25);
     }
     .eval-option.incorrect {
-      border-color: #f87171;
-      background: rgba(248, 113, 113, 0.1);
+      border-color: #c62828;
+      background: rgba(198, 40, 40, 0.1);
     }
     .eval-option input[type="radio"] {
-      margin-top: 2px;
+      margin-right: 8px;
+      accent-color: var(--primary, #1a5fb4);
     }
     .eval-option label {
       cursor: pointer;
-      flex: 1;
-      font-size: 0.9rem;
+      display: block;
+      font-size: 0.95rem;
       line-height: 1.4;
     }
     .eval-actions {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
-      margin-top: 16px;
+      margin: 16px 0;
+    }
+    .eval-actions button {
+      padding: 10px 16px;
+      border: 1px solid var(--md-primary-fg-color, #1a5fb4);
+      border-radius: 999px;
+      background: var(--md-primary-fg-color, #1a5fb4);
+      color: #ffffff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .eval-actions button:hover:not(:disabled) {
+      background: var(--md-primary-fg-color-dark, #154a8f);
+      transform: translateY(-2px);
+    }
+    .eval-actions button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .eval-actions button.eval-reset {
+      background: var(--md-default-bg-color, #fff);
+      color: var(--md-primary-fg-color, #1a5fb4);
+      border-color: var(--md-default-fg-color--light, #aaa);
     }
     .eval-result {
-      background: linear-gradient(135deg, var(--primary, #1a5fb4), var(--secondary, #44e2cd));
-      color: white;
-      padding: 24px;
-      border-radius: 12px;
+      border: 1px solid var(--md-primary-fg-color, #1a5fb4);
+      background: rgba(33, 150, 243, 0.08);
+      padding: 20px;
+      border-radius: 14px;
       margin-top: 20px;
     }
     .eval-result h3 {
       margin: 0 0 12px 0;
+      color: var(--md-typeset-color, #000);
     }
     .eval-progress {
       display: flex;
       justify-content: space-between;
       margin-bottom: 8px;
       font-size: 0.9rem;
-    }
-    .eval-theme-tag {
-      font-size: 0.8rem;
-      opacity: 0.8;
-      margin-bottom: 8px;
+      color: var(--text-muted);
     }
     .eval-score-display {
       font-size: 2rem;
       font-weight: 700;
       text-align: center;
       margin: 16px 0;
+      color: var(--primary, #1a5fb4);
     }
     .eval-level-badge {
       display: inline-block;
       padding: 8px 16px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.4);
       font-weight: 600;
       margin: 8px 0;
+      color: var(--md-typeset-color, #000);
+    }
+    .eval-correction {
+      border: 1px solid var(--md-default-fg-color--lightest, #ddd);
+      background: var(--md-code-bg-color, #f8f9fa);
+      padding: 18px;
+      border-radius: 14px;
+      margin-top: 20px;
+    }
+    .eval-correction h3 {
+      margin: 0 0 16px 0;
+      color: var(--md-typeset-color, #000);
     }
     .eval-correction-item {
-      background: var(--surface-low, #f8f9fa);
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 12px;
-      border-left: 4px solid var(--border-color, #ddd);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--md-default-fg-color--lightest, #ddd);
+    }
+    .eval-correction-item:last-child {
+      border-bottom: none;
     }
     .eval-correction-item.eval-ok {
-      border-left-color: var(--secondary, #44e2cd);
+      background: rgba(68, 226, 205, 0.05);
     }
     .eval-correction-item.eval-ko {
-      border-left-color: #f87171;
+      background: rgba(198, 40, 40, 0.05);
+    }
+    .eval-ok {
+      color: #2e7d32;
+      font-weight: 700;
+    }
+    .eval-ko {
+      color: #c62828;
+      font-weight: 700;
     }
     .eval-nav {
       display: flex;
       gap: 12px;
       margin-top: 16px;
+      flex-wrap: wrap;
     }
     .eval-nav button {
       padding: 10px 20px;
@@ -137,24 +194,21 @@
       cursor: pointer;
       font-weight: 600;
       transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .eval-nav button:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
-    #eval-submit-btn {
+    #h0-eval-submit-btn {
       background: var(--primary, #1a5fb4);
       color: white;
     }
-    #eval-submit-btn:hover:not(:disabled) {
-      background: var(--primary-dark, #154a8f);
-    }
-    #eval-start-btn {
+    #h0-eval-start-btn {
       background: var(--primary, #1a5fb4);
       color: white;
-    }
-    #eval-start-btn:hover {
-      background: var(--primary-dark, #154a8f);
     }
   </style>
 </head>
@@ -248,7 +302,7 @@
         </div>
       </section>
 
-      <!-- QCM Évaluation initiale d'entrée -->
+      <!-- QCM Évaluation initiale d'entrée - 30 questions -->
       <section class="glass-panel neo-bevel eval-quiz-section" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--primary);">
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
           <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">description</span>
@@ -256,21 +310,31 @@
         </div>
         <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
           Réalisez cette évaluation sans l'aide d'un LLM afin de mesurer votre niveau de départ réel.<br>
-          <strong>30 questions</strong> couvrant les bases de l'IA, le prompting, les outils, la confidentialité, l'accessibilité et l'éthique.
+          <strong>30 questions</strong> couvrant les bases de l'IA, le prompting, les outils, la confidentialité, l'accessibilité, l'éthique, les biais et les bons réflexes professionnels.
         </p>
         
-        <div id="h0-eval-intro" style="margin-bottom: 16px;">
-          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
-            <strong>Consignes :</strong> Une seule réponse par question. Cliquez sur « Voir mon résultat » à la fin.
+        <!-- Important notice -->
+        <div class="real-life-box" style="margin-bottom: 16px;">
+          <h4 style="color: var(--secondary); margin: 0 0 8px 0; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined">warning</span>
+            Important
+          </h4>
+          <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-main); margin: 0;">
+            Cette évaluation doit être réalisée sans utiliser d'IA. Le but est d'obtenir une photographie honnête de votre niveau de départ.
           </p>
-          <button id="h0-eval-start-btn" class="wiki-btn wiki-btn-primary">
-            <span class="material-symbols-outlined">launch</span> Commencer l'évaluation
-          </button>
+        </div>
+        
+        <div id="h0-eval-intro" style="margin-bottom: 16px;">
+          <div class="eval-actions">
+            <button id="h0-eval-start-btn" class="wiki-btn wiki-btn-primary">
+              <span class="material-symbols-outlined">launch</span> Commencer l'évaluation
+            </button>
+          </div>
         </div>
 
         <div id="h0-eval-quiz" style="display: none;">
           <div id="h0-eval-questions"></div>
-          <div class="eval-actions">
+          <div class="eval-nav">
             <button id="h0-eval-prev-btn" class="wiki-btn wiki-btn-secondary" style="display: none;">
               <span class="material-symbols-outlined">arrow_back</span> Question précédente
             </button>
@@ -323,7 +387,7 @@
         <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
           Avez-vous complété la lecture et votre évaluation d'entrée ?
         </p>
-        <button onclick="ThoteStore.completeQuest('h0_complete', 50)" class="wiki-btn wiki-btn-primary">
+        <button onclick="ThoteStore.completeQuest('h0_complete', 50); ThoteStore.addXP(50);" class="wiki-btn wiki-btn-primary">
           <span class="material-symbols-outlined">check</span> Valider le module (+50 XP)
         </button>
       </section>
@@ -347,7 +411,7 @@
       initV2Shell('h0');
     });
 
-    // QCM H0 - Questions d'évaluation d'entrée
+    // 30 Questions from evaluation-entree.js
     const h0Questions = [
       {
         theme: "Bases de l'IA",
@@ -386,6 +450,30 @@
         explain: "Une réponse bien écrite peut contenir des erreurs. Le style ne garantit pas la fiabilité."
       },
       {
+        theme: "Bases de l'IA",
+        question: "Pourquoi une IA peut-elle produire deux réponses différentes à une même demande ?",
+        options: [
+          "Parce qu'elle refuse les demandes répétées",
+          "Parce qu'elle ne fonctionne que de façon aléatoire",
+          "Parce qu'elle ne garde jamais le contexte",
+          "Parce qu'elle génère une réponse probable selon le contexte, le modèle et les paramètres"
+        ],
+        correct: 3,
+        explain: "Les modèles génératifs produisent des réponses probables, qui peuvent varier selon le contexte et les paramètres."
+      },
+      {
+        theme: "Bases de l'IA",
+        question: "Dans quel cas l'usage de l'IA est-il le plus pertinent ?",
+        options: [
+          "Produire un premier brouillon à relire et améliorer",
+          "Prendre seule une décision RH sensible",
+          "Remplacer une validation juridique obligatoire",
+          "Publier une information chiffrée sans source"
+        ],
+        correct: 0,
+        explain: "L'IA est très utile pour produire un brouillon, structurer une idée ou reformuler, mais l'humain doit valider."
+      },
+      {
         theme: "Prompting",
         question: "Quel élément manque le plus dans ce prompt : 'Fais-moi un texte sur notre nouveau service' ?",
         options: [
@@ -410,6 +498,90 @@
         explain: "Le troisième prompt précise le rôle, l'objectif, le public, le ton et la contrainte de longueur."
       },
       {
+        theme: "Prompting",
+        question: "Quand est-il utile de demander à l'IA de poser des questions avant de répondre ?",
+        options: [
+          "Quand la demande est urgente mais très simple",
+          "Quand la demande est complexe, floue ou à enjeu",
+          "Uniquement pour générer des images",
+          "Jamais, car cela ralentit toujours le travail"
+        ],
+        correct: 1,
+        explain: "Pour une demande complexe ou sensible, les questions de clarification réduisent les malentendus."
+      },
+      {
+        theme: "Prompting",
+        question: "Dans la méthode CROFT, le 'C' sert surtout à...",
+        options: [
+          "corriger automatiquement les fautes",
+          "choisir le modèle d'IA",
+          "donner la situation, les contraintes et les informations utiles",
+          "citer des sources officielles"
+        ],
+        correct: 2,
+        explain: "Le contexte aide l'IA à produire une réponse adaptée à la situation réelle."
+      },
+      {
+        theme: "Prompting",
+        question: "Vous obtenez une réponse trop générale. Quelle action est la plus pertinente ?",
+        options: [
+          "Supprimer le contexte du prompt",
+          "Demander une réponse plus longue sans autre précision",
+          "Changer la police du texte",
+          "Ajouter des contraintes, un exemple attendu et le public cible"
+        ],
+        correct: 3,
+        explain: "Une réponse générale vient souvent d'un prompt trop vague. Il faut ajouter contexte, contraintes et exemples."
+      },
+      {
+        theme: "Outils IA",
+        question: "Pour choisir un outil IA, quelle démarche est la plus professionnelle ?",
+        options: [
+          "Choisir l'outil le plus populaire",
+          "Identifier la tâche, le niveau de risque, les données utilisées et le résultat attendu",
+          "Utiliser systématiquement le même outil pour tous les besoins",
+          "Choisir uniquement l'outil gratuit"
+        ],
+        correct: 1,
+        explain: "Le bon choix dépend du besoin métier, du risque, des données et du niveau de qualité attendu."
+      },
+      {
+        theme: "Outils IA",
+        question: "Un assistant documentaire est surtout utile pour...",
+        options: [
+          "créer un logo à partir d'une image",
+          "remplacer un logiciel de paie",
+          "interroger et synthétiser des documents fournis",
+          "publier automatiquement sur les réseaux sociaux"
+        ],
+        correct: 2,
+        explain: "Un assistant documentaire sert à travailler à partir de documents donnés par l'utilisateur."
+      },
+      {
+        theme: "Outils IA",
+        question: "Pourquoi faut-il rester prudent avec les outils IA gratuits grand public ?",
+        options: [
+          "Parce qu'ils ne savent jamais rédiger",
+          "Parce que leurs conditions d'utilisation et de traitement des données peuvent varier",
+          "Parce qu'ils sont toujours interdits",
+          "Parce qu'ils ne fonctionnent que pour les images"
+        ],
+        correct: 1,
+        explain: "Les outils gratuits peuvent avoir des politiques différentes sur la conservation ou l'utilisation des données."
+      },
+      {
+        theme: "Outils IA",
+        question: "Quel exemple montre une bonne adéquation entre besoin et outil ?",
+        options: [
+          "Utiliser un générateur d'image pour analyser un contrat confidentiel",
+          "Utiliser un outil de détourage pour rédiger une note RH",
+          "Utiliser un chatbot public pour stocker des données de santé",
+          "Utiliser un LLM pour reformuler un email non sensible, puis relire avant envoi"
+        ],
+        correct: 3,
+        explain: "Un LLM est adapté à la reformulation d'un contenu non sensible, avec relecture humaine."
+      },
+      {
         theme: "Données sensibles",
         question: "Quel prompt présente le risque le plus élevé ?",
         options: [
@@ -420,6 +592,54 @@
         ],
         correct: 2,
         explain: "Le prompt contient une donnée de santé et une personne identifiable. C'est un risque important."
+      },
+      {
+        theme: "Données sensibles",
+        question: "Quelle anonymisation est la plus correcte ?",
+        options: [
+          "Remplacer 'Marie Dupont, salariée absente pour dépression' par 'Salariée A, situation personnelle sensible supprimée'",
+          "Remplacer seulement le prénom",
+          "Garder le nom mais supprimer la date",
+          "Changer la ponctuation du texte"
+        ],
+        correct: 0,
+        explain: "Il faut supprimer ou neutraliser les éléments permettant d'identifier la personne et la donnée sensible."
+      },
+      {
+        theme: "Données sensibles",
+        question: "Quel type d'information doit déclencher une vigilance particulière avant usage dans une IA ?",
+        options: [
+          "Un slogan public déjà publié",
+          "Un exemple inventé",
+          "Une information RH, médicale, financière ou contractuelle",
+          "Une consigne pédagogique générale"
+        ],
+        correct: 2,
+        explain: "Les informations RH, médicales, financières ou contractuelles peuvent être sensibles ou confidentielles."
+      },
+      {
+        theme: "Données sensibles",
+        question: "Quelle est la meilleure pratique avant d'utiliser un outil IA avec des données professionnelles ?",
+        options: [
+          "Vérifier les règles internes, les paramètres de confidentialité et la nature des données",
+          "Copier-coller le document complet pour gagner du temps",
+          "Tester d'abord avec des données réelles",
+          "Envoyer les mêmes données à plusieurs outils pour comparer"
+        ],
+        correct: 0,
+        explain: "Il faut vérifier les règles internes, les paramètres de l'outil et éviter d'exposer des données sensibles."
+      },
+      {
+        theme: "Données sensibles",
+        question: "Pourquoi une donnée même 'professionnelle' peut-elle poser problème ?",
+        options: [
+          "Parce qu'une donnée professionnelle est toujours publique",
+          "Parce qu'elle peut identifier une personne, révéler une information confidentielle ou exposer l'entreprise",
+          "Parce qu'elle empêche toujours l'IA de répondre",
+          "Parce qu'elle doit toujours être publiée"
+        ],
+        correct: 1,
+        explain: "Une donnée professionnelle peut aussi être personnelle, confidentielle ou stratégique."
       },
       {
         theme: "Accessibilité",
@@ -434,6 +654,42 @@
         explain: "La deuxième phrase est plus simple, directe et compréhensible."
       },
       {
+        theme: "Accessibilité",
+        question: "Pourquoi faut-il éviter de transmettre une information uniquement par la couleur ?",
+        options: [
+          "Parce que la couleur augmente toujours le poids du fichier",
+          "Parce que certaines personnes peuvent ne pas percevoir ou distinguer les couleurs",
+          "Parce que le noir et blanc est obligatoire",
+          "Parce que les lecteurs d'écran lisent toutes les couleurs"
+        ],
+        correct: 1,
+        explain: "Une information importante doit aussi être portée par du texte, une icône ou une structure claire."
+      },
+      {
+        theme: "Accessibilité",
+        question: "Quel prompt est le plus adapté pour simplifier un texte sans infantiliser le lecteur ?",
+        options: [
+          "Rends ce texte plus bébé.",
+          "Supprime tous les détails.",
+          "Réécris ce texte avec des phrases courtes, un vocabulaire simple, un ton professionnel et sans perdre le sens initial.",
+          "Fais un résumé drôle."
+        ],
+        correct: 2,
+        explain: "Il faut simplifier sans déformer le sens ni adopter un ton infantilisant."
+      },
+      {
+        theme: "Accessibilité",
+        question: "Dans une note interne, quel choix améliore le plus la lisibilité ?",
+        options: [
+          "Un bloc de texte long sans titres",
+          "Des titres clairs, des listes à puces et une idée par paragraphe",
+          "Des acronymes non expliqués",
+          "Une phrase unique très détaillée"
+        ],
+        correct: 1,
+        explain: "La structure facilite la compréhension et la navigation dans le contenu."
+      },
+      {
         theme: "Éthique et biais",
         question: "Quel exemple contient le plus clairement un biais à corriger ?",
         options: [
@@ -444,6 +700,54 @@
         ],
         correct: 2,
         explain: "Cette formulation associe un métier et des qualités à un stéréotype de genre."
+      },
+      {
+        theme: "Éthique et biais",
+        question: "Quelle est la meilleure réaction face à une réponse IA qui généralise un groupe de personnes ?",
+        options: [
+          "La publier si elle est bien écrite",
+          "Demander une reformulation plus neutre, inclusive et justifiée",
+          "Ajouter des adjectifs plus forts",
+          "Supprimer uniquement les accents"
+        ],
+        correct: 1,
+        explain: "Il faut corriger les généralisations et demander une formulation plus neutre."
+      },
+      {
+        theme: "Éthique et biais",
+        question: "Dans quel cas la supervision humaine est-elle la plus importante ?",
+        options: [
+          "Choisir une icône décorative",
+          "Corriger une faute de frappe",
+          "Trier automatiquement des candidatures ou évaluer des personnes",
+          "Proposer trois titres d'article"
+        ],
+        correct: 2,
+        explain: "Les décisions qui affectent des personnes nécessitent une supervision humaine forte."
+      },
+      {
+        theme: "Éthique et biais",
+        question: "Quel réflexe est le plus responsable avant de diffuser un contenu généré par IA ?",
+        options: [
+          "Vérifier les faits, le ton, les biais possibles et l'adéquation avec le public",
+          "Publier rapidement pour gagner du temps",
+          "Conserver les erreurs si le texte est fluide",
+          "Masquer que le contenu concerne des personnes"
+        ],
+        correct: 0,
+        explain: "Un contenu généré doit être relu, vérifié et adapté avant diffusion."
+      },
+      {
+        theme: "Éthique et biais",
+        question: "Quel usage est le plus sensible au regard des risques éthiques et réglementaires ?",
+        options: [
+          "Réécrire une phrase trop longue",
+          "Créer un brouillon de post LinkedIn",
+          "Générer une idée de titre",
+          "Utiliser une IA pour influencer une décision d'accès à un emploi, un service ou un droit"
+        ],
+        correct: 3,
+        explain: "Les usages qui influencent l'accès à un emploi, un service ou un droit sont particulièrement sensibles."
       },
       {
         theme: "Vérification",
@@ -458,16 +762,16 @@
         explain: "Une donnée chiffrée doit être vérifiée avec une source fiable avant diffusion."
       },
       {
-        theme: "Outils IA",
-        question: "Pourquoi faut-il rester prudent avec les outils IA gratuits grand public ?",
+        theme: "Vérification",
+        question: "Quelle consigne améliore le plus la fiabilité d'une réponse IA ?",
         options: [
-          "Parce qu'ils ne savent jamais rédiger",
-          "Parce que leurs conditions d'utilisation et de traitement des données peuvent varier",
-          "Parce qu'ils sont toujours interdits",
-          "Parce qu'ils ne fonctionnent que pour les images"
+          "Réponds vite.",
+          "Donne une réponse certaine même si tu n'es pas sûr.",
+          "Ajoute plus de style.",
+          "Indique les points incertains, les hypothèses et les éléments à vérifier."
         ],
-        correct: 1,
-        explain: "Les outils gratuits peuvent avoir des politiques différentes sur la conservation ou l'utilisation des données."
+        correct: 3,
+        explain: "Demander les incertitudes et les éléments à vérifier aide à mieux contrôler la réponse."
       }
     ];
 
@@ -493,7 +797,7 @@
       container.innerHTML = `
         <div class="eval-progress">
           <span>Question ${h0CurrentQuestion + 1} / ${h0Questions.length}</span>
-          <span class="eval-theme-tag">Thème : ${q.theme}</span>
+          <span class="eval-theme">Thème : ${q.theme}</span>
         </div>
         <div class="eval-question-card">
           <div class="eval-question-text">${q.question}</div>
@@ -564,6 +868,7 @@
           <div class="eval-score-display">${score} / ${h0Questions.length}</div>
           <div class="eval-level-badge">${levelLabel} (${percentage}%)</div>
           <p style="margin-top: 12px; line-height: 1.6;">${levelMessage}</p>
+          <p style="margin-top: 12px; font-size: 0.9rem; color: var(--text-muted);"><em>Ce résultat sert uniquement à situer votre niveau de départ.</em></p>
         </div>
         <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
           <button onclick="h0ShowCorrection()" class="wiki-btn wiki-btn-secondary">
@@ -586,7 +891,7 @@
     function h0ShowCorrection() {
       const correctionDiv = document.getElementById('h0-eval-correction');
       correctionDiv.style.display = 'block';
-      correctionDiv.innerHTML = '<h3 style="margin-bottom: 16px;">Correction détaillée</h3>';
+      correctionDiv.innerHTML = '<h3>Correction détaillée</h3><p style="margin-bottom: 16px; color: var(--text-muted);">Relisez les questions et comparez avec les bonnes réponses.</p>';
       
       h0Questions.forEach((q, index) => {
         const userAnswer = h0Answers[index];
@@ -599,7 +904,7 @@
           <h4 style="margin: 0 0 8px 0;">Question ${index + 1} — ${q.theme}</h4>
           <p style="margin: 0 0 8px 0; font-weight: 600;">${q.question}</p>
           <p style="margin: 0 0 4px 0;">Votre réponse : <strong>${answerText}</strong></p>
-          <p style="margin: 0 0 4px 0; color: ${isCorrect ? 'var(--secondary)' : '#f87171'};">
+          <p style="margin: 0 0 4px 0; color: ${isCorrect ? 'var(--secondary)' : '#c62828'};">
             ${isCorrect ? '✓' : '✗'} Bonne réponse : <strong>${q.options[q.correct]}</strong>
           </p>
           <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); font-style: italic;">${q.explain}</p>
@@ -621,22 +926,27 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Event listeners
-    document.getElementById('h0-eval-start-btn').addEventListener('click', h0StartEvaluation);
-    document.getElementById('h0-eval-prev-btn').addEventListener('click', () => {
-      if (h0CurrentQuestion > 0) {
-        h0CurrentQuestion--;
-        h0RenderQuestion();
-        h0UpdateNavigation();
-      }
-    });
-    document.getElementById('h0-eval-next-btn').addEventListener('click', () => {
+    // Navigation between questions
+    function h0GoToNext() {
       if (h0Answers[h0CurrentQuestion] !== null && h0CurrentQuestion < h0Questions.length - 1) {
         h0CurrentQuestion++;
         h0RenderQuestion();
         h0UpdateNavigation();
       }
-    });
+    }
+
+    function h0GoToPrev() {
+      if (h0CurrentQuestion > 0) {
+        h0CurrentQuestion--;
+        h0RenderQuestion();
+        h0UpdateNavigation();
+      }
+    }
+
+    // Event listeners
+    document.getElementById('h0-eval-start-btn').addEventListener('click', h0StartEvaluation);
+    document.getElementById('h0-eval-prev-btn').addEventListener('click', h0GoToPrev);
+    document.getElementById('h0-eval-next-btn').addEventListener('click', h0GoToNext);
     document.getElementById('h0-eval-submit-btn').addEventListener('click', h0ShowResult);
 
     // Expose functions globally for onclick handlers

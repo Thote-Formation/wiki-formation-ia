@@ -44,7 +44,7 @@ export class ThoteStore {
     if (!state.validatedQuests.includes(questId)) {
       state.validatedQuests.push(questId);
       state.xp += xpReward;
-      // Calcul simple de niveau : +1 niveau tous les 100 XP
+      // Recalcul du niveau
       const newLevel = Math.floor(state.xp / 100) + 1;
       if (newLevel > state.level) {
         state.level = newLevel;
@@ -143,8 +143,7 @@ function updateRightSidebar() {
   if (!el) return;
 
   const state = ThoteStore.getState();
-  const xpNext = state.level * 100;
-  const progressPercent = Math.min(100, Math.floor(((state.xp % 100) / 100) * 100));
+  const progressPercent = Math.min(100, ((state.xp % 100) / 100) * 100);
 
   el.innerHTML = `
     <h3 style="font-size:1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
