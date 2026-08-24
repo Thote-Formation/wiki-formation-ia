@@ -1,945 +1,155 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>H0 — Lancement formation IA | Thote V2</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>H0 — Lancement formation IA générative | Thotie Quest</title>
   <link rel="stylesheet" href="/wiki-formation-ia/v2/assets/theme.css">
-  <style>
-    /* QCM Styles - Adapted for DARK theme */
-    .eval-quiz-section {
-      margin-bottom: 20px;
-    }
-    .eval-question-card {
-      background: var(--surface-low, #171f33);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-      border: 1px solid var(--border-color);
-    }
-    .eval-question-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-    .eval-theme {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 4px 9px;
-      border-radius: 999px;
-      background: rgba(208, 188, 255, 0.15);
-      color: var(--primary);
-    }
-    .eval-question-text {
-      font-weight: 600;
-      margin-bottom: 16px;
-      color: var(--text-main);
-      line-height: 1.5;
-      font-size: 1rem;
-    }
-    .eval-options {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .eval-option {
-      display: block;
-      padding: 10px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      background: var(--surface-high, #222a3d);
-      color: var(--text-main);
-    }
-    .eval-option:hover {
-      background: rgba(208, 188, 255, 0.1);
-      border-color: var(--primary);
-    }
-    .eval-option.selected {
-      border-color: var(--secondary);
-      background: rgba(68, 226, 205, 0.15);
-    }
-    .eval-option.correct {
-      border-color: var(--secondary);
-      background: rgba(68, 226, 205, 0.25);
-    }
-    .eval-option.incorrect {
-      border-color: #ff5252;
-      background: rgba(255, 82, 82, 0.1);
-    }
-    .eval-option input[type="radio"] {
-      margin-right: 8px;
-      accent-color: var(--primary);
-      filter: brightness(0) invert(1);
-    }
-    .eval-option label {
-      cursor: pointer;
-      display: block;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      color: var(--text-main);
-    }
-    .eval-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 16px 0;
-    }
-    .eval-result {
-      border: 1px solid var(--primary);
-      background: rgba(208, 188, 255, 0.08);
-      padding: 20px;
-      border-radius: 14px;
-      margin-top: 20px;
-      color: var(--text-main);
-    }
-    .eval-result h3 {
-      margin: 0 0 12px 0;
-      color: #fff;
-    }
-    .eval-progress {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-    .eval-score-display {
-      font-size: 2rem;
-      font-weight: 700;
-      text-align: center;
-      margin: 16px 0;
-      color: var(--primary);
-    }
-    .eval-level-badge {
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      font-weight: 600;
-      margin: 8px 0;
-      color: #fff;
-    }
-    .eval-correction {
-      border: 1px solid var(--border-color);
-      background: var(--surface-low, #171f33);
-      padding: 18px;
-      border-radius: 14px;
-      margin-top: 20px;
-      color: var(--text-main);
-    }
-    .eval-correction h3 {
-      margin: 0 0 16px 0;
-      color: #fff;
-    }
-    .eval-correction-item {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-    .eval-correction-item:last-child {
-      border-bottom: none;
-    }
-    .eval-correction-item.eval-ok {
-      background: rgba(68, 226, 205, 0.05);
-    }
-    .eval-correction-item.eval-ko {
-      background: rgba(255, 82, 82, 0.05);
-    }
-    .eval-ok {
-      color: var(--secondary);
-      font-weight: 700;
-    }
-    .eval-ko {
-      color: #ff5252;
-      font-weight: 700;
-    }
-    .eval-nav {
-      display: flex;
-      gap: 12px;
-      margin-top: 16px;
-      flex-wrap: wrap;
-    }
-    .eval-nav button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .eval-nav button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    #h0-eval-submit-btn {
-      background: var(--primary);
-      color: #120038;
-    }
-    #h0-eval-start-btn {
-      background: var(--primary);
-      color: #120038;
-    }
-  </style>
 </head>
 <body>
-
-  <!-- Header JS Target -->
   <div id="v2-header-target"></div>
-
-  <!-- App Dashboard 3-Columns -->
   <div class="v2-app-container">
-    
-    <!-- Left Navigation Target -->
-    <div id="v2-left-sidebar-target" class="left-sidebar"></div>
-
-    <!-- Main Central Content -->
+    <aside id="v2-left-sidebar-target" class="left-sidebar"></aside>
     <main class="main-content">
-      
-      <!-- Module Hero Banner -->
-      <section class="glass-panel neo-bevel glow-primary" style="padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden;">
-        <div class="label-tech" style="color: var(--secondary); margin-bottom: 8px;">Module H0</div>
-        <h1 style="font-size: 2rem; margin-bottom: 12px;">Lancement & Cadrage du Parcours IA</h1>
-        <p style="color: var(--text-muted); max-width: 650px; line-height: 1.6;">
-          Présentation de la certification RS6776, du déroulé pédagogique et de votre objectif personnel.
-        </p>
+      <section class="glass-panel neo-bevel glow-primary" style="padding:32px;margin-bottom:24px;">
+        <p class="label-tech" style="color:var(--secondary);margin:0 0 8px;">MODULE H0 · LANCEMENT</p>
+        <h1 style="font-size:clamp(1.8rem,4vw,2.4rem);margin:0 0 12px;">H0 — Lancement formation IA générative</h1>
+        <p style="color:var(--text-muted);line-height:1.65;max-width:760px;margin:0;">Cette première séance pose les bases de votre parcours. Elle vous permettra de comprendre l'organisation de la formation, de découvrir la certification RS6776 et d'évaluer vos connaissances de départ.</p>
       </section>
 
-      <!-- Objectifs Section -->
-      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary);">flag</span>
-          Objectifs de la séance
-        </h2>
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
-            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
-            <span>Présenter le parcours de formation et la certification RS6776.</span>
-          </li>
-          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
-            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
-            <span>Comprendre l'utilité concrète du parcours au quotidien.</span>
-          </li>
-          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
-            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
-            <span>Visualiser les 6 exercices pratiques de l'examen.</span>
-          </li>
-          <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px;">
-            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
-            <span>Clarifier votre situation initiale et fixer votre objectif personnel.</span>
-          </li>
+      <section class="glass-panel" style="padding:24px;margin-bottom:20px;">
+        <h2 style="font-size:1.2rem;margin:0 0 16px;">Objectifs de cette séance</h2>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li>✓ Présenter le parcours de formation et la certification RS6776</li>
+          <li>✓ Comprendre en quoi cette certification vous sera utile au quotidien</li>
+          <li>✓ Visualiser les 6 exercices pratiques que vous allez préparer</li>
+          <li>✓ Clarifier votre situation actuelle et vos attentes professionnelles</li>
+          <li>✓ Présenter les ressources complémentaires et le cadre de formation</li>
+          <li>✓ Déterminer ensemble votre objectif personnel pour la fin du parcours</li>
         </ul>
       </section>
 
-      <!-- Question de depart -->
-      <div class="real-life-box">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-          <span class="material-symbols-outlined" style="color: var(--secondary); font-size: 24px;">psychology</span>
-          <h3 style="color: var(--secondary); margin: 0;">Question de départ</h3>
-        </div>
-        <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-main); margin: 0;">
-          <em>« Dans 3 mois, en quoi aimeriez-vous que votre usage de l'IA générative ait changé dans votre poste au quotidien ? »</em>
-        </p>
-      </div>
+      <aside class="real-life-box">
+        <h3 style="color:var(--secondary);margin:0 0 8px;">Question de départ</h3>
+        <p style="margin:0;line-height:1.6;"><em>« Dans 3 mois, en quoi aimeriez-vous que votre usage de l'IA générative ait changé dans votre poste au quotidien ? »</em></p>
+      </aside>
 
-      <!-- Déroulé de la séance -->
-      <section class="glass-panel" style="padding: 24px; margin-top: 20px; margin-bottom: 20px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary);">schedule</span>
-          Déroulé de la séance
-        </h2>
+      <section class="glass-panel" style="padding:24px;margin:20px 0;">
+        <h2 style="font-size:1.2rem;margin:0 0 16px;">Déroulé de la séance</h2>
         <div class="cards-grid">
-          <div class="glass-panel interactive-card" style="padding: 16px;">
-            <div style="font-size: 1.5rem; margin-bottom: 8px; color: var(--primary);">1</div>
-            <h4 style="margin-bottom: 4px;">Accueil & Attentes</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><small>10 min - Présentation mutuelle et besoins métier.</small></p>
-          </div>
-          <div class="glass-panel interactive-card" style="padding: 16px;">
-            <div style="font-size: 1.5rem; margin-bottom: 8px; color: var(--primary);">2</div>
-            <h4 style="margin-bottom: 4px;">Évaluation initiale</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><small>20 min - Questionnaire d'entrée individuel sans IA.</small></p>
-          </div>
-          <div class="glass-panel interactive-card" style="padding: 16px;">
-            <div style="font-size: 1.5rem; margin-bottom: 8px; color: var(--primary);">3</div>
-            <h4 style="margin-bottom: 4px;">Plateforme Workinlive</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><small>10 min - Formations complémentaires (Canva, Google, Cybersécurité).</small></p>
-          </div>
-          <div class="glass-panel interactive-card" style="padding: 16px;">
-            <div style="font-size: 1.5rem; margin-bottom: 8px; color: var(--primary);">4</div>
-            <h4 style="margin-bottom: 4px;">Certification RS6776</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;"><small>20 min - Présentation des 6 exercices et oral visio.</small></p>
-          </div>
+          <article class="glass-panel interactive-card" style="padding:18px;"><p class="quest-eyebrow" style="color:var(--tertiary);">10 MIN</p><h3>1. Accueil & attentes</h3><p class="quest-muted">Présentation mutuelle des participants, expression des besoins métier et aperçu général de la formation.</p></article>
+          <article class="glass-panel interactive-card" style="padding:18px;"><p class="quest-eyebrow" style="color:var(--tertiary);">20 MIN</p><h3>2. Évaluation initiale</h3><p class="quest-muted">Réalisation du questionnaire d'entrée en autonomie (sans IA), suivie d'une analyse collective des principaux résultats.</p></article>
+          <article class="glass-panel interactive-card" style="padding:18px;"><p class="quest-eyebrow" style="color:var(--tertiary);">10 MIN</p><h3>3. Plateforme Workinlive</h3><p class="quest-muted">Présentation des 4 formations complémentaires disponibles (Canva, Prompting IA, Google, Cybersécurité).</p></article>
+          <article class="glass-panel interactive-card" style="padding:18px;"><p class="quest-eyebrow" style="color:var(--tertiary);">20 MIN</p><h3>4. Certification RS6776</h3><p class="quest-muted">Présentation détaillée de la certification RS6776, explication des 6 exercices de l'examen et définition de votre objectif personnel.</p></article>
         </div>
       </section>
 
-      <!-- QCM Évaluation initiale d'entrée - 30 questions -->
-      <section class="glass-panel neo-bevel eval-quiz-section" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--primary);">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">description</span>
-          <h3 style="margin: 0;">Évaluation initiale d'entrée</h3>
+      <section class="glass-panel" style="padding:24px;margin:20px 0;">
+        <h2 style="font-size:1.2rem;margin:0 0 12px;">Évaluation initiale</h2>
+        <p style="line-height:1.6;color:var(--text-muted);">L'évaluation d'entrée permet de dresser un bilan de vos connaissances avant de démarrer les modules techniques.</p>
+        <div class="real-life-box" style="margin:18px 0;">
+          <h3 style="color:var(--secondary);margin:0 0 8px;">Consignes de l'évaluation</h3>
+          <ul style="margin:0;padding-left:20px;line-height:1.7;">
+            <li><strong>Objectif :</strong> Obtenir un diagnostic précis de vos connaissances actuelles afin d'adapter les exemples pratiques des séances H1 à H7 à votre contexte professionnel.</li>
+            <li><strong>Durée :</strong> Environ 15 à 20 minutes.</li>
+            <li><strong>Format :</strong> Questionnaire interactif couvrant les fondamentaux de l'IA, le prompting, les outils, la sécurité/RGPD, l'accessibilité et l'éthique.</li>
+            <li><strong>Règle d'or :</strong> Répondez individuellement <strong>sans utiliser d'IA</strong>, pour avoir une photographie fidèle de votre niveau de départ.</li>
+          </ul>
         </div>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
-          Réalisez cette évaluation sans l'aide d'un LLM afin de mesurer votre niveau de départ réel.<br>
-          <strong>30 questions</strong> couvrant les bases de l'IA, le prompting, les outils, la confidentialité, l'accessibilité, l'éthique, les biais et les bons réflexes professionnels.
-        </p>
-        
-        <!-- Important notice -->
-        <div class="real-life-box" style="margin-bottom: 16px;">
-          <h4 style="color: var(--secondary); margin: 0 0 8px 0; display: flex; align-items: center; gap: 8px;">
-            <span class="material-symbols-outlined">warning</span>
-            Important
-          </h4>
-          <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-main); margin: 0;">
-            Cette évaluation doit être réalisée sans utiliser d'IA. Le but est d'obtenir une photographie honnête de votre niveau de départ.
-          </p>
-        </div>
-        
-        <div id="h0-eval-intro" style="margin-bottom: 16px;">
-          <div class="eval-actions">
-            <button id="h0-eval-start-btn" class="wiki-btn wiki-btn-primary">
-              <span class="material-symbols-outlined">launch</span> Commencer l'évaluation
-            </button>
-          </div>
-        </div>
-
-        <div id="h0-eval-quiz" style="display: none;">
-          <div id="h0-eval-questions"></div>
-          <div class="eval-nav">
-            <button id="h0-eval-prev-btn" class="wiki-btn wiki-btn-secondary" style="display: none;">
-              <span class="material-symbols-outlined">arrow_back</span> Question précédente
-            </button>
-            <button id="h0-eval-next-btn" class="wiki-btn wiki-btn-secondary" style="display: none;">
-              Question suivante <span class="material-symbols-outlined">arrow_forward</span>
-            </button>
-            <button id="h0-eval-submit-btn" class="wiki-btn wiki-btn-primary" style="display: none;">
-              <span class="material-symbols-outlined">check</span> Voir mon résultat
-            </button>
-          </div>
-        </div>
-
-        <div id="h0-eval-result" style="display: none;"></div>
-        <div id="h0-eval-correction" style="display: none;"></div>
+        <a class="wiki-btn wiki-btn-primary" href="/wiki-formation-ia/evaluation-entree/">Accéder à l'évaluation d'entrée</a>
       </section>
 
-      <!-- Examen RS6776 -->
-      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary);">school</span>
-          Examen RS6776 : Les 3 étapes
-        </h2>
-        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
-          <div class="glass-panel" style="padding: 16px; min-width: 200px; text-align: center;">
-            <div style="font-size: 2rem; margin-bottom: 8px; color: var(--secondary);">1</div>
-            <h4 style="margin-bottom: 4px;">Fin du parcours</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Remise du sujet</p>
-          </div>
-          <span class="material-symbols-outlined" style="font-size: 32px; color: var(--primary);">arrow_forward</span>
-          <div class="glass-panel" style="padding: 16px; min-width: 200px; text-align: center;">
-            <div style="font-size: 2rem; margin-bottom: 8px; color: var(--secondary);">2</div>
-            <h4 style="margin-bottom: 4px;">Rendu écrit</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Sous 10 jours max</p>
-          </div>
-          <span class="material-symbols-outlined" style="font-size: 32px; color: var(--primary);">arrow_forward</span>
-          <div class="glass-panel" style="padding: 16px; min-width: 200px; text-align: center;">
-            <div style="font-size: 2rem; margin-bottom: 8px; color: var(--secondary);">3</div>
-            <h4 style="margin-bottom: 4px;">Oral visio</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">20 min de soutenance</p>
-          </div>
-        </div>
+      <section class="glass-panel" style="padding:24px;margin:20px 0;overflow:auto;">
+        <h2 style="font-size:1.2rem;margin:0 0 12px;">La plateforme Workinlive</h2>
+        <p style="line-height:1.6;color:var(--text-muted);">En complément des séances synchrones H0 à H7, la plateforme Workinlive vous donne accès à des modules d'auto-formation pour renforcer vos compétences transversales :</p>
+        <table style="width:100%;border-collapse:collapse;min-width:520px;margin-top:16px;">
+          <thead><tr style="background:var(--surface-highest);"><th style="text-align:left;padding:12px;">Formation complémentaire</th><th style="text-align:left;padding:12px;">Lien avec le parcours H1-H7</th></tr></thead>
+          <tbody>
+            <tr><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Canva</strong> <em>(créer des visuels professionnels)</em></td><td style="padding:12px;border-top:1px solid var(--border-color);">Aide à mettre en forme et valoriser ce que vous produisez avec l'IA.</td></tr>
+            <tr><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Bases de l'IA générative & prompting</strong></td><td style="padding:12px;border-top:1px solid var(--border-color);">Renforce les concepts abordés de H1 à H4.</td></tr>
+            <tr><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Outils Google</strong> <em>(Agenda, Meet, Gmail, Chrome)</em></td><td style="padding:12px;border-top:1px solid var(--border-color);">Aide à organiser, structurer et diffuser vos productions IA.</td></tr>
+            <tr><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Cybersécurité</strong></td><td style="padding:12px;border-top:1px solid var(--border-color);">Complète le module H5 sur la confidentialité et la protection des données.</td></tr>
+          </tbody>
+        </table>
       </section>
 
-      <!-- Validation Module -->
-      <section class="glass-panel neo-bevel" style="padding: 24px; margin-top: 24px; border: 1px solid var(--secondary);">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">military_tech</span>
-          <h3 style="margin: 0;">Valider le Module H0</h3>
+      <section class="glass-panel" style="padding:24px;margin:20px 0;">
+        <h2 style="font-size:1.2rem;margin:0 0 12px;">Certification RS6776 — Déroulement de l'examen</h2>
+        <p style="line-height:1.6;color:var(--text-muted);">La certification <strong>RS6776</strong> valide vos compétences pratiques dans l'usage professionnel et responsable des outils d'IA générative.</p>
+        <div class="cards-grid" style="grid-template-columns:repeat(3,minmax(150px,1fr));">
+          <article class="glass-panel" style="padding:18px;text-align:center;"><strong style="color:var(--primary);">1. Fin du parcours</strong><p class="quest-muted">Remise du sujet d'examen</p></article>
+          <article class="glass-panel" style="padding:18px;text-align:center;"><strong style="color:var(--primary);">2. Rendu de l'écrit</strong><p class="quest-muted">Sous 10 jours maximum</p></article>
+          <article class="glass-panel" style="padding:18px;text-align:center;"><strong style="color:var(--primary);">3. Soutenance orale</strong><p class="quest-muted">20 min en visio (J+5 max)</p></article>
         </div>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
-          Avez-vous complété la lecture et votre évaluation d'entrée ?
-        </p>
-        <button onclick="addXPAndComplete()" class="wiki-btn wiki-btn-primary">
-          <span class="material-symbols-outlined">check</span> Valider le module (+50 XP)
-        </button>
+        <ol style="padding-left:20px;line-height:1.7;">
+          <li><strong>Rendu écrit (6 exercices) :</strong> En fin de formation, vous recevez un sujet écrit composé de 6 mises en situation professionnelles. Vous disposez de <strong>10 jours</strong> pour remettre vos travaux.</li>
+          <li><strong>Soutenance orale (20 minutes) :</strong> Dans les <strong>5 jours</strong> suivant la correction de votre écrit, vous passez un oral individuel en visioconférence.</li>
+          <li><strong>Objectif de l'oral :</strong> Expliciter vos choix méthodologiques, démontrer votre maîtrise des 6 compétences du référentiel et, si nécessaire, préciser ou ajuster un exercice écrit insuffisant.</li>
+        </ol>
       </section>
 
+      <section class="glass-panel" style="padding:24px;margin:20px 0;overflow:auto;">
+        <h2 style="font-size:1.2rem;margin:0 0 12px;">Articulation Parcours → Certification</h2>
+        <p class="quest-muted">Chaque séance de formation est directement reliée à un ou plusieurs exercices de l'examen RS6776 :</p>
+        <table style="width:100%;border-collapse:collapse;min-width:620px;margin-top:16px;"><thead><tr style="background:var(--surface-highest);"><th style="padding:12px;text-align:left;">Séance</th><th style="padding:12px;text-align:left;">Contenu principal de la formation</th><th style="padding:12px;text-align:left;">Exercice(s) préparé(s) pour la certification</th></tr></thead><tbody id="path-table"></tbody></table>
+      </section>
+
+      <section class="glass-panel" style="padding:24px;margin:20px 0;">
+        <h2 style="font-size:1.2rem;margin:0 0 16px;">Les 6 exercices de la certification RS6776</h2>
+        <div class="cards-grid" id="exam-grid"></div>
+      </section>
+
+      <aside class="real-life-box">
+        <h3 style="color:var(--secondary);margin:0 0 8px;">À retenir</h3>
+        <p style="margin:0;line-height:1.6;">Vous connaissez maintenant la structure globale du parcours. L'objectif n'est pas seulement d'utiliser des outils IA, mais de développer une pratique méthodique, sécurisée et éthique qui prépare directement votre réussite à la certification RS6776.</p>
+      </aside>
+
+      <section class="glass-panel neo-bevel" style="padding:24px;margin:20px 0;border-color:rgba(68,226,205,.4);">
+        <p class="label-tech" style="color:var(--secondary);margin:0 0 8px;">QUÊTE H0</p>
+        <h2 style="font-size:1.2rem;margin:0 0 8px;">Prêt pour la suite ?</h2>
+        <p class="quest-muted">Validez cette étape après avoir découvert l'organisation du parcours et la certification.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+          <button id="complete-h0" class="wiki-btn wiki-btn-primary">Valider H0 · +40 XP</button>
+          <a class="wiki-btn wiki-btn-secondary" href="/wiki-formation-ia/v2/formation/h1.html">Passer à la séance H1 — Fondamentaux IA & ROFT</a>
+          <a class="wiki-btn wiki-btn-secondary" href="/wiki-formation-ia/certification-rs6776/">Consulter le guide RS6776</a>
+        </div>
+        <p id="complete-feedback" class="quest-muted" style="display:none;margin:12px 0 0;"></p>
+      </section>
     </main>
-
-    <!-- Right Progression Sidebar Target -->
-    <div id="v2-right-sidebar-target" class="right-sidebar"></div>
-
+    <aside id="v2-right-sidebar-target" class="right-sidebar"></aside>
   </div>
-
-  <!-- Footer Target -->
   <div id="v2-footer-target"></div>
-
-  <!-- Scripts Logic -->
   <script type="module">
-    import { initV2Shell, ThoteStore } from '/wiki-formation-ia/v2/assets/shared.js';
-
-    // Initialisation du Shell partagé (Active tab = 'h0')
-    document.addEventListener('DOMContentLoaded', () => {
-      initV2Shell('h0');
-    });
-
-    // Function to force XP addition
-    window.addXPAndComplete = function() {
-      ThoteStore.completeQuest('h0_complete', 50);
-      // Force update by reading and re-saving state
-      const state = ThoteStore.getState();
-      ThoteStore.saveState(state);
-      console.log('XP ajouté:', state.xp, 'Niveau:', state.level);
-    };
-
-    // 30 Questions from evaluation-entree.js
-    const h0Questions = [
-      {
-        theme: "Bases de l'IA",
-        question: "Dans un usage professionnel, quelle description de l'IA générative est la plus juste ?",
-        options: [
-          "Un outil qui garantit automatiquement la conformité des contenus",
-          "Un outil qui produit des contenus à partir de consignes, mais dont les réponses doivent être vérifiées",
-          "Un moteur de recherche qui cite toujours ses sources",
-          "Un logiciel qui applique uniquement des règles fixes programées à l'avance"
-        ],
-        correct: 1,
-        explain: "L'IA générative produit des contenus à partir de prompts, mais elle peut se tromper. La vérification humaine reste indispensable."
-      },
-      {
-        theme: "Bases de l'IA",
-        question: "Vous demandez à une IA de résumer un document. Quel est le principal risque si le document source n'est pas fourni ?",
-        options: [
-          "L'IA peut compléter avec des informations plausibles mais non vérifiées",
-          "L'IA refusera toujours de répondre",
-          "L'IA produira forcément un résumé exact",
-          "L'IA supprimera automatiquement les données sensibles"
-        ],
-        correct: 0,
-        explain: "Sans source fiable, l'IA peut inventer ou généraliser des informations."
-      },
-      {
-        theme: "Bases de l'IA",
-        question: "Quelle attitude est la plus adaptée face à une réponse IA très bien rédigée ?",
-        options: [
-          "La publier directement si le style est professionnel",
-          "La considérer comme fiable si elle contient des chiffres",
-          "La relire, vérifier les informations importantes et l'adapter au contexte",
-          "La reformuler automatiquement avec une autre IA"
-        ],
-        correct: 2,
-        explain: "Une réponse bien écrite peut contenir des erreurs. Le style ne garantit pas la fiabilité."
-      },
-      {
-        theme: "Bases de l'IA",
-        question: "Pourquoi une IA peut-elle produire deux réponses différentes à une même demande ?",
-        options: [
-          "Parce qu'elle refuse les demandes répétées",
-          "Parce qu'elle ne fonctionne que de façon aléatoire",
-          "Parce qu'elle ne garde jamais le contexte",
-          "Parce qu'elle génère une réponse probable selon le contexte, le modèle et les paramètres"
-        ],
-        correct: 3,
-        explain: "Les modèles génératifs produisent des réponses probables, qui peuvent varier selon le contexte et les paramètres."
-      },
-      {
-        theme: "Bases de l'IA",
-        question: "Dans quel cas l'usage de l'IA est-il le plus pertinent ?",
-        options: [
-          "Produire un premier brouillon à relire et améliorer",
-          "Prendre seule une décision RH sensible",
-          "Remplacer une validation juridique obligatoire",
-          "Publier une information chiffrée sans source"
-        ],
-        correct: 0,
-        explain: "L'IA est très utile pour produire un brouillon, structurer une idée ou reformuler, mais l'humain doit valider."
-      },
-      {
-        theme: "Prompting",
-        question: "Quel élément manque le plus dans ce prompt : 'Fais-moi un texte sur notre nouveau service' ?",
-        options: [
-          "La ponctuation",
-          "Le contexte, la cible, le format et le ton",
-          "Le nom exact du logiciel utilisé",
-          "Une demande de traduction"
-        ],
-        correct: 1,
-        explain: "Le prompt est trop vague : il manque le contexte, l'objectif précis, le public, le format et le ton."
-      },
-      {
-        theme: "Prompting",
-        question: "Quel prompt est le plus exploitable pour un usage professionnel ?",
-        options: [
-          "Écris mieux ce texte.",
-          "Fais plus professionnel.",
-          "Tu es chargé de relation client. Reformule ce message pour un client mécontent, avec un ton calme, clair et empathique, en moins de 120 mots.",
-          "Rends ça bien."
-        ],
-        correct: 2,
-        explain: "Le troisième prompt précise le rôle, l'objectif, le public, le ton et la contrainte de longueur."
-      },
-      {
-        theme: "Prompting",
-        question: "Quand est-il utile de demander à l'IA de poser des questions avant de répondre ?",
-        options: [
-          "Quand la demande est urgente mais très simple",
-          "Quand la demande est complexe, floue ou à enjeu",
-          "Uniquement pour générer des images",
-          "Jamais, car cela ralentit toujours le travail"
-        ],
-        correct: 1,
-        explain: "Pour une demande complexe ou sensible, les questions de clarification réduisent les malentendus."
-      },
-      {
-        theme: "Prompting",
-        question: "Dans la méthode CROFT, le 'C' sert surtout à...",
-        options: [
-          "corriger automatiquement les fautes",
-          "choisir le modèle d'IA",
-          "donner la situation, les contraintes et les informations utiles",
-          "citer des sources officielles"
-        ],
-        correct: 2,
-        explain: "Le contexte aide l'IA à produire une réponse adaptée à la situation réelle."
-      },
-      {
-        theme: "Prompting",
-        question: "Vous obtenez une réponse trop générale. Quelle action est la plus pertinente ?",
-        options: [
-          "Supprimer le contexte du prompt",
-          "Demander une réponse plus longue sans autre précision",
-          "Changer la police du texte",
-          "Ajouter des contraintes, un exemple attendu et le public cible"
-        ],
-        correct: 3,
-        explain: "Une réponse générale vient souvent d'un prompt trop vague. Il faut ajouter contexte, contraintes et exemples."
-      },
-      {
-        theme: "Outils IA",
-        question: "Pour choisir un outil IA, quelle démarche est la plus professionnelle ?",
-        options: [
-          "Choisir l'outil le plus populaire",
-          "Identifier la tâche, le niveau de risque, les données utilisées et le résultat attendu",
-          "Utiliser systématiquement le même outil pour tous les besoins",
-          "Choisir uniquement l'outil gratuit"
-        ],
-        correct: 1,
-        explain: "Le bon choix dépend du besoin métier, du risque, des données et du niveau de qualité attendu."
-      },
-      {
-        theme: "Outils IA",
-        question: "Un assistant documentaire est surtout utile pour...",
-        options: [
-          "créer un logo à partir d'une image",
-          "remplacer un logiciel de paie",
-          "interroger et synthétiser des documents fournis",
-          "publier automatiquement sur les réseaux sociaux"
-        ],
-        correct: 2,
-        explain: "Un assistant documentaire sert à travailler à partir de documents donnés par l'utilisateur."
-      },
-      {
-        theme: "Outils IA",
-        question: "Pourquoi faut-il rester prudent avec les outils IA gratuits grand public ?",
-        options: [
-          "Parce qu'ils ne savent jamais rédiger",
-          "Parce que leurs conditions d'utilisation et de traitement des données peuvent varier",
-          "Parce qu'ils sont toujours interdits",
-          "Parce qu'ils ne fonctionnent que pour les images"
-        ],
-        correct: 1,
-        explain: "Les outils gratuits peuvent avoir des politiques différentes sur la conservation ou l'utilisation des données."
-      },
-      {
-        theme: "Outils IA",
-        question: "Quel exemple montre une bonne adéquation entre besoin et outil ?",
-        options: [
-          "Utiliser un générateur d'image pour analyser un contrat confidentiel",
-          "Utiliser un outil de détourage pour rédiger une note RH",
-          "Utiliser un chatbot public pour stocker des données de santé",
-          "Utiliser un LLM pour reformuler un email non sensible, puis relire avant envoi"
-        ],
-        correct: 3,
-        explain: "Un LLM est adapté à la reformulation d'un contenu non sensible, avec relecture humaine."
-      },
-      {
-        theme: "Données sensibles",
-        question: "Quel prompt présente le risque le plus élevé ?",
-        options: [
-          "Résume ce texte fictif pour un public débutant.",
-          "Reformule cet email en supprimant le jargon.",
-          "Analyse l'arrêt maladie de Sophie Martin et propose une réponse RH.",
-          "Propose trois titres pour un article sur l'IA."
-        ],
-        correct: 2,
-        explain: "Le prompt contient une donnée de santé et une personne identifiable. C'est un risque important."
-      },
-      {
-        theme: "Données sensibles",
-        question: "Quelle anonymisation est la plus correcte ?",
-        options: [
-          "Remplacer 'Marie Dupont, salariée absente pour dépression' par 'Salariée A, situation personnelle sensible supprimée'",
-          "Remplacer seulement le prénom",
-          "Garder le nom mais supprimer la date",
-          "Changer la ponctuation du texte"
-        ],
-        correct: 0,
-        explain: "Il faut supprimer ou neutraliser les éléments permettant d'identifier la personne et la donnée sensible."
-      },
-      {
-        theme: "Données sensibles",
-        question: "Quel type d'information doit déclencher une vigilance particulière avant usage dans une IA ?",
-        options: [
-          "Un slogan public déjà publié",
-          "Un exemple inventé",
-          "Une information RH, médicale, financière ou contractuelle",
-          "Une consigne pédagogique générale"
-        ],
-        correct: 2,
-        explain: "Les informations RH, médicales, financières ou contractuelles peuvent être sensibles ou confidentielles."
-      },
-      {
-        theme: "Données sensibles",
-        question: "Quelle est la meilleure pratique avant d'utiliser un outil IA avec des données professionnelles ?",
-        options: [
-          "Vérifier les règles internes, les paramètres de confidentialité et la nature des données",
-          "Copier-coller le document complet pour gagner du temps",
-          "Tester d'abord avec des données réelles",
-          "Envoyer les mêmes données à plusieurs outils pour comparer"
-        ],
-        correct: 0,
-        explain: "Il faut vérifier les règles internes, les paramètres de l'outil et éviter d'exposer des données sensibles."
-      },
-      {
-        theme: "Données sensibles",
-        question: "Pourquoi une donnée même 'professionnelle' peut-elle poser problème ?",
-        options: [
-          "Parce qu'une donnée professionnelle est toujours publique",
-          "Parce qu'elle peut identifier une personne, révéler une information confidentielle ou exposer l'entreprise",
-          "Parce qu'elle empêche toujours l'IA de répondre",
-          "Parce qu'elle doit toujours être publiée"
-        ],
-        correct: 1,
-        explain: "Une donnée professionnelle peut aussi être personnelle, confidentielle ou stratégique."
-      },
-      {
-        theme: "Accessibilité",
-        question: "Quel texte est le plus accessible ?",
-        options: [
-          "Veuillez procéder à l'exécution diligente des modalités subséquentes.",
-          "Merci de suivre les prochaines étapes indiquées ci-dessous.",
-          "Les modalités opérationnelles seront implémentées ultérieurement.",
-          "Il conviendra d'envisager les paramètres afférents."
-        ],
-        correct: 1,
-        explain: "La deuxième phrase est plus simple, directe et compréhensible."
-      },
-      {
-        theme: "Accessibilité",
-        question: "Pourquoi faut-il éviter de transmettre une information uniquement par la couleur ?",
-        options: [
-          "Parce que la couleur augmente toujours le poids du fichier",
-          "Parce que certaines personnes peuvent ne pas percevoir ou distinguer les couleurs",
-          "Parce que le noir et blanc est obligatoire",
-          "Parce que les lecteurs d'écran lisent toutes les couleurs"
-        ],
-        correct: 1,
-        explain: "Une information importante doit aussi être portée par du texte, une icône ou une structure claire."
-      },
-      {
-        theme: "Accessibilité",
-        question: "Quel prompt est le plus adapté pour simplifier un texte sans infantiliser le lecteur ?",
-        options: [
-          "Rends ce texte plus bébé.",
-          "Supprime tous les détails.",
-          "Réécris ce texte avec des phrases courtes, un vocabulaire simple, un ton professionnel et sans perdre le sens initial.",
-          "Fais un résumé drôle."
-        ],
-        correct: 2,
-        explain: "Il faut simplifier sans déformer le sens ni adopter un ton infantilisant."
-      },
-      {
-        theme: "Accessibilité",
-        question: "Dans une note interne, quel choix améliore le plus la lisibilité ?",
-        options: [
-          "Un bloc de texte long sans titres",
-          "Des titres clairs, des listes à puces et une idée par paragraphe",
-          "Des acronymes non expliqués",
-          "Une phrase unique très détaillée"
-        ],
-        correct: 1,
-        explain: "La structure facilite la compréhension et la navigation dans le contenu."
-      },
-      {
-        theme: "Éthique et biais",
-        question: "Quel exemple contient le plus clairement un biais à corriger ?",
-        options: [
-          "Les candidats doivent avoir une expérience en gestion de projet.",
-          "Le poste nécessite une bonne capacité d'organisation.",
-          "Nous recherchons une assistante naturellement patiente et souriante.",
-          "La mission implique des échanges réguliers avec les clients."
-        ],
-        correct: 2,
-        explain: "Cette formulation associe un métier et des qualités à un stéréotype de genre."
-      },
-      {
-        theme: "Éthique et biais",
-        question: "Quelle est la meilleure réaction face à une réponse IA qui généralise un groupe de personnes ?",
-        options: [
-          "La publier si elle est bien écrite",
-          "Demander une reformulation plus neutre, inclusive et justifiée",
-          "Ajouter des adjectifs plus forts",
-          "Supprimer uniquement les accents"
-        ],
-        correct: 1,
-        explain: "Il faut corriger les généralisations et demander une formulation plus neutre."
-      },
-      {
-        theme: "Éthique et biais",
-        question: "Dans quel cas la supervision humaine est-elle la plus importante ?",
-        options: [
-          "Choisir une icône décorative",
-          "Corriger une faute de frappe",
-          "Trier automatiquement des candidatures ou évaluer des personnes",
-          "Proposer trois titres d'article"
-        ],
-        correct: 2,
-        explain: "Les décisions qui affectent des personnes nécessitent une supervision humaine forte."
-      },
-      {
-        theme: "Éthique et biais",
-        question: "Quel réflexe est le plus responsable avant de diffuser un contenu généré par IA ?",
-        options: [
-          "Vérifier les faits, le ton, les biais possibles et l'adéquation avec le public",
-          "Publier rapidement pour gagner du temps",
-          "Conserver les erreurs si le texte est fluide",
-          "Masquer que le contenu concerne des personnes"
-        ],
-        correct: 0,
-        explain: "Un contenu généré doit être relu, vérifié et adapté avant diffusion."
-      },
-      {
-        theme: "Éthique et biais",
-        question: "Quel usage est le plus sensible au regard des risques éthiques et réglementaires ?",
-        options: [
-          "Réécrire une phrase trop longue",
-          "Créer un brouillon de post LinkedIn",
-          "Générer une idée de titre",
-          "Utiliser une IA pour influencer une décision d'accès à un emploi, un service ou un droit"
-        ],
-        correct: 3,
-        explain: "Les usages qui influencent l'accès à un emploi, un service ou un droit sont particulièrement sensibles."
-      },
-      {
-        theme: "Vérification",
-        question: "L'IA fournit une statistique précise sans source. Que faire ?",
-        options: [
-          "La garder si elle semble crédible",
-          "La mettre en gras pour renforcer la confiance",
-          "Demander ou rechercher une source fiable avant utilisation",
-          "La traduire en anglais"
-        ],
-        correct: 2,
-        explain: "Une donnée chiffrée doit être vérifiée avec une source fiable avant diffusion."
-      },
-      {
-        theme: "Vérification",
-        question: "Quelle consigne améliore le plus la fiabilité d'une réponse IA ?",
-        options: [
-          "Réponds vite.",
-          "Donne une réponse certaine même si tu n'es pas sûr.",
-          "Ajoute plus de style.",
-          "Indique les points incertains, les hypothèses et les éléments à vérifier."
-        ],
-        correct: 3,
-        explain: "Demander les incertitudes et les éléments à vérifier aide à mieux contrôler la réponse."
-      }
+    import { initV2Shell, ThoteStore } from "/wiki-formation-ia/v2/assets/shared.js";
+    const path = [
+      ["H1","Fondamentaux IA + Méthode ROFT","Socle méthodologique pour l'ensemble des 6 exercices"],
+      ["H2","Stratégie IA au poste de travail","Exercice 1 — Stratégie d'implémentation"],
+      ["H3","Prompting rédactionnel + visuel (CROFT/FAI)","Exercice 2 — Prompting structuré"],
+      ["H4","Création de visuels attractifs avec l'IA","Exercice 2 — Déclinaison visuelle"],
+      ["H5","Confidentialité, données sensibles et sécurité","Exercice 3 — Sécurité et RGPD"],
+      ["H6","Accessibilité, inclusion et simplification","Exercices 4 et 5 — Accessibilité & Vulgarisation"],
+      ["H7","Éthique, IA Act, biais et prompts correctifs","Exercice 6 — Éthique et biais"]
     ];
-
-    // State du QCM
-    let h0CurrentQuestion = 0;
-    let h0Answers = new Array(h0Questions.length).fill(null);
-    let h0QuizStarted = false;
-
-    function h0StartEvaluation() {
-      h0CurrentQuestion = 0;
-      h0Answers.fill(null);
-      h0QuizStarted = true;
-      document.getElementById('h0-eval-intro').style.display = 'none';
-      document.getElementById('h0-eval-quiz').style.display = 'block';
-      h0RenderQuestion();
-      h0UpdateNavigation();
-    }
-
-    function h0RenderQuestion() {
-      const q = h0Questions[h0CurrentQuestion];
-      const container = document.getElementById('h0-eval-questions');
-      
-      container.innerHTML = `
-        <div class="eval-progress">
-          <span>Question ${h0CurrentQuestion + 1} / ${h0Questions.length}</span>
-          <span class="eval-theme">Thème : ${q.theme}</span>
-        </div>
-        <div class="eval-question-card">
-          <div class="eval-question-text">${q.question}</div>
-          <div class="eval-options" id="h0-eval-options">
-            ${q.options.map((option, idx) => `
-              <label class="eval-option ${h0Answers[h0CurrentQuestion] === idx ? 'selected' : ''}">
-                <input type="radio" name="q${h0CurrentQuestion}" 
-                       ${h0Answers[h0CurrentQuestion] === idx ? 'checked' : ''}
-                       onchange="h0SelectAnswer(${h0CurrentQuestion}, ${idx})">
-                ${option}
-              </label>
-            `).join('')}
-          </div>
-        </div>
-      `;
-    }
-
-    function h0SelectAnswer(qIndex, optionIndex) {
-      h0Answers[qIndex] = optionIndex;
-      h0RenderQuestion();
-      h0UpdateNavigation();
-    }
-
-    function h0UpdateNavigation() {
-      const prevBtn = document.getElementById('h0-eval-prev-btn');
-      const nextBtn = document.getElementById('h0-eval-next-btn');
-      const submitBtn = document.getElementById('h0-eval-submit-btn');
-      
-      prevBtn.style.display = h0CurrentQuestion > 0 ? 'inline-flex' : 'none';
-      
-      if (h0CurrentQuestion < h0Questions.length - 1) {
-        nextBtn.style.display = 'inline-flex';
-        submitBtn.style.display = 'none';
-        nextBtn.disabled = h0Answers[h0CurrentQuestion] === null;
-      } else {
-        nextBtn.style.display = 'none';
-        submitBtn.style.display = 'inline-flex';
-        submitBtn.disabled = h0Answers.some(a => a === null);
-      }
-    }
-
-    function h0ShowResult() {
-      let score = 0;
-      h0Answers.forEach((answer, index) => {
-        if (answer === h0Questions[index].correct) score += 1;
+    const exercises = [
+      ["Ex. 1 — Stratégie","Stratégie d'implémentation IA","Analyser un ensemble de tâches métier au sein d'une organisation et proposer une sélection d'outils IA pertinents, adaptés et sécurisés."],
+      ["Ex. 2 — Prompting","Prompting rédactionnel + visuel","Rédiger la structure complète d'un article de blog ainsi qu'un visuel d'accompagnement en utilisant des techniques de prompting avancées et structurées (CROFT / FAI)."],
+      ["Ex. 3 — Confidentialité","Confidentialité et données sensibles","Identifier les risques de fuite de données (RGPD / secrets d'affaires) dans un contexte professionnel et réécrire/anonymiser un prompt contenant des informations confidentielles."],
+      ["Ex. 4 — Accessibilité","Accessibilité et inclusion","Rédiger ou adapter une note interne pour la rendre parfaitement accessible à une personne en situation de handicap cognitif (ex. FALC, structure simplifiée)."],
+      ["Ex. 5 — Simplification","Simplification et vulgarisation de contenus","Prendre un document technique ou juridique complexe et le transformer en une synthèse claire, intelligible et vulgarisée pour un public non-expert."],
+      ["Ex. 6 — Éthique & Biais","Éthique et biais dans les contenus IA","Détecter les stéréotypes, discriminations ou hallucinations dans un contenu produit par une IA et appliquer des prompts correctifs pour le neutraliser."]
+    ];
+    document.addEventListener("DOMContentLoaded", () => {
+      initV2Shell("h0");
+      document.getElementById("path-table").innerHTML = path.map((r) => "<tr><td style='padding:12px;border-top:1px solid var(--border-color)'><strong>" + r[0] + "</strong></td><td style='padding:12px;border-top:1px solid var(--border-color)'>" + r[1] + "</td><td style='padding:12px;border-top:1px solid var(--border-color)'>" + r[2] + "</td></tr>").join("");
+      document.getElementById("exam-grid").innerHTML = exercises.map((e) => "<article class='glass-panel interactive-card' style='padding:18px'><p class='quest-eyebrow' style='color:var(--tertiary);margin:0 0 8px'>" + e[0] + "</p><h3 style='font-size:1rem;margin:0 0 8px'>" + e[1] + "</h3><p class='quest-muted'>" + e[2] + "</p></article>").join("");
+      const button = document.getElementById("complete-h0");
+      if (ThoteStore.getState().completedModules.includes("h0")) { button.disabled = true; button.textContent = "H0 déjà validé ✓"; }
+      button.addEventListener("click", () => {
+        ThoteStore.completeModule("h0", 40);
+        button.disabled = true; button.textContent = "H0 validé ✓";
+        const feedback = document.getElementById("complete-feedback"); feedback.textContent = "40 XP ajoutés. H1 est maintenant disponible."; feedback.style.display = "block";
       });
-      
-      const percentage = Math.round((score / h0Questions.length) * 100);
-      let levelLabel = "Niveau débutant";
-      let levelMessage = "Vous allez surtout consolider les bases de l'IA générative, du prompting et des bons réflexes de sécurité.";
-      
-      if (percentage > 80) {
-        levelLabel = "Niveau très avancé";
-        levelMessage = "Vous maîtrisez déjà beaucoup de notions. La formation servira à renforcer vos réflexes professionnels.";
-      } else if (percentage > 60) {
-        levelLabel = "Niveau avancé";
-        levelMessage = "Vous avez de bonnes bases. L'objectif sera d'aller vers plus de méthode et de précision.";
-      } else if (percentage > 40) {
-        levelLabel = "Niveau intermédiaire";
-        levelMessage = "Vous avez déjà des repères. La formation va vous aider à structurer vos usages.";
-      }
-      
-      const resultDiv = document.getElementById('h0-eval-result');
-      resultDiv.style.display = 'block';
-      resultDiv.innerHTML = `
-        <div class="eval-result">
-          <h3>Résultat de votre évaluation</h3>
-          <div class="eval-score-display">${score} / ${h0Questions.length}</div>
-          <div class="eval-level-badge">${levelLabel} (${percentage}%)</div>
-          <p style="margin-top: 12px; line-height: 1.6;">${levelMessage}</p>
-          <p style="margin-top: 12px; font-size: 0.9rem; color: var(--text-muted);"><em>Ce résultat sert uniquement à situer votre niveau de départ.</em></p>
-        </div>
-        <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
-          <button onclick="h0ShowCorrection()" class="wiki-btn wiki-btn-secondary">
-            <span class="material-symbols-outlined">help</span> Voir les corrections
-          </button>
-          <button onclick="h0ResetQuiz()" class="wiki-btn wiki-btn-secondary">
-            <span class="material-symbols-outlined">refresh</span> Recommencer
-          </button>
-        </div>
-      `;
-      
-      document.getElementById('h0-eval-quiz').style.display = 'none';
-      document.getElementById('h0-eval-prev-btn').style.display = 'none';
-      document.getElementById('h0-eval-next-btn').style.display = 'none';
-      document.getElementById('h0-eval-submit-btn').style.display = 'none';
-      
-      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function h0ShowCorrection() {
-      const correctionDiv = document.getElementById('h0-eval-correction');
-      correctionDiv.style.display = 'block';
-      correctionDiv.innerHTML = '<h3>Correction détaillée</h3><p style="margin-bottom: 16px; color: var(--text-muted);">Relisez les questions et comparez avec les bonnes réponses.</p>';
-      
-      h0Questions.forEach((q, index) => {
-        const userAnswer = h0Answers[index];
-        const isCorrect = userAnswer === q.correct;
-        const answerText = userAnswer === null ? "Aucune réponse" : q.options[userAnswer];
-        
-        const item = document.createElement('div');
-        item.className = `eval-correction-item ${isCorrect ? 'eval-ok' : 'eval-ko'}`;
-        item.innerHTML = `
-          <h4 style="margin: 0 0 8px 0;">Question ${index + 1} — ${q.theme}</h4>
-          <p style="margin: 0 0 8px 0; font-weight: 600;">${q.question}</p>
-          <p style="margin: 0 0 4px 0;">Votre réponse : <strong>${answerText}</strong></p>
-          <p style="margin: 0 0 4px 0;">
-            <span class="${isCorrect ? 'eval-ok' : 'eval-ko'}">${isCorrect ? '✓' : '✗'}</span> 
-            Bonne réponse : <strong>${q.options[q.correct]}</strong>
-          </p>
-          <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); font-style: italic;">${q.explain}</p>
-        `;
-        correctionDiv.appendChild(item);
-      });
-      
-      correctionDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function h0ResetQuiz() {
-      h0CurrentQuestion = 0;
-      h0Answers.fill(null);
-      h0QuizStarted = false;
-      document.getElementById('h0-eval-intro').style.display = 'block';
-      document.getElementById('h0-eval-quiz').style.display = 'none';
-      document.getElementById('h0-eval-result').style.display = 'none';
-      document.getElementById('h0-eval-correction').style.display = 'none';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Navigation between questions
-    function h0GoToNext() {
-      if (h0Answers[h0CurrentQuestion] !== null && h0CurrentQuestion < h0Questions.length - 1) {
-        h0CurrentQuestion++;
-        h0RenderQuestion();
-        h0UpdateNavigation();
-      }
-    }
-
-    function h0GoToPrev() {
-      if (h0CurrentQuestion > 0) {
-        h0CurrentQuestion--;
-        h0RenderQuestion();
-        h0UpdateNavigation();
-      }
-    }
-
-    // Event listeners
-    document.getElementById('h0-eval-start-btn').addEventListener('click', h0StartEvaluation);
-    document.getElementById('h0-eval-prev-btn').addEventListener('click', h0GoToPrev);
-    document.getElementById('h0-eval-next-btn').addEventListener('click', h0GoToNext);
-    document.getElementById('h0-eval-submit-btn').addEventListener('click', h0ShowResult);
-
-    // Expose functions globally
-    window.h0SelectAnswer = h0SelectAnswer;
-    window.h0ShowCorrection = h0ShowCorrection;
-    window.h0ResetQuiz = h0ResetQuiz;
+    });
   </script>
 </body>
 </html>
