@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Évaluation d’entrée — Thotie Quest</title>
+  <link rel="stylesheet" href="/wiki-formation-ia/v2/assets/theme.css">
+  <style>
+    .evaluation-entree label{display:block;margin:14px 0 6px;font-weight:600}.evaluation-entree input{width:100%;max-width:460px;padding:11px 12px;border:1px solid var(--border-color);border-radius:10px;background:var(--surface-high);color:var(--text-main);font:inherit}.evaluation-entree .eval-question{padding:22px;margin:18px 0;border:1px solid var(--border-color);border-radius:16px;background:var(--surface-low)}.evaluation-entree .eval-theme{display:inline-block;padding:4px 8px;border-radius:99px;background:rgba(208,188,255,.15);color:var(--primary);font:600 .72rem var(--font-label);letter-spacing:.04em}.evaluation-entree .eval-options label{padding:11px 12px;margin:8px 0;border:1px solid var(--border-color);border-radius:10px;background:var(--surface-high);cursor:pointer;font-weight:400}.evaluation-entree .eval-options label:hover{border-color:var(--secondary);background:rgba(68,226,205,.08)}.evaluation-entree .eval-options input{width:auto;margin-right:9px;accent-color:var(--secondary)}.evaluation-entree .eval-actions{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.evaluation-entree button{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid transparent;border-radius:11px;background:var(--primary);color:#340080;font:600 .85rem var(--font-label);cursor:pointer}.evaluation-entree button:hover{filter:brightness(1.08)}.evaluation-entree button:disabled{opacity:.5;cursor:not-allowed}.evaluation-entree #eval-reset,.evaluation-entree #eval-show-answers,.evaluation-entree #eval-print{background:rgba(68,226,205,.1);color:var(--secondary);border-color:rgba(68,226,205,.32)}.evaluation-entree .eval-resultat,.evaluation-entree .eval-correction{padding:22px;border-radius:16px;margin-top:20px;background:var(--surface-low);border:1px solid var(--border-color)}.evaluation-entree .eval-resultat{border-color:rgba(208,188,255,.6)}.evaluation-entree .eval-correction-item{padding:14px 0;border-bottom:1px solid var(--border-color)}.evaluation-entree .eval-correction-item:last-child{border:0}.evaluation-entree .eval-ok{color:var(--secondary);font-weight:700}.evaluation-entree .eval-ko{color:#ff8b84;font-weight:700}@media print{.quest-topbar,.left-sidebar,.right-sidebar,.quest-footer,.eval-actions,.v2-eval-back{display:none!important}body{background:#fff!important;color:#111!important}.v2-app-container{display:block;padding:0}.main-content{color:#111}.glass-panel,.evaluation-entree .eval-question,.evaluation-entree .eval-resultat,.evaluation-entree .eval-correction{background:#fff!important;color:#111!important;border-color:#ccc!important}}
+  </style>
+</head>
+<body>
+  <div id="v2-header-target"></div>
+  <div class="v2-app-container">
+    <aside id="v2-left-sidebar-target" class="left-sidebar"></aside>
+    <main class="main-content">
+      <a class="wiki-btn wiki-btn-secondary v2-eval-back" href="/wiki-formation-ia/v2/formation/h0.html" style="margin-bottom:20px;">← Retour à H0</a>
+      <section class="glass-panel neo-bevel glow-primary" style="padding:32px;margin-bottom:24px;">
+        <p class="label-tech" style="color:var(--secondary);margin:0 0 8px;">QUÊTE DE DÉPART · +60 XP</p>
+        <h1 style="font-size:clamp(1.8rem,4vw,2.4rem);margin:0 0 12px;">Évaluation d’entrée — IA générative et certification RS6776</h1>
+        <p style="line-height:1.65;color:var(--text-muted);margin:0;">Cette évaluation permet de faire un point sur vos connaissances avant de commencer ou de poursuivre la formation.</p>
+        <p style="line-height:1.65;color:var(--text-muted);margin:8px 0 0;">Elle n’est pas notée officiellement. Elle sert à identifier vos points forts et les sujets à revoir pendant le parcours.</p>
+      </section>
+
+      <section class="glass-panel" style="padding:24px;margin-bottom:20px;">
+        <h2 style="font-size:1.2rem;margin:0 0 8px;">Objectif de l’évaluation</h2>
+        <p style="margin:0;line-height:1.6;">Cette évaluation couvre les bases de l’IA générative, le prompting, les outils IA, la confidentialité, l’accessibilité, l’éthique, les biais et les bons réflexes professionnels.</p>
+      </section>
+
+      <section class="real-life-box">
+        <h2 style="font-size:1.15rem;color:var(--secondary);margin:0 0 10px;">Consignes</h2>
+        <ul style="margin:0;padding-left:20px;line-height:1.7;"><li>Répondez aux 30 questions.</li><li>Une seule réponse est attendue par question.</li><li>Cliquez sur <strong>Voir mon résultat</strong> à la fin.</li><li>Vous pourrez ensuite afficher les bonnes réponses.</li><li>Vous pourrez aussi sauvegarder votre évaluation en PDF.</li></ul>
+        <div style="margin-top:16px;padding:14px;border:1px solid rgba(226,198,45,.4);border-radius:12px;background:rgba(226,198,45,.06);"><strong style="color:var(--tertiary);">Important</strong><p style="margin:6px 0 0;">Cette évaluation doit être réalisée sans utiliser d’IA.</p><p style="margin:4px 0 0;">Le but est d’obtenir une photographie honnête de votre niveau de départ.</p></div>
+      </section>
+
+      <section id="evaluation-entree" class="evaluation-entree glass-panel" style="padding:24px;margin:20px 0;">
+        <div id="eval-intro">
+          <h2 style="font-size:1.2rem;margin-top:0;">Informations</h2>
+          <form id="eval-form">
+            <label for="eval-nom">Nom / prénom ou identifiant :</label>
+            <input type="text" id="eval-nom" placeholder="Ex : Camille Martin" required>
+            <label for="eval-date">Date :</label>
+            <input type="date" id="eval-date" required>
+            <div class="eval-actions"><button type="button" id="eval-start">Commencer l’évaluation</button></div>
+          </form>
+        </div>
+        <div id="eval-quiz" style="display:none;">
+          <div id="eval-questions"></div>
+          <div class="eval-actions">
+            <button type="button" id="eval-submit">Voir mon résultat</button>
+            <button type="button" id="eval-show-answers" style="display:none;">Afficher les bonnes réponses</button>
+            <button type="button" id="eval-print" style="display:none;">Sauvegarder / imprimer en PDF</button>
+            <button type="button" id="eval-reset">Recommencer</button>
+          </div>
+          <div id="eval-resultat" class="eval-resultat" style="display:none;"></div>
+          <div id="eval-correction" class="eval-correction" style="display:none;"></div>
+        </div>
+      </section>
+
+      <section class="glass-panel" style="padding:24px;margin:20px 0;">
+        <h2 style="font-size:1.2rem;margin:0 0 10px;">Après l’évaluation</h2>
+        <p style="line-height:1.6;">Une fois le résultat affiché, relisez les corrections.</p>
+        <p style="line-height:1.6;">Les thèmes avec plusieurs erreurs indiquent les points à revoir en priorité pendant la formation.</p>
+        <div class="real-life-box" style="margin:16px 0 0;"><h3 style="color:var(--secondary);margin:0 0 7px;">À retenir</h3><p style="margin:0;">Ce score n’est pas une note officielle.</p><p style="margin:5px 0 0;">Il sert à identifier vos besoins de progression avant de préparer la certification RS6776.</p></div>
+      </section>
+
+      <section class="glass-panel neo-bevel" style="padding:24px;margin:20px 0;">
+        <h2 style="font-size:1.2rem;margin:0 0 12px;">Prêt à commencer ?</h2>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;"><a class="wiki-btn wiki-btn-primary" href="/wiki-formation-ia/v2/formation/h0.html">Démarrer la séance H0</a><a class="wiki-btn wiki-btn-secondary" href="/wiki-formation-ia/v2/formation/certification.html">Revoir les critères RS6776</a></div>
+      </section>
+    </main>
+    <aside id="v2-right-sidebar-target" class="right-sidebar"></aside>
+  </div>
+  <div id="v2-footer-target"></div>
+  <script src="/wiki-formation-ia/javascripts/evaluation-entree.js"></script>
+  <script type="module">
+    import { initV2Shell, ThoteStore } from "/wiki-formation-ia/v2/assets/shared.js";
+    document.addEventListener("DOMContentLoaded", () => {
+      initV2Shell("h0");
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest("#eval-submit")) return;
+        const state = ThoteStore.getState();
+        const before = state.validatedQuests.includes("evaluation_entree");
+        ThoteStore.completeQuest("evaluation_entree", 60);
+        if (!before) {
+          const result = document.getElementById("eval-resultat");
+          if (result) result.insertAdjacentHTML("beforeend", "<p style='margin-top:14px;color:var(--secondary);font-weight:700;'>✓ Évaluation enregistrée dans votre parcours : +60 XP</p>");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
