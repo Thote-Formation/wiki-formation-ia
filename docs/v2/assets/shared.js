@@ -74,7 +74,7 @@ function injectHeader() {
         </div>
       </div>
       <div style="display:flex; gap:12px; align-items:center;">
-        <a href="/v2/" class="wiki-btn wiki-btn-secondary" style="font-size:0.8rem;">
+        <a href="/wiki-formation-ia/v2/" class="wiki-btn wiki-btn-secondary" style="font-size:0.8rem;">
           <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
           Retour site V1
         </a>
@@ -89,22 +89,22 @@ function injectLeftSidebar(activeId) {
 
   const links = [
     { section: "G\u00c9N\u00c9RAL" },
-    { id: "home", label: "Accueil", icon: "grid_view", href: "/v2/index.html" },
-    { id: "rs6776", label: "Certification RS6776", icon: "school", href: "/v2/certification.html" },
+    { id: "home", label: "Accueil", icon: "grid_view", href: "/wiki-formation-ia/v2/index.html" },
+    { id: "rs6776", label: "Certification RS6776", icon: "school", href: "/wiki-formation-ia/v2/certification.html" },
     
     { section: "PARCOURS H0 - H7" },
-    { id: "h0", label: "H0 — Lancement", icon: "rocket_launch", href: "/v2/formation/h0.html" },
-    { id: "h1", label: "H1 — Fondamentaux & ROFT", icon: "menu_book", href: "/v2/formation/h1.html" },
-    { id: "h2", label: "H2 — Strat\u00e9gie IA", icon: "strategy", href: "/v2/formation/h2.html" },
-    { id: "h3", label: "H3 — Prompting CROFT", icon: "terminal", href: "/v2/formation/h3.html" },
-    { id: "h4", label: "H4 — Visuels & M\u00e9dias", icon: "image", href: "/v2/formation/h4.html" },
-    { id: "h5", label: "H5 — S\u00e9curit\u00e9 & RGPD", icon: "security", href: "/v2/formation/h5.html" },
-    { id: "h6", label: "H6 — Inclusivit\u00e9", icon: "accessibility", href: "/v2/formation/h6.html" },
-    { id: "h7", label: "H7 — \u00c9thique & IA Act", icon: "gavel", href: "/v2/formation/h7.html" },
+    { id: "h0", label: "H0 — Lancement", icon: "rocket_launch", href: "/wiki-formation-ia/v2/formation/h0.html" },
+    { id: "h1", label: "H1 — Fondamentaux & ROFT", icon: "menu_book", href: "/wiki-formation-ia/v2/formation/h1.html" },
+    { id: "h2", label: "H2 — Strat\u00e9gie IA", icon: "strategy", href: "/wiki-formation-ia/v2/formation/h2.html" },
+    { id: "h3", label: "H3 — Prompting CROFT", icon: "terminal", href: "/wiki-formation-ia/v2/formation/h3.html" },
+    { id: "h4", label: "H4 — Visuels & M\u00e9dias", icon: "image", href: "/wiki-formation-ia/v2/formation/h4.html" },
+    { id: "h5", label: "H5 — S\u00e9curit\u00e9 & RGPD", icon: "security", href: "/wiki-formation-ia/v2/formation/h5.html" },
+    { id: "h6", label: "H6 — Inclusivit\u00e9", icon: "accessibility", href: "/wiki-formation-ia/v2/formation/h6.html" },
+    { id: "h7", label: "H7 — \u00c9thique & IA Act", icon: "gavel", href: "/wiki-formation-ia/v2/formation/h7.html" },
     
     { section: "OUTILS & JEUX" },
-    { id: "outils", label: "Outils Interactifs", icon: "build", href: "/v2/outils/index.html" },
-    { id: "jeux", label: "Thotie Quest Hub", icon: "sports_esports", href: "/v2/jeux/index.html" }
+    { id: "outils", label: "Outils Interactifs", icon: "build", href: "/wiki-formation-ia/v2/outils/index.html" },
+    { id: "jeux", label: "Thotie Quest Hub", icon: "sports_esports", href: "/wiki-formation-ia/v2/jeux/index.html" }
   ];
 
   let html = `<nav class="glass-panel neo-bevel" style="padding: 16px; height: 100%;">`;
