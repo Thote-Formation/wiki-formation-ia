@@ -161,9 +161,9 @@ Présente toujours ton analyse sous la structure suivante :
 [1 à 2 phrases courtes sur les préconisations]
 
 ### 📝 Version Anonymisée Complète
-```
+
 [Insérer le texte intégralement anonymisé ici]
-```
+
 ---
 
 [INTERDICTIONS STRICTES]
