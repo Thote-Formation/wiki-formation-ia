@@ -5,6 +5,158 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>H0 — Lancement formation IA | Thote V2</title>
   <link rel="stylesheet" href="/wiki-formation-ia/v2/assets/theme.css">
+  <style>
+    .eval-quiz-section {
+      margin-bottom: 20px;
+    }
+    .eval-question-card {
+      background: var(--surface-low, #f8f9fa);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border-color, #ddd);
+    }
+    .eval-question-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .eval-question-text {
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+    .eval-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .eval-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      background: var(--md-default-bg-color, #fff);
+      border: 2px solid var(--border-color, #ddd);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .eval-option:hover {
+      border-color: var(--primary, #1a5fb4);
+      background: rgba(26, 95, 180, 0.05);
+    }
+    .eval-option.selected {
+      border-color: var(--secondary, #44e2cd);
+      background: rgba(68, 226, 205, 0.1);
+    }
+    .eval-option.correct {
+      border-color: var(--secondary, #44e2cd);
+      background: rgba(68, 226, 205, 0.15);
+    }
+    .eval-option.incorrect {
+      border-color: #f87171;
+      background: rgba(248, 113, 113, 0.1);
+    }
+    .eval-option input[type="radio"] {
+      margin-top: 2px;
+    }
+    .eval-option label {
+      cursor: pointer;
+      flex: 1;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .eval-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .eval-result {
+      background: linear-gradient(135deg, var(--primary, #1a5fb4), var(--secondary, #44e2cd));
+      color: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+    .eval-result h3 {
+      margin: 0 0 12px 0;
+    }
+    .eval-progress {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+    .eval-theme-tag {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+    .eval-score-display {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .eval-level-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      font-weight: 600;
+      margin: 8px 0;
+    }
+    .eval-correction-item {
+      background: var(--surface-low, #f8f9fa);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-left: 4px solid var(--border-color, #ddd);
+    }
+    .eval-correction-item.eval-ok {
+      border-left-color: var(--secondary, #44e2cd);
+    }
+    .eval-correction-item.eval-ko {
+      border-left-color: #f87171;
+    }
+    .eval-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .eval-nav button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .eval-nav button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #eval-submit-btn {
+      background: var(--primary, #1a5fb4);
+      color: white;
+    }
+    #eval-submit-btn:hover:not(:disabled) {
+      background: var(--primary-dark, #154a8f);
+    }
+    #eval-start-btn {
+      background: var(--primary, #1a5fb4);
+      color: white;
+    }
+    #eval-start-btn:hover {
+      background: var(--primary-dark, #154a8f);
+    }
+  </style>
 </head>
 <body>
 
@@ -96,18 +248,43 @@
         </div>
       </section>
 
-      <!-- Evaluation entree -->
-      <section class="glass-panel neo-bevel" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--primary);">
+      <!-- QCM Évaluation initiale d'entrée -->
+      <section class="glass-panel neo-bevel eval-quiz-section" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--primary);">
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
           <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">description</span>
           <h3 style="margin: 0;">Évaluation initiale d'entrée</h3>
         </div>
         <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
-          Réalisez l'évaluation sans l'aide d'un LLM afin de mesurer votre niveau de départ réel.
+          Réalisez cette évaluation sans l'aide d'un LLM afin de mesurer votre niveau de départ réel.<br>
+          <strong>30 questions</strong> couvrant les bases de l'IA, le prompting, les outils, la confidentialité, l'accessibilité et l'éthique.
         </p>
-        <a href="/wiki-formation-ia/evaluation-entree/" class="wiki-btn wiki-btn-primary">
-          <span class="material-symbols-outlined">launch</span> Accéder à l'évaluation d'entrée
-        </a>
+        
+        <div id="h0-eval-intro" style="margin-bottom: 16px;">
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
+            <strong>Consignes :</strong> Une seule réponse par question. Cliquez sur « Voir mon résultat » à la fin.
+          </p>
+          <button id="h0-eval-start-btn" class="wiki-btn wiki-btn-primary">
+            <span class="material-symbols-outlined">launch</span> Commencer l'évaluation
+          </button>
+        </div>
+
+        <div id="h0-eval-quiz" style="display: none;">
+          <div id="h0-eval-questions"></div>
+          <div class="eval-actions">
+            <button id="h0-eval-prev-btn" class="wiki-btn wiki-btn-secondary" style="display: none;">
+              <span class="material-symbols-outlined">arrow_back</span> Question précédente
+            </button>
+            <button id="h0-eval-next-btn" class="wiki-btn wiki-btn-secondary" style="display: none;">
+              Question suivante <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <button id="h0-eval-submit-btn" class="wiki-btn wiki-btn-primary" style="display: none;">
+              <span class="material-symbols-outlined">check</span> Voir mon résultat
+            </button>
+          </div>
+        </div>
+
+        <div id="h0-eval-result" style="display: none;"></div>
+        <div id="h0-eval-correction" style="display: none;"></div>
       </section>
 
       <!-- Examen RS6776 -->
@@ -169,6 +346,303 @@
     document.addEventListener('DOMContentLoaded', () => {
       initV2Shell('h0');
     });
+
+    // QCM H0 - Questions d'évaluation d'entrée
+    const h0Questions = [
+      {
+        theme: "Bases de l'IA",
+        question: "Dans un usage professionnel, quelle description de l'IA générative est la plus juste ?",
+        options: [
+          "Un outil qui garantit automatiquement la conformité des contenus",
+          "Un outil qui produit des contenus à partir de consignes, mais dont les réponses doivent être vérifiées",
+          "Un moteur de recherche qui cite toujours ses sources",
+          "Un logiciel qui applique uniquement des règles fixes programées à l'avance"
+        ],
+        correct: 1,
+        explain: "L'IA générative produit des contenus à partir de prompts, mais elle peut se tromper. La vérification humaine reste indispensable."
+      },
+      {
+        theme: "Bases de l'IA",
+        question: "Vous demandez à une IA de résumer un document. Quel est le principal risque si le document source n'est pas fourni ?",
+        options: [
+          "L'IA peut compléter avec des informations plausibles mais non vérifiées",
+          "L'IA refusera toujours de répondre",
+          "L'IA produira forcément un résumé exact",
+          "L'IA supprimera automatiquement les données sensibles"
+        ],
+        correct: 0,
+        explain: "Sans source fiable, l'IA peut inventer ou généraliser des informations."
+      },
+      {
+        theme: "Bases de l'IA",
+        question: "Quelle attitude est la plus adaptée face à une réponse IA très bien rédigée ?",
+        options: [
+          "La publier directement si le style est professionnel",
+          "La considérer comme fiable si elle contient des chiffres",
+          "La relire, vérifier les informations importantes et l'adapter au contexte",
+          "La reformuler automatiquement avec une autre IA"
+        ],
+        correct: 2,
+        explain: "Une réponse bien écrite peut contenir des erreurs. Le style ne garantit pas la fiabilité."
+      },
+      {
+        theme: "Prompting",
+        question: "Quel élément manque le plus dans ce prompt : 'Fais-moi un texte sur notre nouveau service' ?",
+        options: [
+          "La ponctuation",
+          "Le contexte, la cible, le format et le ton",
+          "Le nom exact du logiciel utilisé",
+          "Une demande de traduction"
+        ],
+        correct: 1,
+        explain: "Le prompt est trop vague : il manque le contexte, l'objectif précis, le public, le format et le ton."
+      },
+      {
+        theme: "Prompting",
+        question: "Quel prompt est le plus exploitable pour un usage professionnel ?",
+        options: [
+          "Écris mieux ce texte.",
+          "Fais plus professionnel.",
+          "Tu es chargé de relation client. Reformule ce message pour un client mécontent, avec un ton calme, clair et empathique, en moins de 120 mots.",
+          "Rends ça bien."
+        ],
+        correct: 2,
+        explain: "Le troisième prompt précise le rôle, l'objectif, le public, le ton et la contrainte de longueur."
+      },
+      {
+        theme: "Données sensibles",
+        question: "Quel prompt présente le risque le plus élevé ?",
+        options: [
+          "Résume ce texte fictif pour un public débutant.",
+          "Reformule cet email en supprimant le jargon.",
+          "Analyse l'arrêt maladie de Sophie Martin et propose une réponse RH.",
+          "Propose trois titres pour un article sur l'IA."
+        ],
+        correct: 2,
+        explain: "Le prompt contient une donnée de santé et une personne identifiable. C'est un risque important."
+      },
+      {
+        theme: "Accessibilité",
+        question: "Quel texte est le plus accessible ?",
+        options: [
+          "Veuillez procéder à l'exécution diligente des modalités subséquentes.",
+          "Merci de suivre les prochaines étapes indiquées ci-dessous.",
+          "Les modalités opérationnelles seront implémentées ultérieurement.",
+          "Il conviendra d'envisager les paramètres afférents."
+        ],
+        correct: 1,
+        explain: "La deuxième phrase est plus simple, directe et compréhensible."
+      },
+      {
+        theme: "Éthique et biais",
+        question: "Quel exemple contient le plus clairement un biais à corriger ?",
+        options: [
+          "Les candidats doivent avoir une expérience en gestion de projet.",
+          "Le poste nécessite une bonne capacité d'organisation.",
+          "Nous recherchons une assistante naturellement patiente et souriante.",
+          "La mission implique des échanges réguliers avec les clients."
+        ],
+        correct: 2,
+        explain: "Cette formulation associe un métier et des qualités à un stéréotype de genre."
+      },
+      {
+        theme: "Vérification",
+        question: "L'IA fournit une statistique précise sans source. Que faire ?",
+        options: [
+          "La garder si elle semble crédible",
+          "La mettre en gras pour renforcer la confiance",
+          "Demander ou rechercher une source fiable avant utilisation",
+          "La traduire en anglais"
+        ],
+        correct: 2,
+        explain: "Une donnée chiffrée doit être vérifiée avec une source fiable avant diffusion."
+      },
+      {
+        theme: "Outils IA",
+        question: "Pourquoi faut-il rester prudent avec les outils IA gratuits grand public ?",
+        options: [
+          "Parce qu'ils ne savent jamais rédiger",
+          "Parce que leurs conditions d'utilisation et de traitement des données peuvent varier",
+          "Parce qu'ils sont toujours interdits",
+          "Parce qu'ils ne fonctionnent que pour les images"
+        ],
+        correct: 1,
+        explain: "Les outils gratuits peuvent avoir des politiques différentes sur la conservation ou l'utilisation des données."
+      }
+    ];
+
+    // State du QCM
+    let h0CurrentQuestion = 0;
+    let h0Answers = new Array(h0Questions.length).fill(null);
+    let h0QuizStarted = false;
+
+    function h0StartEvaluation() {
+      h0CurrentQuestion = 0;
+      h0Answers.fill(null);
+      h0QuizStarted = true;
+      document.getElementById('h0-eval-intro').style.display = 'none';
+      document.getElementById('h0-eval-quiz').style.display = 'block';
+      h0RenderQuestion();
+      h0UpdateNavigation();
+    }
+
+    function h0RenderQuestion() {
+      const q = h0Questions[h0CurrentQuestion];
+      const container = document.getElementById('h0-eval-questions');
+      
+      container.innerHTML = `
+        <div class="eval-progress">
+          <span>Question ${h0CurrentQuestion + 1} / ${h0Questions.length}</span>
+          <span class="eval-theme-tag">Thème : ${q.theme}</span>
+        </div>
+        <div class="eval-question-card">
+          <div class="eval-question-text">${q.question}</div>
+          <div class="eval-options" id="h0-eval-options">
+            ${q.options.map((option, idx) => `
+              <div class="eval-option ${h0Answers[h0CurrentQuestion] === idx ? 'selected' : ''}" 
+                   onclick="h0SelectAnswer(${h0CurrentQuestion}, ${idx})">
+                <input type="radio" name="q${h0CurrentQuestion}" 
+                       ${h0Answers[h0CurrentQuestion] === idx ? 'checked' : ''}>
+                <label>${option}</label>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function h0SelectAnswer(qIndex, optionIndex) {
+      h0Answers[qIndex] = optionIndex;
+      h0RenderQuestion();
+      h0UpdateNavigation();
+    }
+
+    function h0UpdateNavigation() {
+      const prevBtn = document.getElementById('h0-eval-prev-btn');
+      const nextBtn = document.getElementById('h0-eval-next-btn');
+      const submitBtn = document.getElementById('h0-eval-submit-btn');
+      
+      prevBtn.style.display = h0CurrentQuestion > 0 ? 'inline-flex' : 'none';
+      
+      if (h0CurrentQuestion < h0Questions.length - 1) {
+        nextBtn.style.display = 'inline-flex';
+        submitBtn.style.display = 'none';
+        nextBtn.disabled = h0Answers[h0CurrentQuestion] === null;
+      } else {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'inline-flex';
+        submitBtn.disabled = h0Answers.some(a => a === null);
+      }
+    }
+
+    function h0ShowResult() {
+      let score = 0;
+      h0Answers.forEach((answer, index) => {
+        if (answer === h0Questions[index].correct) score += 1;
+      });
+      
+      const percentage = Math.round((score / h0Questions.length) * 100);
+      let levelLabel = "Niveau débutant";
+      let levelMessage = "Vous allez surtout consolider les bases de l'IA générative, du prompting et des bons réflexes de sécurité.";
+      
+      if (percentage > 80) {
+        levelLabel = "Niveau très avancé";
+        levelMessage = "Vous maîtrisez déjà beaucoup de notions. La formation servira à renforcer vos réflexes professionnels.";
+      } else if (percentage > 60) {
+        levelLabel = "Niveau avancé";
+        levelMessage = "Vous avez de bonnes bases. L'objectif sera d'aller vers plus de méthode et de précision.";
+      } else if (percentage > 40) {
+        levelLabel = "Niveau intermédiaire";
+        levelMessage = "Vous avez déjà des repères. La formation va vous aider à structurer vos usages.";
+      }
+      
+      const resultDiv = document.getElementById('h0-eval-result');
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = `
+        <div class="eval-result">
+          <h3>Résultat de votre évaluation</h3>
+          <div class="eval-score-display">${score} / ${h0Questions.length}</div>
+          <div class="eval-level-badge">${levelLabel} (${percentage}%)</div>
+          <p style="margin-top: 12px; line-height: 1.6;">${levelMessage}</p>
+        </div>
+        <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+          <button onclick="h0ShowCorrection()" class="wiki-btn wiki-btn-secondary">
+            <span class="material-symbols-outlined">help</span> Voir les corrections
+          </button>
+          <button onclick="h0ResetQuiz()" class="wiki-btn wiki-btn-secondary">
+            <span class="material-symbols-outlined">refresh</span> Recommencer
+          </button>
+        </div>
+      `;
+      
+      document.getElementById('h0-eval-quiz').style.display = 'none';
+      document.getElementById('h0-eval-prev-btn').style.display = 'none';
+      document.getElementById('h0-eval-next-btn').style.display = 'none';
+      document.getElementById('h0-eval-submit-btn').style.display = 'none';
+      
+      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function h0ShowCorrection() {
+      const correctionDiv = document.getElementById('h0-eval-correction');
+      correctionDiv.style.display = 'block';
+      correctionDiv.innerHTML = '<h3 style="margin-bottom: 16px;">Correction détaillée</h3>';
+      
+      h0Questions.forEach((q, index) => {
+        const userAnswer = h0Answers[index];
+        const isCorrect = userAnswer === q.correct;
+        const answerText = userAnswer === null ? "Aucune réponse" : q.options[userAnswer];
+        
+        const item = document.createElement('div');
+        item.className = `eval-correction-item ${isCorrect ? 'eval-ok' : 'eval-ko'}`;
+        item.innerHTML = `
+          <h4 style="margin: 0 0 8px 0;">Question ${index + 1} — ${q.theme}</h4>
+          <p style="margin: 0 0 8px 0; font-weight: 600;">${q.question}</p>
+          <p style="margin: 0 0 4px 0;">Votre réponse : <strong>${answerText}</strong></p>
+          <p style="margin: 0 0 4px 0; color: ${isCorrect ? 'var(--secondary)' : '#f87171'};">
+            ${isCorrect ? '✓' : '✗'} Bonne réponse : <strong>${q.options[q.correct]}</strong>
+          </p>
+          <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); font-style: italic;">${q.explain}</p>
+        `;
+        correctionDiv.appendChild(item);
+      });
+      
+      correctionDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function h0ResetQuiz() {
+      h0CurrentQuestion = 0;
+      h0Answers.fill(null);
+      h0QuizStarted = false;
+      document.getElementById('h0-eval-intro').style.display = 'block';
+      document.getElementById('h0-eval-quiz').style.display = 'none';
+      document.getElementById('h0-eval-result').style.display = 'none';
+      document.getElementById('h0-eval-correction').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Event listeners
+    document.getElementById('h0-eval-start-btn').addEventListener('click', h0StartEvaluation);
+    document.getElementById('h0-eval-prev-btn').addEventListener('click', () => {
+      if (h0CurrentQuestion > 0) {
+        h0CurrentQuestion--;
+        h0RenderQuestion();
+        h0UpdateNavigation();
+      }
+    });
+    document.getElementById('h0-eval-next-btn').addEventListener('click', () => {
+      if (h0Answers[h0CurrentQuestion] !== null && h0CurrentQuestion < h0Questions.length - 1) {
+        h0CurrentQuestion++;
+        h0RenderQuestion();
+        h0UpdateNavigation();
+      }
+    });
+    document.getElementById('h0-eval-submit-btn').addEventListener('click', h0ShowResult);
+
+    // Expose functions globally for onclick handlers
+    window.h0SelectAnswer = h0SelectAnswer;
+    window.h0ShowCorrection = h0ShowCorrection;
+    window.h0ResetQuiz = h0ResetQuiz;
   </script>
 </body>
 </html>

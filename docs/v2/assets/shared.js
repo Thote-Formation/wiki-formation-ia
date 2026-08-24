@@ -34,7 +34,7 @@ export class ThoteStore {
     const newLevel = Math.floor(state.xp / 100) + 1;
     if (newLevel > state.level) {
       state.level = newLevel;
-      alert(`\ud83c\udf89 F\u00e9licitations ! Vous avez atteint le niveau ${newLevel} !`);
+      alert(`\ud83c\udf89 Félicitations ! Vous avez atteint le niveau ${newLevel} !`);
     }
     this.saveState(state);
   }
@@ -43,19 +43,25 @@ export class ThoteStore {
     const state = this.getState();
     if (!state.validatedQuests.includes(questId)) {
       state.validatedQuests.push(questId);
+      state.xp += xpReward;
+      // Calcul simple de niveau : +1 niveau tous les 100 XP
+      const newLevel = Math.floor(state.xp / 100) + 1;
+      if (newLevel > state.level) {
+        state.level = newLevel;
+        alert(`\ud83c\udf89 Félicitations ! Vous avez atteint le niveau ${newLevel} !`);
+      }
       this.saveState(state);
-      this.addXP(xpReward);
     }
   }
 }
 
 export function initV2Shell(activePageId = 'home') {
   injectHeader();
-  injectLeftSidebar(activePageId);
+  injectLeftSidebar(activeId);
   injectRightSidebar();
   injectFooter();
 
-  // Re-render automatique au changement d'\u00e9tat
+  // Re-render automatique au changement d'état
   window.addEventListener('thote-state-changed', () => {
     updateRightSidebar();
   });
@@ -88,19 +94,19 @@ function injectLeftSidebar(activeId) {
   if (!el) return;
 
   const links = [
-    { section: "G\u00c9N\u00c9RAL" },
+    { section: "GÉNÉRAL" },
     { id: "home", label: "Accueil", icon: "grid_view", href: "/wiki-formation-ia/v2/index.html" },
     { id: "rs6776", label: "Certification RS6776", icon: "school", href: "/wiki-formation-ia/v2/certification.html" },
     
     { section: "PARCOURS H0 - H7" },
     { id: "h0", label: "H0 — Lancement", icon: "rocket_launch", href: "/wiki-formation-ia/v2/formation/h0.html" },
     { id: "h1", label: "H1 — Fondamentaux & ROFT", icon: "menu_book", href: "/wiki-formation-ia/v2/formation/h1.html" },
-    { id: "h2", label: "H2 — Strat\u00e9gie IA", icon: "strategy", href: "/wiki-formation-ia/v2/formation/h2.html" },
+    { id: "h2", label: "H2 — Stratégie IA", icon: "strategy", href: "/wiki-formation-ia/v2/formation/h2.html" },
     { id: "h3", label: "H3 — Prompting CROFT", icon: "terminal", href: "/wiki-formation-ia/v2/formation/h3.html" },
-    { id: "h4", label: "H4 — Visuels & M\u00e9dias", icon: "image", href: "/wiki-formation-ia/v2/formation/h4.html" },
-    { id: "h5", label: "H5 — S\u00e9curit\u00e9 & RGPD", icon: "security", href: "/wiki-formation-ia/v2/formation/h5.html" },
-    { id: "h6", label: "H6 — Inclusivit\u00e9", icon: "accessibility", href: "/wiki-formation-ia/v2/formation/h6.html" },
-    { id: "h7", label: "H7 — \u00c9thique & IA Act", icon: "gavel", href: "/wiki-formation-ia/v2/formation/h7.html" },
+    { id: "h4", label: "H4 — Visuels & Médias", icon: "image", href: "/wiki-formation-ia/v2/formation/h4.html" },
+    { id: "h5", label: "H5 — Sécurité & RGPD", icon: "security", href: "/wiki-formation-ia/v2/formation/h5.html" },
+    { id: "h6", label: "H6 — Inclusivité", icon: "accessibility", href: "/wiki-formation-ia/v2/formation/h6.html" },
+    { id: "h7", label: "H7 — Éthique & IA Act", icon: "gavel", href: "/wiki-formation-ia/v2/formation/h7.html" },
     
     { section: "OUTILS & JEUX" },
     { id: "outils", label: "Outils Interactifs", icon: "build", href: "/wiki-formation-ia/v2/outils/index.html" },
@@ -157,7 +163,7 @@ function updateRightSidebar() {
     </div>
 
     <div class="widget-stat glass-panel" style="background:var(--surface-low);">
-      <div class="label-tech" style="margin-bottom:8px; color:var(--text-muted);">Qu\u00eates valid\u00e9es</div>
+      <div class="label-tech" style="margin-bottom:8px; color:var(--text-muted);">Quêtes validées</div>
       <div style="font-size:1.4rem; font-weight:700; color:var(--secondary);">
         ${state.validatedQuests.length} <span style="font-size:0.8rem; color:var(--text-muted);">accomplies</span>
       </div>
@@ -177,7 +183,7 @@ function injectFooter() {
   if (!el) return;
   el.innerHTML = `
     <footer class="v2-footer">
-      Assistance IA (IA Act) & Donn\u00e9es h\u00e9berg\u00e9es en UE (RGPD) \u2014 Thote IA V2
+      Assistance IA (IA Act) & Données hébergées en UE (RGPD) — Thote IA V2
     </footer>
   `;
 }
