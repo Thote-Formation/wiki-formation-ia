@@ -1,372 +1,135 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>H1 — Fondamentaux IA & Méthode ROFT | Thote V2</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>H1 — Fondamentaux IA & Méthode ROFT | Thotie Quest</title>
   <link rel="stylesheet" href="/wiki-formation-ia/v2/assets/theme.css">
 </head>
 <body>
-
-  <!-- Header JS Target -->
   <div id="v2-header-target"></div>
-
-  <!-- App Dashboard 3-Columns -->
   <div class="v2-app-container">
-    
-    <!-- Left Navigation Target -->
-    <div id="v2-left-sidebar-target" class="left-sidebar"></div>
-
-    <!-- Main Central Content -->
+    <aside id="v2-left-sidebar-target" class="left-sidebar"></aside>
     <main class="main-content">
-      
-      <!-- Module Hero Banner -->
-      <section class="glass-panel neo-bevel glow-primary" style="padding: 32px; margin-bottom: 24px; position: relative; overflow: hidden;">
-        <div class="label-tech" style="color: var(--secondary); margin-bottom: 8px;">Module H1</div>
-        <h1 style="font-size: 2rem; margin-bottom: 12px;">Fondamentaux IA & Méthode ROFT</h1>
-        <p style="color: var(--text-muted); max-width: 650px; line-height: 1.6;">
-          Comprendre ce qu'est l'IA générative, apprendre à structurer un prompt efficace et maîtriser la méthode ROFT pour cadrer vos requêtes quotidiennes.
-        </p>
+      <section class="glass-panel neo-bevel glow-primary" style="padding:32px;margin-bottom:24px;">
+        <p class="label-tech" style="color:var(--secondary);margin:0 0 8px;">MODULE H1 · FONDAMENTAUX</p>
+        <h1 style="font-size:clamp(1.8rem,4vw,2.4rem);margin:0 0 12px;">H1 — Fondamentaux IA & Méthode ROFT</h1>
+        <p style="color:var(--text-muted);line-height:1.65;max-width:760px;margin:0;">Cette première séance technique vous présente le fonctionnement réel des modèles d'intelligence artificielle générative et pose les bases de la structuration de prompts avec la méthode <strong>ROFT</strong>.</p>
       </section>
 
-      <!-- Objectifs Section -->
-      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary);">flag</span>
-          Objectifs de la séance
-        </h2>
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
-            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
-            <span>Comprendre ce qu'est l'IA générative : fonctionnement, limites et paysage des assistants</span>
-          </li>
-          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
-            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
-            <span>Apprendre à structurer un prompt efficace de premier niveau</span>
-          </li>
-          <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
-            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
-            <span>Maîtriser la méthode <strong>ROFT</strong> pour cadrer vos requêtes quotidiennes</span>
-          </li>
-          <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px;">
-            <span class="material-symbols-outlined" style="color: var(--secondary);">check_circle</span>
-            <span>Identifier votre projet fil rouge : un cas concret professionnel à traiter tout au long du parcours</span>
-          </li>
+      <section class="glass-panel" style="padding:24px;margin-bottom:20px;">
+        <h2 style="font-size:1.2rem;margin:0 0 16px;">Objectifs de la séance</h2>
+        <ul style="list-style:none;padding:0;margin:0;line-height:1.7;">
+          <li>✓ Comprendre ce qu'est l'IA générative : fonctionnement, limites et paysage des assistants</li>
+          <li>✓ Apprendre à structurer un prompt efficace de premier niveau</li>
+          <li>✓ Maîtriser la méthode <strong>ROFT</strong> pour cadrer vos requêtes quotidiennes</li>
+          <li>✓ Identifier votre projet fil rouge : un cas concret professionnel à traiter tout au long du parcours</li>
         </ul>
       </section>
 
-      <!-- L'IA générative : c'est quoi ? -->
-      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary);">auto_awesome</span>
-          L'IA générative : c'est quoi réellement ?
-        </h2>
-        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
-          Une intelligence artificielle générative est un système d'apprentissage automatique entraîné sur d'immenses corpus de texte pour <strong>prédire</strong> et <strong>générer</strong> du contenu (texte, code, structures) en réponse à vos consignes (*prompts*).
-        </p>
-
-        <!-- Workflow LLM -->
-        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 20px;">
-          <div class="glass-panel" style="padding: 16px; min-width: 200px; text-align: center;">
-            <div style="font-size: 2rem; margin-bottom: 8px; color: var(--secondary);">1</div>
-            <h4 style="margin-bottom: 4px;">Consigne (Prompt)</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Vous donnez du contexte</p>
-          </div>
-          <span class="material-symbols-outlined" style="font-size: 32px; color: var(--primary);">arrow_forward</span>
-          <div class="glass-panel" style="padding: 16px; min-width: 200px; text-align: center;">
-            <div style="font-size: 2rem; margin-bottom: 8px; color: var(--secondary);">2</div>
-            <h4 style="margin-bottom: 4px;">Analyse & Statistiques</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Calcul des probabilités</p>
-          </div>
-          <span class="material-symbols-outlined" style="font-size: 32px; color: var(--primary);">arrow_forward</span>
-          <div class="glass-panel" style="padding: 16px; min-width: 200px; text-align: center;">
-            <div style="font-size: 2rem; margin-bottom: 8px; color: var(--secondary);">3</div>
-            <h4 style="margin-bottom: 4px;">Génération mot à mot</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Production de la réponse</p>
-          </div>
+      <section class="glass-panel" style="padding:24px;margin:20px 0;">
+        <h2 style="font-size:1.2rem;margin:0 0 12px;">L'IA générative : c'est quoi réellement ?</h2>
+        <p style="line-height:1.65;color:var(--text-muted);">Une intelligence artificielle générative est un système d'apprentissage automatique entraîné sur d'immenses corpus de texte pour <strong>prédire</strong> et <strong>générer</strong> du contenu (texte, code, structures) en réponse à vos consignes (<em>prompts</em>).</p>
+        <div class="cards-grid" style="grid-template-columns:repeat(3,minmax(160px,1fr));">
+          <article class="glass-panel" style="padding:18px;text-align:center;"><strong style="color:var(--primary);">1. Consigne (Prompt)</strong><p class="quest-muted">Vous donnez du contexte</p></article>
+          <article class="glass-panel" style="padding:18px;text-align:center;"><strong style="color:var(--primary);">2. Analyse & Statistiques</strong><p class="quest-muted">Calcul des probabilités</p></article>
+          <article class="glass-panel" style="padding:18px;text-align:center;"><strong style="color:var(--primary);">3. Génération mot à mot</strong><p class="quest-muted">Production de la réponse</p></article>
         </div>
-
-        <!-- Les 3 limites -->
-        <div class="real-life-box" style="margin-top: 20px;">
-          <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-            <span class="material-symbols-outlined">warning</span>
-            Les 3 limites fondamentales à garder en tête
-          </h3>
-          <ul style="list-style: none; padding: 0; margin: 0;">
-            <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); display: flex; align-items: flex-start; gap: 12px;">
-              <span class="material-symbols-outlined" style="color: var(--secondary); margin-top: 2px;">info</span>
-              <div>
-                <strong>Pas de vraie réflexion :</strong> L'IA ne "pense" pas et n'a pas de conscience ; elle associe des motifs linguistiques et des statistiques.
-              </div>
-            </li>
-            <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); display: flex; align-items: flex-start; gap: 12px;">
-              <span class="material-symbols-outlined" style="color: var(--secondary); margin-top: 2px;">info</span>
-              <div>
-                <strong>Risque d'hallucination :</strong> Elle peut affirmer avec assurance des faits totalement inexacts. <em>Une vérification humaine reste indispensable.</em>
-              </div>
-            </li>
-            <li style="padding: 8px 0; display: flex; align-items: flex-start; gap: 12px;">
-              <span class="material-symbols-outlined" style="color: var(--secondary); margin-top: 2px;">info</span>
-              <div>
-                <strong>Sensibilité aux consignes :</strong> Si votre demande est floue, le résultat sera générique ou inadapté (principe du <em>"Garbage in, garbage out"</em>).
-              </div>
-            </li>
+        <div class="real-life-box" style="margin:20px 0 0;">
+          <h3 style="color:var(--secondary);margin:0 0 8px;">Les 3 limites fondamentales à garder en tête</h3>
+          <ul style="margin:0;padding-left:20px;line-height:1.7;">
+            <li><strong>Pas de vraie réflexion :</strong> L'IA ne "pense" pas et n'a pas de conscience ; elle associe des motifs linguistiques et des statistiques.</li>
+            <li><strong>Risque d'hallucination :</strong> Elle peut affirmer avec assurance des faits totalement inexacts. <em>Une vérification humaine reste indispensable.</em></li>
+            <li><strong>Sensibilité aux consignes :</strong> Si votre demande est floue, le résultat sera générique ou inadapté (principe du <em>"Garbage in, garbage out"</em>).</li>
           </ul>
         </div>
       </section>
 
-      <!-- Le concept clé -->
-      <div class="real-life-box" style="margin-bottom: 20px;">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-          <span class="material-symbols-outlined" style="color: var(--secondary); font-size: 24px;">psychology</span>
-          <h3 style="color: var(--secondary); margin: 0;">Le concept clé : un T9 très avancé</h3>
+      <section class="glass-panel" style="padding:24px;margin:20px 0;">
+        <h2 style="font-size:1.2rem;margin:0 0 12px;">Comment fonctionne un modèle de langage (LLM) ?</h2>
+        <div class="real-life-box" style="margin:0;">
+          <h3 style="color:var(--secondary);margin:0 0 8px;">Le concept clé : un T9 très avancé</h3>
+          <p style="margin:0;line-height:1.65;">Imaginez le correcteur automatique de votre smartphone, mais entraîné sur l'ensemble du Web et de millions d'ouvrages. L'IA n'invente rien au sens humain : elle <strong>recombine</strong> des fragments appris de façon cohérente selon le contexte que vous lui fournissez.</p>
         </div>
-        <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-main); margin: 0;">
-          Imaginez le correcteur automatique de votre smartphone, mais entraîné sur l'ensemble du Web et de millions d'ouvrages. L'IA n'invente rien au sens humain : elle <strong>recombine</strong> des fragments appris de façon cohérente selon le contexte que vous lui fournissez.
-        </p>
-      </div>
-
-      <!-- Panorama des assistants -->
-      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary);">grid_view</span>
-          Panorama des assistants IA grands publics
-        </h2>
-        <div class="cards-grid">
-          <div class="glass-panel interactive-card" style="padding: 16px;">
-            <div style="font-size: 1.5rem; margin-bottom: 8px;">🤖</div>
-            <h4 style="margin-bottom: 8px;">ChatGPT</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Points forts:</strong> Polyvalent, mode vocal réactif</p>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Version payante pour modèles avancés</em></p>
-          </div>
-          <div class="glass-panel interactive-card" style="padding: 16px;">
-            <div style="font-size: 1.5rem; margin-bottom: 8px;">🔍</div>
-            <h4 style="margin-bottom: 8px;">Gemini</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Points forts:</strong> Intégration Google Workspace</p>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Réponses parfois très synthétiques</em></p>
-          </div>
-          <div class="glass-panel interactive-card" style="padding: 16px;">
-            <div style="font-size: 1.5rem; margin-bottom: 8px;">📊</div>
-            <h4 style="margin-bottom: 8px;">Copilot</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Points forts:</strong> Intégration Microsoft 365</p>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Dépend de la politique d'administration</em></p>
-          </div>
-          <div class="glass-panel interactive-card" style="padding: 16px;">
-            <div style="font-size: 1.5rem; margin-bottom: 8px;">🇪🇺</div>
-            <h4 style="margin-bottom: 8px;">Le Chat</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Points forts:</strong> Modèles européens, respect RGPD</p>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Écosystème en développement</em></p>
-          </div>
-          <div class="glass-panel interactive-card" style="padding: 16px;">
-            <div style="font-size: 1.5rem; margin-bottom: 8px;">✍️</div>
-            <h4 style="margin-bottom: 8px;">Claude</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Points forts:</strong> Qualité de rédaction supérieure</p>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><em>Fonctionnalités recherche web limitées</em></p>
-          </div>
+        <div id="prediction-game" class="glass-panel" style="--md-code-bg-color:var(--surface-low);--md-default-bg-color:var(--surface-high);--md-typeset-color:var(--text-main);--md-default-fg-color--lightest:var(--border-color);--md-default-fg-color--light:var(--text-muted);padding:20px;margin-top:20px;">
+          <p style="margin-top:0;line-height:1.5;"><strong>🎮 Expérience interactive :</strong> Mettez-vous dans la peau d'un LLM. Sélectionnez le mot qui vous semble le plus probable pour compléter la phrase :</p>
+          <div id="sentence" style="font-size:18px;font-weight:700;min-height:32px;margin-bottom:16px;"></div>
+          <div id="choices" style="display:flex;flex-direction:column;gap:8px;"></div>
+          <div id="done" style="display:none;margin-top:16px;padding:14px;background:rgba(68,226,205,.1);border:1px solid var(--secondary);border-radius:10px;line-height:1.5;"></div>
+          <button type="button" id="reset" class="wiki-btn wiki-btn-secondary" style="display:none;margin-top:14px;">🔄 Recommencer l'expérience</button>
         </div>
       </section>
 
-      <!-- Les 3 règles d'or -->
-      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary);">star</span>
-          Les 3 règles d'or d'un prompt efficace
-        </h2>
-        <ol style="margin: 0; padding-left: 20px;">
-          <li style="margin-bottom: 12px; color: var(--text-main); line-height: 1.6;">
-            <strong>Être spécifique :</strong> Bannissez les demandes vagues (ex: "Rédige une relance" → "Rédige une relance courtoise pour une facture en retard de 15 jours").
-          </li>
-          <li style="margin-bottom: 12px; color: var(--text-main); line-height: 1.6;">
-            <strong>Fournir du contexte :</strong> Donnez à l'IA les éléments d'environnement nécessaires pour limiter les interprétations libres.
-          </li>
-          <li style="color: var(--text-main); line-height: 1.6;">
-            <strong>Expliciter la forme :</strong> Précisez la longueur, le ton, la structure et le format attendu (tableau, liste à puces, courriel).
-          </li>
+      <section class="glass-panel" style="padding:24px;margin:20px 0;overflow:auto;">
+        <h2 style="font-size:1.2rem;margin:0 0 12px;">Panorama des assistants IA grands publics</h2>
+        <table style="width:100%;border-collapse:collapse;min-width:720px;"><thead><tr style="background:var(--surface-highest);"><th style="padding:12px;text-align:left;">Outil IA</th><th style="padding:12px;text-align:left;">Points forts principaux</th><th style="padding:12px;text-align:left;">Limites ou points d'attention</th><th style="padding:12px;text-align:left;">Usage recommandé</th></tr></thead><tbody>
+          <tr><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>ChatGPT</strong> <em>(OpenAI)</em></td><td style="padding:12px;border-top:1px solid var(--border-color);">Polyvalent, mode vocal réactif, écosystème étendu</td><td style="padding:12px;border-top:1px solid var(--border-color);">Nécessite la version payante pour les modèles avancés</td><td style="padding:12px;border-top:1px solid var(--border-color);">Usage généraliste & rédaction</td></tr>
+          <tr><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Gemini</strong> <em>(Google)</em></td><td style="padding:12px;border-top:1px solid var(--border-color);">Intégration Google Workspace, données web temps réel</td><td style="padding:12px;border-top:1px solid var(--border-color);">Réponses parfois très synthétiques</td><td style="padding:12px;border-top:1px solid var(--border-color);">Recherche & écosystème Google</td></tr>
+          <tr><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Copilot</strong> <em>(Microsoft)</em></td><td style="padding:12px;border-top:1px solid var(--border-color);">Intégration native dans la suite Microsoft 365</td><td style="padding:12px;border-top:1px solid var(--border-color);">Dépend de la politique d'administration d'entreprise</td><td style="padding:12px;border-top:1px solid var(--border-color);">Tâches bureautiques au quotidien</td></tr>
+          <tr><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Le Chat</strong> <em>(Mistral AI)</em></td><td style="padding:12px;border-top:1px solid var(--border-color);">Modèles européens, hébergement souverain, respect du RGPD</td><td style="padding:12px;border-top:1px solid var(--border-color);">Écosystème applicatif en développement</td><td style="padding:12px;border-top:1px solid var(--border-color);">Confidentialité & souveraineté</td></tr>
+          <tr><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Claude</strong> <em>(Anthropic)</em></td><td style="padding:12px;border-top:1px solid var(--border-color);">Qualité de rédaction supérieure, analyse de textes longs</td><td style="padding:12px;border-top:1px solid var(--border-color);">Fonctionnalités de recherche web plus limitées</td><td style="padding:12px;border-top:1px solid var(--border-color);">Synthèse & rédaction complexe</td></tr>
+        </tbody></table>
+      </section>
+
+      <section class="glass-panel" style="padding:24px;margin:20px 0;">
+        <h2 style="font-size:1.2rem;margin:0 0 12px;">Les 3 règles d'or d'un prompt efficace</h2>
+        <ol style="padding-left:20px;line-height:1.75;margin:0;">
+          <li><strong>Être spécifique :</strong> Bannissez les demandes vagues (<em>ex: "Rédige une relance"</em> ➔ <em>"Rédige une relance courtoise pour une facture en retard de 15 jours"</em>).</li>
+          <li><strong>Fournir du contexte :</strong> Donnez à l'IA les éléments d'environnement nécessaires pour limiter les interprétations libres.</li>
+          <li><strong>Expliciter la forme :</strong> Précisez la longueur, le ton, la structure et le format attendu (tableau, liste à puces, courriel).</li>
         </ol>
       </section>
 
-      <!-- La Méthode ROFT -->
-      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary);">school</span>
-          La Méthode ROFT
-        </h2>
-        <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 20px;">
-          Pour cadrer vos requêtes de premier niveau sans rien oublier, utilisez la grille <strong>ROFT</strong> :
-        </p>
-
-        <div class="cards-grid">
-          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--primary);">
-            <div style="font-size: 2rem; margin-bottom: 8px; color: var(--primary);">R</div>
-            <h4 style="margin-bottom: 4px;">Rôle</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Qui l'IA doit-elle incarner ?</p>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px; font-style: italic;">"Tu es un responsable RH senior..."</p>
-          </div>
-          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--secondary);">
-            <div style="font-size: 2rem; margin-bottom: 8px; color: var(--secondary);">O</div>
-            <h4 style="margin-bottom: 4px;">Objectif</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Que doit produire l'IA exactement ?</p>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px; font-style: italic;">"Créer une trame d'entretien annuel..."</p>
-          </div>
-          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--tertiary);">
-            <div style="font-size: 2rem; margin-bottom: 8px; color: var(--tertiary);">F</div>
-            <h4 style="margin-bottom: 4px;">Format</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Sous quelle forme présenter la réponse ?</p>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px; font-style: italic;">"Tableau à 3 colonnes..."</p>
-          </div>
-          <div class="glass-panel" style="padding: 16px; text-align: center; border: 1px solid var(--primary);">
-            <div style="font-size: 2rem; margin-bottom: 8px; color: var(--primary);">T</div>
-            <h4 style="margin-bottom: 4px;">Ton</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Quel style ou posture adopter ?</p>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px; font-style: italic;">"Ton courtois et assertif"</p>
-          </div>
-        </div>
-
-        <!-- Exemple ROFT -->
-        <div class="real-life-box" style="margin-top: 20px;">
-          <h3 style="color: var(--secondary); margin-bottom: 12px;">Exemple de prompt ROFT complet</h3>
-          <p style="font-size: 0.95rem; line-height: 1.5; color: var(--text-main); margin: 0; font-style: italic;">
-            « Tu es un responsable RH senior dans une PME. Rédige une trame d'entretien annuel d'évaluation pour un collaborateur. Structure le résultat dans un tableau à 3 colonnes : Thématique, Questions clés, Indicateur de réussite. Adopte un ton constructif, précis et professionnel. »
-          </p>
-        </div>
+      <section class="glass-panel" style="padding:24px;margin:20px 0;overflow:auto;">
+        <h2 style="font-size:1.2rem;margin:0 0 12px;">La Méthode ROFT</h2>
+        <p class="quest-muted">Pour cadrer vos requêtes de premier niveau sans rien oublier, utilisez la grille <strong>ROFT</strong> :</p>
+        <table style="width:100%;border-collapse:collapse;min-width:650px;"><thead><tr style="background:var(--surface-highest);"><th style="padding:12px;">Composante</th><th style="padding:12px;text-align:left;">Rôle</th><th style="padding:12px;text-align:left;">Question clé</th><th style="padding:12px;text-align:left;">Exemple d'application</th></tr></thead><tbody>
+          <tr><td style="padding:12px;border-top:1px solid var(--border-color);text-align:center;"><strong>R</strong></td><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Rôle</strong></td><td style="padding:12px;border-top:1px solid var(--border-color);">Qui l'IA doit-elle incarner ?</td><td style="padding:12px;border-top:1px solid var(--border-color);"><em>"Tu es un responsable RH senior..."</em></td></tr>
+          <tr><td style="padding:12px;border-top:1px solid var(--border-color);text-align:center;"><strong>O</strong></td><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Objectif</strong></td><td style="padding:12px;border-top:1px solid var(--border-color);">Que doit produire l'IA exactement ?</td><td style="padding:12px;border-top:1px solid var(--border-color);"><em>"Créer une trame d'entretien annuel d'évaluation..."</em></td></tr>
+          <tr><td style="padding:12px;border-top:1px solid var(--border-color);text-align:center;"><strong>F</strong></td><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Format</strong></td><td style="padding:12px;border-top:1px solid var(--border-color);">Sous quelle forme présenter la réponse ?</td><td style="padding:12px;border-top:1px solid var(--border-color);"><em>"Présente le résultat sous forme de tableau à 3 colonnes..."</em></td></tr>
+          <tr><td style="padding:12px;border-top:1px solid var(--border-color);text-align:center;"><strong>T</strong></td><td style="padding:12px;border-top:1px solid var(--border-color);"><strong>Ton</strong></td><td style="padding:12px;border-top:1px solid var(--border-color);">Quel style ou posture adopter ?</td><td style="padding:12px;border-top:1px solid var(--border-color);"><em>"Adopte un ton professionnel, constructif et bienveillant."</em></td></tr>
+        </tbody></table>
+        <div class="real-life-box" style="margin:20px 0 0;"><h3 style="color:var(--secondary);margin:0 0 8px;">Exemple de prompt ROFT complet</h3><p style="margin:0;line-height:1.6;"><em>« Tu es un responsable RH senior dans une PME. Rédige une trame d'entretien annuel d'évaluation pour un collaborateur. Structure le résultat dans un tableau à 3 colonnes : Thématique, Questions clés, Indicateur de réussite. Adopte un ton constructif, précis et professionnel. »</em></p></div>
       </section>
 
-      <!-- Exercice d'application -->
-      <section class="glass-panel" style="padding: 24px; margin-bottom: 20px;">
-        <h2 style="font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary);">assignment</span>
-          Exercice d'application — Comparatif de prompts
-        </h2>
-
-        <div style="margin-bottom: 20px;">
-          <h3 style="font-size: 1rem; color: var(--text-muted); margin-bottom: 12px;">Exemple 1 : Courriel professionnel</h3>
-          <div class="cards-grid">
-            <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
-              <h4 style="color: #f87171; margin-bottom: 8px;">❌ Prompt vrac (à éviter)</h4>
-              <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0; font-style: italic;">"Écris un email pour demander une augmentation."</p>
-            </div>
-            <div class="glass-panel" style="padding: 16px; border: 1px solid var(--secondary);">
-              <h4 style="color: var(--secondary); margin-bottom: 8px;">✅ Prompt optimisé (Méthode ROFT)</h4>
-              <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0; font-style: italic;">"Incarne un consultant en cybersécurité. Rédige un courriel de 150 mots à mon manager pour solliciter un entretien relatif à ma rémunération, en valorisant l'obtention de ma certification récente et 3 ans d'ancienneté. Ton courtois et assertif."</p>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-          <h3 style="font-size: 1rem; color: var(--text-muted); margin-bottom: 12px;">Exemple 2 : Synthèse de document</h3>
-          <div class="cards-grid">
-            <div class="glass-panel" style="padding: 16px; border: 1px solid #f87171;">
-              <h4 style="color: #f87171; margin-bottom: 8px;">❌ Prompt vrac (à éviter)</h4>
-              <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0; font-style: italic;">"Résume cet article."</p>
-            </div>
-            <div class="glass-panel" style="padding: 16px; border: 1px solid var(--secondary);">
-              <h4 style="color: var(--secondary); margin-bottom: 8px;">✅ Prompt optimisé (Méthode ROFT)</h4>
-              <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0; font-style: italic;">"Tu es un rédacteur spécialisé en économie. Résume le texte suivant sous forme de 5 points clés avec des puces. Niveau de lecture : grand public non-spécialiste."</p>
-            </div>
-          </div>
-        </div>
+      <section class="glass-panel" style="padding:24px;margin:20px 0;">
+        <h2 style="font-size:1.2rem;margin:0 0 16px;">Exercice d'application — Comparatif de prompts</h2>
+        <div id="prompt-examples" style="display:grid;gap:18px;"></div>
       </section>
 
-      <!-- Quiz interactif ROFT -->
-      <section class="glass-panel neo-bevel" style="padding: 24px; margin-bottom: 20px; border: 1px solid var(--primary);">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">quiz</span>
-          <h3 style="margin: 0;">Quiz : Testez vos connaissances ROFT</h3>
-        </div>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
-          Quel élément manque dans ce prompt : "Rédige une lettre de motivation pour un poste de chef de projet. Adopte un ton professionnel."
-        </p>
-        <div id="h1-quiz-choices" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
-          <button onclick="handleH1Quiz(1)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
-            A. Rôle
-          </button>
-          <button onclick="handleH1Quiz(2)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
-            B. Objectif
-          </button>
-          <button onclick="handleH1Quiz(3)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
-            C. Format
-          </button>
-          <button onclick="handleH1Quiz(4)" class="wiki-btn wiki-btn-secondary" style="justify-content: flex-start; text-align: left;">
-            D. Contexte
-          </button>
-        </div>
-        <div id="h1-quiz-feedback" class="glass-panel" style="margin-top: 16px; padding: 16px; display: none;"></div>
+      <aside class="real-life-box">
+        <h3 style="color:var(--secondary);margin:0 0 8px;">À retenir</h3>
+        <ul style="padding-left:20px;margin:0;line-height:1.7;"><li>L'IA générative est un outil d'assistance fondé sur la prédiction statistique.</li><li>Le choix de l'assistant dépend du besoin métier, du niveau de confidentialité et des outils déjà utilisés.</li><li>La méthode <strong>ROFT</strong> permet de structurer rapidement un prompt clair et directement exploitable.</li></ul>
+      </aside>
+
+      <section class="glass-panel neo-bevel" style="padding:24px;margin:20px 0;border-color:rgba(68,226,205,.4);">
+        <p class="label-tech" style="color:var(--secondary);margin:0 0 8px;">QUÊTE H1 · +75 XP</p>
+        <h2 style="font-size:1.2rem;margin:0 0 8px;">Prêt pour la suite ?</h2>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;"><button id="complete-h1" class="wiki-btn wiki-btn-primary">Valider H1 · +75 XP</button><a class="wiki-btn wiki-btn-secondary" href="/wiki-formation-ia/v2/formation/h2.html">Passer à la séance H2 — Stratégie d'implémentation IA</a><a class="wiki-btn wiki-btn-secondary" href="/wiki-formation-ia/v2/evaluation-entree.html">Revoir l'évaluation d'entrée</a></div>
+        <p id="h1-feedback" class="quest-muted" style="display:none;margin:12px 0 0;"></p>
       </section>
-
-      <!-- À retenir -->
-      <div class="real-life-box" style="margin-bottom: 20px;">
-        <h3 style="color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-          <span class="material-symbols-outlined">lightbulb</span>
-          À retenir
-        </h3>
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
-            L'IA générative est un outil d'assistance fondé sur la prédiction statistique.
-          </li>
-          <li style="padding: 8px 0; border-bottom: 1px solid rgba(68, 226, 205, 0.2); color: var(--text-main);">
-            Le choix de l'assistant dépend du besoin métier, du niveau de confidentialité et des outils déjà utilisés.
-          </li>
-          <li style="padding: 8px 0; color: var(--text-main);">
-            La méthode <strong>ROFT</strong> permet de structurer rapidement un prompt clair et directement exploitable.
-          </li>
-        </ul>
-      </div>
-
-      <!-- Validation Module -->
-      <section class="glass-panel neo-bevel" style="padding: 24px; margin-top: 24px; border: 1px solid var(--secondary);">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-          <span class="material-symbols-outlined" style="color: var(--tertiary); font-size: 28px;">military_tech</span>
-          <h3 style="margin: 0;">Valider le Module H1</h3>
-        </div>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
-          Avez-vous compris les fondamentaux de l'IA générative et la méthode ROFT ?
-        </p>
-        <button onclick="ThoteStore.completeQuest('h1_complete', 75)" class="wiki-btn wiki-btn-primary">
-          <span class="material-symbols-outlined">check</span> Valider le module (+75 XP)
-        </button>
-      </section>
-
     </main>
-
-    <!-- Right Progression Sidebar Target -->
-    <div id="v2-right-sidebar-target" class="right-sidebar"></div>
-
+    <aside id="v2-right-sidebar-target" class="right-sidebar"></aside>
   </div>
-
-  <!-- Footer Target -->
   <div id="v2-footer-target"></div>
-
-  <!-- Scripts Logic -->
+  <script src="/wiki-formation-ia/javascripts/h1-interactivity.js"></script>
   <script type="module">
-    import { initV2Shell, ThoteStore } from '/wiki-formation-ia/v2/assets/shared.js';
-
-    // Initialisation du Shell partagé (Active tab = 'h1')
-    document.addEventListener('DOMContentLoaded', () => {
-      initV2Shell('h1');
+    import { initV2Shell, ThoteStore } from "/wiki-formation-ia/v2/assets/shared.js";
+    const examples = [
+      ["Exemple 1 : Courriel professionnel","Écris un email pour demander une augmentation.","Incarne un consultant en cybersécurité. Rédige un courriel de 150 mots à mon manager pour solliciter un entretien relatif à ma rémunération, en valorisant l'obtention de ma certification récente et 3 ans d'ancienneté. Ton courtois et assertif."],
+      ["Exemple 2 : Synthèse de document","Résume cet article.","Tu es un rédacteur spécialisé en économie. Résume le texte suivant sous forme de 5 points clés avec des puces. Niveau de lecture : grand public non-spécialiste."],
+      ["Exemple 3 : Facilitation d'atelier","Donne-moi des idées d'ateliers.","Tu es un facilitateur Agile. Génère 5 idées d'ateliers d'ice-breaker pour une équipe de 10 personnes qui ne se connaissent pas. Présente chaque idée avec : Durée, Matériel requis, Déroulé."]
+    ];
+    document.addEventListener("DOMContentLoaded", () => {
+      initV2Shell("h1");
+      document.getElementById("prompt-examples").innerHTML = examples.map((item) => "<article><h3 style='font-size:1rem;margin:0 0 10px'>" + item[0] + "</h3><div class='cards-grid'><div class='glass-panel' style='padding:16px;border-color:rgba(255,139,132,.55)'><strong style='color:#ff8b84'>Prompt vrac (À éviter)</strong><p class='quest-muted'><em>“" + item[1] + "”</em></p></div><div class='glass-panel' style='padding:16px;border-color:rgba(68,226,205,.55)'><strong style='color:var(--secondary)'>Prompt optimisé (Méthode ROFT)</strong><p class='quest-muted'><em>“" + item[2] + "”</em></p></div></div></article>").join("");
+      const button = document.getElementById("complete-h1");
+      if (ThoteStore.getState().completedModules.includes("h1")) { button.disabled = true; button.textContent = "H1 déjà validé ✓"; }
+      button.addEventListener("click", () => { ThoteStore.completeModule("h1", 75); button.disabled = true; button.textContent = "H1 validé ✓"; const f=document.getElementById("h1-feedback"); f.textContent="75 XP ajoutés. H2 est maintenant disponible."; f.style.display="block"; });
+      const done = document.getElementById("done");
+      const observer = new MutationObserver(() => { if (done.style.display === "block") ThoteStore.completeQuest("h1_prediction_game", 15); });
+      observer.observe(done, { attributes:true, attributeFilter:["style"] });
     });
-
-    // Quiz ROFT
-    window.handleH1Quiz = function(option) {
-      const feedback = document.getElementById('h1-quiz-feedback');
-      feedback.style.display = 'block';
-      
-      if (option === 3) { // Format manque
-        feedback.style.borderColor = 'var(--secondary)';
-        feedback.style.background = 'rgba(68, 226, 205, 0.1)';
-        feedback.innerHTML = `
-          <div style="color: var(--secondary); font-weight:700; margin-bottom:4px;">✅ Exact ! (+25 XP)</div>
-          <div style="font-size:0.85rem;">Le prompt a bien un Rôle (implicite), un Objectif, et un Ton. Il manque le <strong>Format</strong> : il faut préciser la structure (ex: "en 3 paragraphes").</div>
-        `;
-        ThoteStore.addXP(25);
-      } else {
-        feedback.style.borderColor = '#f87171';
-        feedback.style.background = 'rgba(248, 113, 113, 0.1)';
-        feedback.innerHTML = `
-          <div style="color: #f87171; font-weight:700; margin-bottom:4px;">⚠️ Non, ce n'est pas la bonne réponse</div>
-          <div style="font-size:0.85rem;">Le prompt a bien un Rôle (implicite), un Objectif, et un Ton. Il manque le <strong>Format</strong>.</div>
-        `;
-      }
-    };
   </script>
 </body>
 </html>
