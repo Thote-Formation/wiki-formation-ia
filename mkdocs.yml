@@ -1,0 +1,14 @@
+site_name: Thote Académie IA
+site_url: https://thote-formation.github.io/wiki-formation-ia/
+site_description: Formation à l’IA générative — préparation à la certification RS6776
+docs_dir: docs
+
+theme:
+  name: material
+  language: fr
+  custom_dir: docs/overrides
+
+nav:
+  - Accueil: index.md
+
+plugins: []
